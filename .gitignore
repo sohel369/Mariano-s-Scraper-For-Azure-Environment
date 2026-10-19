@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest / Cache
+.pytest_cache/
+.coverage
+
+# Staging and Checkpoints (Runtime data)
+data/staging/*.jsonl
+data/checkpoints/*.json
+data/checkpoints/*.tmp
+
+# Environment variables & local secrets
+.env
+*.env.local
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE / OS metadata
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  marianos-scraper:
+    build:
+      context: ..
+      dockerfile: azure/Dockerfile
+    container_name: marianos-production-scraper
+    environment:
+      - MARIANOS_PROXY_URL=${MARIANOS_PROXY_URL:-}
+      - AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING:-}
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ../data/output:/app/data/output
+      - ../data/checkpoints:/app/data/checkpoints
+      - ../config:/app/config
+    restart: "no"

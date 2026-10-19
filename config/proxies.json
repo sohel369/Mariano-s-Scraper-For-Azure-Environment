@@ -1,0 +1,11 @@
+{
+  "enabled": false,
+  "proxy_type": "residential",
+  "provider": "BrightData / Smartproxy / ScraperAPI",
+  "http_proxy": "",
+  "https_proxy": "",
+  "residential_country": "us",
+  "sticky_session_minutes": 10,
+  "env_var_override": "MARIANOS_PROXY_URL",
+  "max_consecutive_proxy_errors": 5
+}

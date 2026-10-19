@@ -1,0 +1,55 @@
+{
+  "project_name": "Mariano's Production Scraper for Microsoft Azure",
+  "version": "1.2.0",
+  "retailer": "Mariano's (The Kroger Co.)",
+  "scraping": {
+    "headless": true,
+    "browser_type": "chromium",
+    "user_agent_rotation": true,
+    "request_delay_min_seconds": 2.0,
+    "request_delay_max_seconds": 4.5,
+    "max_retries_per_page": 3,
+    "retry_backoff_factor": 2.0,
+    "page_timeout_ms": 45000,
+    "max_pages_per_subcategory": 10,
+    "min_items_threshold_warning": 10,
+    "canary_product_id": "0001111041600",
+    "canary_product_title": "Simple Truth Organic Whole Milk 1 Gallon"
+  },
+  "safety_and_storage": {
+    "staging_dir": "data/staging",
+    "output_dir": "data/output",
+    "checkpoint_dir": "data/checkpoints",
+    "min_successful_records_for_atomic_swap": 500,
+    "backup_previous_dataset": true,
+    "azure_blob_storage": {
+      "enabled": false,
+      "connection_string_env": "AZURE_STORAGE_CONNECTION_STRING",
+      "container_name": "marianos-scraped-data"
+    }
+  },
+  "required_json_fields": [
+    "zipcode",
+    "store_name",
+    "store_location",
+    "store_logo",
+    "store_brand",
+    "category",
+    "sub_category",
+    "product_title",
+    "weight",
+    "regular_price",
+    "sale_price",
+    "volume_deals_description",
+    "volume_deals_price",
+    "digital_deals_description",
+    "digital_deals_price",
+    "image_url",
+    "url",
+    "upc",
+    "gupc",
+    "ppm",
+    "unit_price",
+    "crawl_date"
+  ]
+}

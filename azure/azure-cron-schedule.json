@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {},
+  "triggers": {
+    "Recurrence_Twice_Weekly": {
+      "type": "Recurrence",
+      "recurrence": {
+        "frequency": "Week",
+        "interval": 1,
+        "schedule": {
+          "days": [
+            "Sunday",
+            "Wednesday"
+          ],
+          "hours": [
+            "4"
+          ],
+          "minutes": [
+            0
+          ]
+        },
+        "timeZone": "UTC"
+      }
+    }
+  },
+  "actions": {
+    "Start_Azure_Container_Instance": {
+      "type": "Http",
+      "inputs": {
+        "method": "POST",
+        "uri": "https://management.azure.com/subscriptions/@{parameters('subscriptionId')}/resourceGroups/@{parameters('resourceGroup')}/providers/Microsoft.ContainerInstance/containerGroups/aci-marianos-scraper-job/start?api-version=2023-05-01",
+        "authentication": {
+          "type": "ManagedServiceIdentity"
+        }
+      }
+    }
+  }
+}
