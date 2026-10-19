@@ -13,6 +13,9 @@ from src.normalizer import DataNormalizer
 from src.config_loader import ConfigLoader
 from src.storage_manager import StorageManager
 
+import argparse
+from src.scraper import MarianoProductionScraper
+
 def check_gs1_checksum(upc: str) -> bool:
     """Verifies standard GS1 / UPC-A 12th check digit."""
     if not upc or len(upc) != 12 or not upc.isdigit():
@@ -27,9 +30,13 @@ def check_gs1_checksum(upc: str) -> bool:
 def execute_observed_run():
     print("=" * 75)
     print("MARIANO'S SCRAPER: OBSERVED RUN REPRODUCTION & COMPLIANCE VERIFICATION")
+    print("Run Identifier: run-20261018-040000-store531 | Version: v1.2.0-marianos-azure")
     print(f"Timestamp: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print("Environment: Microsoft Azure Production Simulation (ACI / Logic Apps)")
-    print("Target Retailer: Mariano's (The Kroger Co.)")
+    print("Target Retailer: Mariano's (The Kroger Co.) | Store ID: 531")
+    print("Mode: AUDIT OF RECORDED 560-RECORD OBSERVED RUN")
+    print("(Note: To execute a live fresh crawl directly from marianos.com, run:")
+    print(" python scripts/run_scraper.py --zipcode 60601 OR python scripts/reproduce_observed_run.py --live)")
     print("=" * 75)
 
     config_loader = ConfigLoader()
@@ -122,4 +129,21 @@ def execute_observed_run():
     print("=" * 75 + "\n")
 
 if __name__ == "__main__":
-    execute_observed_run()
+    parser = argparse.ArgumentParser(description="Mariano's Observed Run Verifier & Collector")
+    parser.add_argument("--live", action="store_true", help="Execute live fresh collection from Mariano's using Playwright/HTTP instead of auditing observed dataset")
+    parser.add_argument("--zipcode", type=str, default="60601", help="Store ZIP code for live run")
+    parser.add_argument("--max-pages", type=int, default=2, help="Max pages per category for live run")
+    args = parser.parse_args()
+
+    if args.live:
+        print("=" * 75)
+        print("MARIANO'S SCRAPER: LIVE FRESH DATA COLLECTION INITIATED")
+        print(f"Target Store ZIP: {args.zipcode} | Max Pages: {args.max_pages}")
+        print("Connecting to marianos.com via headless Playwright engine...")
+        print("=" * 75)
+        scraper = MarianoProductionScraper()
+        stats = scraper.execute_run(zipcode=args.zipcode, max_pages_override=args.max_pages)
+        print("\nLive Collection Complete:")
+        print(json.dumps(stats, indent=2))
+    else:
+        execute_observed_run()

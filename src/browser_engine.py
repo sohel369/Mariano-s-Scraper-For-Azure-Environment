@@ -4,7 +4,15 @@ import random
 import logging
 from typing import Dict, Any, Optional
 from playwright.sync_api import sync_playwright, Browser, BrowserContext, Page
-from playwright_stealth import stealth_sync
+
+try:
+    from playwright_stealth import Stealth
+    _stealth_instance = Stealth()
+    def apply_stealth(page: Page) -> None:
+        _stealth_instance.apply_stealth_sync(page)
+except Exception:
+    def apply_stealth(page: Page) -> None:
+        pass
 
 logger = logging.getLogger("MarianoScraper.BrowserEngine")
 
@@ -105,7 +113,7 @@ class BrowserEngine:
         time.sleep(delay)
 
         page: Page = self._context.new_page()
-        stealth_sync(page)
+        apply_stealth(page)
 
         try:
             logger.info(f"Navigating to {url} (pacing delay: {delay:.2f}s)")
