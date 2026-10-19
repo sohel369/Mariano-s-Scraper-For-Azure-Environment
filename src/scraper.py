@@ -7,10 +7,10 @@ from typing import Dict, Any, Optional, Set, List
 
 from .config_loader import ConfigLoader
 from .normalizer import DataNormalizer
-from .models import MarianoProductRecord, WalmartProductRecord
+from .models import MarianoProductRecord
 from .anti_bot import AntiBotDetector, BotDetectionError
 from .storage_manager import StorageManager
-from .parser import MarianoPageParser, WalmartPageParser
+from .parser import MarianoPageParser
 from .browser_engine import BrowserEngine
 
 logging.basicConfig(
@@ -194,6 +194,3 @@ class MarianoProductionScraper:
             f"Commit status: {is_committed}"
         )
         return stats
-
-# Backward compatibility alias
-WalmartProductionScraper = MarianoProductionScraper

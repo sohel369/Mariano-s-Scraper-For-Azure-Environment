@@ -46,7 +46,7 @@ All records emitted by the scraping pipeline must adhere strictly to the followi
 ## 2. Fulfillment Context & Anti-Marketplace Rules
 
 * **Local Store Affinity:** The scraper must guarantee that session cookies (`postalCode`, `storeIntent`, `assrtLocation`) and request affinity flags enforce the assigned local store pickup/in-store context throughout the entire crawling cycle.
-* **Third-Party Marketplace Rejection:** Only items sold and fulfilled directly by Walmart (`sellerName: "Walmart.com"`) are acceptable. Marketplace seller items must be discarded.
+* **Third-Party Marketplace Rejection:** Only items sold and fulfilled directly by Mariano's / Kroger are acceptable. Third-party marketplace or external seller items must be discarded.
 * **Shipping-Only Exclusion:** Items only available via nationwide parcel shipping rather than local store fulfillment must be excluded.
 
 ---
@@ -55,7 +55,7 @@ All records emitted by the scraping pipeline must adhere strictly to the followi
 
 * **Checkpoints & Safe Resumption:** The scraper must persist completed subcategories and seen item IDs to allow seamless recovery from network drops or process interruptions.
 * **Silent Blocking & Thin Result Detection:** Response payloads must be validated against known CAPTCHA signatures (PerimeterX / HUMAN Security). An alert must trigger if category yield drops below minimum thresholds.
-* **Canary Product Verification:** Critical staple products (e.g. Great Value Whole Milk) must be validated in grocery runs to verify live shelf data.
+* **Canary Product Verification:** Critical staple products (e.g. Simple Truth Organic Whole Milk, UPC `0001111041600`) must be validated in grocery runs to verify live shelf data.
 * **Atomic Dataset Commits:** Staging datasets must only overwrite production datasets (`_latest.json`) if total records exceed the minimum requirement (500+) and category completeness exceeds 80%. Failed or empty runs must NEVER overwrite previous valid datasets.
 
 ---
@@ -64,4 +64,4 @@ All records emitted by the scraping pipeline must adhere strictly to the followi
 
 * **Headless Container Execution:** Standardized Dockerfile based on official Playwright images.
 * **Schedule:** Bi-weekly execution (Sunday and Wednesday at 04:00 UTC) triggered via Azure Logic App recurrence.
-* **Secrets Management:** Credentials, proxy connection strings, and storage keys must be injected via environment variables (`WALMART_PROXY_URL`, `AZURE_STORAGE_CONNECTION_STRING`), never hardcoded in source control.
+* **Secrets Management:** Credentials, proxy connection strings, and storage keys must be injected via environment variables (`MARIANOS_PROXY_URL`, `AZURE_STORAGE_CONNECTION_STRING`), never hardcoded in source control.

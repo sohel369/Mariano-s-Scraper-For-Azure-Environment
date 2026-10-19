@@ -45,7 +45,7 @@ class DataNormalizer:
 
         # Exclusions for cashback / reward points
         self.cashback_pattern = re.compile(
-            r'(?:kroger\s+cash|walmart\s+cash|cashback|cash\s+back|manufacturer\s+offer)',
+            r'(?:kroger\s+cash|cashback|cash\s+back|manufacturer\s+offer)',
             re.IGNORECASE
         )
 
@@ -88,9 +88,6 @@ class DataNormalizer:
                 return "yes"
 
         return "no"
-
-    # Alias for backward compatibility
-    is_walmart_private_brand = is_store_private_brand
 
     def extract_ppm(self, raw_ppm: str) -> str:
         """

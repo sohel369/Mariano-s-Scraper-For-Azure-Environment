@@ -211,6 +211,3 @@ class MarianoPageParser:
             results.append(record)
 
         return results
-
-# Backward compatibility alias
-WalmartPageParser = MarianoPageParser

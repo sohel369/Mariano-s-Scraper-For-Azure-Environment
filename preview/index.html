@@ -1070,7 +1070,7 @@
       <button class="nav-tab-btn active" onclick="switchTab('catalog')">
         <!-- Shopping Bag SVG -->
         <svg class="svg-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        Product Catalog (530)
+        Product Catalog (560)
       </button>
 
       <button class="nav-tab-btn" onclick="switchTab('audit')">
@@ -1100,7 +1100,7 @@
         <div class="toolbar-row">
           <div class="search-box">
             <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="text" id="searchInput" class="search-input" placeholder="Search by title, UPC, brand (e.g. Great Value, Barilla, 078742...)" oninput="filterProducts()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search by title, UPC, brand (e.g. Simple Truth, Roundy's, Barilla, 011110...)" oninput="filterProducts()">
           </div>
 
           <div class="controls-group">
@@ -1125,26 +1125,29 @@
           </div>
         </div>
 
-        <!-- Horizontal Category Pills -->
+                <!-- Horizontal Category Pills -->
         <div class="category-chips-bar" id="categoryChipsBar">
-          <button class="cat-chip active" onclick="setCategoryFilter('ALL', this)">All Categories (530)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Food', this)">Food (72)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Household Essentials', this)">Household (54)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Personal Care', this)">Personal Care (54)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Beauty', this)">Beauty (45)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Diapering', this)">Diapering (45)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Feeding', this)">Feeding (45)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Health & Wellness', this)">Health & Wellness (45)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Pets', this)">Pets (45)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Balloons', this)">Balloons (45)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Art Supplies', this)">Art Supplies (40)</button>
-          <button class="cat-chip" onclick="setCategoryFilter('Office Supplies', this)">Office Supplies (40)</button>
+          <button class="cat-chip active" onclick="setCategoryFilter('ALL', this)">All Categories (560)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Fresh Produce', this)">Fresh Produce (35)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Meat & Seafood', this)">Meat & Seafood (35)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Dairy & Eggs', this)">Dairy & Eggs (45)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Bakery', this)">Bakery (35)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Deli', this)">Deli (35)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Pantry', this)">Pantry (55)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Beverages', this)">Beverages (45)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Frozen Foods', this)">Frozen Foods (40)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Natural & Organic', this)">Natural & Organic (40)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Cleaning & Household', this)">Cleaning & Household (45)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Personal Care', this)">Personal Care (35)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Health & Wellness', this)">Health & Wellness (35)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Baby Care', this)">Baby Care (40)</button>
+          <button class="cat-chip" onclick="setCategoryFilter('Pet Care', this)">Pet Care (40)</button>
         </div>
       </div>
 
       <!-- Result Counter -->
       <div style="font-size: 0.76rem; color: var(--text-muted); display: flex; justify-content: space-between; padding: 0 0.2rem;">
-        <span>Showing <strong id="matchCount" style="color: var(--text-white);">530</strong> items matching criteria</span>
+        <span>Showing <strong id="matchCount" style="color: var(--text-white);">560</strong> items matching criteria</span>
         <span>Local Context: <strong>333 E Benton Pl, Chicago, IL 60601</strong></span>
       </div>
 
@@ -1371,7 +1374,7 @@
           <div><span class="t-time">[2026-10-18 04:00:15 UTC]</span> [INFO] Processing 14 categories from Marianos_Category_URLs.csv</div>
           <div><span class="t-time">[2026-10-18 04:01:05 UTC]</span> [INFO] Food & Pantry: 72 items extracted. Anti-bot checks clean.</div>
           <div><span class="t-time">[2026-10-18 04:01:45 UTC]</span> [INFO] Household & Personal Care: 108 items extracted. Volume deals captured.</div>
-          <div><span class="t-time">[2026-10-18 04:02:18 UTC]</span> [INFO] Beauty, Baby, Pets, Supplies: 350 items extracted. Canary item 'Great Value Milk' verified.</div>
+          <div><span class="t-time">[2026-10-18 04:02:18 UTC]</span> [INFO] Beauty, Baby, Pets, Supplies: 350 items extracted. Canary item 'Simple Truth Organic Milk' verified.</div>
           <div><span class="t-time">[2026-10-18 04:02:22 UTC]</span> [INFO] Validation Gate: 530 records parsed. 0 schema errors. Quality criteria MET.</div>
           <div><span class="t-time">[2026-10-18 04:02:23 UTC]</span> [INFO] Atomic swap performed. Production dataset updated safely.</div>
           <div><span class="t-time">[2026-10-18 04:02:24 UTC]</span> [INFO] Container job complete with exit code 0. Shuts down automatically.</div>
@@ -1489,7 +1492,7 @@
             <div>
               <div class="p-top">
                 <span class="p-cat-tag">${escapeHtml(p.category)}</span>
-                ${isPrivate ? '<span class="p-brand-tag">Great Value</span>' : ''}
+                ${isPrivate ? `<span class="p-brand-tag">${getStoreBrandTag(p.product_title)}</span>` : ''}
               </div>
               <div class="p-title" title="${escapeHtml(p.product_title)}">${escapeHtml(p.product_title)}</div>
               <div class="p-weight">${escapeHtml(p.weight || 'Standard Size')}</div>
@@ -1539,7 +1542,7 @@
             <td><code>${escapeHtml(p.upc)}</code></td>
             <td style="font-weight: 700; max-width: 260px; overflow: hidden; text-overflow: ellipsis;">${escapeHtml(p.product_title)}</td>
             <td>${escapeHtml(p.category)}</td>
-            <td>${p.store_brand === 'yes' ? '<span style="color: #fbbf24; font-weight:700;">Great Value</span>' : 'Brand'}</td>
+            <td>${p.store_brand === 'yes' ? `<span style="color: #fbbf24; font-weight:700;">${getStoreBrandTag(p.product_title)}</span>` : 'National Brand'}</td>
             <td>${escapeHtml(p.weight)}</td>
             <td>$${escapeHtml(p.regular_price)}</td>
             <td><span class="p-ppm-badge">${escapeHtml(p.ppm || '-')}</span></td>

@@ -65,7 +65,7 @@ class ConfigLoader:
         
         # Allow environment variable override for production secrets
         env_override = proxies.get("env_var_override", "MARIANOS_PROXY_URL")
-        env_val = os.getenv(env_override) or os.getenv("MARIANOS_PROXY_URL") or os.getenv("WALMART_PROXY_URL")
+        env_val = os.getenv(env_override) or os.getenv("MARIANOS_PROXY_URL")
         if env_val:
             proxies["enabled"] = True
             proxies["http_proxy"] = env_val
@@ -75,13 +75,8 @@ class ConfigLoader:
 
     def load_category_urls(self, csv_filename: str = "Marianos_Category_URLs.csv") -> List[Dict[str, str]]:
         csv_path = os.path.join(self.data_dir, "input", csv_filename)
-        # Fallback to alternative CSV if primary does not exist
         if not os.path.exists(csv_path):
-            alt_path = os.path.join(self.data_dir, "input", "Walmart_Category_URLs.csv")
-            if os.path.exists(alt_path):
-                csv_path = alt_path
-            else:
-                raise FileNotFoundError(f"Category CSV not found at: {csv_path}")
+            raise FileNotFoundError(f"Category CSV not found at: {csv_path}")
 
         categories = []
         with open(csv_path, "r", encoding="utf-8-sig") as f:

@@ -91,6 +91,3 @@ class MarianoProductRecord(BaseModel):
             ("crawl_date", self.crawl_date)
         ]
         return OrderedDict(ordered_fields)
-
-# Alias for backwards compatibility with any legacy imports
-WalmartProductRecord = MarianoProductRecord
