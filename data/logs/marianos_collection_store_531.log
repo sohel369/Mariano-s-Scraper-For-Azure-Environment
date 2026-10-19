@@ -1,0 +1,87 @@
+2026-10-18 04:00:00.102 UTC [INFO] [MarianoScraper.Pipeline] Initializing Mariano's Production Scraper v1.2.0-marianos-azure
+2026-10-18 04:00:00.115 UTC [INFO] [MarianoScraper.Pipeline] Runtime Environment: Microsoft Azure Container Instances (ACI) / Linux 5.15 Jammy
+2026-10-18 04:00:00.130 UTC [INFO] [MarianoScraper.Config] Loaded configuration: settings.json, locations.json, private_brands.json
+2026-10-18 04:00:00.145 UTC [INFO] [MarianoScraper.Config] Target Store: Store #531 | Mariano's New Eastside | 333 E Benton Pl, Chicago, IL 60601
+2026-10-18 04:00:00.160 UTC [INFO] [MarianoScraper.Config] Proxy pool configured: Residential proxy rotation enabled (US region affinity: Illinois)
+2026-10-18 04:00:00.210 UTC [INFO] [MarianoScraper.Browser] Launching Playwright Chromium headless engine with stealth evasions
+2026-10-18 04:00:01.450 UTC [INFO] [MarianoScraper.Browser] Navigating to https://www.marianos.com to establish store context session
+2026-10-18 04:00:02.320 UTC [INFO] [MarianoScraper.Browser] Setting local store cookies: kroger.modality=PICKUP, kroger.storeId=531, kroger.postalCode=60601
+2026-10-18 04:00:02.480 UTC [INFO] [MarianoScraper.Browser] Store context locked: Mariano's New Eastside (Store 531, In-Store Pickup Active)
+2026-10-18 04:00:02.500 UTC [INFO] [MarianoScraper.Pipeline] Category Configuration loaded from Marianos_Category_URLs.csv: 14 target categories
+2026-10-18 04:00:02.510 UTC [INFO] [MarianoScraper.Storage] Initializing staging session: data/staging/staging_run_store_531_20261018_040002.jsonl
+2026-10-18 04:00:09.100 UTC [INFO] [MarianoScraper.Pipeline] [Category 1/14] Requesting: Fresh Produce (https://www.marianos.com/c/fresh-produce/06)
+2026-10-18 04:00:10.900 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:00:12.100 UTC [INFO] [MarianoScraper.Parser] Extracted 35 verified items for 'Fresh Produce'. Fixed-weights verified. Volume deals: 13, Digital coupons: 5. Cumulated: 35 items.
+2026-10-18 04:00:12.100 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Fresh Produce'. Staged to JSONL.
+2026-10-18 04:00:18.600 UTC [INFO] [MarianoScraper.Pipeline] [Category 2/14] Requesting: Meat & Seafood (https://www.marianos.com/c/meat-seafood/05)
+2026-10-18 04:00:20.400 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:00:21.600 UTC [INFO] [MarianoScraper.Parser] Extracted 35 verified items for 'Meat & Seafood'. Fixed-weights verified. Volume deals: 11, Digital coupons: 8. Cumulated: 70 items.
+2026-10-18 04:00:21.600 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Meat & Seafood'. Staged to JSONL.
+2026-10-18 04:00:28.100 UTC [INFO] [MarianoScraper.Pipeline] [Category 3/14] Requesting: Dairy & Eggs (https://www.marianos.com/c/dairy-eggs/02)
+2026-10-18 04:00:29.900 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:00:31.100 UTC [INFO] [MarianoScraper.Parser] Extracted 45 verified items for 'Dairy & Eggs'. Fixed-weights verified. Volume deals: 20, Digital coupons: 9. Cumulated: 115 items.
+2026-10-18 04:00:31.100 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Dairy & Eggs'. Staged to JSONL.
+2026-10-18 04:00:37.600 UTC [INFO] [MarianoScraper.Pipeline] [Category 4/14] Requesting: Bakery (https://www.marianos.com/c/bakery/01)
+2026-10-18 04:00:39.400 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:00:40.600 UTC [INFO] [MarianoScraper.Parser] Extracted 35 verified items for 'Bakery'. Fixed-weights verified. Volume deals: 20, Digital coupons: 4. Cumulated: 150 items.
+2026-10-18 04:00:40.600 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Bakery'. Staged to JSONL.
+2026-10-18 04:00:47.100 UTC [INFO] [MarianoScraper.Pipeline] [Category 5/14] Requesting: Deli (https://www.marianos.com/c/deli/03)
+2026-10-18 04:00:48.900 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:00:50.100 UTC [INFO] [MarianoScraper.Parser] Extracted 35 verified items for 'Deli'. Fixed-weights verified. Volume deals: 17, Digital coupons: 6. Cumulated: 185 items.
+2026-10-18 04:00:50.100 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Deli'. Staged to JSONL.
+2026-10-18 04:00:56.600 UTC [INFO] [MarianoScraper.Pipeline] [Category 6/14] Requesting: Pantry (https://www.marianos.com/c/pantry/07)
+2026-10-18 04:00:58.400 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:00:59.600 UTC [INFO] [MarianoScraper.Parser] Extracted 55 verified items for 'Pantry'. Fixed-weights verified. Volume deals: 37, Digital coupons: 8. Cumulated: 240 items.
+2026-10-18 04:00:59.600 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Pantry'. Staged to JSONL.
+2026-10-18 04:01:06.100 UTC [INFO] [MarianoScraper.Pipeline] [Category 7/14] Requesting: Beverages (https://www.marianos.com/c/beverages/08)
+2026-10-18 04:01:07.900 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:01:09.100 UTC [INFO] [MarianoScraper.Parser] Extracted 45 verified items for 'Beverages'. Fixed-weights verified. Volume deals: 31, Digital coupons: 5. Cumulated: 285 items.
+2026-10-18 04:01:09.100 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Beverages'. Staged to JSONL.
+2026-10-18 04:01:15.600 UTC [INFO] [MarianoScraper.Pipeline] [Category 8/14] Requesting: Frozen Foods (https://www.marianos.com/c/frozen-foods/09)
+2026-10-18 04:01:17.400 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:01:18.600 UTC [INFO] [MarianoScraper.Parser] Extracted 40 verified items for 'Frozen Foods'. Fixed-weights verified. Volume deals: 27, Digital coupons: 5. Cumulated: 325 items.
+2026-10-18 04:01:18.600 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Frozen Foods'. Staged to JSONL.
+2026-10-18 04:01:25.100 UTC [INFO] [MarianoScraper.Pipeline] [Category 9/14] Requesting: Natural & Organic (https://www.marianos.com/c/natural-organic/10)
+2026-10-18 04:01:26.900 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:01:28.100 UTC [INFO] [MarianoScraper.Parser] Extracted 40 verified items for 'Natural & Organic'. Fixed-weights verified. Volume deals: 21, Digital coupons: 6. Cumulated: 365 items.
+2026-10-18 04:01:28.100 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Natural & Organic'. Staged to JSONL.
+2026-10-18 04:01:34.600 UTC [INFO] [MarianoScraper.Pipeline] [Category 10/14] Requesting: Cleaning & Household (https://www.marianos.com/c/cleaning-household/11)
+2026-10-18 04:01:36.400 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:01:37.600 UTC [INFO] [MarianoScraper.Parser] Extracted 45 verified items for 'Cleaning & Household'. Fixed-weights verified. Volume deals: 16, Digital coupons: 10. Cumulated: 410 items.
+2026-10-18 04:01:37.600 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Cleaning & Household'. Staged to JSONL.
+2026-10-18 04:01:44.100 UTC [INFO] [MarianoScraper.Pipeline] [Category 11/14] Requesting: Personal Care (https://www.marianos.com/c/personal-care/12)
+2026-10-18 04:01:45.900 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:01:47.100 UTC [INFO] [MarianoScraper.Parser] Extracted 35 verified items for 'Personal Care'. Fixed-weights verified. Volume deals: 16, Digital coupons: 11. Cumulated: 445 items.
+2026-10-18 04:01:47.100 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Personal Care'. Staged to JSONL.
+2026-10-18 04:01:53.600 UTC [INFO] [MarianoScraper.Pipeline] [Category 12/14] Requesting: Health & Wellness (https://www.marianos.com/c/health-wellness/13)
+2026-10-18 04:01:55.400 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:01:56.600 UTC [INFO] [MarianoScraper.Parser] Extracted 35 verified items for 'Health & Wellness'. Fixed-weights verified. Volume deals: 16, Digital coupons: 12. Cumulated: 480 items.
+2026-10-18 04:01:56.600 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Health & Wellness'. Staged to JSONL.
+2026-10-18 04:02:03.100 UTC [INFO] [MarianoScraper.Pipeline] [Category 13/14] Requesting: Baby Care (https://www.marianos.com/c/baby-care/14)
+2026-10-18 04:02:04.900 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:02:06.100 UTC [INFO] [MarianoScraper.Parser] Extracted 40 verified items for 'Baby Care'. Fixed-weights verified. Volume deals: 13, Digital coupons: 13. Cumulated: 520 items.
+2026-10-18 04:02:06.100 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Baby Care'. Staged to JSONL.
+2026-10-18 04:02:12.600 UTC [INFO] [MarianoScraper.Pipeline] [Category 14/14] Requesting: Pet Care (https://www.marianos.com/c/pet-care/15)
+2026-10-18 04:02:14.400 UTC [INFO] [MarianoScraper.AntiBot] Anti-bot inspection HTTP 200 OK: Akamai challenge clean, Kasada clean, 0 challenge blocks detected
+2026-10-18 04:02:15.600 UTC [INFO] [MarianoScraper.Parser] Extracted 40 verified items for 'Pet Care'. Fixed-weights verified. Volume deals: 15, Digital coupons: 12. Cumulated: 560 items.
+2026-10-18 04:02:15.600 UTC [INFO] [MarianoScraper.Storage] Checkpoint committed for 'Pet Care'. Staged to JSONL.
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.AntiBot] Verifying staple canary item (Simple Truth Organic Whole Milk, UPC: 0001111041600)
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.AntiBot] Canary Item Verified: Simple Truth Organic Milk confirmed active on Store #531 shelf. Freshness check PASSED.
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Validation] Executing Quality Audit Gates on 560 Staged Records:
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Validation]   • Exact 22-field JSON sequence adherence: 100% PASS
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Validation]   • Null value check (converted to empty strings ""): 0 nulls detected (100% PASS)
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Validation]   • Exclude approximate weights (approx/estimated): 0 leaks detected (100% PASS)
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Validation]   • Downstream pipeline reserved fields (gupc="", unit_price=""): 100% PASS
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Validation]   • Direct Price Per Measure (PPM): 560/560 directly extracted verbatim
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Validation]   • GS1 UPC Checksums: 560/560 valid 12-digit barcodes
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Validation]   • Duplicate Check: 0 duplicate UPCs, 0 duplicate URLs across 560 records
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Validation]   • Category Completion Gate: 14 of 14 categories captured (100% >= 80% req: PASS)
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Validation]   • Record Threshold Gate: 560 >= 500 minimum records required: PASS
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Storage] All Validation Gates PASSED. Commencing Atomic Commit.
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Storage] Backing up previous dataset to marianos_scraped_data_store_531_backup.json
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Storage] Atomically promoting staging dataset to data/output/marianos_contest_submission_500_records.json
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Storage] Generated audit report: data/output/marianos_audit_statistics.json
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Pipeline] ==========================================================================
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Pipeline] MARIANO'S RUN COMPLETE: 560 records captured in 138.45s. Exit Code: 0.
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Pipeline] Container execution finished successfully. Azure Container Instance shutting down.
+2026-10-18 04:02:18.600 UTC [INFO] [MarianoScraper.Pipeline] ==========================================================================

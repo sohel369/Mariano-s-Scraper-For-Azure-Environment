@@ -8,6 +8,7 @@
 **Dataset Deliverable:** `data/output/marianos_contest_submission_500_records.json` (560 Valid Records)  
 **Audit Statistics:** `data/output/marianos_audit_statistics.json`  
 **Raw Source Evidence:** `data/raw/marianos_raw_store_531_evidence.json`  
+**Collection Logs:** `data/logs/marianos_collection_store_531.log`  
 
 ---
 

@@ -45,9 +45,14 @@ marianos-scraper-azure/
 │   ├── input/
 │   │   └── Marianos_Category_URLs.csv # Categories and target URLs
 │   ├── output/                    # Final validated datasets
+│   ├── logs/                      # Collection run execution logs
 │   ├── staging/                   # Staging area for ongoing runs
 │   ├── checkpoints/               # Resumption checkpoints
 │   └── raw/                       # Raw API payload evidence (Store 531)
+├── preview/
+│   ├── index.html                 # Interactive catalog & audit dashboard
+│   ├── presentation_board.html    # Contest presentation & proof showcase
+│   └── dataset.js                 # 560 verified records datastore
 ├── src/
 │   ├── config_loader.py           # Configuration manager
 │   ├── models.py                  # 22-field Pydantic model with exact ordering
