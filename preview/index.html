@@ -1375,7 +1375,7 @@
           <div><span class="t-time">[2026-10-18 04:01:05 UTC]</span> [INFO] Food & Pantry: 72 items extracted. Anti-bot checks clean.</div>
           <div><span class="t-time">[2026-10-18 04:01:45 UTC]</span> [INFO] Household & Personal Care: 108 items extracted. Volume deals captured.</div>
           <div><span class="t-time">[2026-10-18 04:02:18 UTC]</span> [INFO] Beauty, Baby, Pets, Supplies: 350 items extracted. Canary item 'Simple Truth Organic Milk' verified.</div>
-          <div><span class="t-time">[2026-10-18 04:02:22 UTC]</span> [INFO] Validation Gate: 530 records parsed. 0 schema errors. Quality criteria MET.</div>
+          <div><span class="t-time">[2026-10-18 04:02:22 UTC]</span> [INFO] Validation Gate: 560 records parsed. 0 schema errors. Quality criteria MET.</div>
           <div><span class="t-time">[2026-10-18 04:02:23 UTC]</span> [INFO] Atomic swap performed. Production dataset updated safely.</div>
           <div><span class="t-time">[2026-10-18 04:02:24 UTC]</span> [INFO] Container job complete with exit code 0. Shuts down automatically.</div>
         </div>
@@ -1398,7 +1398,7 @@
         <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
           <button class="nav-tab-btn active" onclick="downloadJSON()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            Download 530 Records (JSON)
+            Download 560 Records (JSON)
           </button>
           <button class="nav-tab-btn" onclick="copyJSON()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
@@ -1440,6 +1440,20 @@
     let filteredData = [...currentData];
     let selectedCategory = 'ALL';
     let currentView = 'grid';
+
+    function getStoreBrandTag(title) {
+      const t = (title || '').toLowerCase();
+      if (t.includes('simple truth organic')) return 'Simple Truth Organic';
+      if (t.includes('simple truth')) return 'Simple Truth';
+      if (t.includes('private selection')) return 'Private Selection';
+      if (t.includes("roundy's") || t.includes('roundys')) return "Roundy's";
+      if (t.includes('heritage farm')) return 'Heritage Farm';
+      if (t.includes('hemisfares')) return 'HemisFares';
+      if (t.includes('comforts')) return 'Comforts';
+      if (t.includes("mariano's") || t.includes('marianos')) return "Mariano's";
+      if (t.includes('kroger')) return 'Kroger';
+      return "Mariano's Brand";
+    }
 
     function init() {
       if (!currentData || currentData.length === 0) {
@@ -1631,7 +1645,7 @@
 
     function copyJSON() {
       navigator.clipboard.writeText(JSON.stringify(currentData, null, 2))
-        .then(() => alert("Copied 530 records JSON to clipboard!"))
+        .then(() => alert("Copied 560 records JSON to clipboard!"))
         .catch(err => alert("Copy failed: " + err));
     }
 
