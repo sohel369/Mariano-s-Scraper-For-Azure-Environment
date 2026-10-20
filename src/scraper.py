@@ -75,6 +75,12 @@ class MarianoProductionScraper:
         completed_subcategories: List[str] = checkpoint.get("completed_subcategories", [])
         seen_keys: Set[str] = set(checkpoint.get("scraped_ids", []))
 
+        # Restore previously collected rows into the fresh staging session
+        restored_count = self.storage.restore_checkpoint_rows(store_id, staging_filepath)
+        total_records_collected = restored_count
+        if restored_count > 0:
+            logger.info(f"Restored {restored_count} previously verified rows into staging session.")
+
         # 3. Load Categories CSV
         category_entries = self.config_loader.load_category_urls()
         total_subcategories = len(category_entries)
@@ -86,12 +92,10 @@ class MarianoProductionScraper:
         self.browser_engine.set_store_location(location)
 
         scraping_cfg = self.settings.get("scraping", {})
-        max_pages = max_pages_override or scraping_cfg.get("max_pages_per_subcategory", 5)
         max_retries = scraping_cfg.get("max_retries_per_page", 3)
         backoff_factor = scraping_cfg.get("retry_backoff_factor", 2.0)
 
-        processed_categories_count = 0
-        total_records_collected = 0
+        processed_categories_count = len(completed_subcategories)
 
         try:
             for entry in category_entries:
@@ -102,13 +106,19 @@ class MarianoProductionScraper:
 
                 if subcat_key in completed_subcategories:
                     logger.info(f"Resuming: Skipping already completed subcategory [{subcat_key}]")
-                    processed_categories_count += 1
                     continue
 
                 logger.info(f"Scraping category: {cat} -> {sub_cat} ({base_url})")
                 subcat_records_count = 0
+                subcat_failed = False
+                page_num = 1
 
-                for page_num in range(1, max_pages + 1):
+                # Complete catalog traversal without artificial caps (bounded only by catalog boundary or debug override)
+                while True:
+                    if max_pages_override and page_num > max_pages_override:
+                        logger.info(f"Debug override reached ({max_pages_override} pages) for {subcat_key}.")
+                        break
+
                     page_url = f"{base_url}?page={page_num}" if page_num > 1 else base_url
                     
                     html_content = ""
@@ -129,10 +139,11 @@ class MarianoProductionScraper:
                             time.sleep(backoff_factor * attempt)
 
                     if not success:
-                        logger.error(f"Failed to fetch {page_url} after {max_retries} retries. Skipping page.")
-                        continue
+                        logger.error(f"Failed to fetch {page_url} after {max_retries} retries. Marking subcategory as incomplete for retry.")
+                        subcat_failed = True
+                        break
 
-                    # Parse page records
+                    # Parse page records (preserves out-of-stock items, zero availability deletion)
                     page_records: List[MarianoProductRecord] = self.parser.parse_page(
                         html_content=html_content,
                         category=cat,
@@ -145,7 +156,7 @@ class MarianoProductionScraper:
                     self.anti_bot.check_yield(cat, sub_cat, len(page_records))
 
                     if not page_records:
-                        logger.info(f"No more products found on page {page_num} for {subcat_key}. Ending pagination.")
+                        logger.info(f"Catalog boundary reached on page {page_num} for {subcat_key}. Completed traversal.")
                         break
 
                     # Write to staging immediately
@@ -154,12 +165,19 @@ class MarianoProductionScraper:
                         total_records_collected += 1
                         subcat_records_count += 1
 
-                completed_subcategories.append(subcat_key)
-                processed_categories_count += 1
-                
-                # Checkpoint progress after each completed subcategory
-                self.storage.save_checkpoint(store_id, completed_subcategories, list(seen_keys))
-                logger.info(f"Completed {subcat_key}: {subcat_records_count} items. Total so far: {total_records_collected}")
+                    page_num += 1
+
+                # Subcategory completion gate: Only mark complete if all pages succeeded
+                if not subcat_failed:
+                    completed_subcategories.append(subcat_key)
+                    processed_categories_count += 1
+                    
+                    # Checkpoint progress and persist rows after each completed subcategory
+                    staged_snapshot = self.storage.load_staging_records(staging_filepath)
+                    self.storage.save_checkpoint(store_id, completed_subcategories, list(seen_keys), staged_snapshot)
+                    logger.info(f"Completed {subcat_key}: {subcat_records_count} items. Total so far: {total_records_collected}")
+                else:
+                    logger.warning(f"Subcategory {subcat_key} had page failures. Not marking as complete; will retry on next run.")
 
         finally:
             if self.browser_engine:

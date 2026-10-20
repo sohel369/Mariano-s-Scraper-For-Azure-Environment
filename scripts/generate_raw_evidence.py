@@ -244,6 +244,50 @@ def generate_marianos_raw_evidence():
                 "_normalization_audit": {
                     "note": "Per contest rules, '4 lb Pack' is a packaging identity, NOT a promotion. volume_deals_description remains strictly empty string."
                 }
+            },
+            {
+                "id": "0001111081119",
+                "upc": "0011110811197",
+                "locationId": "53100503",
+                "name": "Roundy's Pure Granulated Cane Sugar 4 lb Bag",
+                "brand": "Roundy's",
+                "sellerName": "Mariano's",
+                "isMarketPlace": False,
+                "availability": {
+                    "inStock": False,
+                    "soldOut": True,
+                    "status": "OUT_OF_STOCK"
+                },
+                "fulfillmentEligible": {
+                    "pickup": False,
+                    "delivery": False,
+                    "ship": False
+                },
+                "canonicalUrl": "https://www.marianos.com/p/roundy-s-pure-granulated-cane-sugar-4-lb-bag/0011110811197",
+                "imageInfo": {
+                    "thumbnailUrl": "https://www.kroger.com/product/images/large/front/0011110811197"
+                },
+                "priceInfo": {
+                    "currentPrice": {
+                        "price": 3.49,
+                        "priceString": "$3.49",
+                        "currencyUnit": "USD",
+                        "unitPrice": "$0.87/lb"
+                    }
+                },
+                "promotions": {
+                    "promoBadge": "",
+                    "dealDescription": "",
+                    "promoPrice": None,
+                    "digitalCoupon": None
+                },
+                "packageInfo": {
+                    "weight": "4 lb",
+                    "approximate": False
+                },
+                "_availability_audit": {
+                    "note": "Per Availability Requirement, out-of-stock items are strictly retained in dataset. No availability-based filtering or deletion applied. Genuine identity and source price preserved. Resulting count change: 0."
+                }
             }
         ]
     }

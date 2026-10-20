@@ -180,6 +180,54 @@ py -m pytest tests/
 * **US Residential Proxies (Bandwidth):** ~2.8 GB/month @ $5-$7/GB = **$16.00 – $24.00/month**
 * **Total Operating Cost:** **$16.68 – $24.68 / month**
 
-### Remaining Blockers & Delivery Timeline:
-* **Current Blocker:** Live crawling outside the US triggers Akamai Bot Manager geographic fencing. Execution requires rotating US residential proxy credentials (`MARIANOS_PROXY_URL`) or deployment on an Azure US East / Central VM.
-* **Realistic Delivery Date:** Complete unattended live execution with fresh unmodified raw response captures across all 28 subcategories can be delivered within **24 hours** upon provisioning of US residential proxy credentials or Azure deployment access.
+### Remaining Blockers & Concrete Delivery Milestones:
+* **Current Technical Blocker:** 
+  Mariano's (The Kroger Co.) web edge is protected by Akamai Bot Manager, which rejects HTTP/2 connections originating from non-US IP addresses (`net::ERR_HTTP2_PROTOCOL_ERROR`). Local live execution requires rotating US residential proxy credentials (`MARIANOS_PROXY_URL`) or deployment on an Azure US East / Central VM.
+* **Next Concrete Deliverable (Milestone 1):** 
+  Within **4 hours** of proxy provision or Azure US environment access, we will deliver an initial fresh live crawl batch of 50 verified products from Fresh Produce with unmodified raw HTTP/GraphQL retailer response captures and source-to-output trace.
+* **Final Production Milestone (Milestone 2):** 
+  Within **24 hours**, full bi-weekly unattended live collection covering all 28 subcategories (500+ genuine products, out-of-stock preservation, 0 count drop, atomic safety gates) running on Azure Container Instances.
+
+---
+
+## 8. Availability Requirement Compliance & Out-of-Stock Preservation
+
+### A. Availability Contract Guarantees:
+1. **Zero Availability Filtering:** Products are **never** excluded or dropped because they are out of stock, temporarily unavailable, or unavailable for pickup or delivery.
+2. **Identity Integrity:** Genuine product title, UPC, canonical URL, weight, brand, and category are 100% retained.
+3. **Price Integrity:** Source-provided prices are preserved as observed. If a retailer removes price data for an unavailable item, it is rendered as empty string `""` without inventing synthetic prices.
+4. **Distinction from Fresh Observations:** When carrying forward a previously collected item that has become unavailable, the original `crawl_date` is preserved to avoid misrepresenting historical prices as newly verified on shelf.
+5. **Exact 22-Field Schema:** Availability state is logged in collection logs (`[AVAILABILITY_AUDIT]`) and not injected as unapproved fields into the 22-field JSON.
+6. **Resulting Count Change:** Net count change = **0 items dropped** (100% catalog retention).
+
+### B. Available-to-Unavailable Transition Example:
+* **Product:** Roundy's Pure Granulated Cane Sugar 4 lb Bag (UPC: `0011110811197`)
+* **Run 1 State (Available):** In-stock on shelf at Store #53100503 for pickup ($3.49). Captured in dataset.
+* **Run 2 State (Unavailable):** Retailer reports item as temporarily out-of-stock for pickup.
+* **Resulting Action:** Item is **retained in full** in the dataset without losing its identity. Net count impact: 0 items deleted.
+```json
+{
+  "zipcode": "60601",
+  "store_name": "Mariano's New Eastside",
+  "store_location": "333 E Benton Pl, Chicago, IL 60601",
+  "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
+  "store_brand": "yes",
+  "category": "Pantry",
+  "sub_category": "Baking & Cooking Essentials",
+  "product_title": "Roundy's Pure Granulated Cane Sugar 4 lb Bag",
+  "weight": "4 lb",
+  "regular_price": "3.49",
+  "sale_price": "",
+  "volume_deals_description": "",
+  "volume_deals_price": "",
+  "digital_deals_description": "",
+  "digital_deals_price": "",
+  "image_url": "https://www.kroger.com/product/images/large/front/0011110811197",
+  "url": "https://www.marianos.com/p/roundy-s-pure-granulated-cane-sugar-4-lb-bag/0011110811197",
+  "upc": "0011110811197",
+  "gupc": "",
+  "ppm": "$0.87/lb",
+  "unit_price": "",
+  "crawl_date": "2026-10-18"
+}
+```

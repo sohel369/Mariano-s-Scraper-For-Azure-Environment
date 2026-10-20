@@ -41,8 +41,17 @@ class StorageManager:
                 logger.warning(f"Could not read checkpoint file {cp_path}: {e}")
         return {"completed_subcategories": [], "scraped_ids": []}
 
-    def save_checkpoint(self, store_id: str, completed_subcategories: List[str], scraped_ids: List[str]) -> None:
-        """Saves current state to checkpoint file."""
+    def get_checkpoint_rows_path(self, store_id: str) -> str:
+        return os.path.join(self.checkpoint_dir, f"checkpoint_rows_store_{store_id}.jsonl")
+
+    def save_checkpoint(
+        self,
+        store_id: str,
+        completed_subcategories: List[str],
+        scraped_ids: List[str],
+        staged_records: Optional[List[Dict[str, Any]]] = None
+    ) -> None:
+        """Saves current state and completed rows to checkpoint files."""
         cp_path = self.get_checkpoint_path(store_id)
         temp_path = f"{cp_path}.tmp"
         data = {
@@ -55,11 +64,37 @@ class StorageManager:
             json.dump(data, f, indent=2)
         shutil.move(temp_path, cp_path)
 
+        # Persist completed rows so subsequent runs can restore them
+        if staged_records:
+            rows_path = self.get_checkpoint_rows_path(store_id)
+            rows_temp = f"{rows_path}.tmp"
+            with open(rows_temp, "w", encoding="utf-8") as f:
+                for r in staged_records:
+                    f.write(json.dumps(r, ensure_ascii=False) + "\n")
+            shutil.move(rows_temp, rows_path)
+
+    def restore_checkpoint_rows(self, store_id: str, current_staging_filepath: str) -> int:
+        """Restores previously collected rows from an interrupted run into current staging."""
+        rows_path = self.get_checkpoint_rows_path(store_id)
+        restored = 0
+        if os.path.exists(rows_path):
+            with open(rows_path, "r", encoding="utf-8") as src, open(current_staging_filepath, "a", encoding="utf-8") as dst:
+                for line in src:
+                    line = line.strip()
+                    if line:
+                        dst.write(line + "\n")
+                        restored += 1
+            logger.info(f"Restored {restored} previously collected rows from checkpoint into {current_staging_filepath}")
+        return restored
+
     def clear_checkpoint(self, store_id: str) -> None:
-        """Removes checkpoint file after a completely successful run."""
+        """Removes checkpoint file and persisted rows after a completely successful run."""
         cp_path = self.get_checkpoint_path(store_id)
         if os.path.exists(cp_path):
             os.remove(cp_path)
+        rows_path = self.get_checkpoint_rows_path(store_id)
+        if os.path.exists(rows_path):
+            os.remove(rows_path)
 
     def write_staging_record(self, staging_filepath: str, record_dict: Dict[str, Any]) -> None:
         """Appends a single record to the staging file (JSON lines format)."""
