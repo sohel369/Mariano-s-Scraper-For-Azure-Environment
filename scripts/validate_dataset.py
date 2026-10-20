@@ -62,6 +62,7 @@ def validate_dataset(filepath: str) -> bool:
     approx_regex = re.compile(r'\bapprox(imately)?\b', re.IGNORECASE)
 
     categories_found = set()
+    subcategories_found = set()
 
     for idx, r in enumerate(records):
         keys = list(r.keys())
@@ -98,6 +99,10 @@ def validate_dataset(filepath: str) -> bool:
         if cat:
             categories_found.add(cat)
 
+        subcat = r.get("sub_category")
+        if subcat:
+            subcategories_found.add(subcat)
+
     print("\n--- COMPLIANCE CHECKS ---")
     print(f"1. Exact 22-Field Order Match: {'PASS' if invalid_field_order_count == 0 else f'FAIL ({invalid_field_order_count} errors)'}")
     print(f"2. Zero Nulls (All converted to ''): {'PASS' if null_value_count == 0 else f'FAIL ({null_value_count} nulls)'}")
@@ -106,6 +111,7 @@ def validate_dataset(filepath: str) -> bool:
     print(f"5. unit_price is Empty String: {'PASS' if invalid_unit_price_count == 0 else f'FAIL ({invalid_unit_price_count} non-empty)'}")
     print(f"6. store_brand is strictly 'yes'/'no': {'PASS' if invalid_store_brand_count == 0 else f'FAIL ({invalid_store_brand_count} invalid)'}")
     print(f"7. Unique Categories Covered: {len(categories_found)} ({', '.join(sorted(categories_found))})")
+    print(f"8. Unique Subcategories Covered: {len(subcategories_found)} of 28 official sections: {'PASS' if len(subcategories_found) >= 28 else 'WARNING'}")
     print("="*60)
 
     is_clean = (

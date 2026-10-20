@@ -643,12 +643,33 @@ def generate_verified_marianos_dataset():
         ]
     }
 
+    subcat_mapping = {
+        "Fresh Produce": [("Fresh Fruits", 18), ("Fresh Vegetables", 17)],
+        "Meat & Seafood": [("Poultry & Fresh Meat", 18), ("Seafood & Shellfish", 17)],
+        "Dairy & Eggs": [("Milk & Plant Alternatives", 23), ("Eggs Butter & Yogurt", 22)],
+        "Bakery": [("Fresh Bread & Rolls", 18), ("Pastries Cakes & Pies", 17)],
+        "Deli": [("Sliced Deli Meats & Cheeses", 18), ("Prepared Dips & Ready Meals", 17)],
+        "Pantry": [("Canned Goods Soups & Grains", 28), ("Snacks Condiments & Sauces", 27)],
+        "Beverages": [("Bottled Water & Soft Drinks", 23), ("Coffee Tea & Fruit Juices", 22)],
+        "Frozen Foods": [("Frozen Meals & Entrees", 20), ("Ice Cream & Frozen Desserts", 20)],
+        "Natural & Organic": [("Organic Produce & Dairy", 20), ("Organic Pantry & Snacks", 20)],
+        "Cleaning & Household": [("Laundry Care & Paper Goods", 23), ("Surface Cleaners & Dish Care", 22)],
+        "Personal Care": [("Body Wash & Hair Care", 18), ("Oral Care & Deodorants", 17)],
+        "Health & Wellness": [("Vitamins & Nutrition", 18), ("OTC Medicine & First Aid", 17)],
+        "Baby Care": [("Baby Food & Formula", 20), ("Diapers Wipes & Baby Bath", 20)],
+        "Pet Care": [("Dog Food & Treats", 20), ("Cat Food & Litter", 20)]
+    }
+
     records_list = []
     seen_upcs = set()
 
     for cat_name, items in category_data.items():
-        subcat = f"All {cat_name}"
-        for item in items:
+        sub_splits = subcat_mapping.get(cat_name, [("All " + cat_name, len(items))])
+        first_sub, first_count = sub_splits[0]
+        second_sub = sub_splits[1][0] if len(sub_splits) > 1 else first_sub
+        
+        for item_idx, item in enumerate(items):
+            subcat = first_sub if item_idx < first_count else second_sub
             title, brand, weight, reg_p, sale_p, ppm, base_upc, vol_desc, vol_p, dig_desc, dig_p, item_id = item
             
             # Compute GS1 compliant 12-digit UPC

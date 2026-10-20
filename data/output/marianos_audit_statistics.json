@@ -51,7 +51,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Simple Truth Organic Baby Spinach 16 oz Tub",
         "weight": "16 oz",
         "regular_price": "5.99",
@@ -66,7 +66,7 @@
         "gupc": "",
         "ppm": "$0.31/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       },
       {
         "zipcode": "60601",
@@ -75,7 +75,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Simple Truth Organic Spring Mix 16 oz Tub",
         "weight": "16 oz",
         "regular_price": "5.99",
@@ -90,7 +90,7 @@
         "gupc": "",
         "ppm": "$0.37/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       },
       {
         "zipcode": "60601",
@@ -99,7 +99,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Roundy's Russet Potatoes 5 lb Bag",
         "weight": "5 lb",
         "regular_price": "3.49",
@@ -114,7 +114,7 @@
         "gupc": "",
         "ppm": "$0.70/lb",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       }
     ],
     "volume_deals": [
@@ -125,7 +125,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Simple Truth Organic Spring Mix 16 oz Tub",
         "weight": "16 oz",
         "regular_price": "5.99",
@@ -140,7 +140,7 @@
         "gupc": "",
         "ppm": "$0.37/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       },
       {
         "zipcode": "60601",
@@ -149,7 +149,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Roundy's Baby Carrots 1 lb Bag",
         "weight": "16 oz",
         "regular_price": "1.79",
@@ -164,7 +164,7 @@
         "gupc": "",
         "ppm": "$0.11/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       },
       {
         "zipcode": "60601",
@@ -173,7 +173,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "no",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Fresh Express Iceberg Garden Salad 12 oz",
         "weight": "12 oz",
         "regular_price": "2.49",
@@ -188,7 +188,7 @@
         "gupc": "",
         "ppm": "$0.21/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       }
     ],
     "digital_deals": [
@@ -199,7 +199,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Simple Truth Organic Baby Spinach 16 oz Tub",
         "weight": "16 oz",
         "regular_price": "5.99",
@@ -214,7 +214,7 @@
         "gupc": "",
         "ppm": "$0.31/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       },
       {
         "zipcode": "60601",
@@ -223,7 +223,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Simple Truth Organic Blueberries 1 Pint",
         "weight": "1 pt",
         "regular_price": "4.99",
@@ -238,7 +238,7 @@
         "gupc": "",
         "ppm": "$0.25/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       },
       {
         "zipcode": "60601",
@@ -247,7 +247,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Simple Truth Organic Honeycrisp Apples 2 lb Pouch",
         "weight": "2 lb",
         "regular_price": "5.99",
@@ -262,7 +262,7 @@
         "gupc": "",
         "ppm": "$3.00/lb",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       }
     ],
     "no_deals": [
@@ -273,7 +273,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Roundy's Russet Potatoes 5 lb Bag",
         "weight": "5 lb",
         "regular_price": "3.49",
@@ -288,7 +288,7 @@
         "gupc": "",
         "ppm": "$0.70/lb",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       },
       {
         "zipcode": "60601",
@@ -297,7 +297,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Simple Truth Organic Yellow Onions 3 lb Bag",
         "weight": "3 lb",
         "regular_price": "3.99",
@@ -312,7 +312,7 @@
         "gupc": "",
         "ppm": "$1.10/lb",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       },
       {
         "zipcode": "60601",
@@ -321,7 +321,7 @@
         "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
         "store_brand": "yes",
         "category": "Fresh Produce",
-        "sub_category": "All Fresh Produce",
+        "sub_category": "Fresh Fruits",
         "product_title": "Simple Truth Organic Whole Carrots 2 lb Bag",
         "weight": "2 lb",
         "regular_price": "2.99",
@@ -336,12 +336,14 @@
         "gupc": "",
         "ppm": "$1.50/lb",
         "unit_price": "",
-        "crawl_date": "2026-10-19"
+        "crawl_date": "2026-10-20"
       }
     ]
   },
   "runtime_seconds": 138.45,
-  "store_id": "531",
+  "store_id": "53100503",
+  "division_id": "531",
+  "store_number": "00503",
   "zipcode": "60601",
   "store_name": "Mariano's New Eastside",
   "store_location": "333 E Benton Pl, Chicago, IL 60601",
