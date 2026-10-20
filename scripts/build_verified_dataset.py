@@ -643,34 +643,87 @@ def generate_verified_marianos_dataset():
         ]
     }
 
-    subcat_mapping = {
-        "Fresh Produce": [("Fresh Fruits", 18), ("Fresh Vegetables", 17)],
-        "Meat & Seafood": [("Poultry & Fresh Meat", 18), ("Seafood & Shellfish", 17)],
-        "Dairy & Eggs": [("Milk & Plant Alternatives", 23), ("Eggs Butter & Yogurt", 22)],
-        "Bakery": [("Fresh Bread & Rolls", 18), ("Pastries Cakes & Pies", 17)],
-        "Deli": [("Sliced Deli Meats & Cheeses", 18), ("Prepared Dips & Ready Meals", 17)],
-        "Pantry": [("Canned Goods Soups & Grains", 28), ("Snacks Condiments & Sauces", 27)],
-        "Beverages": [("Bottled Water & Soft Drinks", 23), ("Coffee Tea & Fruit Juices", 22)],
-        "Frozen Foods": [("Frozen Meals & Entrees", 20), ("Ice Cream & Frozen Desserts", 20)],
-        "Natural & Organic": [("Organic Produce & Dairy", 20), ("Organic Pantry & Snacks", 20)],
-        "Cleaning & Household": [("Laundry Care & Paper Goods", 23), ("Surface Cleaners & Dish Care", 22)],
-        "Personal Care": [("Body Wash & Hair Care", 18), ("Oral Care & Deodorants", 17)],
-        "Health & Wellness": [("Vitamins & Nutrition", 18), ("OTC Medicine & First Aid", 17)],
-        "Baby Care": [("Baby Food & Formula", 20), ("Diapers Wipes & Baby Bath", 20)],
-        "Pet Care": [("Dog Food & Treats", 20), ("Cat Food & Litter", 20)]
-    }
+    def determine_accurate_subcategory(cat: str, prod_title: str) -> str:
+        t = prod_title.lower()
+        if cat == "Fresh Produce":
+            fruit_keywords = ["apple", "berries", "berry", "orange", "mandarin", "lemon", "avocado", "grape", "fruit", "peach", "banana"]
+            if any(k in t for k in fruit_keywords):
+                return "Fresh Fruits"
+            return "Fresh Vegetables"
+        elif cat == "Meat & Seafood":
+            seafood_keywords = ["salmon", "shrimp", "fish", "crab", "tilapia", "cod", "tuna", "seafood", "fillet"]
+            if any(k in t for k in seafood_keywords):
+                return "Seafood & Shellfish"
+            return "Poultry & Fresh Meat"
+        elif cat == "Dairy & Eggs":
+            milk_keywords = ["milk", "creamer", "half & half", "half and half"]
+            if any(k in t for k in milk_keywords):
+                return "Milk & Plant Alternatives"
+            return "Eggs Butter & Yogurt"
+        elif cat == "Bakery":
+            pastry_keywords = ["cookie", "muffin", "donut", "cake", "pie", "pastr", "brownie", "sweet"]
+            if any(k in t for k in pastry_keywords):
+                return "Pastries Cakes & Pies"
+            return "Fresh Bread & Rolls"
+        elif cat == "Deli":
+            dip_keywords = ["dip", "hummus", "guacamole", "salsa", "salad", "ready meal", "platter", "side"]
+            if any(k in t for k in dip_keywords):
+                return "Prepared Dips & Ready Meals"
+            return "Sliced Deli Meats & Cheeses"
+        elif cat == "Pantry":
+            snack_cond_keywords = ["chip", "pretzel", "cracker", "sauce", "dressing", "ketchup", "mustard", "mayo", "salsa", "snack", "popcorn"]
+            if any(k in t for k in snack_cond_keywords):
+                return "Snacks Condiments & Sauces"
+            return "Canned Goods Soups & Grains"
+        elif cat == "Beverages":
+            juice_coffee_keywords = ["coffee", "tea", "juice", "lemonade", "cider"]
+            if any(k in t for k in juice_coffee_keywords):
+                return "Coffee Tea & Fruit Juices"
+            return "Bottled Water & Soft Drinks"
+        elif cat == "Frozen Foods":
+            ice_cream_keywords = ["ice cream", "novelty", "bar", "popsicle", "dessert", "tub", "sandwich"]
+            if any(k in t for k in ice_cream_keywords):
+                return "Ice Cream & Frozen Desserts"
+            return "Frozen Meals & Entrees"
+        elif cat == "Natural & Organic":
+            produce_dairy_keywords = ["greens", "spinach", "milk", "berry", "apple", "dairy", "salad", "produce"]
+            if any(k in t for k in produce_dairy_keywords):
+                return "Organic Produce & Dairy"
+            return "Organic Pantry & Snacks"
+        elif cat == "Cleaning & Household":
+            cleaner_keywords = ["cleaner", "spray", "dish", "sponge", "bleach", "disinfect", "wipe"]
+            if any(k in t for k in cleaner_keywords):
+                return "Surface Cleaners & Dish Care"
+            return "Laundry Care & Paper Goods"
+        elif cat == "Personal Care":
+            oral_keywords = ["oral", "tooth", "paste", "mouthwash", "deodorant", "stick", "floss"]
+            if any(k in t for k in oral_keywords):
+                return "Oral Care & Deodorants"
+            return "Body Wash & Hair Care"
+        elif cat == "Health & Wellness":
+            med_keywords = ["pain", "relief", "allergy", "cold", "flu", "first aid", "bandage", "antiseptic", "syrup"]
+            if any(k in t for k in med_keywords):
+                return "OTC Medicine & First Aid"
+            return "Vitamins & Nutrition"
+        elif cat == "Baby Care":
+            bath_diaper_keywords = ["diaper", "wipe", "bath", "wash", "lotion", "shampoo"]
+            if any(k in t for k in bath_diaper_keywords):
+                return "Diapers Wipes & Baby Bath"
+            return "Baby Food & Formula"
+        elif cat == "Pet Care":
+            cat_keywords = ["cat", "kitten", "litter", "feline"]
+            if any(k in t for k in cat_keywords):
+                return "Cat Food & Litter"
+            return "Dog Food & Treats"
+        return f"All {cat}"
 
     records_list = []
     seen_upcs = set()
 
     for cat_name, items in category_data.items():
-        sub_splits = subcat_mapping.get(cat_name, [("All " + cat_name, len(items))])
-        first_sub, first_count = sub_splits[0]
-        second_sub = sub_splits[1][0] if len(sub_splits) > 1 else first_sub
-        
-        for item_idx, item in enumerate(items):
-            subcat = first_sub if item_idx < first_count else second_sub
+        for item in items:
             title, brand, weight, reg_p, sale_p, ppm, base_upc, vol_desc, vol_p, dig_desc, dig_p, item_id = item
+            subcat = determine_accurate_subcategory(cat_name, title)
             
             # Compute GS1 compliant 12-digit UPC
             full_upc = compute_gs1_check_digit(base_upc)
