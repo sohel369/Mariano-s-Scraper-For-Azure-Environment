@@ -27,6 +27,6 @@ COPY . /app/
 # Create output and staging volumes
 RUN mkdir -p /app/data/staging /app/data/output /app/data/checkpoints
 
-# Default command: Run Mariano's production scraper
+# Default command: Run Mariano's production scraper with complete unbounded traversal
 ENTRYPOINT ["python", "scripts/run_scraper.py"]
-CMD ["--zipcode", "60601", "--max-pages", "5"]
+CMD ["--zipcode", "60601"]
