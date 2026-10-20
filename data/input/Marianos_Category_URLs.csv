@@ -1,29 +1,29 @@
 Retailer,Category,sub_category,URL,Scope,Notes
-Mariano's,Fresh Produce,Fresh Fruits,https://www.marianos.com/c/fresh-fruits/01001,Subcategory traversal,Exclude bulk random-weight produce
-Mariano's,Fresh Produce,Fresh Vegetables,https://www.marianos.com/c/fresh-vegetables/01002,Subcategory traversal,Exclude bulk random-weight produce
-Mariano's,Fresh Produce,Packaged Salads & Herbs,https://www.marianos.com/c/salad-herbs/01003,Subcategory traversal,Fixed-weight clamshells only
-Mariano's,Meat & Seafood,Poultry & Chicken,https://www.marianos.com/c/chicken/02001,Subcategory traversal,Fixed-weight pre-packaged items only
-Mariano's,Meat & Seafood,Beef & Pork,https://www.marianos.com/c/beef-pork/02002,Subcategory traversal,Fixed-weight pre-packaged items only
-Mariano's,Meat & Seafood,Seafood & Shellfish,https://www.marianos.com/c/seafood/02003,Subcategory traversal,Fixed-weight items only
-Mariano's,Dairy & Eggs,Milk & Plant Milk,https://www.marianos.com/c/milk/03001,Subcategory traversal,All dairy and plant alternatives
-Mariano's,Dairy & Eggs,Butter & Margarine,https://www.marianos.com/c/butter/03002,Subcategory traversal,All packaged butters and spreads
-Mariano's,Dairy & Eggs,Cheese & Yogurt,https://www.marianos.com/c/cheese-yogurt/03003,Subcategory traversal,All packaged cheeses and yogurts
-Mariano's,Dairy & Eggs,Eggs,https://www.marianos.com/c/eggs/03004,Subcategory traversal,All carton egg sizes and grades
-Mariano's,Bakery,Fresh Bread & Rolls,https://www.marianos.com/c/bread-rolls/04001,Subcategory traversal,Packaged artisan breads and rolls
-Mariano's,Bakery,Pastries Cakes & Pies,https://www.marianos.com/c/pastries-desserts/04002,Subcategory traversal,Packaged cookies muffins and cakes
-Mariano's,Deli,Sliced Deli Meats & Cheeses,https://www.marianos.com/c/deli-meat-cheese/05001,Subcategory traversal,Packaged retail pre-sliced items
-Mariano's,Deli,Prepared Meals & Dips,https://www.marianos.com/c/prepared-meals-dips/05002,Subcategory traversal,Pre-packed salads dips and meals
-Mariano's,Pantry,Canned Goods & Soups,https://www.marianos.com/c/canned-goods/06001,Subcategory traversal,All canned vegetables broths and beans
-Mariano's,Pantry,Pasta Grains & Sauces,https://www.marianos.com/c/pasta-sauces/06002,Subcategory traversal,Dry pasta rice grains and pasta sauces
-Mariano's,Pantry,Condiments & Salad Dressings,https://www.marianos.com/c/condiments/06003,Subcategory traversal,Ketchup mustard mayo and dressings
-Mariano's,Pantry,Snacks Chips & Crackers,https://www.marianos.com/c/snacks/06004,Subcategory traversal,Potato chips pretzels crackers and nuts
-Mariano's,Pantry,Baking & Cooking Essentials,https://www.marianos.com/c/baking/06005,Subcategory traversal,Flour sugar spices oils and mixes
-Mariano's,Beverages,Bottled Water & Seltzer,https://www.marianos.com/c/water/07001,Subcategory traversal,Single bottles and multipack cases
-Mariano's,Beverages,Soft Drinks & Sodas,https://www.marianos.com/c/soda/07002,Subcategory traversal,Cans and bottles 2-liters
-Mariano's,Beverages,Coffee & Tea,https://www.marianos.com/c/coffee-tea/07003,Subcategory traversal,Ground coffee beans K-cups and tea bags
-Mariano's,Beverages,Juices & Smoothies,https://www.marianos.com/c/juices/07004,Subcategory traversal,100% fruit juices and lemonades
-Mariano's,Frozen Foods,Frozen Meals & Pizza,https://www.marianos.com/c/frozen-meals/08001,Subcategory traversal,Frozen entrees bowls and pizzas
-Mariano's,Frozen Foods,Frozen Vegetables & Fruits,https://www.marianos.com/c/frozen-produce/08002,Subcategory traversal,All frozen packaged produce
-Mariano's,Frozen Foods,Ice Cream & Frozen Novelties,https://www.marianos.com/c/ice-cream/08003,Subcategory traversal,Pints tubs bars and ice cream sandwiches
-Mariano's,Cleaning & Household,Laundry & Cleaning Supplies,https://www.marianos.com/c/cleaning-laundry/10001,Subcategory traversal,Detergents sprays and paper products
-Mariano's,Personal Care & Health,Personal Hygiene & Wellness,https://www.marianos.com/c/personal-care-body/11001,Subcategory traversal,Oral care body wash and remedies
+Mariano's,Fresh Produce,Fresh Fruits,https://www.marianos.com/c/fresh-fruits/01001,Subcategory traversal,Fresh apples berries citrus melons (fixed-weight)
+Mariano's,Fresh Produce,Fresh Vegetables,https://www.marianos.com/c/fresh-vegetables/01002,Subcategory traversal,Potatoes onions peppers packaged greens
+Mariano's,Meat & Seafood,Poultry & Fresh Meat,https://www.marianos.com/c/meat-poultry/02001,Subcategory traversal,Fixed-weight chicken beef pork cuts
+Mariano's,Meat & Seafood,Seafood & Shellfish,https://www.marianos.com/c/seafood/02002,Subcategory traversal,Fixed-weight salmon shrimp fillets
+Mariano's,Dairy & Eggs,Milk & Plant Alternatives,https://www.marianos.com/c/milk/03001,Subcategory traversal,Whole 2% almond oat and soy milks
+Mariano's,Dairy & Eggs,Eggs Butter & Yogurt,https://www.marianos.com/c/eggs-butter/03002,Subcategory traversal,Carton eggs butter sticks and yogurts
+Mariano's,Bakery,Fresh Bread & Rolls,https://www.marianos.com/c/bread-rolls/04001,Subcategory traversal,Packaged artisan loaves and sandwich bread
+Mariano's,Bakery,Pastries Cakes & Pies,https://www.marianos.com/c/pastries-desserts/04002,Subcategory traversal,Packaged cookies muffins donuts and pies
+Mariano's,Deli,Sliced Deli Meats & Cheeses,https://www.marianos.com/c/deli-meat-cheese/05001,Subcategory traversal,Pre-sliced packaged turkey ham and cheeses
+Mariano's,Deli,Prepared Dips & Ready Meals,https://www.marianos.com/c/prepared-meals-dips/05002,Subcategory traversal,Hummus guacamole and deli sides
+Mariano's,Pantry,Canned Goods Soups & Grains,https://www.marianos.com/c/canned-goods/06001,Subcategory traversal,Canned beans soups tomatoes pasta and rice
+Mariano's,Pantry,Snacks Condiments & Sauces,https://www.marianos.com/c/snacks-condiments/06002,Subcategory traversal,Chips pretzels dressings and sauces
+Mariano's,Beverages,Bottled Water & Soft Drinks,https://www.marianos.com/c/water-soda/07001,Subcategory traversal,Purified water seltzer and sodas
+Mariano's,Beverages,Coffee Tea & Fruit Juices,https://www.marianos.com/c/coffee-tea-juice/07002,Subcategory traversal,Ground coffee tea bags and 100% juice
+Mariano's,Frozen Foods,Frozen Meals & Entrees,https://www.marianos.com/c/frozen-meals/08001,Subcategory traversal,Frozen entrees bowls and pizzas
+Mariano's,Frozen Foods,Ice Cream & Frozen Desserts,https://www.marianos.com/c/ice-cream/08002,Subcategory traversal,Pints tubs and novelty ice cream bars
+Mariano's,Natural & Organic,Organic Produce & Dairy,https://www.marianos.com/c/organic-produce-dairy/09001,Subcategory traversal,Simple Truth organic greens and organic milk
+Mariano's,Natural & Organic,Organic Pantry & Snacks,https://www.marianos.com/c/organic-pantry/09002,Subcategory traversal,Organic oats snacks and pantry items
+Mariano's,Cleaning & Household,Laundry Care & Paper Goods,https://www.marianos.com/c/laundry-paper/10001,Subcategory traversal,Detergent pods and paper towels
+Mariano's,Cleaning & Household,Surface Cleaners & Dish Care,https://www.marianos.com/c/cleaners-dish/10002,Subcategory traversal,Disinfecting sprays and dish soaps
+Mariano's,Personal Care,Body Wash & Hair Care,https://www.marianos.com/c/body-hair/11001,Subcategory traversal,Shampoo body wash and body lotions
+Mariano's,Personal Care,Oral Care & Deodorants,https://www.marianos.com/c/oral-deodorant/11002,Subcategory traversal,Toothpaste toothbrushes and deodorants
+Mariano's,Health & Wellness,Vitamins & Nutrition,https://www.marianos.com/c/vitamins-nutrition/12001,Subcategory traversal,Vitamins gummies and protein supplements
+Mariano's,Health & Wellness,OTC Medicine & First Aid,https://www.marianos.com/c/otc-first-aid/12002,Subcategory traversal,Pain relief allergy meds and bandages
+Mariano's,Baby Care,Baby Food & Formula,https://www.marianos.com/c/baby-food/13001,Subcategory traversal,Organic pouches formula and teething snacks
+Mariano's,Baby Care,Diapers Wipes & Baby Bath,https://www.marianos.com/c/diapers-wipes/13002,Subcategory traversal,Diaper packs sensitive wipes and baby wash
+Mariano's,Pet Care,Dog Food & Treats,https://www.marianos.com/c/dog-food-treats/14001,Subcategory traversal,Dry kibble wet cans and dental chew treats
+Mariano's,Pet Care,Cat Food & Litter,https://www.marianos.com/c/cat-food-litter/14002,Subcategory traversal,Cat food pate cans and clumping litter

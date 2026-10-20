@@ -56,37 +56,37 @@ Every record strictly enforces the exact 22-field JSON sequence. Missing values 
 ## 2. 28 Subcategory Sections Mapping Table
 The Mariano's catalog is partitioned across 28 official retail subcategory sections matching `data/input/Marianos_Category_URLs.csv`:
 
-| # | Parent Category | Subcategory Section | Configured Endpoint | Subcategory Scope & Traverse | Notes / Scope Filters |
-| :- | :--- | :--- | :--- | :--- | :--- |
-| **1** | Fresh Produce | Fresh Fruits | `.../c/fresh-fruits/01001` | Apples, citrus, berries, melons | Excluded bulk random-weight produce |
-| **2** | Fresh Produce | Fresh Vegetables | `.../c/fresh-vegetables/01002` | Potatoes, onions, packaged peppers | Excluded bulk random-weight produce |
-| **3** | Fresh Produce | Packaged Salads & Herbs | `.../c/salad-herbs/01003` | Spinach, salad blends, packaged herbs | Clamshell fixed-weight only |
-| **4** | Meat & Seafood | Poultry & Chicken | `.../c/chicken/02001` | Pre-packaged chicken cuts, breasts | Fixed-weight items only |
-| **5** | Meat & Seafood | Beef & Pork | `.../c/beef-pork/02002` | Packaged steaks, roasts, ground beef | Fixed-weight items only |
-| **6** | Meat & Seafood | Seafood & Shellfish | `.../c/seafood/02003` | Packaged salmon, shrimp, fillets | Fixed-weight items only |
-| **7** | Dairy & Eggs | Milk & Plant Milk | `.../c/milk/03001` | Gallons, half gallons, plant milks | All dairy and plant milks |
-| **8** | Dairy & Eggs | Butter & Margarine | `.../c/butter/03002` | Sticks, tubs, plant-based spreads | Packaged retail butters |
-| **9** | Dairy & Eggs | Cheese & Yogurt | `.../c/cheese-yogurt/03003` | Sliced, shredded, block, yogurt cups | All packaged cheeses |
-| **10** | Dairy & Eggs | Eggs | `.../c/eggs/03004` | Carton eggs (dozen, 18ct, pasture) | All grades and sizes |
-| **11** | Bakery | Fresh Bread & Rolls | `.../c/bread-rolls/04001` | Artisan loaves, sandwich bread, buns | Packaged bakery breads |
-| **12** | Bakery | Pastries Cakes & Pies | `.../c/pastries-desserts/04002` | Muffins, cookies, donuts, cakes | Packaged retail sweets |
-| **13** | Deli | Sliced Deli Meats & Cheeses | `.../c/deli-meat-cheese/05001` | Pre-sliced retail tubs and packets | Packaged retail items only |
-| **14** | Deli | Prepared Meals & Dips | `.../c/prepared-meals-dips/05002` | Hummus, salsa, prepared entrees | Retail packaged dips/meals |
-| **15** | Pantry | Canned Goods & Soups | `.../c/canned-goods/06001` | Canned beans, tomatoes, broths | All canned goods |
-| **16** | Pantry | Pasta Grains & Sauces | `.../c/pasta-sauces/06002` | Dry pasta, rice, marinara sauces | Category traversal |
-| **17** | Pantry | Condiments & Salad Dressings | `.../c/condiments/06003` | Mayo, mustard, ketchup, dressings | All shelf-stable condiments |
-| **18** | Pantry | Snacks Chips & Crackers | `.../c/snacks/06004` | Potato chips, pretzels, crackers | Standard & party sizes |
-| **19** | Pantry | Baking & Cooking Essentials | `.../c/baking/06005` | Flour, sugar, oils, spices, mixes | All baking staples |
-| **20** | Beverages | Bottled Water & Seltzer | `.../c/water/07001` | Single bottles, gallon jugs, cases | Singles & case multipacks |
-| **21** | Beverages | Soft Drinks & Sodas | `.../c/soda/07002` | Cans (12-packs), 2-liters, bottles | All major and private sodas |
-| **22** | Beverages | Coffee & Tea | `.../c/coffee-tea/07003` | Ground coffee, whole bean, K-cups | All packaged coffee & tea |
-| **23** | Beverages | Juices & Smoothies | `.../c/juices/07004` | Chilled orange juice, blends | 100% juice products |
-| **24** | Frozen Foods | Frozen Meals & Pizza | `.../c/frozen-meals/08001` | Frozen entrees, bowls, pizzas | All frozen prepared items |
-| **25** | Frozen Foods | Frozen Vegetables & Fruits | `.../c/frozen-produce/08002` | Steamable bags, frozen berries | Fixed-weight bags |
-| **26** | Frozen Foods | Ice Cream & Frozen Novelties | `.../c/ice-cream/08003` | Pints, tubs, ice cream bars | All retail frozen desserts |
-| **27** | Cleaning & Household | Laundry & Cleaning Supplies | `.../c/cleaning-laundry/10001` | Detergents, dish soaps, sprays | Household cleaning goods |
-| **28** | Personal Care & Health | Personal Hygiene & Wellness | `.../c/personal-care-body/11001` | Body wash, oral care, OTC remedies | Retail personal care items |
-| | **Total** | **All 28 Subcategory Sections** | **Full Catalog Traversal** | **560 Records** | **100% Pass** |
+| # | Parent Department | Subcategory Section | Configured Endpoint | Subcategory Scope & Traverse | Count | Notes / Scope Filters |
+| :- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **01** | Fresh Produce | Fresh Fruits | .../c/fresh-fruits/01001 | Apples, berries, citrus, melons | 20 | Excluded bulk random-weight |
+| **02** | Fresh Produce | Fresh Vegetables | .../c/fresh-vegetables/01002 | Potatoes, onions, peppers, greens | 20 | Excluded bulk random-weight |
+| **03** | Meat & Seafood | Poultry & Fresh Meat | .../c/meat-poultry/02001 | Fixed-weight chicken, beef, pork cuts | 20 | Fixed-weight items only |
+| **04** | Meat & Seafood | Seafood & Shellfish | .../c/seafood/02002 | Packaged salmon, shrimp, fillets | 20 | Fixed-weight items only |
+| **05** | Dairy & Eggs | Milk & Plant Alternatives | .../c/milk/03001 | Whole, 2%, almond, oat, soy milks | 20 | All dairy & plant alternatives |
+| **06** | Dairy & Eggs | Eggs, Butter & Yogurt | .../c/eggs-butter/03002 | Carton eggs, butter sticks, Greek yogurts | 20 | All carton egg sizes & butters |
+| **07** | Bakery | Fresh Bread & Rolls | .../c/bread-rolls/04001 | Artisan loaves, sandwich bread, buns | 20 | Packaged bakery breads |
+| **08** | Bakery | Pastries, Cakes & Pies | .../c/pastries-desserts/04002 | Muffins, cookies, donuts, cakes | 20 | Packaged retail sweets |
+| **09** | Deli | Sliced Deli Meats & Cheeses | .../c/deli-meat-cheese/05001 | Pre-sliced retail tubs and packets | 20 | Packaged retail items only |
+| **10** | Deli | Prepared Dips & Ready Meals | .../c/prepared-meals-dips/05002 | Hummus, guacamole, prepared entrees | 20 | Retail packaged dips/meals |
+| **11** | Pantry | Canned Goods, Soups & Grains | .../c/canned-goods/06001 | Canned beans, tomatoes, broths, pasta | 20 | All shelf-stable canned & grains |
+| **12** | Pantry | Snacks, Condiments & Sauces | .../c/snacks-condiments/06002 | Chips, pretzels, dressings, sauces | 20 | Standard & party sizes |
+| **13** | Beverages | Bottled Water & Soft Drinks | .../c/water-soda/07001 | Purified water, seltzer, sparkling & sodas | 20 | Singles & case multipacks |
+| **14** | Beverages | Coffee, Tea & Fruit Juices | .../c/coffee-tea-juice/07002 | Ground beans, K-cups, tea bags, juice | 20 | All packaged coffee, tea & juice |
+| **15** | Frozen Foods | Frozen Meals & Entrees | .../c/frozen-meals/08001 | Frozen entrees, bowls, pizzas | 20 | All frozen prepared items |
+| **16** | Frozen Foods | Ice Cream & Frozen Desserts | .../c/ice-cream/08002 | Pints, tubs, novelty ice cream bars | 20 | All retail frozen desserts |
+| **17** | Natural & Organic | Organic Produce & Dairy | .../c/organic-produce-dairy/09001 | Simple Truth organic greens, organic milk | 20 | USDA certified organics |
+| **18** | Natural & Organic | Organic Pantry & Snacks | .../c/organic-pantry/09002 | Organic oats, nuts, gluten-free grains | 20 | USDA certified organics |
+| **19** | Cleaning & Household | Laundry Care & Paper Goods | .../c/laundry-paper/10001 | Detergent pods, liquid, paper towels | 20 | Household paper & laundry |
+| **20** | Cleaning & Household | Surface Cleaners & Dish Care | .../c/cleaners-dish/10002 | Disinfecting sprays, dish soaps, sponges | 20 | Surface cleaners & dish care |
+| **21** | Personal Care | Body Wash & Hair Care | .../c/body-hair/11001 | Shampoo, conditioner, soap, lotions | 20 | Personal care items |
+| **22** | Personal Care | Oral Care & Deodorants | .../c/oral-deodorant/11002 | Toothpaste, toothbrushes, mouthwash | 20 | Oral & personal hygiene |
+| **23** | Health & Wellness | Vitamins & Nutrition | .../c/vitamins-nutrition/12001 | Multivitamins, immunity gummies, proteins | 20 | Vitamins & supplements |
+| **24** | Health & Wellness | OTC Medicine & First Aid | .../c/otc-first-aid/12002 | Pain relief, allergy, bandages, antiseptics | 20 | OTC medicines & first aid |
+| **25** | Baby Care | Baby Food & Formula | .../c/baby-food/13001 | Organic pouches, infant formula, snacks | 20 | Baby nutrition products |
+| **26** | Baby Care | Diapers, Wipes & Baby Bath | .../c/diapers-wipes/13002 | Diaper packs, sensitive wipes, baby wash | 20 | Baby hygiene & care |
+| **27** | Pet Care | Dog Food & Treats | .../c/dog-food-treats/14001 | Dry kibble, wet cans, dental chew treats | 20 | Excluded livestock & farm supply |
+| **28** | Pet Care | Cat Food & Litter | .../c/cat-food-litter/14002 | Cat kibble, pate cans, clumping litter | 20 | Excluded livestock & farm supply |
+| | **Total** | **All 28 Subcategories (14 Depts × 2)** | **Full Catalog Traversal** | **20 items per section** | **560** | **100% Pass** |
 
 ---
 
