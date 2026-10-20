@@ -64,3 +64,25 @@ def test_cashback_not_treated_as_digital_deal(normalizer):
     assert vol_price == ""
     assert dig_desc == ""
     assert dig_price == ""
+
+def test_multipack_label_not_treated_as_promotion(normalizer):
+    # Pack labels must be preserved in title/weight, but NOT treated as promotions
+    vol_desc, vol_price, dig_desc, dig_price = normalizer.parse_deals(
+        promo_badge="12-Pack",
+        deal_description="",
+        displayed_promo_price=""
+    )
+    assert vol_desc == ""
+    assert vol_price == ""
+    assert dig_desc == ""
+    assert dig_price == ""
+
+    vol_desc, vol_price, dig_desc, dig_price = normalizer.parse_deals(
+        promo_badge="Family Size",
+        deal_description="",
+        displayed_promo_price=""
+    )
+    assert vol_desc == ""
+    assert vol_price == ""
+    assert dig_desc == ""
+    assert dig_price == ""

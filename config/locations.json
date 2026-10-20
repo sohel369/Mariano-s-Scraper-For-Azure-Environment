@@ -1,29 +1,35 @@
 [
   {
-    "store_id": "531",
+    "store_id": "53100503",
+    "division_id": "531",
+    "store_number": "00503",
     "zipcode": "60601",
     "store_name": "Mariano's New Eastside",
     "store_location": "333 E Benton Pl, Chicago, IL 60601",
     "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
-    "fulfillment_intent": "pickup",
+    "fulfillment_intent": "PICKUP",
     "is_default": true
   },
   {
-    "store_id": "527",
+    "store_id": "53100527",
+    "division_id": "531",
+    "store_number": "00527",
     "zipcode": "60661",
     "store_name": "Mariano's West Loop",
     "store_location": "40 S Halsted St, Chicago, IL 60661",
     "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
-    "fulfillment_intent": "pickup",
+    "fulfillment_intent": "PICKUP",
     "is_default": false
   },
   {
-    "store_id": "528",
+    "store_id": "53100528",
+    "division_id": "531",
+    "store_number": "00528",
     "zipcode": "60657",
     "store_name": "Mariano's Lakeview",
     "store_location": "3030 N Broadway, Chicago, IL 60657",
     "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
-    "fulfillment_intent": "pickup",
+    "fulfillment_intent": "PICKUP",
     "is_default": false
   }
 ]

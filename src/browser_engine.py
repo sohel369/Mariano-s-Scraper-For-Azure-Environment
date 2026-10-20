@@ -79,7 +79,9 @@ class BrowserEngine:
             return
 
         zipcode = str(location.get("zipcode", "60601"))
-        store_id = str(location.get("store_id", "531"))
+        division_id = str(location.get("division_id", "531"))
+        store_number = str(location.get("store_number", "00503"))
+        store_id = str(location.get("store_id", "53100503"))
         
         # Inject standard Mariano's / Kroger store context cookies
         cookies = [
@@ -89,14 +91,17 @@ class BrowserEngine:
             {"name": "storeIntent", "value": "PICKUP", "domain": ".marianos.com", "path": "/"},
             {
                 "name": "kroger.modality",
-                "value": f'{{"intent":"PICKUP","postalCode":"{zipcode}","divisionNumber":"531","storeNumber":"{store_id}"}}',
+                "value": f'{{"intent":"PICKUP","postalCode":"{zipcode}","divisionNumber":"{division_id}","storeNumber":"{store_number}"}}',
                 "domain": ".marianos.com",
                 "path": "/"
             }
         ]
         try:
             self._context.add_cookies(cookies)
-            logger.info(f"Mariano's store context verified: ZIP={zipcode}, StoreID={store_id}, Intent=PICKUP")
+            logger.info(
+                f"Mariano's store context verified: Division={division_id}, StoreNum={store_number}, "
+                f"FullStoreID={store_id}, ZIP={zipcode}, Intent=PICKUP"
+            )
         except Exception as e:
             logger.warning(f"Failed to set store context cookies: {e}")
 

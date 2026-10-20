@@ -16,7 +16,7 @@ def demonstrate_safety_and_recovery():
 
     with tempfile.TemporaryDirectory() as temp_dir:
         storage = StorageManager(base_dir=temp_dir, min_records_threshold=500)
-        store_id = "531"
+        store_id = "53100503"
 
         # -------------------------------------------------------------
         # DEMO 1: REFUSAL TO PUBLISH INCOMPLETE DATA
@@ -34,7 +34,7 @@ def demonstrate_safety_and_recovery():
         failed_staging = os.path.join(storage.staging_dir, "staging_failed_run.jsonl")
         for i in range(48):
             storage.write_staging_record(failed_staging, {"upc": f"02222000{i:04d}", "title": f"Partial Item {i}"})
-        print(f"  • Incomplete Run Simulated: {48} items collected (below 500 threshold, 4/14 categories).")
+        print(f"  • Incomplete Run Simulated: {48} items collected (below 500 threshold, 4/28 subcategories).")
 
         # Step C: Attempt promotion
         commit_res = storage.commit_dataset_atomic(
@@ -58,14 +58,16 @@ def demonstrate_safety_and_recovery():
         # -------------------------------------------------------------
         print("\n[DEMO 2/2] INTERRUPTION RECOVERY & CHECKPOINT RESUMPTION:")
         
-        # Step A: Scraper completes 6 of 14 categories before unexpected interruption
+        # Step A: Scraper completes 12 of 28 subcategories before unexpected interruption
         completed_cats = [
-            "Fresh Produce", "Meat & Seafood", "Dairy & Eggs",
-            "Bakery", "Deli", "Pantry"
+            "Fresh Produce::Fresh Fruits", "Fresh Produce::Fresh Vegetables", "Fresh Produce::Packaged Salads & Herbs",
+            "Meat & Seafood::Poultry & Chicken", "Meat & Seafood::Beef & Pork", "Meat & Seafood::Seafood & Shellfish",
+            "Dairy & Eggs::Milk & Plant Milk", "Dairy & Eggs::Butter & Margarine", "Dairy & Eggs::Cheese & Yogurt", "Dairy & Eggs::Eggs",
+            "Bakery::Fresh Bread & Rolls", "Bakery::Pastries Cakes & Pies"
         ]
         scraped_upcs = [f"0111108520{i:02d}" for i in range(240)]
         storage.save_checkpoint(store_id, completed_cats, scraped_upcs)
-        print(f"  • Process Interrupted at Category 6. Saved checkpoint to disk.")
+        print(f"  • Process Interrupted at Subcategory 12 of 28. Saved checkpoint to disk.")
 
         # Step B: Fresh scraper process boots up and inspects checkpoint
         new_storage = StorageManager(base_dir=temp_dir)
@@ -74,16 +76,15 @@ def demonstrate_safety_and_recovery():
         saved_upcs = set(checkpoint.get("scraped_ids", []))
 
         print(f"  • New Scraper Session Initialized.")
-        print(f"  • Checkpoint Detected: {len(saved_cats)} categories already finished: {saved_cats}")
+        print(f"  • Checkpoint Detected: {len(saved_cats)} subcategories already finished.")
         print(f"  • Seen Barcodes: {len(saved_upcs)} UPCs loaded into deduplication cache.")
 
         remaining_cats = [
-            "Beverages", "Frozen Foods", "Natural & Organic",
-            "Cleaning & Household", "Personal Care", "Health & Wellness",
-            "Baby Care", "Pet Care"
+            "Deli::Sliced Deli Meats & Cheeses", "Deli::Prepared Meals & Dips",
+            "Pantry::Canned Goods & Soups", "Pantry::Pasta Grains & Sauces"
         ]
-        print(f"  • Resuming Execution Directly from Category 7 ({remaining_cats[0]}).")
-        print(f"  • Skipped Reprocessing: Categories 1-6 will NOT be re-queried (saving bandwidth & time).")
+        print(f"  • Resuming Execution Directly from Subcategory 13 ({remaining_cats[0]}).")
+        print(f"  • Skipped Reprocessing: Subcategories 1-12 will NOT be re-queried (saving bandwidth & time).")
         print("  --> Result: Seamless resumption confirmed: PASS")
 
     print("\n" + "=" * 75)

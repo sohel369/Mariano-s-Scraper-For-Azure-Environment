@@ -45,10 +45,10 @@ marianos-scraper-azure/
 │   ├── input/
 │   │   └── Marianos_Category_URLs.csv # Categories and target URLs
 │   ├── output/                    # Final validated datasets
-│   ├── logs/                      # Collection run execution logs
+│   ├── logs/                      # Collection run execution logs (Store 53100503)
 │   ├── staging/                   # Staging area for ongoing runs
 │   ├── checkpoints/               # Resumption checkpoints
-│   └── raw/                       # Raw API payload evidence (Store 531)
+│   └── raw/                       # Raw API payload evidence (Store 53100503)
 ├── preview/
 │   ├── index.html                 # Interactive catalog & audit dashboard
 │   ├── presentation_board.html    # Contest presentation & proof showcase
@@ -95,26 +95,30 @@ playwright install chromium
 ```
 
 ### 2. Run Automated Test Suite
-Verify that all 12 unit tests pass:
+Verify that all 13 unit tests pass:
 ```powershell
 py -m pytest tests/
 ```
 
-### 3. Generate, Audit & Reproduce Observed Run (560 Verified Records)
+### 3. Fast Observed Compliance Audit & Schema Verification
 ```powershell
-# 1. Build verified dataset
-py scripts/build_verified_dataset.py
-
-# 2. Run official compliance audit
-py scripts/validate_dataset.py data/output/marianos_contest_submission_500_records.json
-
-# 3. Reproduce observed run report
+# Fast compliance audit of 560 verified records against GS1 UPCs & 28 subcategories:
 py scripts/reproduce_observed_run.py
+
+# Interruption recovery & atomic dataset commit safety demonstration:
+py scripts/demonstrate_safety_and_recovery.py
+
+# Official 22-field schema validator:
+py scripts/validate_dataset.py data/output/marianos_contest_submission_500_records.json
 ```
 
-### 4. Run Live Production Scraper
+### 4. Live Fresh Scraper Execution
 ```powershell
-py scripts/run_scraper.py --zipcode 60601 --max-pages 5
+# Executes live fresh crawl directly from marianos.com using Playwright Stealth
+py scripts/run_scraper.py --zipcode 60601 --max-pages 2
+
+# OR run live mode via reproduction script:
+py scripts/reproduce_observed_run.py --live --zipcode 60601
 ```
 
 ### 5. Deploy to Microsoft Azure

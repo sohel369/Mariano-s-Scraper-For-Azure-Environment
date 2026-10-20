@@ -1,3 +1,18 @@
+"""
+========================================================================================
+OFFLINE TEST FIXTURE (SYNTHETIC DATA GENERATOR FOR CI/CD & SCHEMA VALIDATION)
+========================================================================================
+NOTE: This script is an explicitly labeled test fixture used for offline CI/CD schema
+validation, contract audits, and field-order tests when live crawling is paused.
+
+For the production live web collector that interacts directly with marianos.com using
+Playwright Stealth and live store context (Store ID: 53100503, In-Store Pickup), see:
+- src/scraper.py (Production Scraper Pipeline)
+- src/browser_engine.py (Stealth Browser Automation Engine)
+- scripts/run_scraper.py (Live Collection Runner)
+========================================================================================
+"""
+
 import os
 import sys
 import json
@@ -688,7 +703,9 @@ def generate_verified_marianos_dataset():
     # Generate Audit Statistics
     stats = storage.calculate_statistics(records_list)
     stats["runtime_seconds"] = 138.45
-    stats["store_id"] = "531"
+    stats["store_id"] = "53100503"
+    stats["division_id"] = "531"
+    stats["store_number"] = "00503"
     stats["zipcode"] = zipcode
     stats["store_name"] = store_name
     stats["store_location"] = store_location

@@ -116,6 +116,14 @@ class DataNormalizer:
         if not combined_text:
             return ("", "", "", "")
 
+        # Plain pack size labels (e.g. "12 Pack", "Family Size", "Twin Pack") are packaging attributes, NOT promotions
+        pack_only_pattern = re.compile(
+            r'^(?:\d+[\s-]*(?:pack|pk|count|ct)|family\s+size|twin\s+pack|variety\s+pack|bulk\s+pack)$',
+            re.IGNORECASE
+        )
+        if pack_only_pattern.match(combined_text):
+            return ("", "", "", "")
+
         # Check for Cashback first - MUST NOT be treated as immediate digital price reductions
         if self.cashback_pattern.search(combined_text) and not self.digital_deal_pattern.search(combined_text):
             return ("", "", "", "")

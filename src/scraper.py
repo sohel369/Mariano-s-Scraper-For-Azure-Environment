@@ -60,7 +60,7 @@ class MarianoProductionScraper:
         else:
             location = self.config_loader.get_default_location()
 
-        store_id = str(location.get("store_id", "531"))
+        store_id = str(location.get("store_id", "53100503"))
         logger.info(
             f"INITIATING MARIANO'S RUN: Store={location.get('store_name')}, "
             f"ZIP={location.get('zipcode')}, ID={store_id}, Mode=In-Store/Pickup"
