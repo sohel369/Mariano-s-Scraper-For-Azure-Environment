@@ -156,8 +156,30 @@ class MarianoProductionScraper:
                     self.anti_bot.check_yield(cat, sub_cat, len(page_records))
 
                     if not page_records:
-                        logger.info(f"Catalog boundary reached on page {page_num} for {subcat_key}. Completed traversal.")
-                        break
+                        # Distinguish genuine end-of-catalog from an unverified failed/empty parsed page
+                        is_genuine_end = False
+                        html_lower = html_content.lower()
+                        zero_indicators = [
+                            "no products found", "no items found", "0 results",
+                            "noresults", "empty-search", "pagination__next--disabled",
+                            "aria-disabled=\"true\"", "we couldn't find any products"
+                        ]
+                        for ind in zero_indicators:
+                            if ind in html_lower:
+                                is_genuine_end = True
+                                break
+
+                        # If explicitly verified or past page 1 with exhausted pagination
+                        if is_genuine_end or page_num > 1:
+                            logger.info(f"Verified genuine catalog boundary reached on page {page_num} for {subcat_key}. Traversal complete.")
+                            break
+                        else:
+                            logger.error(
+                                f"Page {page_num} for {subcat_key} yielded 0 items without a verified zero-results indicator. "
+                                f"Treating as parsing/network failure to prevent premature termination."
+                            )
+                            subcat_failed = True
+                            break
 
                     # Write to staging immediately
                     for r in page_records:

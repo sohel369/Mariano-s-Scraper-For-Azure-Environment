@@ -84,7 +84,7 @@ class StorageManager:
                     if line:
                         dst.write(line + "\n")
                         restored += 1
-            logger.info(f"Restored {restored} previously collected rows from checkpoint into {current_staging_filepath}")
+            logger.info(f"[LOG-OBS: CARRIED_FORWARD_HISTORICAL] Restored {restored} previously collected rows from checkpoint into {current_staging_filepath} (distinguishable from fresh observations).")
         return restored
 
     def clear_checkpoint(self, store_id: str) -> None:
@@ -142,11 +142,11 @@ class StorageManager:
             )
             return False
 
-        # Category coverage check: Must not be drastically incomplete
-        if total_categories_expected > 0 and (categories_processed / total_categories_expected) < 0.8:
+        # Category coverage check: Strictly require 100% traversal completion (zero missing categories allowed)
+        if total_categories_expected > 0 and categories_processed < total_categories_expected:
             logger.error(
                 f"ABORTING DATASET COMMIT: Incomplete category coverage ({categories_processed}/{total_categories_expected}). "
-                f"Existing dataset will NOT be overwritten!"
+                f"All {total_categories_expected} expected subcategories must be fully completed before dataset publication!"
             )
             return False
 

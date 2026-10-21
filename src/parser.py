@@ -208,6 +208,14 @@ class MarianoPageParser:
                 ppm=ppm,           # Scraped verbatim or empty
                 unit_price=""      # Always empty string per requirements
             )
+
+            # Audit logging: Distinguish fresh on-shelf vs fresh out-of-stock in supporting logs
+            is_out_of_stock = bool(item.get("soldOut") or item.get("inStock") is False or item.get("isAvailable") is False)
+            if is_out_of_stock:
+                logger.info(f"[LOG-OBS: FRESH_OUT_OF_STOCK] Retaining out-of-stock item: {title} (UPC: {upc}) at source price ${regular_price}")
+            else:
+                logger.debug(f"[LOG-OBS: FRESH_ON_SHELF] In-stock observation: {title} (UPC: {upc})")
+
             results.append(record)
 
         return results

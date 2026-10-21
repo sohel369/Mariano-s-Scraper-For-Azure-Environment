@@ -30,20 +30,20 @@ def demonstrate_safety_and_recovery():
             json.dump(baseline_records, f)
         print(f"  • Existing Production Dataset: {len(baseline_records)} healthy records active.")
 
-        # Step B: Simulate an aborted / thin run with only 48 records (e.g. network dropped or blocked)
+        # Step B: Simulate an run with 510 records but incomplete category coverage (12/14 categories, missing 2)
         failed_staging = os.path.join(storage.staging_dir, "staging_failed_run.jsonl")
-        for i in range(48):
+        for i in range(510):
             storage.write_staging_record(failed_staging, {"upc": f"02222000{i:04d}", "title": f"Partial Item {i}"})
-        print(f"  • Incomplete Run Simulated: {48} items collected (below 500 threshold, 4/28 subcategories).")
+        print(f"  • Simulated Run: 510 items collected (meets 500 threshold, but only 12/14 categories complete - 2 missing).")
 
-        # Step C: Attempt promotion
+        # Step C: Attempt promotion under strict 100% traversal completion rule
         commit_res = storage.commit_dataset_atomic(
             store_id=store_id,
             staging_filepath=failed_staging,
             total_categories_expected=14,
-            categories_processed=4
+            categories_processed=12
         )
-        print(f"  • Quality Gate Evaluation Result: commit_dataset_atomic() -> {commit_res}")
+        print(f"  • Strict 100% Category Gate Evaluation: commit_dataset_atomic() -> {commit_res}")
         
         # Step D: Verify production file is intact
         with open(prod_file, "r", encoding="utf-8") as f:
@@ -51,7 +51,7 @@ def demonstrate_safety_and_recovery():
         print(f"  • Verification of Production Data: {len(intact_data)} records preserved (UNTOUCHED: PASS)")
         assert len(intact_data) == 560
         assert commit_res is False
-        print("  --> Result: Incomplete data was strictly refused. Production dataset is 100% protected.")
+        print("  --> Result: Publication strictly refused because 2 categories were incomplete. Production dataset 100% protected.")
 
         # -------------------------------------------------------------
         # DEMO 2: CHECKPOINT RESUMPTION & ROW RESTORATION
