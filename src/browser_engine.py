@@ -1,4 +1,5 @@
 import os
+import json
 import time
 import random
 import logging
@@ -108,72 +109,66 @@ class BrowserEngine:
             logger.warning(f"Failed to set store context cookies: {e}")
 
     def fetch_live_store_lookup(self, store_id: str, location_info: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Executes a real live network store lookup request to Mariano's (Kroger) API.
-        Issues a live HTTP request through the Playwright context.
-        If residential proxy is absent on non-US host, catches edge network timeout/block
-        and loads authentic recorded server evidence file with explicit provenance attribution.
+        """Fetch and return an actual retailer HTTP response for store verification.
+
+        No synthetic payload or disk fallback is allowed here. If the endpoint is
+        unavailable, blocked, non-JSON, or returns an unexpected store, the caller
+        must stop the collection run and report the failure.
         """
         if not self._context:
             self.start()
 
-        store_url = f"https://www.marianos.com/api/v1/locations/{store_id}"
-        logger.info(f"Issuing real live HTTP request for store lookup: {store_url}")
+        # Keep the endpoint configurable because retailer endpoint paths can change.
+        endpoint_template = os.environ.get(
+            "MARIANOS_STORE_LOOKUP_URL_TEMPLATE",
+            "https://www.marianos.com/api/v1/locations/{store_id}"
+        )
+        store_url = endpoint_template.format(store_id=store_id)
+        logger.info("Requesting live store lookup from configured retailer endpoint: %s", store_url)
 
+        timeout_ms = int(self.settings.get("store_lookup_timeout_ms", 12000))
+        response = self._context.request.get(
+            store_url,
+            timeout=timeout_ms,
+            headers={"Accept": "application/json"}
+        )
+        status = response.status
+        response_headers = dict(response.headers)
+        response_bytes = response.body()
+        response_hash = hashlib.sha256(response_bytes).hexdigest()
+
+        if not 200 <= status < 300:
+            raise RuntimeError(
+                f"Live store lookup failed with HTTP {status}; no replay fallback is permitted."
+            )
+        content_type = response_headers.get("content-type", "")
         try:
-            # Issue real network call via Playwright request context
-            response = self._context.request.get(
-                store_url,
-                headers={
-                    "Accept": "application/json, text/plain, */*",
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-                    "x-kroger-tenant": "marianos"
-                },
-                timeout=12000
-            )
-            status = response.status
-            headers_dict = dict(response.headers)
-            body_text = response.text()
-            logger.info(f"Live store lookup HTTP status: {status}")
+            payload = response.json()
+        except Exception as exc:
+            raise RuntimeError(
+                f"Live store lookup returned non-JSON content (content-type={content_type!r}); refusing to fabricate store data."
+            ) from exc
+        if not isinstance(payload, (dict, list)):
+            raise RuntimeError("Live store lookup JSON must be an object or list; refusing to infer store identity.")
 
-            if status == 200:
-                payload = json.loads(body_text)
-                return {
-                    "http_request": {
-                        "method": "GET",
-                        "url": store_url,
-                        "headers": {"x-kroger-tenant": "marianos", "x-kroger-store-id": store_id},
-                        "capture_timestamp": datetime.now(timezone.utc).isoformat()
-                    },
-                    "http_response": {
-                        "status_code": status,
-                        "status_text": "OK",
-                        "headers": headers_dict
-                    },
-                    "provenance": "live_retailer_network_capture",
-                    "raw_store_lookup_response": payload
-                }
-            elif status in (403, 429):
-                raise BotDetectionError(f"Akamai edge restricted store lookup: HTTP {status}")
-            else:
-                raise RuntimeError(f"Live store lookup returned non-200 status: {status}")
-
-        except Exception as e:
-            logger.warning(
-                f"Live network store lookup failed ({type(e).__name__}: {e}). "
-                f"Direct non-US connection encountered Akamai CDN edge restriction. "
-                f"Loading verified authentic recorded server evidence for schema validation."
-            )
-            # Load authentic recorded server payload from disk
-            base_dir = self.settings.get("base_dir") or os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-            evidence_file = os.path.join(base_dir, "data", "raw", f"marianos_raw_store_{store_id}_evidence.json")
-            if os.path.exists(evidence_file):
-                with open(evidence_file, "r", encoding="utf-8") as f:
-                    evidence_payload = json.load(f)
-                evidence_payload["provenance"] = "verified_server_replay_baseline"
-                evidence_payload["network_error_observed"] = f"{type(e).__name__}: {str(e)}"
-                return evidence_payload
-            raise
+        return {
+            "request_metadata": {
+                "request_url": response.url,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "method": "GET",
+                "requested_store_id": str(store_id),
+                "requested_fulfillment": "PICKUP"
+            },
+            "response_metadata": {
+                "status_code": status,
+                "headers": response_headers,
+                "content_type": content_type,
+                "content_length_bytes": len(response_bytes),
+                "body_sha256": response_hash,
+                "provenance_type": "fresh_live_http_response"
+            },
+            "raw_store_lookup_response": payload
+        }
 
     def fetch_page_with_provenance(
         self,
