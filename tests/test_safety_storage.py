@@ -50,3 +50,60 @@ def test_checkpoint_lifecycle(tmp_path):
     storage.clear_checkpoint(store_id)
     cp_after = storage.load_checkpoint(store_id)
     assert cp_after["completed_subcategories"] == []
+
+def test_row_restoration_on_resume(tmp_path):
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=10)
+    store_id = "53100503"
+    staging_file = os.path.join(storage.staging_dir, "staging_test_resume.jsonl")
+
+    # Phase 1: write 7 rows before simulated interruption
+    phase1_rows = [{"upc": f"01111000{i:04d}", "title": f"Product {i}"} for i in range(7)]
+    for r in phase1_rows:
+        storage.write_staging_record(staging_file, r)
+    
+    # Save checkpoint with rows snapshot
+    storage.save_checkpoint(
+        store_id=store_id,
+        completed_subcategories=["Fresh Produce::Fresh Fruits"],
+        scraped_ids=[r["upc"] for r in phase1_rows],
+        staged_records=phase1_rows
+    )
+
+    # Phase 2: Fresh session restores rows
+    fresh_staging = os.path.join(storage.staging_dir, "staging_fresh_resumed.jsonl")
+    restored_count = storage.restore_checkpoint_rows(store_id, fresh_staging)
+    assert restored_count == 7
+
+    # Phase 3: Append 8 more rows after resume
+    for i in range(7, 15):
+        storage.write_staging_record(fresh_staging, {"upc": f"01111000{i:04d}", "title": f"Product {i}"})
+
+    all_rows = storage.load_staging_records(fresh_staging)
+    assert len(all_rows) == 15
+    assert all_rows[0]["upc"] == "011110000000"
+    assert all_rows[14]["upc"] == "011110000014"
+
+def test_strict_100_percent_category_gate(tmp_path):
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=10)
+    store_id = "53100503"
+    staging_file = os.path.join(storage.staging_dir, "staging_gate_test.jsonl")
+    for i in range(15):
+        storage.write_staging_record(staging_file, {"upc": f"01111000{i:04d}"})
+
+    # Under strict 100% production gate, 4 out of 5 MUST FAIL
+    commit_4_of_5 = storage.commit_dataset_atomic(
+        store_id=store_id,
+        staging_filepath=staging_file,
+        total_categories_expected=5,
+        categories_processed=4
+    )
+    assert commit_4_of_5 is False
+
+    # Only 5 out of 5 (100%) succeeds
+    commit_5_of_5 = storage.commit_dataset_atomic(
+        store_id=store_id,
+        staging_filepath=staging_file,
+        total_categories_expected=5,
+        categories_processed=5
+    )
+    assert commit_5_of_5 is True

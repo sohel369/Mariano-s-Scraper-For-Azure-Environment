@@ -1,0 +1,409 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Frozen Foods",
+    "sub_category": "Ice Cream & Frozen Desserts",
+    "source_url": "https://www.marianos.com/c/ice-cream/08002",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.405914+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "072180001016",
+        "name": "Red Baron Classic Crust Pepperoni Frozen Pizza 20.6 oz",
+        "brand": "Red",
+        "packageInfo": {
+          "weight": "20.6 oz",
+          "packageSize": "20.6 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.19/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "3 for $11",
+          "volumeDealPrice": "11.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/red-baron-classic-crust-pepperoni-frozen-pizza-20-6-oz/072180001016",
+        "image": "https://www.kroger.com/product/images/large/front/072180001016",
+        "ppm": "$0.19/oz"
+      },
+      {
+        "upc": "077900002014",
+        "name": "Jimmy Dean Sausage Egg & Cheese Croissant Sandwiches 4ct",
+        "brand": "Jimmy",
+        "packageInfo": {
+          "weight": "18 oz",
+          "packageSize": "18 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": {
+            "price": 6.99,
+            "priceString": "$6.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.33/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/jimmy-dean-sausage-egg-cheese-croissant-sandwiches-4ct/077900002014",
+        "image": "https://www.kroger.com/product/images/large/front/077900002014",
+        "ppm": "$0.33/oz"
+      },
+      {
+        "upc": "043695001013",
+        "name": "Hot Pockets Pepperoni Pizza Frozen Sandwiches 2ct 9 oz",
+        "brand": "Hot",
+        "packageInfo": {
+          "weight": "9 oz",
+          "packageSize": "9 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.29,
+            "priceString": "$3.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.37/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "3 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/hot-pockets-pepperoni-pizza-frozen-sandwiches-2ct-9-oz/043695001013",
+        "image": "https://www.kroger.com/product/images/large/front/043695001013",
+        "ppm": "$0.37/oz"
+      },
+      {
+        "upc": "076840001019",
+        "name": "Ben & Jerry's Half Baked Ice Cream 16 fl oz Pint",
+        "brand": "Ben",
+        "packageInfo": {
+          "weight": "16 fl oz",
+          "packageSize": "16 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "wasPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.28/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $8",
+          "volumeDealPrice": "8.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/ben-jerry-s-half-baked-ice-cream-16-fl-oz-pint/076840001019",
+        "image": "https://www.kroger.com/product/images/large/front/076840001019",
+        "ppm": "$0.28/fl oz"
+      },
+      {
+        "upc": "074570001019",
+        "name": "Häagen-Dazs Vanilla Bean Ice Cream 14 fl oz Pint",
+        "brand": "Häagen-Dazs",
+        "packageInfo": {
+          "weight": "14 fl oz",
+          "packageSize": "14 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "wasPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.32/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $8",
+          "volumeDealPrice": "8.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/h-agen-dazs-vanilla-bean-ice-cream-14-fl-oz-pint/074570001019",
+        "image": "https://www.kroger.com/product/images/large/front/074570001019",
+        "ppm": "$0.32/fl oz"
+      },
+      {
+        "upc": "011110919250",
+        "name": "Private Selection Denali Extreme Moose Tracks Ice Cream 48 fl oz",
+        "brand": "Private",
+        "packageInfo": {
+          "weight": "48 fl oz",
+          "packageSize": "48 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.08/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $0.50",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/private-selection-denali-extreme-moose-tracks-ice-cream-48-fl-oz/011110919250",
+        "image": "https://www.kroger.com/product/images/large/front/011110919250",
+        "ppm": "$0.08/fl oz"
+      },
+      {
+        "upc": "011110818263",
+        "name": "Roundy's Real Dairy Vanilla Ice Cream 48 fl oz Tub",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "48 fl oz",
+          "packageSize": "48 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.06/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-real-dairy-vanilla-ice-cream-48-fl-oz-tub/011110818263",
+        "image": "https://www.kroger.com/product/images/large/front/011110818263",
+        "ppm": "$0.06/fl oz"
+      },
+      {
+        "upc": "077567001016",
+        "name": "Breyers Natural Vanilla Ice Cream 48 fl oz Tub",
+        "brand": "Breyers",
+        "packageInfo": {
+          "weight": "48 fl oz",
+          "packageSize": "48 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.08/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/breyers-natural-vanilla-ice-cream-48-fl-oz-tub/077567001016",
+        "image": "https://www.kroger.com/product/images/large/front/077567001016",
+        "ppm": "$0.08/fl oz"
+      },
+      {
+        "upc": "041548001012",
+        "name": "Outshine Strawberry Fruit Bars 6ct 14.7 fl oz Box",
+        "brand": "Outshine",
+        "packageInfo": {
+          "weight": "14.7 fl oz",
+          "packageSize": "14.7 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": {
+            "price": 4.79,
+            "priceString": "$4.79"
+          },
+          "unitPrice": {
+            "priceString": "$0.27/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/outshine-strawberry-fruit-bars-6ct-14-7-fl-oz-box/041548001012",
+        "image": "https://www.kroger.com/product/images/large/front/041548001012",
+        "ppm": "$0.27/fl oz"
+      },
+      {
+        "upc": "075856001013",
+        "name": "Klondike Original Ice Cream Bars 6ct 24 fl oz Box",
+        "brand": "Klondike",
+        "packageInfo": {
+          "weight": "24 fl oz",
+          "packageSize": "24 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.79,
+            "priceString": "$3.79"
+          },
+          "wasPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.16/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/klondike-original-ice-cream-bars-6ct-24-fl-oz-box/075856001013",
+        "image": "https://www.kroger.com/product/images/large/front/075856001013",
+        "ppm": "$0.16/fl oz"
+      }
+    ]
+  }
+}

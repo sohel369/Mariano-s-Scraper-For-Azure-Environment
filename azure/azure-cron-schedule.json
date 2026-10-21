@@ -1,7 +1,29 @@
 {
   "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
   "contentVersion": "1.0.0.0",
-  "parameters": {},
+  "parameters": {
+    "subscriptionId": {
+      "type": "String",
+      "defaultValue": "00000000-0000-0000-0000-000000000000",
+      "metadata": {
+        "description": "Azure Subscription ID for Mariano's Production Pipeline"
+      }
+    },
+    "resourceGroup": {
+      "type": "String",
+      "defaultValue": "rg-marianos-scraper-prod",
+      "metadata": {
+        "description": "Resource Group containing the Container Instance"
+      }
+    },
+    "containerGroupName": {
+      "type": "String",
+      "defaultValue": "aci-marianos-scraper-job",
+      "metadata": {
+        "description": "Target ACI Container Group Name"
+      }
+    }
+  },
   "triggers": {
     "Recurrence_Twice_Weekly": {
       "type": "Recurrence",

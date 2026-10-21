@@ -1,0 +1,913 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Deli",
+    "sub_category": "Sliced Deli Meats & Cheeses",
+    "source_url": "https://www.marianos.com/c/deli-meat-cheese/05001",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.348485+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "011110916013",
+        "name": "Private Selection Applewood Smoked Ham Pre-Sliced 8 oz",
+        "brand": "Private",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.29,
+            "priceString": "$4.29"
+          },
+          "wasPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.54/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $0.75",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/private-selection-applewood-smoked-ham-pre-sliced-8-oz/011110916013",
+        "image": "https://www.kroger.com/product/images/large/front/011110916013",
+        "ppm": "$0.54/oz"
+      },
+      {
+        "upc": "011110916020",
+        "name": "Private Selection Oven Roasted Turkey Breast 8 oz",
+        "brand": "Private",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.29,
+            "priceString": "$4.29"
+          },
+          "wasPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.54/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $0.75",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/private-selection-oven-roasted-turkey-breast-8-oz/011110916020",
+        "image": "https://www.kroger.com/product/images/large/front/011110916020",
+        "ppm": "$0.54/oz"
+      },
+      {
+        "upc": "011110916037",
+        "name": "Private Selection Roast Beef Pre-Sliced 8 oz",
+        "brand": "Private",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.75/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $10",
+          "volumeDealPrice": "10.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/private-selection-roast-beef-pre-sliced-8-oz/011110916037",
+        "image": "https://www.kroger.com/product/images/large/front/011110916037",
+        "ppm": "$0.75/oz"
+      },
+      {
+        "upc": "011110926043",
+        "name": "Mariano's Signature Rotisserie Chicken Hot & Ready 30 oz",
+        "brand": "Mariano's",
+        "packageInfo": {
+          "weight": "30 oz",
+          "packageSize": "30 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 7.99,
+            "priceString": "$7.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.27/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/mariano-s-signature-rotisserie-chicken-hot-ready-30-oz/011110926043",
+        "image": "https://www.kroger.com/product/images/large/front/011110926043",
+        "ppm": "$0.27/oz"
+      },
+      {
+        "upc": "011110926074",
+        "name": "Mariano's Creamy Coleslaw 16 oz Tub",
+        "brand": "Mariano's",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.29,
+            "priceString": "$3.29"
+          },
+          "wasPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.21/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/mariano-s-creamy-coleslaw-16-oz-tub/011110926074",
+        "image": "https://www.kroger.com/product/images/large/front/011110926074",
+        "ppm": "$0.21/oz"
+      },
+      {
+        "upc": "011110966087",
+        "name": "Murray's Cheese Fresh Mozzarella Ball 8 oz",
+        "brand": "Murray's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.62/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $8",
+          "volumeDealPrice": "8.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/murray-s-cheese-fresh-mozzarella-ball-8-oz/011110966087",
+        "image": "https://www.kroger.com/product/images/large/front/011110966087",
+        "ppm": "$0.62/oz"
+      },
+      {
+        "upc": "011110966094",
+        "name": "Murray's Cheese Grated Parmesan 8 oz Tub",
+        "brand": "Murray's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.79,
+            "priceString": "$4.79"
+          },
+          "wasPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.60/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/murray-s-cheese-grated-parmesan-8-oz-tub/011110966094",
+        "image": "https://www.kroger.com/product/images/large/front/011110966094",
+        "ppm": "$0.60/oz"
+      },
+      {
+        "upc": "011110966100",
+        "name": "Murray's Cheese Brie Wheel 7 oz",
+        "brand": "Murray's",
+        "packageInfo": {
+          "weight": "7 oz",
+          "packageSize": "7 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.86/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/murray-s-cheese-brie-wheel-7-oz/011110966100",
+        "image": "https://www.kroger.com/product/images/large/front/011110966100",
+        "ppm": "$0.86/oz"
+      },
+      {
+        "upc": "011110916112",
+        "name": "Private Selection Genoa Salami Slices 4 oz Pack",
+        "brand": "Private",
+        "packageInfo": {
+          "weight": "4 oz",
+          "packageSize": "4 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.00/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "3 for $10",
+          "volumeDealPrice": "10.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/private-selection-genoa-salami-slices-4-oz-pack/011110916112",
+        "image": "https://www.kroger.com/product/images/large/front/011110916112",
+        "ppm": "$1.00/oz"
+      },
+      {
+        "upc": "011110916129",
+        "name": "Private Selection Prosciutto di Parma 4 oz Pack",
+        "brand": "Private",
+        "packageInfo": {
+          "weight": "4 oz",
+          "packageSize": "4 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "unitPrice": {
+            "priceString": "$1.25/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/private-selection-prosciutto-di-parma-4-oz-pack/011110916129",
+        "image": "https://www.kroger.com/product/images/large/front/011110916129",
+        "ppm": "$1.25/oz"
+      },
+      {
+        "upc": "011110815132",
+        "name": "Roundy's Deli Style Sliced Swiss Cheese 8 oz",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.37/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-deli-style-sliced-swiss-cheese-8-oz/011110815132",
+        "image": "https://www.kroger.com/product/images/large/front/011110815132",
+        "ppm": "$0.37/oz"
+      },
+      {
+        "upc": "011110815149",
+        "name": "Roundy's Deli Style Sliced Provolone Cheese 8 oz",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.37/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-deli-style-sliced-provolone-cheese-8-oz/011110815149",
+        "image": "https://www.kroger.com/product/images/large/front/011110815149",
+        "ppm": "$0.37/oz"
+      },
+      {
+        "upc": "028400002011",
+        "name": "Stacy's Simply Naked Pita Chips 7.33 oz Bag",
+        "brand": "Stacy's",
+        "packageInfo": {
+          "weight": "7.33 oz",
+          "packageSize": "7.33 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.61/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/stacy-s-simply-naked-pita-chips-7-33-oz-bag/028400002011",
+        "image": "https://www.kroger.com/product/images/large/front/028400002011",
+        "ppm": "$0.61/oz"
+      },
+      {
+        "upc": "042421001013",
+        "name": "Boar's Head Ovengold Roasted Turkey Breast Pre-Pack 8 oz",
+        "brand": "Boar's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 7.49,
+            "priceString": "$7.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.94/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/boar-s-head-ovengold-roasted-turkey-breast-pre-pack-8-oz/042421001013",
+        "image": "https://www.kroger.com/product/images/large/front/042421001013",
+        "ppm": "$0.94/oz"
+      },
+      {
+        "upc": "042421001020",
+        "name": "Boar's Head Simplicity All Natural Applewood Ham 8 oz",
+        "brand": "Boar's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 7.49,
+            "priceString": "$7.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.94/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/boar-s-head-simplicity-all-natural-applewood-ham-8-oz/042421001020",
+        "image": "https://www.kroger.com/product/images/large/front/042421001020",
+        "ppm": "$0.94/oz"
+      },
+      {
+        "upc": "011110916266",
+        "name": "Private Selection Spanish Green Stuffed Queen Olives 10 oz",
+        "brand": "Private",
+        "packageInfo": {
+          "weight": "10 oz",
+          "packageSize": "10 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.45/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/private-selection-spanish-green-stuffed-queen-olives-10-oz/011110916266",
+        "image": "https://www.kroger.com/product/images/large/front/011110916266",
+        "ppm": "$0.45/oz"
+      },
+      {
+        "upc": "011110916273",
+        "name": "Private Selection Kalamata Olives Pitted 10 oz Jar",
+        "brand": "Private",
+        "packageInfo": {
+          "weight": "10 oz",
+          "packageSize": "10 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.29,
+            "priceString": "$4.29"
+          },
+          "wasPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.43/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/private-selection-kalamata-olives-pitted-10-oz-jar/011110916273",
+        "image": "https://www.kroger.com/product/images/large/front/011110916273",
+        "ppm": "$0.43/oz"
+      },
+      {
+        "upc": "011110926289",
+        "name": "Mariano's Fresh Cut Fruit Bowl Cantaloupe & Melon 16 oz",
+        "brand": "Mariano's",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.31/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $8",
+          "volumeDealPrice": "8.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/mariano-s-fresh-cut-fruit-bowl-cantaloupe-melon-16-oz/011110926289",
+        "image": "https://www.kroger.com/product/images/large/front/011110926289",
+        "ppm": "$0.31/oz"
+      },
+      {
+        "upc": "011110926296",
+        "name": "Mariano's Fresh Cut Watermelon Chunks 16 oz Bowl",
+        "brand": "Mariano's",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.31/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $8",
+          "volumeDealPrice": "8.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/mariano-s-fresh-cut-watermelon-chunks-16-oz-bowl/011110926296",
+        "image": "https://www.kroger.com/product/images/large/front/011110926296",
+        "ppm": "$0.31/oz"
+      },
+      {
+        "upc": "011110815309",
+        "name": "Roundy's Honey Cured Ham Slices 9 oz Tub",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "9 oz",
+          "packageSize": "9 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.33/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-honey-cured-ham-slices-9-oz-tub/011110815309",
+        "image": "https://www.kroger.com/product/images/large/front/011110815309",
+        "ppm": "$0.33/oz"
+      },
+      {
+        "upc": "011110815316",
+        "name": "Roundy's Smoked Turkey Breast Slices 9 oz Tub",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "9 oz",
+          "packageSize": "9 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.33/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-smoked-turkey-breast-slices-9-oz-tub/011110815316",
+        "image": "https://www.kroger.com/product/images/large/front/011110815316",
+        "ppm": "$0.33/oz"
+      },
+      {
+        "upc": "044500001013",
+        "name": "Hillshire Farm Ultra Thin Oven Roasted Turkey Breast 9 oz",
+        "brand": "Hillshire",
+        "packageInfo": {
+          "weight": "9 oz",
+          "packageSize": "9 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.29,
+            "priceString": "$4.29"
+          },
+          "wasPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.48/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $0.75",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/hillshire-farm-ultra-thin-oven-roasted-turkey-breast-9-oz/044500001013",
+        "image": "https://www.kroger.com/product/images/large/front/044500001013",
+        "ppm": "$0.48/oz"
+      },
+      {
+        "upc": "011110926333",
+        "name": "Mariano's Chicken Tenders Crispy Hand Breaded 1 lb",
+        "brand": "Mariano's",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 8.99,
+            "priceString": "$8.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.56/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/mariano-s-chicken-tenders-crispy-hand-breaded-1-lb/011110926333",
+        "image": "https://www.kroger.com/product/images/large/front/011110926333",
+        "ppm": "$0.56/oz"
+      },
+      {
+        "upc": "011110926340",
+        "name": "Mariano's Pulled Pork BBQ Container 16 oz",
+        "brand": "Mariano's",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 6.99,
+            "priceString": "$6.99"
+          },
+          "wasPrice": {
+            "price": 7.99,
+            "priceString": "$7.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.44/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/mariano-s-pulled-pork-bbq-container-16-oz/011110926340",
+        "image": "https://www.kroger.com/product/images/large/front/011110926340",
+        "ppm": "$0.44/oz"
+      },
+      {
+        "upc": "011110916358",
+        "name": "Private Selection Sopressata Slices 4 oz Pack",
+        "brand": "Private",
+        "packageInfo": {
+          "weight": "4 oz",
+          "packageSize": "4 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.00/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "3 for $10",
+          "volumeDealPrice": "10.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/private-selection-sopressata-slices-4-oz-pack/011110916358",
+        "image": "https://www.kroger.com/product/images/large/front/011110916358",
+        "ppm": "$1.00/oz"
+      }
+    ]
+  }
+}

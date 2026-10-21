@@ -1,0 +1,281 @@
+{
+  "audit_metadata": {
+    "retailer": "Mariano's (The Kroger Co.)",
+    "contest_entry": "Mariano's Entry #36",
+    "version": "v2.0-PROD (Authoritative Release)",
+    "audit_timestamp": "2026-10-21T04:57:41.492832+00:00",
+    "target_store": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "address": "333 E Benton Pl, Chicago, IL 60601",
+      "fulfillment_modality": "PICKUP"
+    }
+  },
+  "reconciliation_summary": {
+    "total_raw_source_items": 560,
+    "total_output_records": 560,
+    "reconciled_count": 560,
+    "match_percentage": 100.0,
+    "mismatches_detected": 0,
+    "total_categories_covered": 28,
+    "exact_22_field_order": true,
+    "zero_null_values": true,
+    "reserved_fields_empty": true
+  },
+  "category_sections_breakdown": [
+    {
+      "response_file": "category_01_fresh_produce_fresh_fruits_raw_response.json",
+      "category": "Fresh Produce",
+      "sub_category": "Fresh Fruits",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 11
+    },
+    {
+      "response_file": "category_02_fresh_produce_fresh_vegetables_raw_response.json",
+      "category": "Fresh Produce",
+      "sub_category": "Fresh Vegetables",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 24
+    },
+    {
+      "response_file": "category_03_meat_seafood_poultry_fresh_meat_raw_response.json",
+      "category": "Meat & Seafood",
+      "sub_category": "Poultry & Fresh Meat",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 29
+    },
+    {
+      "response_file": "category_04_meat_seafood_seafood_shellfish_raw_response.json",
+      "category": "Meat & Seafood",
+      "sub_category": "Seafood & Shellfish",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 6
+    },
+    {
+      "response_file": "category_05_dairy_eggs_milk_plant_alternatives_raw_response.json",
+      "category": "Dairy & Eggs",
+      "sub_category": "Milk & Plant Alternatives",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 14
+    },
+    {
+      "response_file": "category_06_dairy_eggs_eggs_butter_yogurt_raw_response.json",
+      "category": "Dairy & Eggs",
+      "sub_category": "Eggs Butter & Yogurt",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 31
+    },
+    {
+      "response_file": "category_07_bakery_fresh_bread_rolls_raw_response.json",
+      "category": "Bakery",
+      "sub_category": "Fresh Bread & Rolls",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 20
+    },
+    {
+      "response_file": "category_08_bakery_pastries_cakes_pies_raw_response.json",
+      "category": "Bakery",
+      "sub_category": "Pastries Cakes & Pies",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 15
+    },
+    {
+      "response_file": "category_09_deli_sliced_deli_meats_cheeses_raw_response.json",
+      "category": "Deli",
+      "sub_category": "Sliced Deli Meats & Cheeses",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 25
+    },
+    {
+      "response_file": "category_10_deli_prepared_dips_ready_meals_raw_response.json",
+      "category": "Deli",
+      "sub_category": "Prepared Dips & Ready Meals",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 10
+    },
+    {
+      "response_file": "category_11_pantry_canned_goods_soups_grains_raw_response.json",
+      "category": "Pantry",
+      "sub_category": "Canned Goods Soups & Grains",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 39
+    },
+    {
+      "response_file": "category_12_pantry_snacks_condiments_sauces_raw_response.json",
+      "category": "Pantry",
+      "sub_category": "Snacks Condiments & Sauces",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 16
+    },
+    {
+      "response_file": "category_13_beverages_bottled_water_soft_drinks_raw_response.json",
+      "category": "Beverages",
+      "sub_category": "Bottled Water & Soft Drinks",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 25
+    },
+    {
+      "response_file": "category_14_beverages_coffee_tea_fruit_juices_raw_response.json",
+      "category": "Beverages",
+      "sub_category": "Coffee Tea & Fruit Juices",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 20
+    },
+    {
+      "response_file": "category_15_frozen_foods_frozen_meals_entrees_raw_response.json",
+      "category": "Frozen Foods",
+      "sub_category": "Frozen Meals & Entrees",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 30
+    },
+    {
+      "response_file": "category_16_frozen_foods_ice_cream_frozen_desserts_raw_response.json",
+      "category": "Frozen Foods",
+      "sub_category": "Ice Cream & Frozen Desserts",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 10
+    },
+    {
+      "response_file": "category_17_natural_organic_organic_produce_dairy_raw_response.json",
+      "category": "Natural & Organic",
+      "sub_category": "Organic Produce & Dairy",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 5
+    },
+    {
+      "response_file": "category_18_natural_organic_organic_pantry_snacks_raw_response.json",
+      "category": "Natural & Organic",
+      "sub_category": "Organic Pantry & Snacks",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 35
+    },
+    {
+      "response_file": "category_19_cleaning_household_laundry_care_paper_goods_raw_response.json",
+      "category": "Cleaning & Household",
+      "sub_category": "Laundry Care & Paper Goods",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 28
+    },
+    {
+      "response_file": "category_20_cleaning_household_surface_cleaners_dish_care_raw_response.json",
+      "category": "Cleaning & Household",
+      "sub_category": "Surface Cleaners & Dish Care",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 17
+    },
+    {
+      "response_file": "category_21_personal_care_body_wash_hair_care_raw_response.json",
+      "category": "Personal Care",
+      "sub_category": "Body Wash & Hair Care",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 27
+    },
+    {
+      "response_file": "category_22_personal_care_oral_care_deodorants_raw_response.json",
+      "category": "Personal Care",
+      "sub_category": "Oral Care & Deodorants",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 8
+    },
+    {
+      "response_file": "category_23_health_wellness_vitamins_nutrition_raw_response.json",
+      "category": "Health & Wellness",
+      "sub_category": "Vitamins & Nutrition",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 20
+    },
+    {
+      "response_file": "category_24_health_wellness_otc_medicine_first_aid_raw_response.json",
+      "category": "Health & Wellness",
+      "sub_category": "OTC Medicine & First Aid",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 15
+    },
+    {
+      "response_file": "category_25_baby_care_baby_food_formula_raw_response.json",
+      "category": "Baby Care",
+      "sub_category": "Baby Food & Formula",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 19
+    },
+    {
+      "response_file": "category_26_baby_care_diapers_wipes_baby_bath_raw_response.json",
+      "category": "Baby Care",
+      "sub_category": "Diapers Wipes & Baby Bath",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 21
+    },
+    {
+      "response_file": "category_27_pet_care_dog_food_treats_raw_response.json",
+      "category": "Pet Care",
+      "sub_category": "Dog Food & Treats",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 25
+    },
+    {
+      "response_file": "category_28_pet_care_cat_food_litter_raw_response.json",
+      "category": "Pet Care",
+      "sub_category": "Cat Food & Litter",
+      "store_id_verified": "53100503",
+      "postal_code": "60601",
+      "pickup_active": true,
+      "items_yield": 15
+    }
+  ]
+}

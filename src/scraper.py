@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import time
 import logging
 from datetime import datetime, timezone
@@ -66,23 +67,31 @@ class MarianoProductionScraper:
             f"ZIP={location.get('zipcode')}, ID={store_id}, Mode=In-Store/Pickup"
         )
 
-        # Validate Store Fulfillment Context directly from Unmodified Retailer Response
+        # Validate Store Fulfillment Context directly from Unmodified Retailer Response (MANDATORY GATE)
         raw_evidence_path = os.path.join(self.storage.base_dir, "data", "raw", "marianos_raw_store_53100503_evidence.json")
-        if os.path.exists(raw_evidence_path):
-            try:
-                with open(raw_evidence_path, "r", encoding="utf-8") as f:
-                    evidence_data = json.load(f)
-                # Pass authentic raw_store_lookup_response directly without artificial wrappers
-                raw_response = evidence_data.get("raw_store_lookup_response") or evidence_data
-                validated_ctx = self.parser.validate_store_fulfillment_response(raw_response, expected_store_id=store_id)
-                logger.info(
-                    f"Response-based store verification PASSED: Location={validated_ctx['verified_store_id']} "
-                    f"({validated_ctx['store_name']}), Address='{validated_ctx['store_location']}', "
-                    f"Modality={validated_ctx['fulfillment_modality']}"
-                )
-            except Exception as ve:
-                logger.error(f"Store verification failed: {ve}")
-                raise
+        if not os.path.exists(raw_evidence_path):
+            # Also check responses dir fallback
+            fallback_resp = os.path.join(self.storage.base_dir, "data", "raw", "responses", "category_01_fresh_produce_fresh_fruits_raw_response.json")
+            if os.path.exists(fallback_resp):
+                raw_evidence_path = fallback_resp
+            else:
+                logger.error(f"CRITICAL: Mandatory store evidence file missing at {raw_evidence_path}. Halting execution.")
+                raise FileNotFoundError(f"Store verification evidence missing: {raw_evidence_path}")
+
+        try:
+            with open(raw_evidence_path, "r", encoding="utf-8") as f:
+                evidence_data = json.load(f)
+            # Pass authentic raw_store_lookup_response directly without artificial wrappers
+            raw_response = evidence_data.get("raw_store_lookup_response") or evidence_data
+            validated_ctx = self.parser.validate_store_fulfillment_response(raw_response, expected_store_id=store_id)
+            logger.info(
+                f"Response-based store verification PASSED: Location={validated_ctx['verified_store_id']} "
+                f"({validated_ctx['store_name']}), Address='{validated_ctx['store_location']}', "
+                f"Modality={validated_ctx['fulfillment_modality']}"
+            )
+        except Exception as ve:
+            logger.error(f"Mandatory response-based store verification failed: {ve}")
+            raise
 
         # 2. Setup Staging and Checkpoints
         run_timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
@@ -237,10 +246,18 @@ class MarianoProductionScraper:
         runtime_seconds = round(time.time() - start_time, 2)
         staging_records = self.storage.load_staging_records(staging_filepath)
 
-        # Check Canary Product
-        self.anti_bot.verify_canary_product(staging_records)
+        # Check Canary Product & Enforce Publication Gate
+        canary_valid = self.anti_bot.verify_canary_product(staging_records)
+        if not canary_valid:
+            logger.error("Canary verification FAILED! Publication blocked by quality gate.")
+            return {
+                "error": "Canary product verification failed",
+                "atomic_commit_successful": False,
+                "runtime_seconds": runtime_seconds,
+                "records_collected": len(staging_records)
+            }
 
-        # Atomic commit to production
+        # Atomic commit to production with strict 100% category requirement
         is_committed = self.storage.commit_dataset_atomic(
             store_id=store_id,
             staging_filepath=staging_filepath,

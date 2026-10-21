@@ -1,0 +1,871 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Fresh Produce",
+    "sub_category": "Fresh Vegetables",
+    "source_url": "https://www.marianos.com/c/fresh-vegetables/01002",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.302532+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "011110852014",
+        "name": "Simple Truth Organic Baby Spinach 16 oz Tub",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.31/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-baby-spinach-16-oz-tub/011110852014",
+        "image": "https://www.kroger.com/product/images/large/front/011110852014",
+        "ppm": "$0.31/oz"
+      },
+      {
+        "upc": "011110852021",
+        "name": "Simple Truth Organic Spring Mix 16 oz Tub",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.37/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $10",
+          "volumeDealPrice": "10.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-spring-mix-16-oz-tub/011110852021",
+        "image": "https://www.kroger.com/product/images/large/front/011110852021",
+        "ppm": "$0.37/oz"
+      },
+      {
+        "upc": "011110811035",
+        "name": "Roundy's Russet Potatoes 5 lb Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "5 lb",
+          "packageSize": "5 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.70/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-russet-potatoes-5-lb-bag/011110811035",
+        "image": "https://www.kroger.com/product/images/large/front/011110811035",
+        "ppm": "$0.70/lb"
+      },
+      {
+        "upc": "011110811042",
+        "name": "Simple Truth Organic Yellow Onions 3 lb Bag",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "3 lb",
+          "packageSize": "3 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.29,
+            "priceString": "$3.29"
+          },
+          "wasPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "unitPrice": {
+            "priceString": "$1.10/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-yellow-onions-3-lb-bag/011110811042",
+        "image": "https://www.kroger.com/product/images/large/front/011110811042",
+        "ppm": "$1.10/lb"
+      },
+      {
+        "upc": "011110811059",
+        "name": "Roundy's Baby Carrots 1 lb Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.79,
+            "priceString": "$1.79"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.11/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $3",
+          "volumeDealPrice": "3.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-baby-carrots-1-lb-bag/011110811059",
+        "image": "https://www.kroger.com/product/images/large/front/011110811059",
+        "ppm": "$0.11/oz"
+      },
+      {
+        "upc": "011110811066",
+        "name": "Simple Truth Organic Whole Carrots 2 lb Bag",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "2 lb",
+          "packageSize": "2 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.50/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-whole-carrots-2-lb-bag/011110811066",
+        "image": "https://www.kroger.com/product/images/large/front/011110811066",
+        "ppm": "$1.50/lb"
+      },
+      {
+        "upc": "071430001011",
+        "name": "Dole Classic Romaine Salad Mix 9 oz",
+        "brand": "Dole",
+        "packageInfo": {
+          "weight": "9 oz",
+          "packageSize": "9 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.5,
+            "priceString": "$2.50"
+          },
+          "wasPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.28/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/dole-classic-romaine-salad-mix-9-oz/071430001011",
+        "image": "https://www.kroger.com/product/images/large/front/071430001011",
+        "ppm": "$0.28/oz"
+      },
+      {
+        "upc": "071279001029",
+        "name": "Fresh Express Iceberg Garden Salad 12 oz",
+        "brand": "Fresh",
+        "packageInfo": {
+          "weight": "12 oz",
+          "packageSize": "12 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.49,
+            "priceString": "$2.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.21/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $4",
+          "volumeDealPrice": "4.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/fresh-express-iceberg-garden-salad-12-oz/071279001029",
+        "image": "https://www.kroger.com/product/images/large/front/071279001029",
+        "ppm": "$0.21/oz"
+      },
+      {
+        "upc": "011110811165",
+        "name": "Roundy's Mini Sweet Peppers 1 lb Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.22/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $6",
+          "volumeDealPrice": "6.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-mini-sweet-peppers-1-lb-bag/011110811165",
+        "image": "https://www.kroger.com/product/images/large/front/011110811165",
+        "ppm": "$0.22/oz"
+      },
+      {
+        "upc": "011110811189",
+        "name": "Roundy's Whole White Mushrooms 8 oz",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.19,
+            "priceString": "$2.19"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.27/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $4",
+          "volumeDealPrice": "4.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-whole-white-mushrooms-8-oz/011110811189",
+        "image": "https://www.kroger.com/product/images/large/front/011110811189",
+        "ppm": "$0.27/oz"
+      },
+      {
+        "upc": "011110811196",
+        "name": "Roundy's Sliced Baby Bella Mushrooms 8 oz",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.19,
+            "priceString": "$2.19"
+          },
+          "wasPrice": {
+            "price": 2.49,
+            "priceString": "$2.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.27/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-sliced-baby-bella-mushrooms-8-oz/011110811196",
+        "image": "https://www.kroger.com/product/images/large/front/011110811196",
+        "ppm": "$0.27/oz"
+      },
+      {
+        "upc": "011110852205",
+        "name": "Simple Truth Organic Whole Cremini Mushrooms 8 oz",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.37/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-whole-cremini-mushrooms-8-oz/011110852205",
+        "image": "https://www.kroger.com/product/images/large/front/011110852205",
+        "ppm": "$0.37/oz"
+      },
+      {
+        "upc": "011110811219",
+        "name": "Roundy's Fresh Cut Broccoli Florets 12 oz Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "12 oz",
+          "packageSize": "12 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.25/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-fresh-cut-broccoli-florets-12-oz-bag/011110811219",
+        "image": "https://www.kroger.com/product/images/large/front/011110811219",
+        "ppm": "$0.25/oz"
+      },
+      {
+        "upc": "011110811226",
+        "name": "Roundy's Fresh Cut Cauliflower Florets 10 oz Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "10 oz",
+          "packageSize": "10 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.30/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-fresh-cut-cauliflower-florets-10-oz-bag/011110811226",
+        "image": "https://www.kroger.com/product/images/large/front/011110811226",
+        "ppm": "$0.30/oz"
+      },
+      {
+        "upc": "011110852236",
+        "name": "Simple Truth Organic Cut Green Beans 12 oz Bag",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "12 oz",
+          "packageSize": "12 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.25/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-cut-green-beans-12-oz-bag/011110852236",
+        "image": "https://www.kroger.com/product/images/large/front/011110852236",
+        "ppm": "$0.25/oz"
+      },
+      {
+        "upc": "011110811240",
+        "name": "Roundy's Sugar Snap Peas 8 oz Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.79,
+            "priceString": "$2.79"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.35/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-sugar-snap-peas-8-oz-bag/011110811240",
+        "image": "https://www.kroger.com/product/images/large/front/011110811240",
+        "ppm": "$0.35/oz"
+      },
+      {
+        "upc": "011110811257",
+        "name": "Roundy's Fresh Asparagus 1 lb Bundle",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.19/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-fresh-asparagus-1-lb-bundle/011110811257",
+        "image": "https://www.kroger.com/product/images/large/front/011110811257",
+        "ppm": "$0.19/oz"
+      },
+      {
+        "upc": "011110852267",
+        "name": "Simple Truth Organic Fresh Basil 0.75 oz Clamshell",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "0.75 oz",
+          "packageSize": "0.75 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.49,
+            "priceString": "$2.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$3.32/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-fresh-basil-0-75-oz-clamshell/011110852267",
+        "image": "https://www.kroger.com/product/images/large/front/011110852267",
+        "ppm": "$3.32/oz"
+      },
+      {
+        "upc": "011110852274",
+        "name": "Simple Truth Organic Fresh Cilantro 0.75 oz Clamshell",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "0.75 oz",
+          "packageSize": "0.75 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.49,
+            "priceString": "$2.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$3.32/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-fresh-cilantro-0-75-oz-clamshell/011110852274",
+        "image": "https://www.kroger.com/product/images/large/front/011110852274",
+        "ppm": "$3.32/oz"
+      },
+      {
+        "upc": "011110811288",
+        "name": "Roundy's Whole Peeled Garlic 6 oz Tub",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "6 oz",
+          "packageSize": "6 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.50/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-whole-peeled-garlic-6-oz-tub/011110811288",
+        "image": "https://www.kroger.com/product/images/large/front/011110811288",
+        "ppm": "$0.50/oz"
+      },
+      {
+        "upc": "011110852298",
+        "name": "Simple Truth Organic Ginger Root 8 oz Bag",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.29,
+            "priceString": "$3.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.41/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-ginger-root-8-oz-bag/011110852298",
+        "image": "https://www.kroger.com/product/images/large/front/011110852298",
+        "ppm": "$0.41/oz"
+      },
+      {
+        "upc": "011110811301",
+        "name": "Roundy's Fresh Celery Sticks 8 oz Pack",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.99,
+            "priceString": "$1.99"
+          },
+          "wasPrice": {
+            "price": 2.29,
+            "priceString": "$2.29"
+          },
+          "unitPrice": {
+            "priceString": "$0.25/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-fresh-celery-sticks-8-oz-pack/011110811301",
+        "image": "https://www.kroger.com/product/images/large/front/011110811301",
+        "ppm": "$0.25/oz"
+      },
+      {
+        "upc": "011110811318",
+        "name": "Roundy's Cole Slaw Mix 16 oz Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.99,
+            "priceString": "$1.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.12/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $3",
+          "volumeDealPrice": "3.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-cole-slaw-mix-16-oz-bag/011110811318",
+        "image": "https://www.kroger.com/product/images/large/front/011110811318",
+        "ppm": "$0.12/oz"
+      },
+      {
+        "upc": "011110852328",
+        "name": "Simple Truth Organic Shredded Red Cabbage 10 oz",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "10 oz",
+          "packageSize": "10 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.79,
+            "priceString": "$2.79"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.28/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-shredded-red-cabbage-10-oz/011110852328",
+        "image": "https://www.kroger.com/product/images/large/front/011110852328",
+        "ppm": "$0.28/oz"
+      }
+    ]
+  }
+}

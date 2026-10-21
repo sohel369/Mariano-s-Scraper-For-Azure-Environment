@@ -1,0 +1,694 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Baby Care",
+    "sub_category": "Baby Food & Formula",
+    "source_url": "https://www.marianos.com/c/baby-food/13001",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.458494+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "300870001016",
+        "name": "Enfamil NeuroPro Infant Formula Powder 20.7 oz Tub",
+        "brand": "Enfamil",
+        "packageInfo": {
+          "weight": "20.7 oz",
+          "packageSize": "20.7 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 32.99,
+            "priceString": "$32.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.59/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $4.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/enfamil-neuropro-infant-formula-powder-20-7-oz-tub/300870001016",
+        "image": "https://www.kroger.com/product/images/large/front/300870001016",
+        "ppm": "$1.59/oz"
+      },
+      {
+        "upc": "070074001012",
+        "name": "Similac 360 Total Care Infant Formula Powder 20.6 oz Tub",
+        "brand": "Similac",
+        "packageInfo": {
+          "weight": "20.6 oz",
+          "packageSize": "20.6 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 32.99,
+            "priceString": "$32.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.60/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "$29.99 with Digital Coupon",
+          "digitalCouponPrice": "29.99",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/similac-360-total-care-infant-formula-powder-20-6-oz-tub/070074001012",
+        "image": "https://www.kroger.com/product/images/large/front/070074001012",
+        "ppm": "$1.60/oz"
+      },
+      {
+        "upc": "011110822185",
+        "name": "Comforts Infant Formula with Iron Powder 35 oz Tub",
+        "brand": "Comforts",
+        "packageInfo": {
+          "weight": "35 oz",
+          "packageSize": "35 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 21.99,
+            "priceString": "$21.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.63/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/comforts-infant-formula-with-iron-powder-35-oz-tub/011110822185",
+        "image": "https://www.kroger.com/product/images/large/front/011110822185",
+        "ppm": "$0.63/oz"
+      },
+      {
+        "upc": "011110822192",
+        "name": "Comforts Advantage Infant Formula Powder 35 oz Tub",
+        "brand": "Comforts",
+        "packageInfo": {
+          "weight": "35 oz",
+          "packageSize": "35 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 21.99,
+            "priceString": "$21.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.63/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/comforts-advantage-infant-formula-powder-35-oz-tub/011110822192",
+        "image": "https://www.kroger.com/product/images/large/front/011110822192",
+        "ppm": "$0.63/oz"
+      },
+      {
+        "upc": "015000001018",
+        "name": "Gerber 1st Foods Organic Prunes Baby Food Pouch 3.5 oz",
+        "brand": "Gerber",
+        "packageInfo": {
+          "weight": "3.5 oz",
+          "packageSize": "3.5 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.69,
+            "priceString": "$1.69"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.48/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "4 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/gerber-1st-foods-organic-prunes-baby-food-pouch-3-5-oz/015000001018",
+        "image": "https://www.kroger.com/product/images/large/front/015000001018",
+        "ppm": "$0.48/oz"
+      },
+      {
+        "upc": "015000001025",
+        "name": "Gerber 2nd Foods Apple Strawberry Banana Baby Food 4 oz 2pk",
+        "brand": "Gerber",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.99,
+            "priceString": "$1.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.25/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "3 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/gerber-2nd-foods-apple-strawberry-banana-baby-food-4-oz-2pk/015000001025",
+        "image": "https://www.kroger.com/product/images/large/front/015000001025",
+        "ppm": "$0.25/oz"
+      },
+      {
+        "upc": "011110862228",
+        "name": "Simple Truth Organic Banana Apple Puree Baby Pouch 4 oz",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "4 oz",
+          "packageSize": "4 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.29,
+            "priceString": "$1.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.32/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "5 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-banana-apple-puree-baby-pouch-4-oz/011110862228",
+        "image": "https://www.kroger.com/product/images/large/front/011110862228",
+        "ppm": "$0.32/oz"
+      },
+      {
+        "upc": "011110862235",
+        "name": "Simple Truth Organic Apple Sweet Potato Puree Pouch 4 oz",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "4 oz",
+          "packageSize": "4 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.29,
+            "priceString": "$1.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.32/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "5 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-apple-sweet-potato-puree-pouch-4-oz/011110862235",
+        "image": "https://www.kroger.com/product/images/large/front/011110862235",
+        "ppm": "$0.32/oz"
+      },
+      {
+        "upc": "819573001013",
+        "name": "Happy Baby Organics Clearly Crafted Apples Blueberries 4 oz",
+        "brand": "Happy",
+        "packageInfo": {
+          "weight": "4 oz",
+          "packageSize": "4 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.5,
+            "priceString": "$1.50"
+          },
+          "wasPrice": {
+            "price": 1.89,
+            "priceString": "$1.89"
+          },
+          "unitPrice": {
+            "priceString": "$0.38/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "4 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/happy-baby-organics-clearly-crafted-apples-blueberries-4-oz/819573001013",
+        "image": "https://www.kroger.com/product/images/large/front/819573001013",
+        "ppm": "$0.38/oz"
+      },
+      {
+        "upc": "015000001032",
+        "name": "Gerber Puffs Strawberry Apple Grain Snacks 1.48 oz Canister",
+        "brand": "Gerber",
+        "packageInfo": {
+          "weight": "1.48 oz",
+          "packageSize": "1.48 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.79,
+            "priceString": "$2.79"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.89/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "3 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/gerber-puffs-strawberry-apple-grain-snacks-1-48-oz-canister/015000001032",
+        "image": "https://www.kroger.com/product/images/large/front/015000001032",
+        "ppm": "$1.89/oz"
+      },
+      {
+        "upc": "011110822260",
+        "name": "Comforts Apple Cinnamon Grain Puffs 1.48 oz",
+        "brand": "Comforts",
+        "packageInfo": {
+          "weight": "1.48 oz",
+          "packageSize": "1.48 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.89,
+            "priceString": "$1.89"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.28/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $3",
+          "volumeDealPrice": "3.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/comforts-apple-cinnamon-grain-puffs-1-48-oz/011110822260",
+        "image": "https://www.kroger.com/product/images/large/front/011110822260",
+        "ppm": "$1.28/oz"
+      },
+      {
+        "upc": "015000001049",
+        "name": "Gerber Lil' Crunchies Mild Cheddar Corn Snacks 1.48 oz",
+        "brand": "Gerber",
+        "packageInfo": {
+          "weight": "1.48 oz",
+          "packageSize": "1.48 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.79,
+            "priceString": "$2.79"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.89/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "3 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/gerber-lil-crunchies-mild-cheddar-corn-snacks-1-48-oz/015000001049",
+        "image": "https://www.kroger.com/product/images/large/front/015000001049",
+        "ppm": "$1.89/oz"
+      },
+      {
+        "upc": "300450003010",
+        "name": "Infants' Tylenol Oral Suspension Pain Relief Cherry 2 fl oz",
+        "brand": "Infants'",
+        "packageInfo": {
+          "weight": "2 fl oz",
+          "packageSize": "2 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 8.99,
+            "priceString": "$8.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$4.50/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/infants-tylenol-oral-suspension-pain-relief-cherry-2-fl-oz/300450003010",
+        "image": "https://www.kroger.com/product/images/large/front/300450003010",
+        "ppm": "$4.50/fl oz"
+      },
+      {
+        "upc": "070074001029",
+        "name": "Pedialyte Electrolyte Solution Strawberry 33.8 fl oz",
+        "brand": "Pedialyte",
+        "packageInfo": {
+          "weight": "33.8 fl oz",
+          "packageSize": "33.8 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.29,
+            "priceString": "$5.29"
+          },
+          "wasPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.16/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $10",
+          "volumeDealPrice": "10.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pedialyte-electrolyte-solution-strawberry-33-8-fl-oz/070074001029",
+        "image": "https://www.kroger.com/product/images/large/front/070074001029",
+        "ppm": "$0.16/fl oz"
+      },
+      {
+        "upc": "011110822369",
+        "name": "Comforts Pediatric Electrolyte Oral Solution Mixed Fruit 33.8 fl oz",
+        "brand": "Comforts",
+        "packageInfo": {
+          "weight": "33.8 fl oz",
+          "packageSize": "33.8 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.10/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $6",
+          "volumeDealPrice": "6.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/comforts-pediatric-electrolyte-oral-solution-mixed-fruit-33-8-fl-oz/011110822369",
+        "image": "https://www.kroger.com/product/images/large/front/011110822369",
+        "ppm": "$0.10/fl oz"
+      },
+      {
+        "upc": "072239001011",
+        "name": "Dr. Brown's Natural Flow Anti-Colic Options+ Baby Bottles 8 oz 3pk",
+        "brand": "Dr.",
+        "packageInfo": {
+          "weight": "3 ct",
+          "packageSize": "3 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 17.99,
+            "priceString": "$17.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$6.00/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/dr-brown-s-natural-flow-anti-colic-options-baby-bottles-8-oz-3pk/072239001011",
+        "image": "https://www.kroger.com/product/images/large/front/072239001011",
+        "ppm": "$6.00/ct"
+      },
+      {
+        "upc": "084521001012",
+        "name": "MAM Night Pacifiers 6-16 Months Unisex 2pk",
+        "brand": "MAM",
+        "packageInfo": {
+          "weight": "2 ct",
+          "packageSize": "2 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": {
+            "price": 6.99,
+            "priceString": "$6.99"
+          },
+          "unitPrice": {
+            "priceString": "$3.00/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/mam-night-pacifiers-6-16-months-unisex-2pk/084521001012",
+        "image": "https://www.kroger.com/product/images/large/front/084521001012",
+        "ppm": "$3.00/ct"
+      },
+      {
+        "upc": "011110822390",
+        "name": "Comforts Soft Silicone Orthodontic Pacifiers 0-6M 2ct",
+        "brand": "Comforts",
+        "packageInfo": {
+          "weight": "2 ct",
+          "packageSize": "2 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.29,
+            "priceString": "$3.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.65/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/comforts-soft-silicone-orthodontic-pacifiers-0-6m-2ct/011110822390",
+        "image": "https://www.kroger.com/product/images/large/front/011110822390",
+        "ppm": "$1.65/ct"
+      },
+      {
+        "upc": "073528001019",
+        "name": "Munchkin Stay Put Suction Bowls for Babies 3pk",
+        "brand": "Munchkin",
+        "packageInfo": {
+          "weight": "3 ct",
+          "packageSize": "3 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 8.99,
+            "priceString": "$8.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$3.00/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/munchkin-stay-put-suction-bowls-for-babies-3pk/073528001019",
+        "image": "https://www.kroger.com/product/images/large/front/073528001019",
+        "ppm": "$3.00/ct"
+      }
+    ]
+  }
+}

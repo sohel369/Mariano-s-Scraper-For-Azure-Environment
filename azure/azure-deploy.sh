@@ -41,6 +41,14 @@ az container create \
       MARIANOS_PROXY_URL="$MARIANOS_PROXY_URL" \
       AZURE_STORAGE_CONNECTION_STRING="$AZURE_STORAGE_CONNECTION_STRING"
 
+echo "=== 5. Deploying Bi-Weekly Logic App Trigger Workflow ==="
+az logic workflow create \
+  --resource-group "$RESOURCE_GROUP" \
+  --location "$LOCATION" \
+  --name "logic-marianos-cron-trigger" \
+  --definition "azure/azure-cron-schedule.json"
+
 echo "=== Azure Deployment Completed Successfully! ==="
 echo "ACR Registry: $ACR_LOGIN_SERVER"
 echo "Container: $ACI_NAME"
+echo "Schedule: Bi-weekly via Logic Apps (Sunday & Wednesday 04:00 UTC)"

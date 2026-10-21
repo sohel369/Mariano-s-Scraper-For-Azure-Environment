@@ -1,0 +1,910 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Pet Care",
+    "sub_category": "Dog Food & Treats",
+    "source_url": "https://www.marianos.com/c/dog-food-treats/14001",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.471890+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "017800001014",
+        "name": "Purina ONE SmartBlend True Instinct Dry Dog Food Turkey 15 lb",
+        "brand": "Purina",
+        "packageInfo": {
+          "weight": "15 lb",
+          "packageSize": "15 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 26.99,
+            "priceString": "$26.99"
+          },
+          "wasPrice": {
+            "price": 29.99,
+            "priceString": "$29.99"
+          },
+          "unitPrice": {
+            "priceString": "$1.80/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $3.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/purina-one-smartblend-true-instinct-dry-dog-food-turkey-15-lb/017800001014",
+        "image": "https://www.kroger.com/product/images/large/front/017800001014",
+        "ppm": "$1.80/lb"
+      },
+      {
+        "upc": "011110823021",
+        "name": "Pet Pride Adult Complete Dog Food Chicken & Beef 20 lb Bag",
+        "brand": "Pet",
+        "packageInfo": {
+          "weight": "20 lb",
+          "packageSize": "20 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 14.99,
+            "priceString": "$14.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.75/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pet-pride-adult-complete-dog-food-chicken-beef-20-lb-bag/011110823021",
+        "image": "https://www.kroger.com/product/images/large/front/011110823021",
+        "ppm": "$0.75/lb"
+      },
+      {
+        "upc": "019014001019",
+        "name": "Iams ProActive Health Minichunks Adult Dry Dog Food 15 lb",
+        "brand": "Iams",
+        "packageInfo": {
+          "weight": "15 lb",
+          "packageSize": "15 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 24.99,
+            "priceString": "$24.99"
+          },
+          "wasPrice": {
+            "price": 27.99,
+            "priceString": "$27.99"
+          },
+          "unitPrice": {
+            "priceString": "$1.67/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "$22.99 with Digital Coupon",
+          "digitalCouponPrice": "22.99",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/iams-proactive-health-minichunks-adult-dry-dog-food-15-lb/019014001019",
+        "image": "https://www.kroger.com/product/images/large/front/019014001019",
+        "ppm": "$1.67/lb"
+      },
+      {
+        "upc": "859610001019",
+        "name": "Blue Buffalo Life Protection Adult Chicken & Brown Rice 15 lb",
+        "brand": "Blue",
+        "packageInfo": {
+          "weight": "15 lb",
+          "packageSize": "15 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 39.99,
+            "priceString": "$39.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$2.67/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $5.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/blue-buffalo-life-protection-adult-chicken-brown-rice-15-lb/859610001019",
+        "image": "https://www.kroger.com/product/images/large/front/859610001019",
+        "ppm": "$2.67/lb"
+      },
+      {
+        "upc": "023100001012",
+        "name": "Pedigree Complete Nutrition Adult Roasted Chicken Dry Dog Food 18 lb",
+        "brand": "Pedigree",
+        "packageInfo": {
+          "weight": "18 lb",
+          "packageSize": "18 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 15.99,
+            "priceString": "$15.99"
+          },
+          "wasPrice": {
+            "price": 17.99,
+            "priceString": "$17.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.89/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pedigree-complete-nutrition-adult-roasted-chicken-dry-dog-food-18-lb/023100001012",
+        "image": "https://www.kroger.com/product/images/large/front/023100001012",
+        "ppm": "$0.89/lb"
+      },
+      {
+        "upc": "011110823069",
+        "name": "Pet Pride Meaty Cuts with Beef Wet Dog Food 13.2 oz Can",
+        "brand": "Pet",
+        "packageInfo": {
+          "weight": "13.2 oz",
+          "packageSize": "13.2 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 0.99,
+            "priceString": "$0.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.08/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "10 for $8",
+          "volumeDealPrice": "8.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pet-pride-meaty-cuts-with-beef-wet-dog-food-13-2-oz-can/011110823069",
+        "image": "https://www.kroger.com/product/images/large/front/011110823069",
+        "ppm": "$0.08/oz"
+      },
+      {
+        "upc": "023100001029",
+        "name": "Pedigree Chopped Ground Dinner Beef Canned Wet Dog Food 13.2 oz",
+        "brand": "Pedigree",
+        "packageInfo": {
+          "weight": "13.2 oz",
+          "packageSize": "13.2 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.49,
+            "priceString": "$1.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.11/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "8 for $10",
+          "volumeDealPrice": "10.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pedigree-chopped-ground-dinner-beef-canned-wet-dog-food-13-2-oz/023100001029",
+        "image": "https://www.kroger.com/product/images/large/front/023100001029",
+        "ppm": "$0.11/oz"
+      },
+      {
+        "upc": "023100001036",
+        "name": "Cesar Classic Loaf in Sauce Filet Mignon Dog Food Tray 3.5 oz",
+        "brand": "Cesar",
+        "packageInfo": {
+          "weight": "3.5 oz",
+          "packageSize": "3.5 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.25,
+            "priceString": "$1.25"
+          },
+          "wasPrice": {
+            "price": 1.59,
+            "priceString": "$1.59"
+          },
+          "unitPrice": {
+            "priceString": "$0.36/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "4 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/cesar-classic-loaf-in-sauce-filet-mignon-dog-food-tray-3-5-oz/023100001036",
+        "image": "https://www.kroger.com/product/images/large/front/023100001036",
+        "ppm": "$0.36/oz"
+      },
+      {
+        "upc": "024000001010",
+        "name": "Milk-Bone Original Medium Dog Biscuits 24 oz Box",
+        "brand": "Milk-Bone",
+        "packageInfo": {
+          "weight": "24 oz",
+          "packageSize": "24 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.29,
+            "priceString": "$3.29"
+          },
+          "wasPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.14/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $6",
+          "volumeDealPrice": "6.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/milk-bone-original-medium-dog-biscuits-24-oz-box/024000001010",
+        "image": "https://www.kroger.com/product/images/large/front/024000001010",
+        "ppm": "$0.14/oz"
+      },
+      {
+        "upc": "011110823106",
+        "name": "Pet Pride Crunchy Dog Biscuits Medium 24 oz Box",
+        "brand": "Pet",
+        "packageInfo": {
+          "weight": "24 oz",
+          "packageSize": "24 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.79,
+            "priceString": "$2.79"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.12/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $4",
+          "volumeDealPrice": "4.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pet-pride-crunchy-dog-biscuits-medium-24-oz-box/011110823106",
+        "image": "https://www.kroger.com/product/images/large/front/011110823106",
+        "ppm": "$0.12/oz"
+      },
+      {
+        "upc": "017800001021",
+        "name": "Beggin' Strips Bacon Flavor Dog Treats 25 oz Pouch",
+        "brand": "Beggin'",
+        "packageInfo": {
+          "weight": "25 oz",
+          "packageSize": "25 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 9.49,
+            "priceString": "$9.49"
+          },
+          "wasPrice": {
+            "price": 10.99,
+            "priceString": "$10.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.38/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.50",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/beggin-strips-bacon-flavor-dog-treats-25-oz-pouch/017800001021",
+        "image": "https://www.kroger.com/product/images/large/front/017800001021",
+        "ppm": "$0.38/oz"
+      },
+      {
+        "upc": "064286001014",
+        "name": "Greenies Teenie Dental Dog Treats 43ct 12 oz Box",
+        "brand": "Greenies",
+        "packageInfo": {
+          "weight": "12 oz",
+          "packageSize": "12 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 15.99,
+            "priceString": "$15.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.33/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "$13.99 with Digital Coupon",
+          "digitalCouponPrice": "13.99",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/greenies-teenie-dental-dog-treats-43ct-12-oz-box/064286001014",
+        "image": "https://www.kroger.com/product/images/large/front/064286001014",
+        "ppm": "$1.33/oz"
+      },
+      {
+        "upc": "017800001052",
+        "name": "Purina Fancy Feast Gravy Lovers Poultry & Beef Variety Pack 24ct",
+        "brand": "Purina",
+        "packageInfo": {
+          "weight": "72 oz",
+          "packageSize": "72 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 19.99,
+            "priceString": "$19.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.28/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $2.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/purina-fancy-feast-gravy-lovers-poultry-beef-variety-pack-24ct/017800001052",
+        "image": "https://www.kroger.com/product/images/large/front/017800001052",
+        "ppm": "$0.28/oz"
+      },
+      {
+        "upc": "011110823250",
+        "name": "Pet Pride Training Pads for Dogs 50ct Box",
+        "brand": "Pet",
+        "packageInfo": {
+          "weight": "50 ct",
+          "packageSize": "50 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 14.99,
+            "priceString": "$14.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.30/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $24",
+          "volumeDealPrice": "24.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pet-pride-training-pads-for-dogs-50ct-box/011110823250",
+        "image": "https://www.kroger.com/product/images/large/front/011110823250",
+        "ppm": "$0.30/ct"
+      },
+      {
+        "upc": "035585001012",
+        "name": "KONG Classic Dog Toy Medium Red",
+        "brand": "KONG",
+        "packageInfo": {
+          "weight": "1 ct",
+          "packageSize": "1 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 12.99,
+            "priceString": "$12.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$12.99/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kong-classic-dog-toy-medium-red/035585001012",
+        "image": "https://www.kroger.com/product/images/large/front/035585001012",
+        "ppm": "$12.99/ct"
+      },
+      {
+        "upc": "011110823298",
+        "name": "Pet Pride Rubber Tennis Balls for Dogs 3pk",
+        "brand": "Pet",
+        "packageInfo": {
+          "weight": "3 ct",
+          "packageSize": "3 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.16/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pet-pride-rubber-tennis-balls-for-dogs-3pk/011110823298",
+        "image": "https://www.kroger.com/product/images/large/front/011110823298",
+        "ppm": "$1.16/ct"
+      },
+      {
+        "upc": "023100001050",
+        "name": "Sheba Perfect Portions Cuts in Gravy Variety Pack 12ct",
+        "brand": "Sheba",
+        "packageInfo": {
+          "weight": "31.2 oz",
+          "packageSize": "31.2 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 11.99,
+            "priceString": "$11.99"
+          },
+          "wasPrice": {
+            "price": 13.99,
+            "priceString": "$13.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.38/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.50",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/sheba-perfect-portions-cuts-in-gravy-variety-pack-12ct/023100001050",
+        "image": "https://www.kroger.com/product/images/large/front/023100001050",
+        "ppm": "$0.38/oz"
+      },
+      {
+        "upc": "023100001067",
+        "name": "Dentastix Large Dog Dental Treats Original 32ct 1.72 lb",
+        "brand": "Dentastix",
+        "packageInfo": {
+          "weight": "27.5 oz",
+          "packageSize": "27.5 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 13.99,
+            "priceString": "$13.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.51/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $22",
+          "volumeDealPrice": "22.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/dentastix-large-dog-dental-treats-original-32ct-1-72-lb/023100001067",
+        "image": "https://www.kroger.com/product/images/large/front/023100001067",
+        "ppm": "$0.51/oz"
+      },
+      {
+        "upc": "017800001083",
+        "name": "Purina Pro Plan High Protein Adult Shredded Blend Chicken 6 lb",
+        "brand": "Purina",
+        "packageInfo": {
+          "weight": "6 lb",
+          "packageSize": "6 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 18.99,
+            "priceString": "$18.99"
+          },
+          "wasPrice": {
+            "price": 21.99,
+            "priceString": "$21.99"
+          },
+          "unitPrice": {
+            "priceString": "$3.17/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/purina-pro-plan-high-protein-adult-shredded-blend-chicken-6-lb/017800001083",
+        "image": "https://www.kroger.com/product/images/large/front/017800001083",
+        "ppm": "$3.17/lb"
+      },
+      {
+        "upc": "011110823342",
+        "name": "Pet Pride Waste Bags with Dispenser for Dogs 120ct",
+        "brand": "Pet",
+        "packageInfo": {
+          "weight": "120 ct",
+          "packageSize": "120 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.05/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $9",
+          "volumeDealPrice": "9.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pet-pride-waste-bags-with-dispenser-for-dogs-120ct/011110823342",
+        "image": "https://www.kroger.com/product/images/large/front/011110823342",
+        "ppm": "$0.05/ct"
+      },
+      {
+        "upc": "011110863355",
+        "name": "Simple Truth Organic Chicken & Sweet Potato Dog Treats 12 oz",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "12 oz",
+          "packageSize": "12 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.42/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-chicken-sweet-potato-dog-treats-12-oz/011110863355",
+        "image": "https://www.kroger.com/product/images/large/front/011110863355",
+        "ppm": "$0.42/oz"
+      },
+      {
+        "upc": "011110823366",
+        "name": "Pet Pride Jerky Strips Dog Treats Beef Flavor 25 oz",
+        "brand": "Pet",
+        "packageInfo": {
+          "weight": "25 oz",
+          "packageSize": "25 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 8.99,
+            "priceString": "$8.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.36/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $15",
+          "volumeDealPrice": "15.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pet-pride-jerky-strips-dog-treats-beef-flavor-25-oz/011110823366",
+        "image": "https://www.kroger.com/product/images/large/front/011110823366",
+        "ppm": "$0.36/oz"
+      },
+      {
+        "upc": "029274001025",
+        "name": "Meow Mix Tender Centers Salmon & White Meat Chicken 13.5 lb",
+        "brand": "Meow",
+        "packageInfo": {
+          "weight": "13.5 lb",
+          "packageSize": "13.5 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 14.49,
+            "priceString": "$14.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.07/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/meow-mix-tender-centers-salmon-white-meat-chicken-13-5-lb/029274001025",
+        "image": "https://www.kroger.com/product/images/large/front/029274001025",
+        "ppm": "$1.07/lb"
+      },
+      {
+        "upc": "011110823380",
+        "name": "Pet Pride Stainless Steel Non-Skid Pet Bowl 32 oz",
+        "brand": "Pet",
+        "packageInfo": {
+          "weight": "1 ct",
+          "packageSize": "1 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$4.99/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pet-pride-stainless-steel-non-skid-pet-bowl-32-oz/011110823380",
+        "image": "https://www.kroger.com/product/images/large/front/011110823380",
+        "ppm": "$4.99/ct"
+      },
+      {
+        "upc": "011110823403",
+        "name": "Pet Pride Flea & Tick Shampoo for Dogs 18 fl oz",
+        "brand": "Pet",
+        "packageInfo": {
+          "weight": "18 fl oz",
+          "packageSize": "18 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.29,
+            "priceString": "$4.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.24/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pet-pride-flea-tick-shampoo-for-dogs-18-fl-oz/011110823403",
+        "image": "https://www.kroger.com/product/images/large/front/011110823403",
+        "ppm": "$0.24/fl oz"
+      }
+    ]
+  }
+}

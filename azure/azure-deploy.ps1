@@ -42,4 +42,11 @@ az container create `
       MARIANOS_PROXY_URL="$env:MARIANOS_PROXY_URL" `
       AZURE_STORAGE_CONNECTION_STRING="$env:AZURE_STORAGE_CONNECTION_STRING"
 
-Write-Host "=== Deployment Succeeded! Mariano's container job active in Azure. ===" -ForegroundColor Green
+Write-Host "=== 5. Deploying Bi-Weekly Logic App Trigger Workflow ===" -ForegroundColor Cyan
+az logic workflow create `
+  --resource-group $ResourceGroup `
+  --location $Location `
+  --name "logic-marianos-cron-trigger" `
+  --definition "azure/azure-cron-schedule.json"
+
+Write-Host "=== Deployment Succeeded! Mariano's container job and bi-weekly schedule active in Azure. ===" -ForegroundColor Green

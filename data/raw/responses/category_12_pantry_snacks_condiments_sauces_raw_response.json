@@ -1,0 +1,613 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Pantry",
+    "sub_category": "Snacks Condiments & Sauces",
+    "source_url": "https://www.marianos.com/c/snacks-condiments/06002",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.373778+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "074747001019",
+        "name": "Rao's Homemade Marinara Pasta Sauce 24 oz Jar",
+        "brand": "Rao's",
+        "packageInfo": {
+          "weight": "24 oz",
+          "packageSize": "24 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 7.49,
+            "priceString": "$7.49"
+          },
+          "wasPrice": {
+            "price": 8.99,
+            "priceString": "$8.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.31/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "$6.99 with Digital Coupon",
+          "digitalCouponPrice": "6.99",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/rao-s-homemade-marinara-pasta-sauce-24-oz-jar/074747001019",
+        "image": "https://www.kroger.com/product/images/large/front/074747001019",
+        "ppm": "$0.31/oz"
+      },
+      {
+        "upc": "011110917171",
+        "name": "Private Selection Tomato Basil Pasta Sauce 24 oz Jar",
+        "brand": "Private",
+        "packageInfo": {
+          "weight": "24 oz",
+          "packageSize": "24 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.29,
+            "priceString": "$3.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.14/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/private-selection-tomato-basil-pasta-sauce-24-oz-jar/011110917171",
+        "image": "https://www.kroger.com/product/images/large/front/011110917171",
+        "ppm": "$0.14/oz"
+      },
+      {
+        "upc": "011110816184",
+        "name": "Roundy's Traditional Pasta Sauce 24 oz Jar",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "24 oz",
+          "packageSize": "24 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.89,
+            "priceString": "$1.89"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.08/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $3",
+          "volumeDealPrice": "3.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-traditional-pasta-sauce-24-oz-jar/011110816184",
+        "image": "https://www.kroger.com/product/images/large/front/011110816184",
+        "ppm": "$0.08/oz"
+      },
+      {
+        "upc": "013000001014",
+        "name": "Heinz Tomato Ketchup Squeeze Bottle 32 oz",
+        "brand": "Heinz",
+        "packageInfo": {
+          "weight": "32 oz",
+          "packageSize": "32 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": {
+            "price": 4.29,
+            "priceString": "$4.29"
+          },
+          "unitPrice": {
+            "priceString": "$0.11/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/heinz-tomato-ketchup-squeeze-bottle-32-oz/013000001014",
+        "image": "https://www.kroger.com/product/images/large/front/013000001014",
+        "ppm": "$0.11/oz"
+      },
+      {
+        "upc": "011110816207",
+        "name": "Roundy's Tomato Ketchup 32 oz Bottle",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "32 oz",
+          "packageSize": "32 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.99,
+            "priceString": "$1.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.06/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-tomato-ketchup-32-oz-bottle/011110816207",
+        "image": "https://www.kroger.com/product/images/large/front/011110816207",
+        "ppm": "$0.06/oz"
+      },
+      {
+        "upc": "048001001015",
+        "name": "Hellmann's Real Mayonnaise Jar 30 oz",
+        "brand": "Hellmann's",
+        "packageInfo": {
+          "weight": "30 oz",
+          "packageSize": "30 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "wasPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.15/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/hellmann-s-real-mayonnaise-jar-30-oz/048001001015",
+        "image": "https://www.kroger.com/product/images/large/front/048001001015",
+        "ppm": "$0.15/oz"
+      },
+      {
+        "upc": "011110816221",
+        "name": "Roundy's Real Mayonnaise 30 oz Jar",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "30 oz",
+          "packageSize": "30 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.10/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-real-mayonnaise-30-oz-jar/011110816221",
+        "image": "https://www.kroger.com/product/images/large/front/011110816221",
+        "ppm": "$0.10/oz"
+      },
+      {
+        "upc": "041500001012",
+        "name": "French's Classic Yellow Mustard 20 oz Bottle",
+        "brand": "French's",
+        "packageInfo": {
+          "weight": "20 oz",
+          "packageSize": "20 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.49,
+            "priceString": "$2.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.12/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $4",
+          "volumeDealPrice": "4.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/french-s-classic-yellow-mustard-20-oz-bottle/041500001012",
+        "image": "https://www.kroger.com/product/images/large/front/041500001012",
+        "ppm": "$0.12/oz"
+      },
+      {
+        "upc": "013409001011",
+        "name": "Sweet Baby Ray's Barbecue Sauce 28 oz",
+        "brand": "Sweet",
+        "packageInfo": {
+          "weight": "28 oz",
+          "packageSize": "28 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.5,
+            "priceString": "$2.50"
+          },
+          "wasPrice": {
+            "price": 3.29,
+            "priceString": "$3.29"
+          },
+          "unitPrice": {
+            "priceString": "$0.09/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/sweet-baby-ray-s-barbecue-sauce-28-oz/013409001011",
+        "image": "https://www.kroger.com/product/images/large/front/013409001011",
+        "ppm": "$0.09/oz"
+      },
+      {
+        "upc": "028400003018",
+        "name": "Lay's Classic Potato Chips 8 oz Party Bag",
+        "brand": "Lay's",
+        "packageInfo": {
+          "weight": "8 oz",
+          "packageSize": "8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.37/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "Must Buy 3 at $2.29 each",
+          "volumeDealPrice": "2.29"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/lay-s-classic-potato-chips-8-oz-party-bag/028400003018",
+        "image": "https://www.kroger.com/product/images/large/front/028400003018",
+        "ppm": "$0.37/oz"
+      },
+      {
+        "upc": "028400003025",
+        "name": "Doritos Nacho Cheese Flavored Tortilla Chips 9.25 oz",
+        "brand": "Doritos",
+        "packageInfo": {
+          "weight": "9.25 oz",
+          "packageSize": "9.25 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.38/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "Buy 2, Get 1 Free",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/doritos-nacho-cheese-flavored-tortilla-chips-9-25-oz/028400003025",
+        "image": "https://www.kroger.com/product/images/large/front/028400003025",
+        "ppm": "$0.38/oz"
+      },
+      {
+        "upc": "028400003032",
+        "name": "Tostitos Scoops Tortilla Chips 10 oz Bag",
+        "brand": "Tostitos",
+        "packageInfo": {
+          "weight": "10 oz",
+          "packageSize": "10 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.35/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/tostitos-scoops-tortilla-chips-10-oz-bag/028400003032",
+        "image": "https://www.kroger.com/product/images/large/front/028400003032",
+        "ppm": "$0.35/oz"
+      },
+      {
+        "upc": "011110816474",
+        "name": "Roundy's Wavy Potato Chips 10 oz Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "10 oz",
+          "packageSize": "10 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.49,
+            "priceString": "$2.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.25/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $4",
+          "volumeDealPrice": "4.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-wavy-potato-chips-10-oz-bag/011110816474",
+        "image": "https://www.kroger.com/product/images/large/front/011110816474",
+        "ppm": "$0.25/oz"
+      },
+      {
+        "upc": "024100001019",
+        "name": "Cheez-It Original Baked Snack Crackers 12.4 oz Box",
+        "brand": "Cheez-It",
+        "packageInfo": {
+          "weight": "12.4 oz",
+          "packageSize": "12.4 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.28/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/cheez-it-original-baked-snack-crackers-12-4-oz-box/024100001019",
+        "image": "https://www.kroger.com/product/images/large/front/024100001019",
+        "ppm": "$0.28/oz"
+      },
+      {
+        "upc": "014100001010",
+        "name": "Goldfish Cheddar Snack Crackers 6.6 oz Bag",
+        "brand": "Goldfish",
+        "packageInfo": {
+          "weight": "6.6 oz",
+          "packageSize": "6.6 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.49,
+            "priceString": "$2.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.38/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "3 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/goldfish-cheddar-snack-crackers-6-6-oz-bag/014100001010",
+        "image": "https://www.kroger.com/product/images/large/front/014100001010",
+        "ppm": "$0.38/oz"
+      },
+      {
+        "upc": "044000001025",
+        "name": "Chips Ahoy! Original Chocolate Chip Cookies 13 oz",
+        "brand": "Chips",
+        "packageInfo": {
+          "weight": "13 oz",
+          "packageSize": "13 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.79,
+            "priceString": "$3.79"
+          },
+          "wasPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.29/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/chips-ahoy-original-chocolate-chip-cookies-13-oz/044000001025",
+        "image": "https://www.kroger.com/product/images/large/front/044000001025",
+        "ppm": "$0.29/oz"
+      }
+    ]
+  }
+}

@@ -1,0 +1,334 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Personal Care",
+    "sub_category": "Oral Care & Deodorants",
+    "source_url": "https://www.marianos.com/c/oral-deodorant/11002",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.442996+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "035000002013",
+        "name": "Colgate Total Whitening Toothpaste 4.8 oz 2pk",
+        "brand": "Colgate",
+        "packageInfo": {
+          "weight": "9.6 oz",
+          "packageSize": "9.6 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 6.49,
+            "priceString": "$6.49"
+          },
+          "wasPrice": {
+            "price": 7.99,
+            "priceString": "$7.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.68/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $2.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/colgate-total-whitening-toothpaste-4-8-oz-2pk/035000002013",
+        "image": "https://www.kroger.com/product/images/large/front/035000002013",
+        "ppm": "$0.68/oz"
+      },
+      {
+        "upc": "037000001133",
+        "name": "Crest 3D White Radiant Mint Toothpaste 3.8 oz",
+        "brand": "Crest",
+        "packageInfo": {
+          "weight": "3.8 oz",
+          "packageSize": "3.8 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.29,
+            "priceString": "$4.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.13/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/crest-3d-white-radiant-mint-toothpaste-3-8-oz/037000001133",
+        "image": "https://www.kroger.com/product/images/large/front/037000001133",
+        "ppm": "$1.13/oz"
+      },
+      {
+        "upc": "011110901439",
+        "name": "Kroger Complete Care Clean Mint Toothpaste 5.5 oz",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "5.5 oz",
+          "packageSize": "5.5 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.99,
+            "priceString": "$1.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.36/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-complete-care-clean-mint-toothpaste-5-5-oz/011110901439",
+        "image": "https://www.kroger.com/product/images/large/front/011110901439",
+        "ppm": "$0.36/oz"
+      },
+      {
+        "upc": "037000001140",
+        "name": "Oral-B Pro-Health All-in-One Soft Toothbrushes 2pk",
+        "brand": "Oral-B",
+        "packageInfo": {
+          "weight": "2 ct",
+          "packageSize": "2 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "wasPrice": {
+            "price": 6.49,
+            "priceString": "$6.49"
+          },
+          "unitPrice": {
+            "priceString": "$2.75/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/oral-b-pro-health-all-in-one-soft-toothbrushes-2pk/037000001140",
+        "image": "https://www.kroger.com/product/images/large/front/037000001140",
+        "ppm": "$2.75/ct"
+      },
+      {
+        "upc": "012547001013",
+        "name": "Listerine Cool Mint Antiseptic Mouthwash 1 Liter",
+        "brand": "Listerine",
+        "packageInfo": {
+          "weight": "33.8 fl oz",
+          "packageSize": "33.8 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 6.49,
+            "priceString": "$6.49"
+          },
+          "wasPrice": {
+            "price": 7.49,
+            "priceString": "$7.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.19/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/listerine-cool-mint-antiseptic-mouthwash-1-liter/012547001013",
+        "image": "https://www.kroger.com/product/images/large/front/012547001013",
+        "ppm": "$0.19/fl oz"
+      },
+      {
+        "upc": "037000001201",
+        "name": "Secret Invisible Solid Antiperspirant Deodorant Powder Fresh 2.6 oz",
+        "brand": "Secret",
+        "packageInfo": {
+          "weight": "2.6 oz",
+          "packageSize": "2.6 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "unitPrice": {
+            "priceString": "$1.92/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/secret-invisible-solid-antiperspirant-deodorant-powder-fresh-2-6-oz/037000001201",
+        "image": "https://www.kroger.com/product/images/large/front/037000001201",
+        "ppm": "$1.92/oz"
+      },
+      {
+        "upc": "037000001218",
+        "name": "Old Spice High Endurance Pure Sport Deodorant 3 oz",
+        "brand": "Old",
+        "packageInfo": {
+          "weight": "3 oz",
+          "packageSize": "3 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.50/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/old-spice-high-endurance-pure-sport-deodorant-3-oz/037000001218",
+        "image": "https://www.kroger.com/product/images/large/front/037000001218",
+        "ppm": "$1.50/oz"
+      },
+      {
+        "upc": "035000002020",
+        "name": "Irish Spring Original Deodorant Bar Soap 8ct 30 oz",
+        "brand": "Irish",
+        "packageInfo": {
+          "weight": "30 oz",
+          "packageSize": "30 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.20/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $10",
+          "volumeDealPrice": "10.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/irish-spring-original-deodorant-bar-soap-8ct-30-oz/035000002020",
+        "image": "https://www.kroger.com/product/images/large/front/035000002020",
+        "ppm": "$0.20/oz"
+      }
+    ]
+  }
+}

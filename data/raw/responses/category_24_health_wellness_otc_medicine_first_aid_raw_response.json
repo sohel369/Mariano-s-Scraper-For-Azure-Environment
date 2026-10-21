@@ -1,0 +1,577 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Health & Wellness",
+    "sub_category": "OTC Medicine & First Aid",
+    "source_url": "https://www.marianos.com/c/otc-first-aid/12002",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.454287+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "305730001014",
+        "name": "Advil Pain Reliever Ibuprofen 200mg Tablets 100ct",
+        "brand": "Advil",
+        "packageInfo": {
+          "weight": "100 ct",
+          "packageSize": "100 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 9.49,
+            "priceString": "$9.49"
+          },
+          "wasPrice": {
+            "price": 10.99,
+            "priceString": "$10.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.09/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $2.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/advil-pain-reliever-ibuprofen-200mg-tablets-100ct/305730001014",
+        "image": "https://www.kroger.com/product/images/large/front/305730001014",
+        "ppm": "$0.09/ct"
+      },
+      {
+        "upc": "025866001015",
+        "name": "Aleve Pain Relief Naproxen Sodium Tablets 220mg 100ct",
+        "brand": "Aleve",
+        "packageInfo": {
+          "weight": "100 ct",
+          "packageSize": "100 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 11.99,
+            "priceString": "$11.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.12/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "$9.99 with Digital Coupon",
+          "digitalCouponPrice": "9.99",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/aleve-pain-relief-naproxen-sodium-tablets-220mg-100ct/025866001015",
+        "image": "https://www.kroger.com/product/images/large/front/025866001015",
+        "ppm": "$0.12/ct"
+      },
+      {
+        "upc": "037000001249",
+        "name": "DayQuil & NyQuil Severe Cold & Flu Liquid 2x12 fl oz",
+        "brand": "DayQuil",
+        "packageInfo": {
+          "weight": "24 fl oz",
+          "packageSize": "24 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 17.99,
+            "priceString": "$17.99"
+          },
+          "wasPrice": {
+            "price": 19.99,
+            "priceString": "$19.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.75/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $3.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/dayquil-nyquil-severe-cold-flu-liquid-2x12-fl-oz/037000001249",
+        "image": "https://www.kroger.com/product/images/large/front/037000001249",
+        "ppm": "$0.75/fl oz"
+      },
+      {
+        "upc": "011110901835",
+        "name": "Kroger Daytime & Nighttime Severe Cold Relief Liquid 2pk",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "24 fl oz",
+          "packageSize": "24 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 9.99,
+            "priceString": "$9.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.42/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-daytime-nighttime-severe-cold-relief-liquid-2pk/011110901835",
+        "image": "https://www.kroger.com/product/images/large/front/011110901835",
+        "ppm": "$0.42/fl oz"
+      },
+      {
+        "upc": "012546001014",
+        "name": "Halls Relief Cherry Cough Drops 30ct",
+        "brand": "Halls",
+        "packageInfo": {
+          "weight": "30 ct",
+          "packageSize": "30 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.79,
+            "priceString": "$2.79"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.09/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $4",
+          "volumeDealPrice": "4.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/halls-relief-cherry-cough-drops-30ct/012546001014",
+        "image": "https://www.kroger.com/product/images/large/front/012546001014",
+        "ppm": "$0.09/ct"
+      },
+      {
+        "upc": "041100001016",
+        "name": "Claritin 24 Hour Non-Drowsy Allergy Relief Tablets 10mg 30ct",
+        "brand": "Claritin",
+        "packageInfo": {
+          "weight": "30 ct",
+          "packageSize": "30 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 18.99,
+            "priceString": "$18.99"
+          },
+          "wasPrice": {
+            "price": 21.99,
+            "priceString": "$21.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.63/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $4.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/claritin-24-hour-non-drowsy-allergy-relief-tablets-10mg-30ct/041100001016",
+        "image": "https://www.kroger.com/product/images/large/front/041100001016",
+        "ppm": "$0.63/ct"
+      },
+      {
+        "upc": "300450002013",
+        "name": "Zyrtec 24 Hour Allergy Relief Tablets 10mg 30ct",
+        "brand": "Zyrtec",
+        "packageInfo": {
+          "weight": "30 ct",
+          "packageSize": "30 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 18.99,
+            "priceString": "$18.99"
+          },
+          "wasPrice": {
+            "price": 21.99,
+            "priceString": "$21.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.63/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $4.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/zyrtec-24-hour-allergy-relief-tablets-10mg-30ct/300450002013",
+        "image": "https://www.kroger.com/product/images/large/front/300450002013",
+        "ppm": "$0.63/ct"
+      },
+      {
+        "upc": "011110901897",
+        "name": "Kroger All-Day Allergy Relief Cetirizine 10mg 30ct",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "30 ct",
+          "packageSize": "30 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 8.99,
+            "priceString": "$8.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.30/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $14",
+          "volumeDealPrice": "14.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-all-day-allergy-relief-cetirizine-10mg-30ct/011110901897",
+        "image": "https://www.kroger.com/product/images/large/front/011110901897",
+        "ppm": "$0.30/ct"
+      },
+      {
+        "upc": "353100001010",
+        "name": "Flonase 24-Hour Allergy Relief Nasal Spray 144 Sprays",
+        "brand": "Flonase",
+        "packageInfo": {
+          "weight": "0.54 fl oz",
+          "packageSize": "0.54 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 21.99,
+            "priceString": "$21.99"
+          },
+          "wasPrice": {
+            "price": 24.99,
+            "priceString": "$24.99"
+          },
+          "unitPrice": {
+            "priceString": "$40.72/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/flonase-24-hour-allergy-relief-nasal-spray-144-sprays/353100001010",
+        "image": "https://www.kroger.com/product/images/large/front/353100001010",
+        "ppm": "$40.72/fl oz"
+      },
+      {
+        "upc": "037000001263",
+        "name": "Pepto Bismol 5 Symptom Relief Liquid Original 16 fl oz",
+        "brand": "Pepto",
+        "packageInfo": {
+          "weight": "16 fl oz",
+          "packageSize": "16 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 7.29,
+            "priceString": "$7.29"
+          },
+          "wasPrice": {
+            "price": 8.49,
+            "priceString": "$8.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.46/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pepto-bismol-5-symptom-relief-liquid-original-16-fl-oz/037000001263",
+        "image": "https://www.kroger.com/product/images/large/front/037000001263",
+        "ppm": "$0.46/fl oz"
+      },
+      {
+        "upc": "381370001010",
+        "name": "Band-Aid Brand Flexible Fabric Adhesive Bandages 30ct",
+        "brand": "Band-Aid",
+        "packageInfo": {
+          "weight": "30 ct",
+          "packageSize": "30 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.29,
+            "priceString": "$4.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.14/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/band-aid-brand-flexible-fabric-adhesive-bandages-30ct/381370001010",
+        "image": "https://www.kroger.com/product/images/large/front/381370001010",
+        "ppm": "$0.14/ct"
+      },
+      {
+        "upc": "011110901965",
+        "name": "Kroger Flexible Fabric Antibacterial Bandages 30ct",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "30 ct",
+          "packageSize": "30 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.29,
+            "priceString": "$2.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.08/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $3",
+          "volumeDealPrice": "3.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-flexible-fabric-antibacterial-bandages-30ct/011110901965",
+        "image": "https://www.kroger.com/product/images/large/front/011110901965",
+        "ppm": "$0.08/ct"
+      },
+      {
+        "upc": "300810001014",
+        "name": "Neosporin Original First Aid Antibiotic Ointment 0.5 oz",
+        "brand": "Neosporin",
+        "packageInfo": {
+          "weight": "0.5 oz",
+          "packageSize": "0.5 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.79,
+            "priceString": "$4.79"
+          },
+          "wasPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "unitPrice": {
+            "priceString": "$9.58/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/neosporin-original-first-aid-antibiotic-ointment-0-5-oz/300810001014",
+        "image": "https://www.kroger.com/product/images/large/front/300810001014",
+        "ppm": "$9.58/oz"
+      },
+      {
+        "upc": "041100002013",
+        "name": "MiraLAX Laxative Powder for Gentle Constipation Relief 17.9 oz",
+        "brand": "MiraLAX",
+        "packageInfo": {
+          "weight": "17.9 oz",
+          "packageSize": "17.9 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 19.99,
+            "priceString": "$19.99"
+          },
+          "wasPrice": {
+            "price": 22.99,
+            "priceString": "$22.99"
+          },
+          "unitPrice": {
+            "priceString": "$1.12/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $3.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/miralax-laxative-powder-for-gentle-constipation-relief-17-9-oz/041100002013",
+        "image": "https://www.kroger.com/product/images/large/front/041100002013",
+        "ppm": "$1.12/oz"
+      },
+      {
+        "upc": "074300001012",
+        "name": "Visine Red Eye Total Comfort Relief Drops 0.5 fl oz",
+        "brand": "Visine",
+        "packageInfo": {
+          "weight": "0.5 fl oz",
+          "packageSize": "0.5 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$10.98/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $9",
+          "volumeDealPrice": "9.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/visine-red-eye-total-comfort-relief-drops-0-5-fl-oz/074300001012",
+        "image": "https://www.kroger.com/product/images/large/front/074300001012",
+        "ppm": "$10.98/fl oz"
+      }
+    ]
+  }
+}

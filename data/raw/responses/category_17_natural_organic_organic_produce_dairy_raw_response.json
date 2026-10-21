@@ -1,0 +1,235 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Natural & Organic",
+    "sub_category": "Organic Produce & Dairy",
+    "source_url": "https://www.marianos.com/c/organic-produce-dairy/09001",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.409686+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "011110860019",
+        "name": "Simple Truth Organic Whole Milk Yogurt 32 oz",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "32 oz",
+          "packageSize": "32 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.12/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $0.50",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-whole-milk-yogurt-32-oz/011110860019",
+        "image": "https://www.kroger.com/product/images/large/front/011110860019",
+        "ppm": "$0.12/oz"
+      },
+      {
+        "upc": "011110860071",
+        "name": "Simple Truth Organic Apple Cider Vinegar Raw Unfiltered 16 fl oz",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "16 fl oz",
+          "packageSize": "16 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.49,
+            "priceString": "$2.49"
+          },
+          "wasPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.16/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-apple-cider-vinegar-raw-unfiltered-16-fl-oz/011110860071",
+        "image": "https://www.kroger.com/product/images/large/front/011110860071",
+        "ppm": "$0.16/fl oz"
+      },
+      {
+        "upc": "074305001017",
+        "name": "Bragg Organic Apple Cider Vinegar with Mother 16 fl oz",
+        "brand": "Bragg",
+        "packageInfo": {
+          "weight": "16 fl oz",
+          "packageSize": "16 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.22/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $0.50",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/bragg-organic-apple-cider-vinegar-with-mother-16-fl-oz/074305001017",
+        "image": "https://www.kroger.com/product/images/large/front/074305001017",
+        "ppm": "$0.22/fl oz"
+      },
+      {
+        "upc": "011110860392",
+        "name": "Simple Truth Organic Apple Slices Single Serve 2 oz",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "2 oz",
+          "packageSize": "2 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 0.99,
+            "priceString": "$0.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.50/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "4 for $3",
+          "volumeDealPrice": "3.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-apple-slices-single-serve-2-oz/011110860392",
+        "image": "https://www.kroger.com/product/images/large/front/011110860392",
+        "ppm": "$0.50/oz"
+      },
+      {
+        "upc": "011110860408",
+        "name": "Simple Truth Organic Fruit Strips Strawberry 5ct",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "3.15 oz",
+          "packageSize": "3.15 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.49,
+            "priceString": "$2.49"
+          },
+          "wasPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.79/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-fruit-strips-strawberry-5ct/011110860408",
+        "image": "https://www.kroger.com/product/images/large/front/011110860408",
+        "ppm": "$0.79/oz"
+      }
+    ]
+  }
+}

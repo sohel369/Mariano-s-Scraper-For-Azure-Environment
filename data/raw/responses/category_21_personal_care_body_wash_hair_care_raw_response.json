@@ -1,0 +1,979 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Personal Care",
+    "sub_category": "Body Wash & Hair Care",
+    "source_url": "https://www.marianos.com/c/body-hair/11001",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.437948+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "011111001015",
+        "name": "Dove Deep Moisture Body Wash 20 fl oz",
+        "brand": "Dove",
+        "packageInfo": {
+          "weight": "20 fl oz",
+          "packageSize": "20 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": {
+            "price": 6.99,
+            "priceString": "$6.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.30/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "$4.99 with Digital Coupon",
+          "digitalCouponPrice": "4.99",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/dove-deep-moisture-body-wash-20-fl-oz/011111001015",
+        "image": "https://www.kroger.com/product/images/large/front/011111001015",
+        "ppm": "$0.30/fl oz"
+      },
+      {
+        "upc": "037000001157",
+        "name": "Old Spice Swagger Body Wash for Men 24 fl oz",
+        "brand": "Old",
+        "packageInfo": {
+          "weight": "24 fl oz",
+          "packageSize": "24 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": {
+            "price": 6.99,
+            "priceString": "$6.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.25/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $11",
+          "volumeDealPrice": "11.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/old-spice-swagger-body-wash-for-men-24-fl-oz/037000001157",
+        "image": "https://www.kroger.com/product/images/large/front/037000001157",
+        "ppm": "$0.25/fl oz"
+      },
+      {
+        "upc": "011110901484",
+        "name": "Kroger Men's Fresh Scent Body Wash 24 fl oz",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "24 fl oz",
+          "packageSize": "24 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.15/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $6",
+          "volumeDealPrice": "6.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-men-s-fresh-scent-body-wash-24-fl-oz/011110901484",
+        "image": "https://www.kroger.com/product/images/large/front/011110901484",
+        "ppm": "$0.15/fl oz"
+      },
+      {
+        "upc": "037000001164",
+        "name": "Olay Ultra Moisture Shea Butter Body Wash 22 fl oz",
+        "brand": "Olay",
+        "packageInfo": {
+          "weight": "22 fl oz",
+          "packageSize": "22 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 7.49,
+            "priceString": "$7.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.34/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.50",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/olay-ultra-moisture-shea-butter-body-wash-22-fl-oz/037000001164",
+        "image": "https://www.kroger.com/product/images/large/front/037000001164",
+        "ppm": "$0.34/fl oz"
+      },
+      {
+        "upc": "037000001171",
+        "name": "Pantene Pro-V Daily Moisture Renewal Shampoo 17.9 fl oz",
+        "brand": "Pantene",
+        "packageInfo": {
+          "weight": "17.9 fl oz",
+          "packageSize": "17.9 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.31/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $9",
+          "volumeDealPrice": "9.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pantene-pro-v-daily-moisture-renewal-shampoo-17-9-fl-oz/037000001171",
+        "image": "https://www.kroger.com/product/images/large/front/037000001171",
+        "ppm": "$0.31/fl oz"
+      },
+      {
+        "upc": "037000001188",
+        "name": "Pantene Pro-V Daily Moisture Conditioner 17.9 fl oz",
+        "brand": "Pantene",
+        "packageInfo": {
+          "weight": "17.9 fl oz",
+          "packageSize": "17.9 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.31/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $9",
+          "volumeDealPrice": "9.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/pantene-pro-v-daily-moisture-conditioner-17-9-fl-oz/037000001188",
+        "image": "https://www.kroger.com/product/images/large/front/037000001188",
+        "ppm": "$0.31/fl oz"
+      },
+      {
+        "upc": "037000001195",
+        "name": "Head & Shoulders Classic Clean Anti-Dandruff Shampoo 12.8 fl oz",
+        "brand": "Head",
+        "packageInfo": {
+          "weight": "12.8 fl oz",
+          "packageSize": "12.8 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "wasPrice": {
+            "price": 6.49,
+            "priceString": "$6.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.43/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $2.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/head-shoulders-classic-clean-anti-dandruff-shampoo-12-8-fl-oz/037000001195",
+        "image": "https://www.kroger.com/product/images/large/front/037000001195",
+        "ppm": "$0.43/fl oz"
+      },
+      {
+        "upc": "022400001012",
+        "name": "Tresemme Moisture Rich Shampoo 28 fl oz",
+        "brand": "Tresemme",
+        "packageInfo": {
+          "weight": "28 fl oz",
+          "packageSize": "28 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.21/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $10",
+          "volumeDealPrice": "10.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/tresemme-moisture-rich-shampoo-28-fl-oz/022400001012",
+        "image": "https://www.kroger.com/product/images/large/front/022400001012",
+        "ppm": "$0.21/fl oz"
+      },
+      {
+        "upc": "011110901545",
+        "name": "Kroger Clarifying Clean Daily Shampoo 30 fl oz",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "30 fl oz",
+          "packageSize": "30 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.10/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-clarifying-clean-daily-shampoo-30-fl-oz/011110901545",
+        "image": "https://www.kroger.com/product/images/large/front/011110901545",
+        "ppm": "$0.10/fl oz"
+      },
+      {
+        "upc": "079400001016",
+        "name": "Degree Men Cool Rush 48-Hour Antiperspirant 2.7 oz 2pk",
+        "brand": "Degree",
+        "packageInfo": {
+          "weight": "5.4 oz",
+          "packageSize": "5.4 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 7.99,
+            "priceString": "$7.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.48/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.50",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/degree-men-cool-rush-48-hour-antiperspirant-2-7-oz-2pk/079400001016",
+        "image": "https://www.kroger.com/product/images/large/front/079400001016",
+        "ppm": "$1.48/oz"
+      },
+      {
+        "upc": "011110901583",
+        "name": "Kroger Women's Shower Fresh Solid Antiperspirant 2.6 oz",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "2.6 oz",
+          "packageSize": "2.6 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.19,
+            "priceString": "$2.19"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.84/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $4",
+          "volumeDealPrice": "4.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-women-s-shower-fresh-solid-antiperspirant-2-6-oz/011110901583",
+        "image": "https://www.kroger.com/product/images/large/front/011110901583",
+        "ppm": "$0.84/oz"
+      },
+      {
+        "upc": "047400001015",
+        "name": "Gillette Fusion5 Men's Razor Handle + 2 Cartridges",
+        "brand": "Gillette",
+        "packageInfo": {
+          "weight": "1 ct",
+          "packageSize": "1 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 11.99,
+            "priceString": "$11.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$11.99/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $3.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/gillette-fusion5-men-s-razor-handle-2-cartridges/047400001015",
+        "image": "https://www.kroger.com/product/images/large/front/047400001015",
+        "ppm": "$11.99/ct"
+      },
+      {
+        "upc": "047400001022",
+        "name": "Gillette Venus Smooth Women's Razor Handle + 2 Cartridges",
+        "brand": "Gillette",
+        "packageInfo": {
+          "weight": "1 ct",
+          "packageSize": "1 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 8.49,
+            "priceString": "$8.49"
+          },
+          "wasPrice": {
+            "price": 9.99,
+            "priceString": "$9.99"
+          },
+          "unitPrice": {
+            "priceString": "$8.49/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/gillette-venus-smooth-women-s-razor-handle-2-cartridges/047400001022",
+        "image": "https://www.kroger.com/product/images/large/front/047400001022",
+        "ppm": "$8.49/ct"
+      },
+      {
+        "upc": "011110901613",
+        "name": "Kroger 3-Blade Disposable Men's Razors 4ct",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "4 ct",
+          "packageSize": "4 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.25/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $8",
+          "volumeDealPrice": "8.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-3-blade-disposable-men-s-razors-4ct/011110901613",
+        "image": "https://www.kroger.com/product/images/large/front/011110901613",
+        "ppm": "$1.25/ct"
+      },
+      {
+        "upc": "084105801014",
+        "name": "Edge Sensitive Skin Shave Gel for Men 7 oz 2pk",
+        "brand": "Edge",
+        "packageInfo": {
+          "weight": "14 oz",
+          "packageSize": "14 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.43/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/edge-sensitive-skin-shave-gel-for-men-7-oz-2pk/084105801014",
+        "image": "https://www.kroger.com/product/images/large/front/084105801014",
+        "ppm": "$0.43/oz"
+      },
+      {
+        "upc": "084105801021",
+        "name": "Skintimate Raspberry Rain Shave Gel 7 oz",
+        "brand": "Skintimate",
+        "packageInfo": {
+          "weight": "7 oz",
+          "packageSize": "7 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.43/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $5",
+          "volumeDealPrice": "5.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/skintimate-raspberry-rain-shave-gel-7-oz/084105801021",
+        "image": "https://www.kroger.com/product/images/large/front/084105801021",
+        "ppm": "$0.43/oz"
+      },
+      {
+        "upc": "074182001018",
+        "name": "Softsoap Liquid Hand Soap Fresh Breeze 7.5 fl oz",
+        "brand": "Softsoap",
+        "packageInfo": {
+          "weight": "7.5 fl oz",
+          "packageSize": "7.5 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.79,
+            "priceString": "$1.79"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.24/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "3 for $4",
+          "volumeDealPrice": "4.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/softsoap-liquid-hand-soap-fresh-breeze-7-5-fl-oz/074182001018",
+        "image": "https://www.kroger.com/product/images/large/front/074182001018",
+        "ppm": "$0.24/fl oz"
+      },
+      {
+        "upc": "017000001012",
+        "name": "Dial Complete Antibacterial Foaming Hand Soap 7.5 fl oz",
+        "brand": "Dial",
+        "packageInfo": {
+          "weight": "7.5 fl oz",
+          "packageSize": "7.5 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.29,
+            "priceString": "$2.29"
+          },
+          "wasPrice": {
+            "price": 2.79,
+            "priceString": "$2.79"
+          },
+          "unitPrice": {
+            "priceString": "$0.31/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $0.50",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/dial-complete-antibacterial-foaming-hand-soap-7-5-fl-oz/017000001012",
+        "image": "https://www.kroger.com/product/images/large/front/017000001012",
+        "ppm": "$0.31/fl oz"
+      },
+      {
+        "upc": "011110901668",
+        "name": "Kroger Aloe Vera Liquid Hand Soap 7.5 fl oz",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "7.5 fl oz",
+          "packageSize": "7.5 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 1.29,
+            "priceString": "$1.29"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.17/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "4 for $4",
+          "volumeDealPrice": "4.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-aloe-vera-liquid-hand-soap-7-5-fl-oz/011110901668",
+        "image": "https://www.kroger.com/product/images/large/front/011110901668",
+        "ppm": "$0.17/fl oz"
+      },
+      {
+        "upc": "011111001022",
+        "name": "Dove White Beauty Bar Soap 6ct 22.5 oz",
+        "brand": "Dove",
+        "packageInfo": {
+          "weight": "22.5 oz",
+          "packageSize": "22.5 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 6.99,
+            "priceString": "$6.99"
+          },
+          "wasPrice": {
+            "price": 8.49,
+            "priceString": "$8.49"
+          },
+          "unitPrice": {
+            "priceString": "$0.31/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "$5.99 with Digital Coupon",
+          "digitalCouponPrice": "5.99",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/dove-white-beauty-bar-soap-6ct-22-5-oz/011111001022",
+        "image": "https://www.kroger.com/product/images/large/front/011111001022",
+        "ppm": "$0.31/oz"
+      },
+      {
+        "upc": "019100001015",
+        "name": "Jergens Ultra Healing Dry Skin Lotion 21 fl oz",
+        "brand": "Jergens",
+        "packageInfo": {
+          "weight": "21 fl oz",
+          "packageSize": "21 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": {
+            "price": 6.99,
+            "priceString": "$6.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.29/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/jergens-ultra-healing-dry-skin-lotion-21-fl-oz/019100001015",
+        "image": "https://www.kroger.com/product/images/large/front/019100001015",
+        "ppm": "$0.29/fl oz"
+      },
+      {
+        "upc": "360600001013",
+        "name": "CeraVe Daily Moisturizing Lotion for Normal to Dry Skin 12 fl oz",
+        "brand": "CeraVe",
+        "packageInfo": {
+          "weight": "12 fl oz",
+          "packageSize": "12 fl oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 14.99,
+            "priceString": "$14.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.25/fl oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $3.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/cerave-daily-moisturizing-lotion-for-normal-to-dry-skin-12-fl-oz/360600001013",
+        "image": "https://www.kroger.com/product/images/large/front/360600001013",
+        "ppm": "$1.25/fl oz"
+      },
+      {
+        "upc": "018080001015",
+        "name": "Q-tips Cotton Swabs Original 500ct Box",
+        "brand": "Q-tips",
+        "packageInfo": {
+          "weight": "500 ct",
+          "packageSize": "500 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.01/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/q-tips-cotton-swabs-original-500ct-box/018080001015",
+        "image": "https://www.kroger.com/product/images/large/front/018080001015",
+        "ppm": "$0.01/ct"
+      },
+      {
+        "upc": "011110901729",
+        "name": "Kroger Cotton Balls 300ct Bag",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "300 ct",
+          "packageSize": "300 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.19,
+            "priceString": "$2.19"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.01/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $3",
+          "volumeDealPrice": "3.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-cotton-balls-300ct-bag/011110901729",
+        "image": "https://www.kroger.com/product/images/large/front/011110901729",
+        "ppm": "$0.01/ct"
+      },
+      {
+        "upc": "037000001225",
+        "name": "Always Ultra Thin Size 1 Regular Pads with Wings 32ct",
+        "brand": "Always",
+        "packageInfo": {
+          "weight": "32 ct",
+          "packageSize": "32 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 6.99,
+            "priceString": "$6.99"
+          },
+          "wasPrice": {
+            "price": 7.99,
+            "priceString": "$7.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.22/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.50",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/always-ultra-thin-size-1-regular-pads-with-wings-32ct/037000001225",
+        "image": "https://www.kroger.com/product/images/large/front/037000001225",
+        "ppm": "$0.22/ct"
+      },
+      {
+        "upc": "037000001232",
+        "name": "Tampax Pearl Regular Absorbency Tampons 36ct",
+        "brand": "Tampax",
+        "packageInfo": {
+          "weight": "36 ct",
+          "packageSize": "36 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 8.99,
+            "priceString": "$8.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.25/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $15",
+          "volumeDealPrice": "15.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/tampax-pearl-regular-absorbency-tampons-36ct/037000001232",
+        "image": "https://www.kroger.com/product/images/large/front/037000001232",
+        "ppm": "$0.25/ct"
+      },
+      {
+        "upc": "011110901750",
+        "name": "Kroger Ultra Thin Regular Pads with Wings 32ct",
+        "brand": "Kroger",
+        "packageInfo": {
+          "weight": "32 ct",
+          "packageSize": "32 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.49,
+            "priceString": "$4.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.14/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $7",
+          "volumeDealPrice": "7.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/kroger-ultra-thin-regular-pads-with-wings-32ct/011110901750",
+        "image": "https://www.kroger.com/product/images/large/front/011110901750",
+        "ppm": "$0.14/ct"
+      }
+    ]
+  }
+}

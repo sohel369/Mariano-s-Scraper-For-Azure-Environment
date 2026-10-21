@@ -1,0 +1,439 @@
+{
+  "_source_run_metadata": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "category": "Fresh Produce",
+    "sub_category": "Fresh Fruits",
+    "source_url": "https://www.marianos.com/c/fresh-fruits/01001",
+    "http_status": 200,
+    "response_content_type": "application/json",
+    "capture_timestamp": "2026-10-21T04:56:42.294610+00:00",
+    "store_fulfillment_context": {
+      "store_id": "53100503",
+      "division_id": "531",
+      "store_number": "00503",
+      "store_name": "Mariano's New Eastside",
+      "store_location": "333 E Benton Pl, Chicago, IL 60601",
+      "postal_code": "60601",
+      "fulfillment_intent": "PICKUP",
+      "curbside_pickup_active": true,
+      "instore_pickup_active": true
+    }
+  },
+  "raw_store_lookup_response": {
+    "data": {
+      "store": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true
+          }
+        ]
+      }
+    }
+  },
+  "data": {
+    "products": [
+      {
+        "upc": "011110852076",
+        "name": "Simple Truth Organic Blueberries 1 Pint",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "1 pt",
+          "packageSize": "1 pt"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.25/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-blueberries-1-pint/011110852076",
+        "image": "https://www.kroger.com/product/images/large/front/011110852076",
+        "ppm": "$0.25/oz"
+      },
+      {
+        "upc": "011110811080",
+        "name": "Roundy's Fresh Strawberries 1 lb Clamshell",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "16 oz",
+          "packageSize": "16 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "unitPrice": {
+            "priceString": "$0.19/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "Buy 1, Get 1 Free",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-fresh-strawberries-1-lb-clamshell/011110811080",
+        "image": "https://www.kroger.com/product/images/large/front/011110811080",
+        "ppm": "$0.19/oz"
+      },
+      {
+        "upc": "011110852090",
+        "name": "Simple Truth Organic Raspberries 6 oz",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "6 oz",
+          "packageSize": "6 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.67/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $6",
+          "volumeDealPrice": "6.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-raspberries-6-oz/011110852090",
+        "image": "https://www.kroger.com/product/images/large/front/011110852090",
+        "ppm": "$0.67/oz"
+      },
+      {
+        "upc": "011110852106",
+        "name": "Simple Truth Organic Blackberries 6 oz",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "6 oz",
+          "packageSize": "6 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$0.67/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $6",
+          "volumeDealPrice": "6.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-blackberries-6-oz/011110852106",
+        "image": "https://www.kroger.com/product/images/large/front/011110852106",
+        "ppm": "$0.67/oz"
+      },
+      {
+        "upc": "011110811110",
+        "name": "Roundy's Gala Apples 3 lb Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "3 lb",
+          "packageSize": "3 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.99,
+            "priceString": "$3.99"
+          },
+          "wasPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "unitPrice": {
+            "priceString": "$1.33/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-gala-apples-3-lb-bag/011110811110",
+        "image": "https://www.kroger.com/product/images/large/front/011110811110",
+        "ppm": "$1.33/lb"
+      },
+      {
+        "upc": "011110852120",
+        "name": "Simple Truth Organic Honeycrisp Apples 2 lb Pouch",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "2 lb",
+          "packageSize": "2 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$3.00/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "$4.99 with Digital Coupon",
+          "digitalCouponPrice": "4.99",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-honeycrisp-apples-2-lb-pouch/011110852120",
+        "image": "https://www.kroger.com/product/images/large/front/011110852120",
+        "ppm": "$3.00/lb"
+      },
+      {
+        "upc": "011110811134",
+        "name": "Roundy's Navel Oranges 4 lb Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "4 lb",
+          "packageSize": "4 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 5.49,
+            "priceString": "$5.49"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.37/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "2 for $9",
+          "volumeDealPrice": "9.00"
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-navel-oranges-4-lb-bag/011110811134",
+        "image": "https://www.kroger.com/product/images/large/front/011110811134",
+        "ppm": "$1.37/lb"
+      },
+      {
+        "upc": "014121001013",
+        "name": "Wonderful Halos Mandarins 3 lb Bag",
+        "brand": "Wonderful",
+        "packageInfo": {
+          "weight": "3 lb",
+          "packageSize": "3 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": {
+            "price": 5.99,
+            "priceString": "$5.99"
+          },
+          "unitPrice": {
+            "priceString": "$1.66/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $1.00",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/wonderful-halos-mandarins-3-lb-bag/014121001013",
+        "image": "https://www.kroger.com/product/images/large/front/014121001013",
+        "ppm": "$1.66/lb"
+      },
+      {
+        "upc": "011110852151",
+        "name": "Simple Truth Organic Hass Avocados 4ct Bag",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "4 ct",
+          "packageSize": "4 ct"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 4.99,
+            "priceString": "$4.99"
+          },
+          "wasPrice": null,
+          "unitPrice": {
+            "priceString": "$1.25/ct"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-hass-avocados-4ct-bag/011110852151",
+        "image": "https://www.kroger.com/product/images/large/front/011110852151",
+        "ppm": "$1.25/ct"
+      },
+      {
+        "upc": "011110852175",
+        "name": "Simple Truth Organic Grape Tomatoes 10 oz Pint",
+        "brand": "Simple",
+        "packageInfo": {
+          "weight": "10 oz",
+          "packageSize": "10 oz"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 2.99,
+            "priceString": "$2.99"
+          },
+          "wasPrice": {
+            "price": 3.29,
+            "priceString": "$3.29"
+          },
+          "unitPrice": {
+            "priceString": "$0.30/oz"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-grape-tomatoes-10-oz-pint/011110852175",
+        "image": "https://www.kroger.com/product/images/large/front/011110852175",
+        "ppm": "$0.30/oz"
+      },
+      {
+        "upc": "011110811332",
+        "name": "Roundy's Whole Lemons 2 lb Bag",
+        "brand": "Roundy's",
+        "packageInfo": {
+          "weight": "2 lb",
+          "packageSize": "2 lb"
+        },
+        "priceInfo": {
+          "currentPrice": {
+            "price": 3.49,
+            "priceString": "$3.49"
+          },
+          "wasPrice": {
+            "price": 4.29,
+            "priceString": "$4.29"
+          },
+          "unitPrice": {
+            "priceString": "$1.75/lb"
+          }
+        },
+        "promotions": {
+          "digitalCoupon": "Clip Coupon: Save $0.50",
+          "digitalCouponPrice": "",
+          "volumeDeal": "",
+          "volumeDealPrice": ""
+        },
+        "availability": {
+          "inStock": true,
+          "pickupEligible": true,
+          "stockLevel": "HIGH"
+        },
+        "canonicalUrl": "https://www.marianos.com/p/roundy-s-whole-lemons-2-lb-bag/011110811332",
+        "image": "https://www.kroger.com/product/images/large/front/011110811332",
+        "ppm": "$1.75/lb"
+      }
+    ]
+  }
+}

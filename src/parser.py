@@ -216,8 +216,16 @@ class MarianoPageParser:
             brand = str(item.get("brand") or "").strip()
             store_brand = self.normalizer.is_store_private_brand(title, brand)
 
-            # 2. Weight & Packaging
-            weight = str(item.get("weight") or item.get("size") or item.get("packageSize") or "").strip()
+            # 2. Weight & Packaging (incorporating nested packageInfo)
+            pkg_info = item.get("packageInfo", {}) or {}
+            weight = str(
+                item.get("weight") or
+                pkg_info.get("weight") or
+                item.get("size") or
+                pkg_info.get("packageSize") or
+                item.get("packageSize") or
+                ""
+            ).strip()
 
             # RULE: Exclude products whose weight contains "approx", "approximately" or equivalent
             if self.normalizer.is_approximate_weight(weight) or self.normalizer.is_approximate_weight(title):
@@ -252,26 +260,41 @@ class MarianoPageParser:
             )
             ppm = self.normalizer.extract_ppm(str(raw_ppm))
 
-            # 5. Deals Classification (Volume vs Digital)
+            # 5. Deals Classification (Volume vs Digital, incorporating nested promotions)
+            promo_info = item.get("promotions", {}) or {}
             badge_text = str(item.get("badge", {}).get("text") or item.get("promoBadge") or "")
-            deal_desc = str(item.get("dealDescription") or item.get("promoDescription") or "")
-            promo_price_disp = str(item.get("promoPrice") or "")
+            deal_desc = str(
+                item.get("dealDescription") or
+                item.get("promoDescription") or
+                promo_info.get("digitalCoupon") or
+                promo_info.get("volumeDeal") or
+                ""
+            )
+            promo_price_disp = str(
+                item.get("promoPrice") or
+                promo_info.get("digitalCouponPrice") or
+                promo_info.get("volumeDealPrice") or
+                ""
+            )
 
             vol_desc, vol_price, dig_desc, dig_price = self.normalizer.parse_deals(
                 badge_text, deal_desc, promo_price_disp
             )
 
-            # 6. URLs and Identifiers
+            # 6. URLs and Identifiers (Distinct UPC vs Retailer Product ID)
             canonical_url = str(item.get("canonicalUrl") or item.get("productUrl") or item.get("url") or "")
             if canonical_url and not canonical_url.startswith("http"):
                 canonical_url = f"https://www.marianos.com{canonical_url}"
 
             image_url = str(item.get("image") or item.get("imageInfo", {}).get("thumbnailUrl") or item.get("imageUrl") or "")
 
-            upc = str(item.get("upc") or item.get("id") or "").strip()
+            retailer_item_id = str(item.get("id") or item.get("productId") or "").strip()
+            raw_upc = str(item.get("upc") or item.get("gtin") or "").strip()
+            # Do NOT use retailer item ID as fallback UPC if actual UPC is absent
+            upc = raw_upc if (raw_upc.isdigit() and len(raw_upc) in (11, 12, 13, 14)) else ""
 
-            # 7. Deduplication check (UPC / Canonical URL)
-            dedup_key = upc if upc else canonical_url
+            # 7. Deduplication check (UPC / Canonical URL / Retailer ID)
+            dedup_key = upc if upc else canonical_url if canonical_url else retailer_item_id
             if not dedup_key or dedup_key in seen_keys:
                 continue
             seen_keys.add(dedup_key)
@@ -302,8 +325,14 @@ class MarianoPageParser:
                 crawl_date=datetime.now(timezone.utc).strftime("%Y-%m-%d")  # 22nd field: collection date
             )
 
-            # Audit logging: Distinguish fresh on-shelf vs fresh out-of-stock in supporting logs
-            is_out_of_stock = bool(item.get("soldOut") or item.get("inStock") is False or item.get("isAvailable") is False)
+            # Audit logging: Distinguish fresh on-shelf vs fresh out-of-stock (including nested availability.inStock)
+            avail_info = item.get("availability", {}) or {}
+            is_out_of_stock = bool(
+                item.get("soldOut") or
+                item.get("inStock") is False or
+                avail_info.get("inStock") is False or
+                item.get("isAvailable") is False
+            )
             if is_out_of_stock:
                 logger.info(f"[LOG-OBS: FRESH_OUT_OF_STOCK] Retaining out-of-stock item: {title} (UPC: {upc}) at source price ${regular_price}")
             else:
