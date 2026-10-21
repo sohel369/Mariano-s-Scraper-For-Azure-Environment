@@ -1,14 +1,16 @@
 {
-  "timestamp_utc": "2026-10-21T02:03:00.235966+00:00",
+  "timestamp_utc": "2026-10-21T04:15:19.448553+00:00",
   "host_ip": "103.106.236.167",
   "host_country": "Bangladesh",
   "host_country_code": "BD",
   "target_host": "www.marianos.com",
   "akamai_edge_ip": "23.204.253.35",
   "akamai_cname": "a23-204-253-35.deploy.static.akamaitechnologies.com",
+  "is_akamai_infrastructure": true,
   "tcp_handshake_successful": true,
   "tls_handshake_successful": true,
-  "observed_edge_behavior": "SocketTimeout (Akamai silently dropped packets without response)",
+  "observed_edge_action": "Socket Read Timeout (Akamai edge dropped packets silently)",
+  "observed_edge_error": "None",
   "is_blocked_by_akamai_edge": true,
   "resolution": "Provision US Residential Proxy (MARIANOS_PROXY_URL) or deploy to Azure ACI (East US)"
 }

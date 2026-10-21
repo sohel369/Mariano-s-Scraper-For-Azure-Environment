@@ -23,15 +23,22 @@ class MarianoPageParser:
         directly from the raw server response payload (store lookup endpoint).
         Strictly requires all fields from server response; no hardcoded fallbacks permitted.
         """
-        store_obj = response_data.get("data", response_data)
-        if isinstance(store_obj, list) and len(store_obj) > 0:
-            store_obj = store_obj[0]
-        elif not isinstance(store_obj, dict):
-            raise ValueError(f"Malformed store response payload: expected dict or non-empty list, got {type(store_obj)}")
+        data_wrapper = response_data.get("data", response_data)
+        modality_ctx: Dict[str, Any] = {}
 
-        div_id_raw = store_obj.get("divisionId") or store_obj.get("divisionNumber")
+        if isinstance(data_wrapper, dict) and "store" in data_wrapper:
+            store_obj = data_wrapper["store"]
+            modality_ctx = data_wrapper.get("modalityContext", {})
+        elif isinstance(data_wrapper, list) and len(data_wrapper) > 0:
+            store_obj = data_wrapper[0]
+        elif isinstance(data_wrapper, dict):
+            store_obj = data_wrapper
+        else:
+            raise ValueError(f"Malformed store response payload: expected dict or non-empty list, got {type(data_wrapper)}")
+
+        div_id_raw = store_obj.get("divisionNumber") or store_obj.get("divisionId") or modality_ctx.get("divisionId")
         if not div_id_raw:
-            raise ValueError("Store validation failed: 'divisionId'/'divisionNumber' missing from server response payload!")
+            raise ValueError("Store validation failed: 'divisionNumber'/'divisionId' missing from server response payload!")
         div_id = str(div_id_raw).strip().zfill(3)
 
         str_num_raw = store_obj.get("storeNumber") or store_obj.get("storeId")
@@ -40,11 +47,12 @@ class MarianoPageParser:
         str_num = str(str_num_raw).strip().zfill(5)
 
         full_loc_id = f"{div_id}{str_num}"
+        server_loc_id = str(store_obj.get("locationId") or modality_ctx.get("fulfillmentStoreId") or "").strip()
         
-        # Explicit ID match verification
-        if full_loc_id != expected_store_id and str(store_obj.get("locationId", "")).strip() != expected_store_id:
+        # Explicit ID match verification against server response
+        if full_loc_id != expected_store_id and server_loc_id != expected_store_id:
             raise ValueError(
-                f"Store ID verification failure: Server returned Location ID '{full_loc_id}', "
+                f"Store ID verification failure: Server returned Location ID '{server_loc_id or full_loc_id}', "
                 f"expected '{expected_store_id}'!"
             )
 
@@ -63,7 +71,7 @@ class MarianoPageParser:
                 f"street='{street}', city='{city}', state='{state}', zipCode='{zipcode}'"
             )
 
-        modalities = store_obj.get("modalities", [])
+        modalities = store_obj.get("fulfillmentMethods") or store_obj.get("modalities") or []
         if not isinstance(modalities, list):
             modalities = [modalities]
             
@@ -71,15 +79,24 @@ class MarianoPageParser:
         for m in modalities:
             mod_str = m if isinstance(m, str) else m.get("type", "") if isinstance(m, dict) else ""
             if mod_str.upper() == "PICKUP":
-                pickup_verified = True
-                break
+                # Check eligibility/active if present in raw payload
+                if isinstance(m, dict):
+                    if m.get("active", True) and m.get("eligible", True):
+                        pickup_verified = True
+                        break
+                else:
+                    pickup_verified = True
+                    break
+
+        if not pickup_verified and modality_ctx.get("selectedModality", "").upper() == "PICKUP":
+            pickup_verified = True
 
         if not pickup_verified:
-            raise ValueError(f"Fulfillment validation failed: Store {full_loc_id} response does not offer PICKUP modality!")
+            raise ValueError(f"Fulfillment validation failed: Store {full_loc_id} response does not offer active PICKUP modality!")
 
-        store_name = store_obj.get("name") or store_obj.get("vanityName")
+        store_name = store_obj.get("vanityName") or store_obj.get("name")
         if not store_name:
-            raise ValueError("Store validation failed: 'name' missing from server response payload!")
+            raise ValueError("Store validation failed: 'vanityName'/'name' missing from server response payload!")
 
         return {
             "verified_store_id": full_loc_id,

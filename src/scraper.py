@@ -66,28 +66,20 @@ class MarianoProductionScraper:
             f"ZIP={location.get('zipcode')}, ID={store_id}, Mode=In-Store/Pickup"
         )
 
-        # Validate Store Fulfillment Context from Retailer Response (Strict Validation without Fallbacks)
+        # Validate Store Fulfillment Context directly from Unmodified Retailer Response
         raw_evidence_path = os.path.join(self.storage.base_dir, "data", "raw", "marianos_raw_store_53100503_evidence.json")
         if os.path.exists(raw_evidence_path):
             try:
                 with open(raw_evidence_path, "r", encoding="utf-8") as f:
                     evidence_data = json.load(f)
-                store_recon = evidence_data.get("_retailer_context", {}).get("store_reconciliation", {})
-                store_response_payload = {
-                    "divisionId": store_recon.get("division_id"),
-                    "storeNumber": store_recon.get("store_number"),
-                    "locationId": store_recon.get("full_location_id"),
-                    "name": store_recon.get("store_name"),
-                    "address": {
-                        "addressLine1": "333 E Benton Pl",
-                        "city": "Chicago",
-                        "state": "IL",
-                        "zipCode": store_recon.get("postal_code")
-                    },
-                    "modalities": ["PICKUP", "DELIVERY"]
-                }
-                validated_ctx = self.parser.validate_store_fulfillment_response(store_response_payload, expected_store_id=store_id)
-                logger.info(f"Response-based store verification PASSED: Location={validated_ctx['verified_store_id']} ({validated_ctx['store_name']}), Modality={validated_ctx['fulfillment_modality']}")
+                # Pass authentic raw_store_lookup_response directly without artificial wrappers
+                raw_response = evidence_data.get("raw_store_lookup_response") or evidence_data
+                validated_ctx = self.parser.validate_store_fulfillment_response(raw_response, expected_store_id=store_id)
+                logger.info(
+                    f"Response-based store verification PASSED: Location={validated_ctx['verified_store_id']} "
+                    f"({validated_ctx['store_name']}), Address='{validated_ctx['store_location']}', "
+                    f"Modality={validated_ctx['fulfillment_modality']}"
+                )
             except Exception as ve:
                 logger.error(f"Store verification failed: {ve}")
                 raise

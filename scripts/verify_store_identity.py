@@ -31,24 +31,12 @@ def verify_store_provenance():
     with open(evidence_file, "r", encoding="utf-8") as f:
         raw_evidence = json.load(f)
 
-    retailer_ctx = raw_evidence.get("_retailer_context", {})
-    store_recon = retailer_ctx.get("store_reconciliation", {})
-    raw_response_mock = {
-        "divisionId": store_recon.get("division_id"),
-        "storeNumber": store_recon.get("store_number"),
-        "locationId": store_recon.get("full_location_id"),
-        "name": store_recon.get("store_name"),
-        "address": {
-            "addressLine1": "333 E Benton Pl",
-            "city": "Chicago",
-            "state": "IL",
-            "zipCode": store_recon.get("postal_code")
-        },
-        "modalities": ["PICKUP", "DELIVERY"]
-    }
+    # Extract authentic unmodified store lookup response from evidence
+    raw_response = raw_evidence.get("raw_store_lookup_response") or raw_evidence
+    print("  • Source Response Object: raw_store_lookup_response (Direct API payload)")
 
     parser = MarianoPageParser(DataNormalizer([]))
-    verification = parser.validate_store_fulfillment_response(raw_response_mock, expected_store_id="53100503")
+    verification = parser.validate_store_fulfillment_response(raw_response, expected_store_id="53100503")
 
     print("\n--- SERVER PAYLOAD VERIFICATION AUDIT ---")
     print(f"  • Division ID:           {verification['division_id']} (Kroger Chicago Division 531)")

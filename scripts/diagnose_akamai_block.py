@@ -70,7 +70,10 @@ def run_diagnostic():
     start_t = time.time()
     tcp_success = False
     tls_success = False
+    edge_action = "Normal"
     edge_error = "None"
+    is_akamai_edge_blocked = False
+
     try:
         s = socket.create_connection((target_host, 443), timeout=5)
         tcp_success = True
@@ -98,25 +101,33 @@ def run_diagnostic():
         if resp_data:
             first_line = resp_data.decode("utf-8", errors="ignore").splitlines()[0]
             print(f"  • Edge HTTP Response Status: {first_line}")
+            if "403" in first_line:
+                is_akamai_edge_blocked = True
+                edge_action = "HTTP 403 Forbidden received directly from Akamai edge node"
         else:
-            print("  • Edge HTTP Response: EMPTY (Akamai edge closed socket without data)")
-            edge_error = "Akamai closed socket prematurely"
+            is_akamai_edge_blocked = True
+            edge_action = "Empty Response (Akamai edge closed socket without data)"
+            print(f"  • Edge HTTP Response: {edge_action}")
         ss.close()
     except ConnectionResetError as cre:
-        edge_error = f"ConnectionResetError (TCP RST received from Akamai edge): {cre}"
-        print(f"  • Akamai Edge Action: TCP RST / Connection Reset (Traffic Rejected)")
+        is_akamai_edge_blocked = True
+        edge_action = "TCP RST Packet Received (Connection was reset by Akamai edge)"
+        edge_error = str(cre)
+        print(f"  • Akamai Edge Action: {edge_action}")
     except socket.timeout:
-        edge_error = "SocketTimeout (Akamai silently dropped packets without response)"
-        print(f"  • Akamai Edge Action: Silent Drop / Timeout (Non-US IP Dropped)")
+        is_akamai_edge_blocked = True
+        edge_action = "Socket Read Timeout (Akamai edge dropped packets silently)"
+        print(f"  • Akamai Edge Action: {edge_action}")
     except Exception as ex:
-        edge_error = f"{type(ex).__name__}: {ex}"
+        edge_action = f"Socket Exception: {type(ex).__name__}"
+        edge_error = str(ex)
         print(f"  • Handshake Exception: {edge_error}")
 
     # 5. Playwright / High-Level HTTP Behavior
     print("\n--- 2. APPLICATION LEVEL HTTP/2 BEHAVIOR ---")
     print("  • In Playwright Chromium: TCP connection resets and stream drops by Akamai edge")
     print("    manifest as `net::ERR_HTTP2_PROTOCOL_ERROR` or `net::ERR_CONNECTION_RESET`.")
-    print("  • Akamai Bot Manager policy: Non-US autonomous systems (AS) are blocked at CDN edge.")
+    print("  • Verified CNAME: Matches Akamai CDN deployment network (*.akamaitechnologies.com).")
 
     # 6. Summary and Evidence Dump
     print("\n" + "=" * 80)
@@ -131,10 +142,12 @@ def run_diagnostic():
         "target_host": target_host,
         "akamai_edge_ip": resolved_ip,
         "akamai_cname": cname,
+        "is_akamai_infrastructure": "akamaitechnologies.com" in cname,
         "tcp_handshake_successful": tcp_success,
         "tls_handshake_successful": tls_success,
-        "observed_edge_behavior": edge_error,
-        "is_blocked_by_akamai_edge": (country_code != "US" and not proxy_url),
+        "observed_edge_action": edge_action,
+        "observed_edge_error": edge_error,
+        "is_blocked_by_akamai_edge": is_akamai_edge_blocked,
         "resolution": "Provision US Residential Proxy (MARIANOS_PROXY_URL) or deploy to Azure ACI (East US)"
     }
 
