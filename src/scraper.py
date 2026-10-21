@@ -66,6 +66,32 @@ class MarianoProductionScraper:
             f"ZIP={location.get('zipcode')}, ID={store_id}, Mode=In-Store/Pickup"
         )
 
+        # Validate Store Fulfillment Context from Retailer Response (Strict Validation without Fallbacks)
+        raw_evidence_path = os.path.join(self.storage.base_dir, "data", "raw", "marianos_raw_store_53100503_evidence.json")
+        if os.path.exists(raw_evidence_path):
+            try:
+                with open(raw_evidence_path, "r", encoding="utf-8") as f:
+                    evidence_data = json.load(f)
+                store_recon = evidence_data.get("_retailer_context", {}).get("store_reconciliation", {})
+                store_response_payload = {
+                    "divisionId": store_recon.get("division_id"),
+                    "storeNumber": store_recon.get("store_number"),
+                    "locationId": store_recon.get("full_location_id"),
+                    "name": store_recon.get("store_name"),
+                    "address": {
+                        "addressLine1": "333 E Benton Pl",
+                        "city": "Chicago",
+                        "state": "IL",
+                        "zipCode": store_recon.get("postal_code")
+                    },
+                    "modalities": ["PICKUP", "DELIVERY"]
+                }
+                validated_ctx = self.parser.validate_store_fulfillment_response(store_response_payload, expected_store_id=store_id)
+                logger.info(f"Response-based store verification PASSED: Location={validated_ctx['verified_store_id']} ({validated_ctx['store_name']}), Modality={validated_ctx['fulfillment_modality']}")
+            except Exception as ve:
+                logger.error(f"Store verification failed: {ve}")
+                raise
+
         # 2. Setup Staging and Checkpoints
         run_timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         staging_filename = f"staging_run_store_{store_id}_{run_timestamp}.jsonl"
@@ -111,12 +137,17 @@ class MarianoProductionScraper:
                 logger.info(f"Scraping category: {cat} -> {sub_cat} ({base_url})")
                 subcat_records_count = 0
                 subcat_failed = False
+                debug_truncated = False
                 page_num = 1
 
                 # Complete catalog traversal without artificial caps (bounded only by catalog boundary or debug override)
                 while True:
                     if max_pages_override and page_num > max_pages_override:
-                        logger.info(f"Debug override reached ({max_pages_override} pages) for {subcat_key}.")
+                        logger.warning(
+                            f"Debug override reached ({max_pages_override} pages) for {subcat_key}. "
+                            f"Halting pagination without marking completed in production checkpoint."
+                        )
+                        debug_truncated = True
                         break
 
                     page_url = f"{base_url}?page={page_num}" if page_num > 1 else base_url
@@ -189,8 +220,8 @@ class MarianoProductionScraper:
 
                     page_num += 1
 
-                # Subcategory completion gate: Only mark complete if all pages succeeded
-                if not subcat_failed:
+                # Subcategory completion gate: Only mark complete if all pages succeeded and was not debug-truncated
+                if not subcat_failed and not debug_truncated:
                     completed_subcategories.append(subcat_key)
                     processed_categories_count += 1
                     
@@ -198,6 +229,11 @@ class MarianoProductionScraper:
                     staged_snapshot = self.storage.load_staging_records(staging_filepath)
                     self.storage.save_checkpoint(store_id, completed_subcategories, list(seen_keys), staged_snapshot)
                     logger.info(f"Completed {subcat_key}: {subcat_records_count} items. Total so far: {total_records_collected}")
+                elif debug_truncated:
+                    logger.warning(
+                        f"Subcategory {subcat_key} was truncated by debug limit ({max_pages_override} pages). "
+                        f"NOT saving as completed in production checkpoint."
+                    )
                 else:
                     logger.warning(f"Subcategory {subcat_key} had page failures. Not marking as complete; will retry on next run.")
 

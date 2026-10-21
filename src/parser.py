@@ -21,39 +21,73 @@ class MarianoPageParser:
         """
         Validates Mariano's store identity, address, and pickup modality
         directly from the raw server response payload (store lookup endpoint).
+        Strictly requires all fields from server response; no hardcoded fallbacks permitted.
         """
         store_obj = response_data.get("data", response_data)
         if isinstance(store_obj, list) and len(store_obj) > 0:
             store_obj = store_obj[0]
+        elif not isinstance(store_obj, dict):
+            raise ValueError(f"Malformed store response payload: expected dict or non-empty list, got {type(store_obj)}")
 
-        div_id = str(store_obj.get("divisionId") or store_obj.get("divisionNumber") or "531").zfill(3)
-        str_num = str(store_obj.get("storeNumber") or store_obj.get("storeId") or "00503").zfill(5)
+        div_id_raw = store_obj.get("divisionId") or store_obj.get("divisionNumber")
+        if not div_id_raw:
+            raise ValueError("Store validation failed: 'divisionId'/'divisionNumber' missing from server response payload!")
+        div_id = str(div_id_raw).strip().zfill(3)
+
+        str_num_raw = store_obj.get("storeNumber") or store_obj.get("storeId")
+        if not str_num_raw:
+            raise ValueError("Store validation failed: 'storeNumber'/'storeId' missing from server response payload!")
+        str_num = str(str_num_raw).strip().zfill(5)
+
         full_loc_id = f"{div_id}{str_num}"
         
         # Explicit ID match verification
-        if full_loc_id != expected_store_id and store_obj.get("locationId") != expected_store_id:
+        if full_loc_id != expected_store_id and str(store_obj.get("locationId", "")).strip() != expected_store_id:
             raise ValueError(
                 f"Store ID verification failure: Server returned Location ID '{full_loc_id}', "
                 f"expected '{expected_store_id}'!"
             )
 
-        address_info = store_obj.get("address", {})
-        street = address_info.get("addressLine1") or "333 E Benton Pl"
-        city = address_info.get("city") or "Chicago"
-        state = address_info.get("state") or "IL"
-        zipcode = address_info.get("zipCode") or "60601"
+        address_info = store_obj.get("address")
+        if not address_info or not isinstance(address_info, dict):
+            raise ValueError("Store validation failed: 'address' object missing from server response payload!")
 
-        modalities = store_obj.get("modalities", ["PICKUP"])
-        if isinstance(modalities, list) and "PICKUP" not in [m.upper() if isinstance(m, str) else m.get("type", "").upper() for m in modalities]:
-            logger.warning(f"Store {full_loc_id} does not explicitly report PICKUP modality.")
+        street = address_info.get("addressLine1")
+        city = address_info.get("city")
+        state = address_info.get("state")
+        zipcode = address_info.get("zipCode")
+
+        if not street or not city or not state or not zipcode:
+            raise ValueError(
+                f"Store validation failed: Incomplete address fields in server response! "
+                f"street='{street}', city='{city}', state='{state}', zipCode='{zipcode}'"
+            )
+
+        modalities = store_obj.get("modalities", [])
+        if not isinstance(modalities, list):
+            modalities = [modalities]
+            
+        pickup_verified = False
+        for m in modalities:
+            mod_str = m if isinstance(m, str) else m.get("type", "") if isinstance(m, dict) else ""
+            if mod_str.upper() == "PICKUP":
+                pickup_verified = True
+                break
+
+        if not pickup_verified:
+            raise ValueError(f"Fulfillment validation failed: Store {full_loc_id} response does not offer PICKUP modality!")
+
+        store_name = store_obj.get("name") or store_obj.get("vanityName")
+        if not store_name:
+            raise ValueError("Store validation failed: 'name' missing from server response payload!")
 
         return {
             "verified_store_id": full_loc_id,
             "division_id": div_id,
             "store_number": str_num,
-            "store_name": store_obj.get("name") or "Mariano's New Eastside",
-            "store_location": f"{street}, {city}, {state} {zipcode}",
-            "zipcode": zipcode,
+            "store_name": str(store_name).strip(),
+            "store_location": f"{street.strip()}, {city.strip()}, {state.strip()} {zipcode.strip()}",
+            "zipcode": str(zipcode).strip(),
             "fulfillment_modality": "PICKUP",
             "response_status": "VERIFIED_PASS"
         }
