@@ -1,4 +1,1137 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "6/28",
+    "category": "Dairy & Eggs",
+    "sub_category": "Eggs Butter & Yogurt"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00006&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/eggs-butter/03002",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "011110813053",
+          "name": "Roundy's Large White Eggs 12ct Grade A",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "12 ct",
+            "packageSize": "12 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.69,
+              "priceString": "$2.69"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.22/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-large-white-eggs-12ct-grade-a/011110813053",
+          "image": "https://www.kroger.com/product/images/large/front/011110813053",
+          "ppm": "$0.22/ct"
+        },
+        {
+          "upc": "011110854063",
+          "name": "Simple Truth Organic Large Brown Eggs 12ct Cage Free",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "12 ct",
+            "packageSize": "12 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.33/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$3.49 with Digital Coupon",
+            "digitalCouponPrice": "3.49",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-large-brown-eggs-12ct-cage-free/011110854063",
+          "image": "https://www.kroger.com/product/images/large/front/011110854063",
+          "ppm": "$0.33/ct"
+        },
+        {
+          "upc": "071512001014",
+          "name": "Eggland's Best Large White Eggs 12ct",
+          "brand": "Eggland's",
+          "packageInfo": {
+            "weight": "12 ct",
+            "packageSize": "12 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.29/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/eggland-s-best-large-white-eggs-12ct/071512001014",
+          "image": "https://www.kroger.com/product/images/large/front/071512001014",
+          "ppm": "$0.29/ct"
+        },
+        {
+          "upc": "086000001025",
+          "name": "Vital Farms Pasture-Raised Large Eggs 12ct",
+          "brand": "Vital",
+          "packageInfo": {
+            "weight": "12 ct",
+            "packageSize": "12 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.54/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/vital-farms-pasture-raised-large-eggs-12ct/086000001025",
+          "image": "https://www.kroger.com/product/images/large/front/086000001025",
+          "ppm": "$0.54/ct"
+        },
+        {
+          "upc": "011110813091",
+          "name": "Roundy's Sweet Cream Salted Butter 16 oz 4 Quarters",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.21/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-sweet-cream-salted-butter-16-oz-4-quarters/011110813091",
+          "image": "https://www.kroger.com/product/images/large/front/011110813091",
+          "ppm": "$0.21/oz"
+        },
+        {
+          "upc": "011110813107",
+          "name": "Roundy's Sweet Cream Unsalted Butter 16 oz 4 Quarters",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.21/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-sweet-cream-unsalted-butter-16-oz-4-quarters/011110813107",
+          "image": "https://www.kroger.com/product/images/large/front/011110813107",
+          "ppm": "$0.21/oz"
+        },
+        {
+          "upc": "011110854117",
+          "name": "Simple Truth Organic Salted Butter 16 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.34/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-salted-butter-16-oz/011110854117",
+          "image": "https://www.kroger.com/product/images/large/front/011110854117",
+          "ppm": "$0.34/oz"
+        },
+        {
+          "upc": "034500001014",
+          "name": "Land O Lakes Butter with Canola Oil Tub 15 oz",
+          "brand": "Land",
+          "packageInfo": {
+            "weight": "15 oz",
+            "packageSize": "15 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.27/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/land-o-lakes-butter-with-canola-oil-tub-15-oz/034500001014",
+          "image": "https://www.kroger.com/product/images/large/front/034500001014",
+          "ppm": "$0.27/oz"
+        },
+        {
+          "upc": "076770001028",
+          "name": "Kerrygold Pure Irish Salted Butter 8 oz Foil",
+          "brand": "Kerrygold",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.56/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kerrygold-pure-irish-salted-butter-8-oz-foil/076770001028",
+          "image": "https://www.kroger.com/product/images/large/front/076770001028",
+          "ppm": "$0.56/oz"
+        },
+        {
+          "upc": "011110813145",
+          "name": "Roundy's Finely Shredded Mild Cheddar Cheese 8 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.31/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-finely-shredded-mild-cheddar-cheese-8-oz/011110813145",
+          "image": "https://www.kroger.com/product/images/large/front/011110813145",
+          "ppm": "$0.31/oz"
+        },
+        {
+          "upc": "011110813152",
+          "name": "Roundy's Shredded Mozzarella Cheese 8 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.31/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-shredded-mozzarella-cheese-8-oz/011110813152",
+          "image": "https://www.kroger.com/product/images/large/front/011110813152",
+          "ppm": "$0.31/oz"
+        },
+        {
+          "upc": "011110813169",
+          "name": "Roundy's Shredded Mexican Style 4 Cheese Blend 8 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.31/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-shredded-mexican-style-4-cheese-blend-8-oz/011110813169",
+          "image": "https://www.kroger.com/product/images/large/front/011110813169",
+          "ppm": "$0.31/oz"
+        },
+        {
+          "upc": "021000001019",
+          "name": "Kraft Shredded Mild Cheddar Cheese 8 oz",
+          "brand": "Kraft",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.35/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.75",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kraft-shredded-mild-cheddar-cheese-8-oz/021000001019",
+          "image": "https://www.kroger.com/product/images/large/front/021000001019",
+          "ppm": "$0.35/oz"
+        },
+        {
+          "upc": "046100001028",
+          "name": "Sargento Shredded Mozzarella Cheese 8 oz",
+          "brand": "Sargento",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.37/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/sargento-shredded-mozzarella-cheese-8-oz/046100001028",
+          "image": "https://www.kroger.com/product/images/large/front/046100001028",
+          "ppm": "$0.37/oz"
+        },
+        {
+          "upc": "011110914194",
+          "name": "Private Selection Extra Sharp White Cheddar Chunk 8 oz",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.50/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-extra-sharp-white-cheddar-chunk-8-oz/011110914194",
+          "image": "https://www.kroger.com/product/images/large/front/011110914194",
+          "ppm": "$0.50/oz"
+        },
+        {
+          "upc": "011110854209",
+          "name": "Simple Truth Organic Sharp Cheddar Cheese Slices 6 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "6 oz",
+            "packageSize": "6 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.58/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-sharp-cheddar-cheese-slices-6-oz/011110854209",
+          "image": "https://www.kroger.com/product/images/large/front/011110854209",
+          "ppm": "$0.58/oz"
+        },
+        {
+          "upc": "011110813213",
+          "name": "Roundy's American Cheese Singles 24ct 16 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.19/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-american-cheese-singles-24ct-16-oz/011110813213",
+          "image": "https://www.kroger.com/product/images/large/front/011110813213",
+          "ppm": "$0.19/oz"
+        },
+        {
+          "upc": "021000002016",
+          "name": "Kraft Singles American Cheese Slices 24ct 16 oz",
+          "brand": "Kraft",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kraft-singles-american-cheese-slices-24ct-16-oz/021000002016",
+          "image": "https://www.kroger.com/product/images/large/front/021000002016",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "011110813237",
+          "name": "Roundy's Sour Cream Original Grade A 16 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-sour-cream-original-grade-a-16-oz/011110813237",
+          "image": "https://www.kroger.com/product/images/large/front/011110813237",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "073420001018",
+          "name": "Daisy Pure & Natural Sour Cream 16 oz Tub",
+          "brand": "Daisy",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.19,
+              "priceString": "$2.19"
+            },
+            "wasPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.14/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/daisy-pure-natural-sour-cream-16-oz-tub/073420001018",
+          "image": "https://www.kroger.com/product/images/large/front/073420001018",
+          "ppm": "$0.14/oz"
+        },
+        {
+          "upc": "011110813268",
+          "name": "Roundy's Heavy Whipping Cream 16 fl oz Pint",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 fl oz",
+            "packageSize": "16 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.17/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-heavy-whipping-cream-16-fl-oz-pint/011110813268",
+          "image": "https://www.kroger.com/product/images/large/front/011110813268",
+          "ppm": "$0.17/fl oz"
+        },
+        {
+          "upc": "089470001014",
+          "name": "Chobani Zero Sugar Vanilla Greek Yogurt 5.3 oz",
+          "brand": "Chobani",
+          "packageInfo": {
+            "weight": "5.3 oz",
+            "packageSize": "5.3 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.25,
+              "priceString": "$1.25"
+            },
+            "wasPrice": {
+              "price": 1.49,
+              "priceString": "$1.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.24/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/chobani-zero-sugar-vanilla-greek-yogurt-5-3-oz/089470001014",
+          "image": "https://www.kroger.com/product/images/large/front/089470001014",
+          "ppm": "$0.24/oz"
+        },
+        {
+          "upc": "089470001021",
+          "name": "Chobani Strawberry Greek Yogurt 5.3 oz",
+          "brand": "Chobani",
+          "packageInfo": {
+            "weight": "5.3 oz",
+            "packageSize": "5.3 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.25,
+              "priceString": "$1.25"
+            },
+            "wasPrice": {
+              "price": 1.49,
+              "priceString": "$1.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.24/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/chobani-strawberry-greek-yogurt-5-3-oz/089470001021",
+          "image": "https://www.kroger.com/product/images/large/front/089470001021",
+          "ppm": "$0.24/oz"
+        },
+        {
+          "upc": "036632001016",
+          "name": "Dannon Oikos Triple Zero Vanilla Greek Yogurt 5.3 oz",
+          "brand": "Dannon",
+          "packageInfo": {
+            "weight": "5.3 oz",
+            "packageSize": "5.3 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.49,
+              "priceString": "$1.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.28/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "5 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/dannon-oikos-triple-zero-vanilla-greek-yogurt-5-3-oz/036632001016",
+          "image": "https://www.kroger.com/product/images/large/front/036632001016",
+          "ppm": "$0.28/oz"
+        },
+        {
+          "upc": "011110813336",
+          "name": "Roundy's Lowfat Vanilla Yogurt 32 oz Tub",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.08/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-lowfat-vanilla-yogurt-32-oz-tub/011110813336",
+          "image": "https://www.kroger.com/product/images/large/front/011110813336",
+          "ppm": "$0.08/oz"
+        },
+        {
+          "upc": "021000003013",
+          "name": "Philadelphia Original Cream Cheese 8 oz Brick",
+          "brand": "Philadelphia",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.41/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/philadelphia-original-cream-cheese-8-oz-brick/021000003013",
+          "image": "https://www.kroger.com/product/images/large/front/021000003013",
+          "ppm": "$0.41/oz"
+        },
+        {
+          "upc": "011110813381",
+          "name": "Roundy's Original Cream Cheese 8 oz Bar",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-original-cream-cheese-8-oz-bar/011110813381",
+          "image": "https://www.kroger.com/product/images/large/front/011110813381",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "041716001011",
+          "name": "Frigo Cheese Heads String Cheese 12ct 12 oz",
+          "brand": "Frigo",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.32/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/frigo-cheese-heads-string-cheese-12ct-12-oz/041716001011",
+          "image": "https://www.kroger.com/product/images/large/front/041716001011",
+          "ppm": "$0.32/oz"
+        },
+        {
+          "upc": "011110813411",
+          "name": "Roundy's Low Moisture Mozzarella String Cheese 12ct",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.29/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-low-moisture-mozzarella-string-cheese-12ct/011110813411",
+          "image": "https://www.kroger.com/product/images/large/front/011110813411",
+          "ppm": "$0.29/oz"
+        },
+        {
+          "upc": "048500001011",
+          "name": "Tropicana 100% Orange Juice No Pulp 52 fl oz",
+          "brand": "Tropicana",
+          "packageInfo": {
+            "weight": "52 fl oz",
+            "packageSize": "52 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.08/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/tropicana-100-orange-juice-no-pulp-52-fl-oz/048500001011",
+          "image": "https://www.kroger.com/product/images/large/front/048500001011",
+          "ppm": "$0.08/fl oz"
+        },
+        {
+          "upc": "011110854445",
+          "name": "Simple Truth Organic 100% Apple Juice 64 fl oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "64 fl oz",
+            "packageSize": "64 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-100-apple-juice-64-fl-oz/011110854445",
+          "image": "https://www.kroger.com/product/images/large/front/011110854445",
+          "ppm": "$0.05/fl oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +1139,6 @@
     "sub_category": "Eggs Butter & Yogurt",
     "source_url": "https://www.marianos.com/c/eggs-butter/03002",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.325536+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +1146,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +1167,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

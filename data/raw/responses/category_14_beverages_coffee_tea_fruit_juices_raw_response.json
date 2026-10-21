@@ -1,4 +1,762 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "14/28",
+    "category": "Beverages",
+    "sub_category": "Coffee Tea & Fruit Juices"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00014&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/coffee-tea-juice/07002",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "088133001019",
+          "name": "Dunkin' Original Blend Ground Coffee 12 oz Bag",
+          "brand": "Dunkin'",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.75/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $15",
+            "volumeDealPrice": "15.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/dunkin-original-blend-ground-coffee-12-oz-bag/088133001019",
+          "image": "https://www.kroger.com/product/images/large/front/088133001019",
+          "ppm": "$0.75/oz"
+        },
+        {
+          "upc": "011110918178",
+          "name": "Private Selection Costa Rica Single Origin Ground Coffee 12 oz",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.50/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-costa-rica-single-origin-ground-coffee-12-oz/011110918178",
+          "image": "https://www.kroger.com/product/images/large/front/011110918178",
+          "ppm": "$0.50/oz"
+        },
+        {
+          "upc": "025500001012",
+          "name": "Folgers Classic Roast Ground Coffee 40.3 oz Can",
+          "brand": "Folgers",
+          "packageInfo": {
+            "weight": "40.3 oz",
+            "packageSize": "40.3 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 9.99,
+              "priceString": "$9.99"
+            },
+            "wasPrice": {
+              "price": 11.99,
+              "priceString": "$11.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/folgers-classic-roast-ground-coffee-40-3-oz-can/025500001012",
+          "image": "https://www.kroger.com/product/images/large/front/025500001012",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "011110817198",
+          "name": "Roundy's Classic Roast Medium Ground Coffee 30.5 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "30.5 oz",
+            "packageSize": "30.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.23/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-classic-roast-medium-ground-coffee-30-5-oz/011110817198",
+          "image": "https://www.kroger.com/product/images/large/front/011110817198",
+          "ppm": "$0.23/oz"
+        },
+        {
+          "upc": "011110858207",
+          "name": "Simple Truth Organic House Blend Coffee K-Cup Pods 12ct",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "12 ct",
+            "packageSize": "12 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.37/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-house-blend-coffee-k-cup-pods-12ct/011110858207",
+          "image": "https://www.kroger.com/product/images/large/front/011110858207",
+          "ppm": "$0.37/ct"
+        },
+        {
+          "upc": "022600001010",
+          "name": "Lipton Black Tea Bags 100ct Box",
+          "brand": "Lipton",
+          "packageInfo": {
+            "weight": "100 ct",
+            "packageSize": "100 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.04/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/lipton-black-tea-bags-100ct-box/022600001010",
+          "image": "https://www.kroger.com/product/images/large/front/022600001010",
+          "ppm": "$0.04/ct"
+        },
+        {
+          "upc": "011110817228",
+          "name": "Roundy's Black Tea Bags 100ct Box",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "100 ct",
+            "packageSize": "100 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.02/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-black-tea-bags-100ct-box/011110817228",
+          "image": "https://www.kroger.com/product/images/large/front/011110817228",
+          "ppm": "$0.02/ct"
+        },
+        {
+          "upc": "031200001016",
+          "name": "Ocean Spray 100% Cranberry Juice 64 fl oz",
+          "brand": "Ocean",
+          "packageInfo": {
+            "weight": "64 fl oz",
+            "packageSize": "64 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/ocean-spray-100-cranberry-juice-64-fl-oz/031200001016",
+          "image": "https://www.kroger.com/product/images/large/front/031200001016",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "011110817242",
+          "name": "Roundy's 100% Apple Juice 64 fl oz Bottle",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "64 fl oz",
+            "packageSize": "64 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.29,
+              "priceString": "$2.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-100-apple-juice-64-fl-oz-bottle/011110817242",
+          "image": "https://www.kroger.com/product/images/large/front/011110817242",
+          "ppm": "$0.04/fl oz"
+        },
+        {
+          "upc": "076183001011",
+          "name": "Snapple Peach Tea 6pk 16 fl oz Bottles",
+          "brand": "Snapple",
+          "packageInfo": {
+            "weight": "96 fl oz",
+            "packageSize": "96 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.07/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $11",
+            "volumeDealPrice": "11.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/snapple-peach-tea-6pk-16-fl-oz-bottles/076183001011",
+          "image": "https://www.kroger.com/product/images/large/front/076183001011",
+          "ppm": "$0.07/fl oz"
+        },
+        {
+          "upc": "061300001012",
+          "name": "Arizona Green Tea with Ginseng and Honey 1 Gallon",
+          "brand": "Arizona",
+          "packageInfo": {
+            "weight": "1 gal",
+            "packageSize": "1 gal"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.02/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/arizona-green-tea-with-ginseng-and-honey-1-gallon/061300001012",
+          "image": "https://www.kroger.com/product/images/large/front/061300001012",
+          "ppm": "$0.02/fl oz"
+        },
+        {
+          "upc": "011110858337",
+          "name": "Simple Truth Organic Green Tea 20ct Bags",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "20 ct",
+            "packageSize": "20 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.15/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-green-tea-20ct-bags/011110858337",
+          "image": "https://www.kroger.com/product/images/large/front/011110858337",
+          "ppm": "$0.15/ct"
+        },
+        {
+          "upc": "011110817341",
+          "name": "Roundy's Lemonade 64 fl oz Chilled Carton",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "64 fl oz",
+            "packageSize": "64 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.03/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-lemonade-64-fl-oz-chilled-carton/011110817341",
+          "image": "https://www.kroger.com/product/images/large/front/011110817341",
+          "ppm": "$0.03/fl oz"
+        },
+        {
+          "upc": "014800001013",
+          "name": "Mott's 100% Original Apple Juice 64 fl oz",
+          "brand": "Mott's",
+          "packageInfo": {
+            "weight": "64 fl oz",
+            "packageSize": "64 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mott-s-100-original-apple-juice-64-fl-oz/014800001013",
+          "image": "https://www.kroger.com/product/images/large/front/014800001013",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "025000001017",
+          "name": "Simply Lemonade 52 fl oz Bottle",
+          "brand": "Simply",
+          "packageInfo": {
+            "weight": "52 fl oz",
+            "packageSize": "52 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simply-lemonade-52-fl-oz-bottle/025000001017",
+          "image": "https://www.kroger.com/product/images/large/front/025000001017",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "049000001051",
+          "name": "Gold Peak Sweet Iced Tea 52 fl oz Bottle",
+          "brand": "Gold",
+          "packageInfo": {
+            "weight": "52 fl oz",
+            "packageSize": "52 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/gold-peak-sweet-iced-tea-52-fl-oz-bottle/049000001051",
+          "image": "https://www.kroger.com/product/images/large/front/049000001051",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "012000001031",
+          "name": "Pure Leaf Unsweetened Iced Tea 64 fl oz",
+          "brand": "Pure",
+          "packageInfo": {
+            "weight": "64 fl oz",
+            "packageSize": "64 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pure-leaf-unsweetened-iced-tea-64-fl-oz/012000001031",
+          "image": "https://www.kroger.com/product/images/large/front/012000001031",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "012000001048",
+          "name": "Starbucks Frappuccino Vanilla Chilled Coffee Drink 13.7 fl oz",
+          "brand": "Starbucks",
+          "packageInfo": {
+            "weight": "13.7 fl oz",
+            "packageSize": "13.7 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.25/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/starbucks-frappuccino-vanilla-chilled-coffee-drink-13-7-fl-oz/012000001048",
+          "image": "https://www.kroger.com/product/images/large/front/012000001048",
+          "ppm": "$0.25/fl oz"
+        },
+        {
+          "upc": "011110817440",
+          "name": "Roundy's Cranberry Juice Cocktail 64 fl oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "64 fl oz",
+            "packageSize": "64 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-cranberry-juice-cocktail-64-fl-oz/011110817440",
+          "image": "https://www.kroger.com/product/images/large/front/011110817440",
+          "ppm": "$0.04/fl oz"
+        },
+        {
+          "upc": "051000001030",
+          "name": "V8 100% Original Vegetable Juice 46 fl oz",
+          "brand": "V8",
+          "packageInfo": {
+            "weight": "46 fl oz",
+            "packageSize": "46 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.07/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/v8-100-original-vegetable-juice-46-fl-oz/051000001030",
+          "image": "https://www.kroger.com/product/images/large/front/051000001030",
+          "ppm": "$0.07/fl oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +764,6 @@
     "sub_category": "Coffee Tea & Fruit Juices",
     "source_url": "https://www.marianos.com/c/coffee-tea-juice/07002",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.388691+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +771,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +792,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

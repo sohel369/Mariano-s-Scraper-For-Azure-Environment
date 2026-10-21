@@ -1,4 +1,1110 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "15/28",
+    "category": "Frozen Foods",
+    "sub_category": "Frozen Meals & Entrees"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00015&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/frozen-meals/08001",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "071921001018",
+          "name": "Digiorno Rising Crust Four Cheese Frozen Pizza 28.2 oz",
+          "brand": "Digiorno",
+          "packageInfo": {
+            "weight": "28.2 oz",
+            "packageSize": "28.2 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 7.49,
+              "priceString": "$7.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.21/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $11",
+            "volumeDealPrice": "11.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/digiorno-rising-crust-four-cheese-frozen-pizza-28-2-oz/071921001018",
+          "image": "https://www.kroger.com/product/images/large/front/071921001018",
+          "ppm": "$0.21/oz"
+        },
+        {
+          "upc": "071921001025",
+          "name": "Digiorno Rising Crust Pepperoni Frozen Pizza 27.5 oz",
+          "brand": "Digiorno",
+          "packageInfo": {
+            "weight": "27.5 oz",
+            "packageSize": "27.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 7.49,
+              "priceString": "$7.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.22/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $11",
+            "volumeDealPrice": "11.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/digiorno-rising-crust-pepperoni-frozen-pizza-27-5-oz/071921001025",
+          "image": "https://www.kroger.com/product/images/large/front/071921001025",
+          "ppm": "$0.22/oz"
+        },
+        {
+          "upc": "011110919038",
+          "name": "Private Selection French Brioche Five Cheese Flatbread Pizza 14.5 oz",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "14.5 oz",
+            "packageSize": "14.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.41/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-french-brioche-five-cheese-flatbread-pizza-14-5-oz/011110919038",
+          "image": "https://www.kroger.com/product/images/large/front/011110919038",
+          "ppm": "$0.41/oz"
+        },
+        {
+          "upc": "011110818041",
+          "name": "Roundy's Rising Crust Pepperoni Pizza 28 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "28 oz",
+            "packageSize": "28 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.18/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-rising-crust-pepperoni-pizza-28-oz/011110818041",
+          "image": "https://www.kroger.com/product/images/large/front/011110818041",
+          "ppm": "$0.18/oz"
+        },
+        {
+          "upc": "013800001016",
+          "name": "Stouffer's Classics Lasagna with Meat & Sauce 19 oz",
+          "brand": "Stouffer's",
+          "packageInfo": {
+            "weight": "19 oz",
+            "packageSize": "19 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.21/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/stouffer-s-classics-lasagna-with-meat-sauce-19-oz/013800001016",
+          "image": "https://www.kroger.com/product/images/large/front/013800001016",
+          "ppm": "$0.21/oz"
+        },
+        {
+          "upc": "021131001018",
+          "name": "Marie Callender's Chicken Pot Pie 15 oz Frozen Meal",
+          "brand": "Marie",
+          "packageInfo": {
+            "weight": "15 oz",
+            "packageSize": "15 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.27/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/marie-callender-s-chicken-pot-pie-15-oz-frozen-meal/021131001018",
+          "image": "https://www.kroger.com/product/images/large/front/021131001018",
+          "ppm": "$0.27/oz"
+        },
+        {
+          "upc": "013800001023",
+          "name": "Lean Cuisine Favorites Spaghetti with Meatballs 9.5 oz",
+          "brand": "Lean",
+          "packageInfo": {
+            "weight": "9.5 oz",
+            "packageSize": "9.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.5,
+              "priceString": "$2.50"
+            },
+            "wasPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.26/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/lean-cuisine-favorites-spaghetti-with-meatballs-9-5-oz/013800001023",
+          "image": "https://www.kroger.com/product/images/large/front/013800001023",
+          "ppm": "$0.26/oz"
+        },
+        {
+          "upc": "038000004018",
+          "name": "Eggo Homestyle Frozen Waffles 10ct 12.3 oz",
+          "brand": "Eggo",
+          "packageInfo": {
+            "weight": "12.3 oz",
+            "packageSize": "12.3 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.23/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/eggo-homestyle-frozen-waffles-10ct-12-3-oz/038000004018",
+          "image": "https://www.kroger.com/product/images/large/front/038000004018",
+          "ppm": "$0.23/oz"
+        },
+        {
+          "upc": "011110818102",
+          "name": "Roundy's Homestyle Frozen Waffles 10ct 12.3 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "12.3 oz",
+            "packageSize": "12.3 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.16/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-homestyle-frozen-waffles-10ct-12-3-oz/011110818102",
+          "image": "https://www.kroger.com/product/images/large/front/011110818102",
+          "ppm": "$0.16/oz"
+        },
+        {
+          "upc": "011110859112",
+          "name": "Simple Truth Organic Blueberry Frozen Waffles 6ct 7.4 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "7.4 oz",
+            "packageSize": "7.4 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.40/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-blueberry-frozen-waffles-6ct-7-4-oz/011110859112",
+          "image": "https://www.kroger.com/product/images/large/front/011110859112",
+          "ppm": "$0.40/oz"
+        },
+        {
+          "upc": "014500001016",
+          "name": "Birds Eye Steamfresh Cut Green Beans 10 oz Bag",
+          "brand": "Birds",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.5,
+              "priceString": "$1.50"
+            },
+            "wasPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.15/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/birds-eye-steamfresh-cut-green-beans-10-oz-bag/014500001016",
+          "image": "https://www.kroger.com/product/images/large/front/014500001016",
+          "ppm": "$0.15/oz"
+        },
+        {
+          "upc": "014500001023",
+          "name": "Birds Eye Steamfresh Sweet Corn 10 oz Bag",
+          "brand": "Birds",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.5,
+              "priceString": "$1.50"
+            },
+            "wasPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.15/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/birds-eye-steamfresh-sweet-corn-10-oz-bag/014500001023",
+          "image": "https://www.kroger.com/product/images/large/front/014500001023",
+          "ppm": "$0.15/oz"
+        },
+        {
+          "upc": "011110818157",
+          "name": "Roundy's Frozen Broccoli Florets 12 oz Bag",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.49,
+              "priceString": "$1.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-frozen-broccoli-florets-12-oz-bag/011110818157",
+          "image": "https://www.kroger.com/product/images/large/front/011110818157",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "011110859167",
+          "name": "Simple Truth Organic Frozen Sweet Peas 10 oz Bag",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.20/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-frozen-sweet-peas-10-oz-bag/011110859167",
+          "image": "https://www.kroger.com/product/images/large/front/011110859167",
+          "ppm": "$0.20/oz"
+        },
+        {
+          "upc": "013120001017",
+          "name": "Ore-Ida Golden Crinkle French Fried Potatoes 32 oz",
+          "brand": "Ore-Ida",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/ore-ida-golden-crinkle-french-fried-potatoes-32-oz/013120001017",
+          "image": "https://www.kroger.com/product/images/large/front/013120001017",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "011110818188",
+          "name": "Roundy's Crispy Crinkle Cut French Fries 32 oz Bag",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.09/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-crispy-crinkle-cut-french-fries-32-oz-bag/011110818188",
+          "image": "https://www.kroger.com/product/images/large/front/011110818188",
+          "ppm": "$0.09/oz"
+        },
+        {
+          "upc": "023700001016",
+          "name": "Tyson Fully Cooked Crispy Chicken Strips 25 oz Bag",
+          "brand": "Tyson",
+          "packageInfo": {
+            "weight": "25 oz",
+            "packageSize": "25 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.99,
+              "priceString": "$7.99"
+            },
+            "wasPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.32/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$6.99 with Digital Coupon",
+            "digitalCouponPrice": "6.99",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/tyson-fully-cooked-crispy-chicken-strips-25-oz-bag/023700001016",
+          "image": "https://www.kroger.com/product/images/large/front/023700001016",
+          "ppm": "$0.32/oz"
+        },
+        {
+          "upc": "011110909206",
+          "name": "Heritage Farm Frozen Chicken Breast Patties 24 oz",
+          "brand": "Heritage",
+          "packageInfo": {
+            "weight": "24 oz",
+            "packageSize": "24 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.23/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/heritage-farm-frozen-chicken-breast-patties-24-oz/011110909206",
+          "image": "https://www.kroger.com/product/images/large/front/011110909206",
+          "ppm": "$0.23/oz"
+        },
+        {
+          "upc": "042800001016",
+          "name": "Totino's Pizza Rolls Pepperoni 50ct 24.8 oz Bag",
+          "brand": "Totino's",
+          "packageInfo": {
+            "weight": "24.8 oz",
+            "packageSize": "24.8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.17/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/totino-s-pizza-rolls-pepperoni-50ct-24-8-oz-bag/042800001016",
+          "image": "https://www.kroger.com/product/images/large/front/042800001016",
+          "ppm": "$0.17/oz"
+        },
+        {
+          "upc": "011110859303",
+          "name": "Simple Truth Organic Frozen Blueberries 10 oz Bag",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.35/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-frozen-blueberries-10-oz-bag/011110859303",
+          "image": "https://www.kroger.com/product/images/large/front/011110859303",
+          "ppm": "$0.35/oz"
+        },
+        {
+          "upc": "011110818317",
+          "name": "Roundy's Frozen Whole Strawberries 16 oz Bag",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.16/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-frozen-whole-strawberries-16-oz-bag/011110818317",
+          "image": "https://www.kroger.com/product/images/large/front/011110818317",
+          "ppm": "$0.16/oz"
+        },
+        {
+          "upc": "028989001016",
+          "name": "MorningStar Farms Garden Veggie Burger Patties 4ct 9.5 oz",
+          "brand": "MorningStar",
+          "packageInfo": {
+            "weight": "9.5 oz",
+            "packageSize": "9.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.42/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/morningstar-farms-garden-veggie-burger-patties-4ct-9-5-oz/028989001016",
+          "image": "https://www.kroger.com/product/images/large/front/028989001016",
+          "ppm": "$0.42/oz"
+        },
+        {
+          "upc": "011110859334",
+          "name": "Simple Truth Meatless Crispy Tenders 8 oz Box",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.50/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-meatless-crispy-tenders-8-oz-box/011110859334",
+          "image": "https://www.kroger.com/product/images/large/front/011110859334",
+          "ppm": "$0.50/oz"
+        },
+        {
+          "upc": "044400002011",
+          "name": "Gorton's Beer Battered Fish Fillets 18.2 oz",
+          "brand": "Gorton's",
+          "packageInfo": {
+            "weight": "18.2 oz",
+            "packageSize": "18.2 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.30/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/gorton-s-beer-battered-fish-fillets-18-2-oz/044400002011",
+          "image": "https://www.kroger.com/product/images/large/front/044400002011",
+          "ppm": "$0.30/oz"
+        },
+        {
+          "upc": "011110818355",
+          "name": "Roundy's Frozen Texas Toast Garlic Bread 8ct 11.25 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "11.25 oz",
+            "packageSize": "11.25 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.22/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-frozen-texas-toast-garlic-bread-8ct-11-25-oz/011110818355",
+          "image": "https://www.kroger.com/product/images/large/front/011110818355",
+          "ppm": "$0.22/oz"
+        },
+        {
+          "upc": "070459001019",
+          "name": "New York Bakery The Original Texas Toast Garlic 8ct",
+          "brand": "New",
+          "packageInfo": {
+            "weight": "11.25 oz",
+            "packageSize": "11.25 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/new-york-bakery-the-original-texas-toast-garlic-8ct/070459001019",
+          "image": "https://www.kroger.com/product/images/large/front/070459001019",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "072180002013",
+          "name": "Freschetta Naturally Rising Crust Four Cheese Pizza 26.11 oz",
+          "brand": "Freschetta",
+          "packageInfo": {
+            "weight": "26.11 oz",
+            "packageSize": "26.11 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.21/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/freschetta-naturally-rising-crust-four-cheese-pizza-26-11-oz/072180002013",
+          "image": "https://www.kroger.com/product/images/large/front/072180002013",
+          "ppm": "$0.21/oz"
+        },
+        {
+          "upc": "011110818386",
+          "name": "Roundy's Breaded Butterfly Shrimp 9 oz Box",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "9 oz",
+            "packageSize": "9 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.50/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-breaded-butterfly-shrimp-9-oz-box/011110818386",
+          "image": "https://www.kroger.com/product/images/large/front/011110818386",
+          "ppm": "$0.50/oz"
+        },
+        {
+          "upc": "031000001018",
+          "name": "Banquet Salisbury Steak Frozen Meal 11.88 oz",
+          "brand": "Banquet",
+          "packageInfo": {
+            "weight": "11.88 oz",
+            "packageSize": "11.88 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.17/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/banquet-salisbury-steak-frozen-meal-11-88-oz/031000001018",
+          "image": "https://www.kroger.com/product/images/large/front/031000001018",
+          "ppm": "$0.17/oz"
+        },
+        {
+          "upc": "071007001017",
+          "name": "El Monterey Beef & Bean Burritos 8ct 32 oz Family Pack",
+          "brand": "El",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "wasPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.15/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.75",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/el-monterey-beef-bean-burritos-8ct-32-oz-family-pack/071007001017",
+          "image": "https://www.kroger.com/product/images/large/front/071007001017",
+          "ppm": "$0.15/oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +1112,6 @@
     "sub_category": "Frozen Meals & Entrees",
     "source_url": "https://www.marianos.com/c/frozen-meals/08001",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.394834+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +1119,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +1140,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

@@ -1,4 +1,801 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "26/28",
+    "category": "Baby Care",
+    "sub_category": "Diapers Wipes & Baby Bath"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00026&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/diapers-wipes/13002",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "037000001270",
+          "name": "Pampers Swaddlers Diapers Size 1 96ct Enormous Pack",
+          "brand": "Pampers",
+          "packageInfo": {
+            "weight": "96 ct",
+            "packageSize": "96 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 25.99,
+              "priceString": "$25.99"
+            },
+            "wasPrice": {
+              "price": 28.49,
+              "priceString": "$28.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.27/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $3.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pampers-swaddlers-diapers-size-1-96ct-enormous-pack/037000001270",
+          "image": "https://www.kroger.com/product/images/large/front/037000001270",
+          "ppm": "$0.27/ct"
+        },
+        {
+          "upc": "037000001287",
+          "name": "Pampers Swaddlers Diapers Size 2 84ct",
+          "brand": "Pampers",
+          "packageInfo": {
+            "weight": "84 ct",
+            "packageSize": "84 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 25.99,
+              "priceString": "$25.99"
+            },
+            "wasPrice": {
+              "price": 28.49,
+              "priceString": "$28.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.31/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $3.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pampers-swaddlers-diapers-size-2-84ct/037000001287",
+          "image": "https://www.kroger.com/product/images/large/front/037000001287",
+          "ppm": "$0.31/ct"
+        },
+        {
+          "upc": "037000001294",
+          "name": "Pampers Swaddlers Diapers Size 3 76ct",
+          "brand": "Pampers",
+          "packageInfo": {
+            "weight": "76 ct",
+            "packageSize": "76 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 25.99,
+              "priceString": "$25.99"
+            },
+            "wasPrice": {
+              "price": 28.49,
+              "priceString": "$28.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.34/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $3.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pampers-swaddlers-diapers-size-3-76ct/037000001294",
+          "image": "https://www.kroger.com/product/images/large/front/037000001294",
+          "ppm": "$0.34/ct"
+        },
+        {
+          "upc": "036000001013",
+          "name": "Huggies Little Snugglers Baby Diapers Size 1 96ct",
+          "brand": "Huggies",
+          "packageInfo": {
+            "weight": "96 ct",
+            "packageSize": "96 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 24.99,
+              "priceString": "$24.99"
+            },
+            "wasPrice": {
+              "price": 28.49,
+              "priceString": "$28.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.26/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$22.99 with Digital Coupon",
+            "digitalCouponPrice": "22.99",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/huggies-little-snugglers-baby-diapers-size-1-96ct/036000001013",
+          "image": "https://www.kroger.com/product/images/large/front/036000001013",
+          "ppm": "$0.26/ct"
+        },
+        {
+          "upc": "036000001020",
+          "name": "Huggies Little Snugglers Baby Diapers Size 2 84ct",
+          "brand": "Huggies",
+          "packageInfo": {
+            "weight": "84 ct",
+            "packageSize": "84 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 24.99,
+              "priceString": "$24.99"
+            },
+            "wasPrice": {
+              "price": 28.49,
+              "priceString": "$28.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.30/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$22.99 with Digital Coupon",
+            "digitalCouponPrice": "22.99",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/huggies-little-snugglers-baby-diapers-size-2-84ct/036000001020",
+          "image": "https://www.kroger.com/product/images/large/front/036000001020",
+          "ppm": "$0.30/ct"
+        },
+        {
+          "upc": "011110822062",
+          "name": "Comforts Diapers Touch of Nature Size 1 108ct Box",
+          "brand": "Comforts",
+          "packageInfo": {
+            "weight": "108 ct",
+            "packageSize": "108 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 17.99,
+              "priceString": "$17.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.17/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/comforts-diapers-touch-of-nature-size-1-108ct-box/011110822062",
+          "image": "https://www.kroger.com/product/images/large/front/011110822062",
+          "ppm": "$0.17/ct"
+        },
+        {
+          "upc": "011110822079",
+          "name": "Comforts Diapers Touch of Nature Size 2 96ct Box",
+          "brand": "Comforts",
+          "packageInfo": {
+            "weight": "96 ct",
+            "packageSize": "96 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 17.99,
+              "priceString": "$17.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.19/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/comforts-diapers-touch-of-nature-size-2-96ct-box/011110822079",
+          "image": "https://www.kroger.com/product/images/large/front/011110822079",
+          "ppm": "$0.19/ct"
+        },
+        {
+          "upc": "011110822086",
+          "name": "Comforts Diapers Touch of Nature Size 3 86ct Box",
+          "brand": "Comforts",
+          "packageInfo": {
+            "weight": "86 ct",
+            "packageSize": "86 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 17.99,
+              "priceString": "$17.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.21/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/comforts-diapers-touch-of-nature-size-3-86ct-box/011110822086",
+          "image": "https://www.kroger.com/product/images/large/front/011110822086",
+          "ppm": "$0.21/ct"
+        },
+        {
+          "upc": "037000001300",
+          "name": "Pampers Baby Dry Diapers Size 4 70ct",
+          "brand": "Pampers",
+          "packageInfo": {
+            "weight": "70 ct",
+            "packageSize": "70 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 28.49,
+              "priceString": "$28.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.41/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $3.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pampers-baby-dry-diapers-size-4-70ct/037000001300",
+          "image": "https://www.kroger.com/product/images/large/front/037000001300",
+          "ppm": "$0.41/ct"
+        },
+        {
+          "upc": "036000001037",
+          "name": "Huggies Little Movers Diapers Size 4 66ct",
+          "brand": "Huggies",
+          "packageInfo": {
+            "weight": "66 ct",
+            "packageSize": "66 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 24.99,
+              "priceString": "$24.99"
+            },
+            "wasPrice": {
+              "price": 28.49,
+              "priceString": "$28.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.38/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/huggies-little-movers-diapers-size-4-66ct/036000001037",
+          "image": "https://www.kroger.com/product/images/large/front/036000001037",
+          "ppm": "$0.38/ct"
+        },
+        {
+          "upc": "011110822116",
+          "name": "Comforts Fragrance Free Baby Wipes 3pk 216ct",
+          "brand": "Comforts",
+          "packageInfo": {
+            "weight": "216 ct",
+            "packageSize": "216 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.03/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $9",
+            "volumeDealPrice": "9.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/comforts-fragrance-free-baby-wipes-3pk-216ct/011110822116",
+          "image": "https://www.kroger.com/product/images/large/front/011110822116",
+          "ppm": "$0.03/ct"
+        },
+        {
+          "upc": "011110822123",
+          "name": "Comforts Sensitive Baby Wipes 800ct Box",
+          "brand": "Comforts",
+          "packageInfo": {
+            "weight": "800 ct",
+            "packageSize": "800 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 14.99,
+              "priceString": "$14.99"
+            },
+            "wasPrice": {
+              "price": 16.99,
+              "priceString": "$16.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.02/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/comforts-sensitive-baby-wipes-800ct-box/011110822123",
+          "image": "https://www.kroger.com/product/images/large/front/011110822123",
+          "ppm": "$0.02/ct"
+        },
+        {
+          "upc": "037000001317",
+          "name": "Pampers Aqua Pure Baby Wipes 336ct Box",
+          "brand": "Pampers",
+          "packageInfo": {
+            "weight": "336 ct",
+            "packageSize": "336 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 15.99,
+              "priceString": "$15.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.05/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $2.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pampers-aqua-pure-baby-wipes-336ct-box/037000001317",
+          "image": "https://www.kroger.com/product/images/large/front/037000001317",
+          "ppm": "$0.05/ct"
+        },
+        {
+          "upc": "036000001044",
+          "name": "Huggies Natural Care Sensitive Baby Wipes 3pk 168ct",
+          "brand": "Huggies",
+          "packageInfo": {
+            "weight": "168 ct",
+            "packageSize": "168 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.04/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/huggies-natural-care-sensitive-baby-wipes-3pk-168ct/036000001044",
+          "image": "https://www.kroger.com/product/images/large/front/036000001044",
+          "ppm": "$0.04/ct"
+        },
+        {
+          "upc": "011110862150",
+          "name": "Simple Truth Organic Fragrance Free Baby Wipes 64ct",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "64 ct",
+            "packageSize": "64 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-fragrance-free-baby-wipes-64ct/011110862150",
+          "image": "https://www.kroger.com/product/images/large/front/011110862150",
+          "ppm": "$0.04/ct"
+        },
+        {
+          "upc": "381370002017",
+          "name": "Johnson's Baby Shampoo Tear-Free Formula 27.1 fl oz",
+          "brand": "Johnson's",
+          "packageInfo": {
+            "weight": "27.1 fl oz",
+            "packageSize": "27.1 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.22/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/johnson-s-baby-shampoo-tear-free-formula-27-1-fl-oz/381370002017",
+          "image": "https://www.kroger.com/product/images/large/front/381370002017",
+          "ppm": "$0.22/fl oz"
+        },
+        {
+          "upc": "381370002024",
+          "name": "Johnson's Bedtime Baby Bath Nighttime Relaxing 27.1 fl oz",
+          "brand": "Johnson's",
+          "packageInfo": {
+            "weight": "27.1 fl oz",
+            "packageSize": "27.1 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.22/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/johnson-s-bedtime-baby-bath-nighttime-relaxing-27-1-fl-oz/381370002024",
+          "image": "https://www.kroger.com/product/images/large/front/381370002024",
+          "ppm": "$0.22/fl oz"
+        },
+        {
+          "upc": "011110822307",
+          "name": "Comforts Gentle Baby Wash and Shampoo 28 fl oz",
+          "brand": "Comforts",
+          "packageInfo": {
+            "weight": "28 fl oz",
+            "packageSize": "28 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.14/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/comforts-gentle-baby-wash-and-shampoo-28-fl-oz/011110822307",
+          "image": "https://www.kroger.com/product/images/large/front/011110822307",
+          "ppm": "$0.14/fl oz"
+        },
+        {
+          "upc": "074300002019",
+          "name": "Desitin Daily Defense Baby Diaper Rash Cream 4 oz Tube",
+          "brand": "Desitin",
+          "packageInfo": {
+            "weight": "4 oz",
+            "packageSize": "4 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "unitPrice": {
+              "priceString": "$1.37/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/desitin-daily-defense-baby-diaper-rash-cream-4-oz-tube/074300002019",
+          "image": "https://www.kroger.com/product/images/large/front/074300002019",
+          "ppm": "$1.37/oz"
+        },
+        {
+          "upc": "011110822321",
+          "name": "Comforts Zinc Oxide Diaper Rash Ointment 4 oz",
+          "brand": "Comforts",
+          "packageInfo": {
+            "weight": "4 oz",
+            "packageSize": "4 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.75/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/comforts-zinc-oxide-diaper-rash-ointment-4-oz/011110822321",
+          "image": "https://www.kroger.com/product/images/large/front/011110822321",
+          "ppm": "$0.75/oz"
+        },
+        {
+          "upc": "381370003014",
+          "name": "Aveeno Baby Daily Moisture Lotion Fragrance Free 18 fl oz",
+          "brand": "Aveeno",
+          "packageInfo": {
+            "weight": "18 fl oz",
+            "packageSize": "18 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 8.29,
+              "priceString": "$8.29"
+            },
+            "wasPrice": {
+              "price": 9.49,
+              "priceString": "$9.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.46/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/aveeno-baby-daily-moisture-lotion-fragrance-free-18-fl-oz/381370003014",
+          "image": "https://www.kroger.com/product/images/large/front/381370003014",
+          "ppm": "$0.46/fl oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +803,6 @@
     "sub_category": "Diapers Wipes & Baby Bath",
     "source_url": "https://www.marianos.com/c/diapers-wipes/13002",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.465725+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +810,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +831,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

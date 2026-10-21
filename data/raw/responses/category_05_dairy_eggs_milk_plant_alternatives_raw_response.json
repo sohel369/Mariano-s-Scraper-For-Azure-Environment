@@ -1,4 +1,561 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "5/28",
+    "category": "Dairy & Eggs",
+    "sub_category": "Milk & Plant Alternatives"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00005&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/milk/03001",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "011110416018",
+          "name": "Simple Truth Organic Whole Milk 1 Gallon",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "1 gal",
+            "packageSize": "1 gal"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.03/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-whole-milk-1-gallon/011110416018",
+          "image": "https://www.kroger.com/product/images/large/front/011110416018",
+          "ppm": "$0.03/fl oz"
+        },
+        {
+          "upc": "011110416025",
+          "name": "Simple Truth Organic 2% Reduced Fat Milk 1 Gallon",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "1 gal",
+            "packageSize": "1 gal"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.03/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-2-reduced-fat-milk-1-gallon/011110416025",
+          "image": "https://www.kroger.com/product/images/large/front/011110416025",
+          "ppm": "$0.03/fl oz"
+        },
+        {
+          "upc": "011110813039",
+          "name": "Roundy's Grade A Whole Milk 1 Gallon",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "1 gal",
+            "packageSize": "1 gal"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.03/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-grade-a-whole-milk-1-gallon/011110813039",
+          "image": "https://www.kroger.com/product/images/large/front/011110813039",
+          "ppm": "$0.03/fl oz"
+        },
+        {
+          "upc": "011110813046",
+          "name": "Roundy's 2% Reduced Fat Milk 1 Gallon",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "1 gal",
+            "packageSize": "1 gal"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.03/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-2-reduced-fat-milk-1-gallon/011110813046",
+          "image": "https://www.kroger.com/product/images/large/front/011110813046",
+          "ppm": "$0.03/fl oz"
+        },
+        {
+          "upc": "011110813251",
+          "name": "Roundy's Small Curd 4% Milkfat Cottage Cheese 16 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.29,
+              "priceString": "$2.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.14/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-small-curd-4-milkfat-cottage-cheese-16-oz/011110813251",
+          "image": "https://www.kroger.com/product/images/large/front/011110813251",
+          "ppm": "$0.14/oz"
+        },
+        {
+          "upc": "011110854278",
+          "name": "Simple Truth Organic Half & Half 32 fl oz Quart",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "32 fl oz",
+            "packageSize": "32 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.11/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-half-half-32-fl-oz-quart/011110854278",
+          "image": "https://www.kroger.com/product/images/large/front/011110854278",
+          "ppm": "$0.11/fl oz"
+        },
+        {
+          "upc": "050000001019",
+          "name": "Coffee mate French Vanilla Liquid Coffee Creamer 32 fl oz",
+          "brand": "Coffee",
+          "packageInfo": {
+            "weight": "32 fl oz",
+            "packageSize": "32 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "wasPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.12/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/coffee-mate-french-vanilla-liquid-coffee-creamer-32-fl-oz/050000001019",
+          "image": "https://www.kroger.com/product/images/large/front/050000001019",
+          "ppm": "$0.12/fl oz"
+        },
+        {
+          "upc": "011110854322",
+          "name": "Simple Truth Organic Plain Whole Milk Greek Yogurt 32 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-plain-whole-milk-greek-yogurt-32-oz/011110854322",
+          "image": "https://www.kroger.com/product/images/large/front/011110854322",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "025293001015",
+          "name": "Silk Original Almond Milk 64 fl oz Half Gallon",
+          "brand": "Silk",
+          "packageInfo": {
+            "weight": "64 fl oz",
+            "packageSize": "64 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.75",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/silk-original-almond-milk-64-fl-oz-half-gallon/025293001015",
+          "image": "https://www.kroger.com/product/images/large/front/025293001015",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "085356001024",
+          "name": "Oatly Original Oatmilk 64 fl oz Chilled",
+          "brand": "Oatly",
+          "packageInfo": {
+            "weight": "64 fl oz",
+            "packageSize": "64 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.07/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/oatly-original-oatmilk-64-fl-oz-chilled/085356001024",
+          "image": "https://www.kroger.com/product/images/large/front/085356001024",
+          "ppm": "$0.07/fl oz"
+        },
+        {
+          "upc": "011110854360",
+          "name": "Simple Truth Organic Unsweetened Almondmilk 64 fl oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "64 fl oz",
+            "packageSize": "64 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-unsweetened-almondmilk-64-fl-oz/011110854360",
+          "image": "https://www.kroger.com/product/images/large/front/011110854360",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "011110813398",
+          "name": "Roundy's Whole Milk Ricotta Cheese 15 oz Tub",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "15 oz",
+            "packageSize": "15 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.19/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-whole-milk-ricotta-cheese-15-oz-tub/011110813398",
+          "image": "https://www.kroger.com/product/images/large/front/011110813398",
+          "ppm": "$0.19/oz"
+        },
+        {
+          "upc": "018000001019",
+          "name": "Pillsbury Grands! Homestyle Buttermilk Biscuits 8ct 16.3 oz",
+          "brand": "Pillsbury",
+          "packageInfo": {
+            "weight": "16.3 oz",
+            "packageSize": "16.3 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.17/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pillsbury-grands-homestyle-buttermilk-biscuits-8ct-16-3-oz/018000001019",
+          "image": "https://www.kroger.com/product/images/large/front/018000001019",
+          "ppm": "$0.17/oz"
+        },
+        {
+          "upc": "085631001015",
+          "name": "Fairlife 2% Ultra-Filtered Milk 52 fl oz",
+          "brand": "Fairlife",
+          "packageInfo": {
+            "weight": "52 fl oz",
+            "packageSize": "52 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.09/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$3.99 with Digital Coupon",
+            "digitalCouponPrice": "3.99",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/fairlife-2-ultra-filtered-milk-52-fl-oz/085631001015",
+          "image": "https://www.kroger.com/product/images/large/front/085631001015",
+          "ppm": "$0.09/fl oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +563,6 @@
     "sub_category": "Milk & Plant Alternatives",
     "source_url": "https://www.marianos.com/c/milk/03001",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.322100+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +570,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +591,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

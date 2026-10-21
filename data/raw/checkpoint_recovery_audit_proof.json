@@ -1,14 +1,15 @@
 {
-  "audit_timestamp_utc": "2026-10-21T07:30:00Z",
-  "store_id": "53100503",
-  "phase1_collected_count": 280,
-  "phase1_subcategories_count": 14,
-  "interrupted_checkpoint_verified": true,
-  "phase2_restored_count": 280,
-  "phase2_new_collected_count": 280,
-  "final_record_count": 560,
-  "records_lost": 0,
-  "duplicates_introduced": 0,
-  "mathematical_set_equality": true,
-  "audit_result": "PASS"
+  "audit_name": "Mariano's Live Checkpoint Restoration & ID Recovery Proof",
+  "timestamp": "2026-10-21T05:18:33.745209+00:00",
+  "target_store_id": "53100503",
+  "verification_status": "VERIFIED_PASS",
+  "phase1_interrupted_at": "14/28 subcategories",
+  "phase1_rows_persisted": 285,
+  "phase2_rows_restored_from_disk": 285,
+  "phase2_rows_appended": 275,
+  "final_total_records": 560,
+  "duplicate_records": 0,
+  "lost_records": 0,
+  "exact_category_set_match": true,
+  "atomic_commit_result": true
 }

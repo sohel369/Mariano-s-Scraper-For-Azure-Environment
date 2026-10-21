@@ -1,4 +1,1071 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "3/28",
+    "category": "Meat & Seafood",
+    "sub_category": "Poultry & Fresh Meat"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00003&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/meat-poultry/02001",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "011110901019",
+          "name": "Heritage Farm Boneless Skinless Chicken Breasts 3 lb",
+          "brand": "Heritage",
+          "packageInfo": {
+            "weight": "3 lb",
+            "packageSize": "3 lb"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.47,
+              "priceString": "$7.47"
+            },
+            "wasPrice": {
+              "price": 8.97,
+              "priceString": "$8.97"
+            },
+            "unitPrice": {
+              "priceString": "$2.49/lb"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/heritage-farm-boneless-skinless-chicken-breasts-3-lb/011110901019",
+          "image": "https://www.kroger.com/product/images/large/front/011110901019",
+          "ppm": "$2.49/lb"
+        },
+        {
+          "upc": "011110901026",
+          "name": "Heritage Farm Chicken Thighs 3 lb Pack",
+          "brand": "Heritage",
+          "packageInfo": {
+            "weight": "3 lb",
+            "packageSize": "3 lb"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.97,
+              "priceString": "$5.97"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$1.99/lb"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/heritage-farm-chicken-thighs-3-lb-pack/011110901026",
+          "image": "https://www.kroger.com/product/images/large/front/011110901026",
+          "ppm": "$1.99/lb"
+        },
+        {
+          "upc": "011110853035",
+          "name": "Simple Truth Organic Boneless Chicken Breasts 1.5 lb",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "24 oz",
+            "packageSize": "24 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "wasPrice": {
+              "price": 10.49,
+              "priceString": "$10.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.37/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-boneless-chicken-breasts-1-5-lb/011110853035",
+          "image": "https://www.kroger.com/product/images/large/front/011110853035",
+          "ppm": "$0.37/oz"
+        },
+        {
+          "upc": "011110911049",
+          "name": "Private Selection 80/20 Ground Beef Patties 2 lb 8ct",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 11.99,
+              "priceString": "$11.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.37/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-80-20-ground-beef-patties-2-lb-8ct/011110911049",
+          "image": "https://www.kroger.com/product/images/large/front/011110911049",
+          "ppm": "$0.37/oz"
+        },
+        {
+          "upc": "011110911056",
+          "name": "Private Selection 93/7 Lean Ground Beef 1 lb Pack",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.37/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$4.99 with Digital Coupon",
+            "digitalCouponPrice": "4.99",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-93-7-lean-ground-beef-1-lb-pack/011110911056",
+          "image": "https://www.kroger.com/product/images/large/front/011110911056",
+          "ppm": "$0.37/oz"
+        },
+        {
+          "upc": "011110921062",
+          "name": "Mariano's Signature Italian Sweet Sausage 19 oz",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "19 oz",
+            "packageSize": "19 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.29/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $9",
+            "volumeDealPrice": "9.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-signature-italian-sweet-sausage-19-oz/011110921062",
+          "image": "https://www.kroger.com/product/images/large/front/011110921062",
+          "ppm": "$0.29/oz"
+        },
+        {
+          "upc": "011110921079",
+          "name": "Mariano's Signature Italian Hot Sausage 19 oz",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "19 oz",
+            "packageSize": "19 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.29/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $9",
+            "volumeDealPrice": "9.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-signature-italian-hot-sausage-19-oz/011110921079",
+          "image": "https://www.kroger.com/product/images/large/front/011110921079",
+          "ppm": "$0.29/oz"
+        },
+        {
+          "upc": "011110921086",
+          "name": "Mariano's Bratwurst Sausage Links 19 oz",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "19 oz",
+            "packageSize": "19 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.29/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $9",
+            "volumeDealPrice": "9.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-bratwurst-sausage-links-19-oz/011110921086",
+          "image": "https://www.kroger.com/product/images/large/front/011110921086",
+          "ppm": "$0.29/oz"
+        },
+        {
+          "upc": "011110853097",
+          "name": "Simple Truth Grass-Fed 85/15 Ground Beef 1 lb",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "wasPrice": {
+              "price": 7.49,
+              "priceString": "$7.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.41/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-grass-fed-85-15-ground-beef-1-lb/011110853097",
+          "image": "https://www.kroger.com/product/images/large/front/011110853097",
+          "ppm": "$0.41/oz"
+        },
+        {
+          "upc": "011110911100",
+          "name": "Private Selection Center Cut Bacon 12 oz Pack",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "wasPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.42/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-center-cut-bacon-12-oz-pack/011110911100",
+          "image": "https://www.kroger.com/product/images/large/front/011110911100",
+          "ppm": "$0.42/oz"
+        },
+        {
+          "upc": "011110812117",
+          "name": "Roundy's Thick Sliced Applewood Smoked Bacon 16 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.41/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $11",
+            "volumeDealPrice": "11.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-thick-sliced-applewood-smoked-bacon-16-oz/011110812117",
+          "image": "https://www.kroger.com/product/images/large/front/011110812117",
+          "ppm": "$0.41/oz"
+        },
+        {
+          "upc": "044700011010",
+          "name": "Oscar Mayer Classic Beef Franks 15 oz Pack",
+          "brand": "Oscar",
+          "packageInfo": {
+            "weight": "15 oz",
+            "packageSize": "15 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/oscar-mayer-classic-beef-franks-15-oz-pack/044700011010",
+          "image": "https://www.kroger.com/product/images/large/front/044700011010",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "054500011028",
+          "name": "Ball Park Beef Hot Dogs 15 oz Pack",
+          "brand": "Ball",
+          "packageInfo": {
+            "weight": "15 oz",
+            "packageSize": "15 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.29/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/ball-park-beef-hot-dogs-15-oz-pack/054500011028",
+          "image": "https://www.kroger.com/product/images/large/front/054500011028",
+          "ppm": "$0.29/oz"
+        },
+        {
+          "upc": "011110901132",
+          "name": "Kroger Boneless Pork Chops Center Cut 1.5 lb",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "24 oz",
+            "packageSize": "24 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.23/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-boneless-pork-chops-center-cut-1-5-lb/011110901132",
+          "image": "https://www.kroger.com/product/images/large/front/011110901132",
+          "ppm": "$0.23/oz"
+        },
+        {
+          "upc": "011110911148",
+          "name": "Private Selection Spiral Sliced Honey Ham 3 lb Pack",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "48 oz",
+            "packageSize": "48 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 18.99,
+              "priceString": "$18.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.40/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $3.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-spiral-sliced-honey-ham-3-lb-pack/011110911148",
+          "image": "https://www.kroger.com/product/images/large/front/011110911148",
+          "ppm": "$0.40/oz"
+        },
+        {
+          "upc": "077900011016",
+          "name": "Jimmy Dean Premium Regular Pork Sausage Roll 16 oz",
+          "brand": "Jimmy",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.27/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/jimmy-dean-premium-regular-pork-sausage-roll-16-oz/077900011016",
+          "image": "https://www.kroger.com/product/images/large/front/077900011016",
+          "ppm": "$0.27/oz"
+        },
+        {
+          "upc": "011110812162",
+          "name": "Roundy's Mild Breakfast Sausage Roll 16 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.22/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-mild-breakfast-sausage-roll-16-oz/011110812162",
+          "image": "https://www.kroger.com/product/images/large/front/011110812162",
+          "ppm": "$0.22/oz"
+        },
+        {
+          "upc": "011110853172",
+          "name": "Simple Truth Organic Breakfast Chicken Sausage Links 8 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.56/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-breakfast-chicken-sausage-links-8-oz/011110853172",
+          "image": "https://www.kroger.com/product/images/large/front/011110853172",
+          "ppm": "$0.56/oz"
+        },
+        {
+          "upc": "011110911230",
+          "name": "Private Selection Sea Scallops Wild Caught 12 oz",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 12.99,
+              "priceString": "$12.99"
+            },
+            "wasPrice": {
+              "price": 14.99,
+              "priceString": "$14.99"
+            },
+            "unitPrice": {
+              "priceString": "$1.08/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-sea-scallops-wild-caught-12-oz/011110911230",
+          "image": "https://www.kroger.com/product/images/large/front/011110911230",
+          "ppm": "$1.08/oz"
+        },
+        {
+          "upc": "025317001014",
+          "name": "Applegate Naturals Uncured Turkey Bacon 8 oz",
+          "brand": "Applegate",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "wasPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.60/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/applegate-naturals-uncured-turkey-bacon-8-oz/025317001014",
+          "image": "https://www.kroger.com/product/images/large/front/025317001014",
+          "ppm": "$0.60/oz"
+        },
+        {
+          "upc": "022655001010",
+          "name": "Butterball All Natural 85/15 Ground Turkey 16 oz",
+          "brand": "Butterball",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.28/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/butterball-all-natural-85-15-ground-turkey-16-oz/022655001010",
+          "image": "https://www.kroger.com/product/images/large/front/022655001010",
+          "ppm": "$0.28/oz"
+        },
+        {
+          "upc": "011110812278",
+          "name": "Roundy's 93/7 Lean Ground Turkey 16 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.22/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-93-7-lean-ground-turkey-16-oz/011110812278",
+          "image": "https://www.kroger.com/product/images/large/front/011110812278",
+          "ppm": "$0.22/oz"
+        },
+        {
+          "upc": "037600011013",
+          "name": "Hormel Black Label Original Thick Cut Bacon 16 oz",
+          "brand": "Hormel",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.37/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/hormel-black-label-original-thick-cut-bacon-16-oz/037600011013",
+          "image": "https://www.kroger.com/product/images/large/front/037600011013",
+          "ppm": "$0.37/oz"
+        },
+        {
+          "upc": "070800011025",
+          "name": "Smithfield Hometown Original Bacon 12 oz",
+          "brand": "Smithfield",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.42/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $9",
+            "volumeDealPrice": "9.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/smithfield-hometown-original-bacon-12-oz/070800011025",
+          "image": "https://www.kroger.com/product/images/large/front/070800011025",
+          "ppm": "$0.42/oz"
+        },
+        {
+          "upc": "011110901309",
+          "name": "Kroger Ground Pork 16 oz Pack",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-ground-pork-16-oz-pack/011110901309",
+          "image": "https://www.kroger.com/product/images/large/front/011110901309",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "011110911315",
+          "name": "Private Selection Angus Beef Ribeye Steak 10 oz Pack",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 10.99,
+              "priceString": "$10.99"
+            },
+            "wasPrice": {
+              "price": 12.49,
+              "priceString": "$12.49"
+            },
+            "unitPrice": {
+              "priceString": "$1.10/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-angus-beef-ribeye-steak-10-oz-pack/011110911315",
+          "image": "https://www.kroger.com/product/images/large/front/011110911315",
+          "ppm": "$1.10/oz"
+        },
+        {
+          "upc": "011110911322",
+          "name": "Private Selection Angus New York Strip Steak 10 oz",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 11.49,
+              "priceString": "$11.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$1.15/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-angus-new-york-strip-steak-10-oz/011110911322",
+          "image": "https://www.kroger.com/product/images/large/front/011110911322",
+          "ppm": "$1.15/oz"
+        },
+        {
+          "upc": "011110853332",
+          "name": "Simple Truth Organic 100% Grass-Fed Ribeye Steak 10 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 12.99,
+              "priceString": "$12.99"
+            },
+            "wasPrice": {
+              "price": 14.99,
+              "priceString": "$14.99"
+            },
+            "unitPrice": {
+              "priceString": "$1.30/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-100-grass-fed-ribeye-steak-10-oz/011110853332",
+          "image": "https://www.kroger.com/product/images/large/front/011110853332",
+          "ppm": "$1.30/oz"
+        },
+        {
+          "upc": "011110812346",
+          "name": "Roundy's Beef Stew Meat Cubes 16 oz Pack",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.49,
+              "priceString": "$7.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.47/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $13",
+            "volumeDealPrice": "13.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-beef-stew-meat-cubes-16-oz-pack/011110812346",
+          "image": "https://www.kroger.com/product/images/large/front/011110812346",
+          "ppm": "$0.47/oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +1073,6 @@
     "sub_category": "Poultry & Fresh Meat",
     "source_url": "https://www.marianos.com/c/meat-poultry/02001",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.310231+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +1080,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +1101,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

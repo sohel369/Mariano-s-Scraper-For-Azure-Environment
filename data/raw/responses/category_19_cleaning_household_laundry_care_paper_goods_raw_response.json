@@ -1,4 +1,1020 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "19/28",
+    "category": "Cleaning & Household",
+    "sub_category": "Laundry Care & Paper Goods"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00019&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/laundry-paper/10001",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "037000001010",
+          "name": "Tide Liquid Laundry Detergent Original 92 fl oz",
+          "brand": "Tide",
+          "packageInfo": {
+            "weight": "92 fl oz",
+            "packageSize": "92 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 12.99,
+              "priceString": "$12.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.14/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $3.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/tide-liquid-laundry-detergent-original-92-fl-oz/037000001010",
+          "image": "https://www.kroger.com/product/images/large/front/037000001010",
+          "ppm": "$0.14/fl oz"
+        },
+        {
+          "upc": "011110820020",
+          "name": "Home Sense Liquid Laundry Detergent Free & Clear 100 fl oz",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "100 fl oz",
+            "packageSize": "100 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.07/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $12",
+            "volumeDealPrice": "12.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-liquid-laundry-detergent-free-clear-100-fl-oz/011110820020",
+          "image": "https://www.kroger.com/product/images/large/front/011110820020",
+          "ppm": "$0.07/fl oz"
+        },
+        {
+          "upc": "037000001027",
+          "name": "Gain Flings! Liquid Laundry Pacs 60ct",
+          "brand": "Gain",
+          "packageInfo": {
+            "weight": "60 ct",
+            "packageSize": "60 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 13.99,
+              "priceString": "$13.99"
+            },
+            "wasPrice": {
+              "price": 15.99,
+              "priceString": "$15.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.23/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/gain-flings-liquid-laundry-pacs-60ct/037000001027",
+          "image": "https://www.kroger.com/product/images/large/front/037000001027",
+          "ppm": "$0.23/ct"
+        },
+        {
+          "upc": "072613001019",
+          "name": "All Free Clear Liquid Laundry Detergent 88 fl oz",
+          "brand": "All",
+          "packageInfo": {
+            "weight": "88 fl oz",
+            "packageSize": "88 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 9.99,
+              "priceString": "$9.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.11/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $18",
+            "volumeDealPrice": "18.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/all-free-clear-liquid-laundry-detergent-88-fl-oz/072613001019",
+          "image": "https://www.kroger.com/product/images/large/front/072613001019",
+          "ppm": "$0.11/fl oz"
+        },
+        {
+          "upc": "033200001010",
+          "name": "Arm & Hammer Clean Burst Liquid Laundry Detergent 144.5 fl oz",
+          "brand": "Arm",
+          "packageInfo": {
+            "weight": "144.5 fl oz",
+            "packageSize": "144.5 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.06/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/arm-hammer-clean-burst-liquid-laundry-detergent-144-5-fl-oz/033200001010",
+          "image": "https://www.kroger.com/product/images/large/front/033200001010",
+          "ppm": "$0.06/fl oz"
+        },
+        {
+          "upc": "037000001034",
+          "name": "Downy April Fresh Liquid Fabric Softener 103 fl oz",
+          "brand": "Downy",
+          "packageInfo": {
+            "weight": "103 fl oz",
+            "packageSize": "103 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 9.49,
+              "priceString": "$9.49"
+            },
+            "wasPrice": {
+              "price": 10.99,
+              "priceString": "$10.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.09/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/downy-april-fresh-liquid-fabric-softener-103-fl-oz/037000001034",
+          "image": "https://www.kroger.com/product/images/large/front/037000001034",
+          "ppm": "$0.09/fl oz"
+        },
+        {
+          "upc": "037000001041",
+          "name": "Bounce Dryer Sheets Outdoor Fresh 120ct Box",
+          "brand": "Bounce",
+          "packageInfo": {
+            "weight": "120 ct",
+            "packageSize": "120 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.06/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/bounce-dryer-sheets-outdoor-fresh-120ct-box/037000001041",
+          "image": "https://www.kroger.com/product/images/large/front/037000001041",
+          "ppm": "$0.06/ct"
+        },
+        {
+          "upc": "011110820082",
+          "name": "Home Sense Fabric Softener Sheets Fresh Linen 120ct",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "120 ct",
+            "packageSize": "120 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.03/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-fabric-softener-sheets-fresh-linen-120ct/011110820082",
+          "image": "https://www.kroger.com/product/images/large/front/011110820082",
+          "ppm": "$0.03/ct"
+        },
+        {
+          "upc": "037000001058",
+          "name": "Bounty Select-A-Size Paper Towels 6 Double Rolls",
+          "brand": "Bounty",
+          "packageInfo": {
+            "weight": "6 ct",
+            "packageSize": "6 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 14.99,
+              "priceString": "$14.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$2.50/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$12.99 with Digital Coupon",
+            "digitalCouponPrice": "12.99",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/bounty-select-a-size-paper-towels-6-double-rolls/037000001058",
+          "image": "https://www.kroger.com/product/images/large/front/037000001058",
+          "ppm": "$2.50/ct"
+        },
+        {
+          "upc": "011110820105",
+          "name": "Home Sense Ultra Paper Towels 6 Double Rolls",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "6 ct",
+            "packageSize": "6 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.99,
+              "priceString": "$7.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$1.33/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-ultra-paper-towels-6-double-rolls/011110820105",
+          "image": "https://www.kroger.com/product/images/large/front/011110820105",
+          "ppm": "$1.33/ct"
+        },
+        {
+          "upc": "037000001065",
+          "name": "Charmin Ultra Soft Toilet Paper 12 Mega Rolls",
+          "brand": "Charmin",
+          "packageInfo": {
+            "weight": "12 ct",
+            "packageSize": "12 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 13.99,
+              "priceString": "$13.99"
+            },
+            "wasPrice": {
+              "price": 15.99,
+              "priceString": "$15.99"
+            },
+            "unitPrice": {
+              "priceString": "$1.17/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $2.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/charmin-ultra-soft-toilet-paper-12-mega-rolls/037000001065",
+          "image": "https://www.kroger.com/product/images/large/front/037000001065",
+          "ppm": "$1.17/ct"
+        },
+        {
+          "upc": "011110820129",
+          "name": "Home Sense Ultra Soft Bath Tissue 12 Mega Rolls",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "12 ct",
+            "packageSize": "12 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.75/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-ultra-soft-bath-tissue-12-mega-rolls/011110820129",
+          "image": "https://www.kroger.com/product/images/large/front/011110820129",
+          "ppm": "$0.75/ct"
+        },
+        {
+          "upc": "012587001011",
+          "name": "Glad ForceFlex Tall Kitchen Trash Bags 13 Gal 80ct",
+          "brand": "Glad",
+          "packageInfo": {
+            "weight": "80 ct",
+            "packageSize": "80 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 16.49,
+              "priceString": "$16.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.21/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/glad-forceflex-tall-kitchen-trash-bags-13-gal-80ct/012587001011",
+          "image": "https://www.kroger.com/product/images/large/front/012587001011",
+          "ppm": "$0.21/ct"
+        },
+        {
+          "upc": "011110820181",
+          "name": "Home Sense Strong Flex Tall Kitchen Trash Bags 80ct",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "80 ct",
+            "packageSize": "80 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 9.49,
+              "priceString": "$9.49"
+            },
+            "wasPrice": {
+              "price": 10.99,
+              "priceString": "$10.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.12/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-strong-flex-tall-kitchen-trash-bags-80ct/011110820181",
+          "image": "https://www.kroger.com/product/images/large/front/011110820181",
+          "ppm": "$0.12/ct"
+        },
+        {
+          "upc": "037000001096",
+          "name": "Mr. Clean Magic Eraser Extra Durable 4ct",
+          "brand": "Mr.",
+          "packageInfo": {
+            "weight": "4 ct",
+            "packageSize": "4 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$1.37/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mr-clean-magic-eraser-extra-durable-4ct/037000001096",
+          "image": "https://www.kroger.com/product/images/large/front/037000001096",
+          "ppm": "$1.37/ct"
+        },
+        {
+          "upc": "037000001102",
+          "name": "Swiffer Sweeper Dry Sweeping Cloth Refills 32ct",
+          "brand": "Swiffer",
+          "packageInfo": {
+            "weight": "32 ct",
+            "packageSize": "32 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 8.49,
+              "priceString": "$8.49"
+            },
+            "wasPrice": {
+              "price": 9.49,
+              "priceString": "$9.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.27/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/swiffer-sweeper-dry-sweeping-cloth-refills-32ct/037000001102",
+          "image": "https://www.kroger.com/product/images/large/front/037000001102",
+          "ppm": "$0.27/ct"
+        },
+        {
+          "upc": "037000001126",
+          "name": "Febreze Air Mist Linen & Sky 8.8 oz 2pk",
+          "brand": "Febreze",
+          "packageInfo": {
+            "weight": "17.6 oz",
+            "packageSize": "17.6 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.40/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/febreze-air-mist-linen-sky-8-8-oz-2pk/037000001126",
+          "image": "https://www.kroger.com/product/images/large/front/037000001126",
+          "ppm": "$0.40/oz"
+        },
+        {
+          "upc": "025700001010",
+          "name": "Ziploc Gallon Food Storage Slider Bags 40ct",
+          "brand": "Ziploc",
+          "packageInfo": {
+            "weight": "40 ct",
+            "packageSize": "40 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 6.79,
+              "priceString": "$6.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.15/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.75",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/ziploc-gallon-food-storage-slider-bags-40ct/025700001010",
+          "image": "https://www.kroger.com/product/images/large/front/025700001010",
+          "ppm": "$0.15/ct"
+        },
+        {
+          "upc": "011110820310",
+          "name": "Home Sense Slider Storage Bags Gallon 40ct",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "40 ct",
+            "packageSize": "40 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.10/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-slider-storage-bags-gallon-40ct/011110820310",
+          "image": "https://www.kroger.com/product/images/large/front/011110820310",
+          "ppm": "$0.10/ct"
+        },
+        {
+          "upc": "025700001027",
+          "name": "Ziploc Quart Food Storage Bags 75ct",
+          "brand": "Ziploc",
+          "packageInfo": {
+            "weight": "75 ct",
+            "packageSize": "75 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.29,
+              "priceString": "$6.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.08/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/ziploc-quart-food-storage-bags-75ct/025700001027",
+          "image": "https://www.kroger.com/product/images/large/front/025700001027",
+          "ppm": "$0.08/ct"
+        },
+        {
+          "upc": "011110820334",
+          "name": "Home Sense Quart Storage Bags 75ct",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "75 ct",
+            "packageSize": "75 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.05/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-quart-storage-bags-75ct/011110820334",
+          "image": "https://www.kroger.com/product/images/large/front/011110820334",
+          "ppm": "$0.05/ct"
+        },
+        {
+          "upc": "010900001014",
+          "name": "Reynolds Wrap Standard Aluminum Foil 75 Sq Ft",
+          "brand": "Reynolds",
+          "packageInfo": {
+            "weight": "75 sq ft",
+            "packageSize": "75 sq ft"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/sq ft"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/reynolds-wrap-standard-aluminum-foil-75-sq-ft/010900001014",
+          "image": "https://www.kroger.com/product/images/large/front/010900001014",
+          "ppm": "$0.05/sq ft"
+        },
+        {
+          "upc": "011110820358",
+          "name": "Home Sense Everyday Aluminum Foil 75 Sq Ft",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "75 sq ft",
+            "packageSize": "75 sq ft"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/sq ft"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-everyday-aluminum-foil-75-sq-ft/011110820358",
+          "image": "https://www.kroger.com/product/images/large/front/011110820358",
+          "ppm": "$0.04/sq ft"
+        },
+        {
+          "upc": "025700001034",
+          "name": "Saran Premium Plastic Food Wrap 100 Sq Ft",
+          "brand": "Saran",
+          "packageInfo": {
+            "weight": "100 sq ft",
+            "packageSize": "100 sq ft"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/sq ft"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/saran-premium-plastic-food-wrap-100-sq-ft/025700001034",
+          "image": "https://www.kroger.com/product/images/large/front/025700001034",
+          "ppm": "$0.04/sq ft"
+        },
+        {
+          "upc": "042000001014",
+          "name": "Dixie Ultra Paper Plates 10 Inch 44ct",
+          "brand": "Dixie",
+          "packageInfo": {
+            "weight": "44 ct",
+            "packageSize": "44 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.15/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $11",
+            "volumeDealPrice": "11.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/dixie-ultra-paper-plates-10-inch-44ct/042000001014",
+          "image": "https://www.kroger.com/product/images/large/front/042000001014",
+          "ppm": "$0.15/ct"
+        },
+        {
+          "upc": "011110820389",
+          "name": "Home Sense Everyday Paper Plates 100ct",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "100 ct",
+            "packageSize": "100 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "wasPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-everyday-paper-plates-100ct/011110820389",
+          "image": "https://www.kroger.com/product/images/large/front/011110820389",
+          "ppm": "$0.05/ct"
+        },
+        {
+          "upc": "082200001018",
+          "name": "Hefty Party On Red Disposable Plastic Cups 18 oz 50ct",
+          "brand": "Hefty",
+          "packageInfo": {
+            "weight": "50 ct",
+            "packageSize": "50 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.10/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/hefty-party-on-red-disposable-plastic-cups-18-oz-50ct/082200001018",
+          "image": "https://www.kroger.com/product/images/large/front/082200001018",
+          "ppm": "$0.10/ct"
+        },
+        {
+          "upc": "011110820402",
+          "name": "Home Sense Plastic Party Cups 18 oz 50ct",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "50 ct",
+            "packageSize": "50 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.07/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-plastic-party-cups-18-oz-50ct/011110820402",
+          "image": "https://www.kroger.com/product/images/large/front/011110820402",
+          "ppm": "$0.07/ct"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +1022,6 @@
     "sub_category": "Laundry Care & Paper Goods",
     "source_url": "https://www.marianos.com/c/laundry-paper/10001",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.423474+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +1029,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +1050,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

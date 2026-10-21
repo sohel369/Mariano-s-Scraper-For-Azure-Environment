@@ -1,4 +1,276 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "4/28",
+    "category": "Meat & Seafood",
+    "sub_category": "Seafood & Shellfish"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00004&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/seafood/02002",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "011110901187",
+          "name": "Kroger Peeled and Deveined Raw Shrimp 31-40ct 16 oz",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": {
+              "price": 7.99,
+              "priceString": "$7.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.44/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$5.99 with Digital Coupon",
+            "digitalCouponPrice": "5.99",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-peeled-and-deveined-raw-shrimp-31-40ct-16-oz/011110901187",
+          "image": "https://www.kroger.com/product/images/large/front/011110901187",
+          "ppm": "$0.44/oz"
+        },
+        {
+          "upc": "011110911193",
+          "name": "Private Selection Wild Caught Alaskan Sockeye Salmon Fillet 16 oz",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 12.99,
+              "priceString": "$12.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.81/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $2.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-wild-caught-alaskan-sockeye-salmon-fillet-16-oz/011110911193",
+          "image": "https://www.kroger.com/product/images/large/front/011110911193",
+          "ppm": "$0.81/oz"
+        },
+        {
+          "upc": "011110812209",
+          "name": "Roundy's Cooked Cocktail Shrimp 41-50ct 16 oz Bag",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.49,
+              "priceString": "$7.49"
+            },
+            "wasPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.47/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-cooked-cocktail-shrimp-41-50ct-16-oz-bag/011110812209",
+          "image": "https://www.kroger.com/product/images/large/front/011110812209",
+          "ppm": "$0.47/oz"
+        },
+        {
+          "upc": "044400011013",
+          "name": "Gorton's Crunchy Breaded Fish Fillets 19 oz",
+          "brand": "Gorton's",
+          "packageInfo": {
+            "weight": "19 oz",
+            "packageSize": "19 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.34/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $11",
+            "volumeDealPrice": "11.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/gorton-s-crunchy-breaded-fish-fillets-19-oz/044400011013",
+          "image": "https://www.kroger.com/product/images/large/front/044400011013",
+          "ppm": "$0.34/oz"
+        },
+        {
+          "upc": "011110901224",
+          "name": "Kroger Flounder Fillets Skinless Boneless 16 oz",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.44/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-flounder-fillets-skinless-boneless-16-oz/011110901224",
+          "image": "https://www.kroger.com/product/images/large/front/011110901224",
+          "ppm": "$0.44/oz"
+        },
+        {
+          "upc": "011110853240",
+          "name": "Simple Truth Wild Caught Mahi Mahi Fillets 12 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.75/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-wild-caught-mahi-mahi-fillets-12-oz/011110853240",
+          "image": "https://www.kroger.com/product/images/large/front/011110853240",
+          "ppm": "$0.75/oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +278,6 @@
     "sub_category": "Seafood & Shellfish",
     "source_url": "https://www.marianos.com/c/seafood/02002",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.319163+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +285,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +306,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

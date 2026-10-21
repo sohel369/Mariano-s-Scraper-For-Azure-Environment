@@ -1,4 +1,420 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "10/28",
+    "category": "Deli",
+    "sub_category": "Prepared Dips & Ready Meals"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00010&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/prepared-meals-dips/05002",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "011110926050",
+          "name": "Mariano's Traditional Potato Salad 16 oz Tub",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.21/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-traditional-potato-salad-16-oz-tub/011110926050",
+          "image": "https://www.kroger.com/product/images/large/front/011110926050",
+          "ppm": "$0.21/oz"
+        },
+        {
+          "upc": "011110926067",
+          "name": "Mariano's Macaroni Salad 16 oz Tub",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-macaroni-salad-16-oz-tub/011110926067",
+          "image": "https://www.kroger.com/product/images/large/front/011110926067",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "011110926159",
+          "name": "Mariano's Classic Hummus Tub 10 oz",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.30/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-classic-hummus-tub-10-oz/011110926159",
+          "image": "https://www.kroger.com/product/images/large/front/011110926159",
+          "ppm": "$0.30/oz"
+        },
+        {
+          "upc": "011110926166",
+          "name": "Mariano's Roasted Red Pepper Hummus 10 oz",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.30/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-roasted-red-pepper-hummus-10-oz/011110926166",
+          "image": "https://www.kroger.com/product/images/large/front/011110926166",
+          "ppm": "$0.30/oz"
+        },
+        {
+          "upc": "040822001014",
+          "name": "Sabra Classic Hummus Tub 10 oz",
+          "brand": "Sabra",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.35/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/sabra-classic-hummus-tub-10-oz/040822001014",
+          "image": "https://www.kroger.com/product/images/large/front/040822001014",
+          "ppm": "$0.35/oz"
+        },
+        {
+          "upc": "011110856197",
+          "name": "Simple Truth Organic Garlic Hummus 8 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.41/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-garlic-hummus-8-oz/011110856197",
+          "image": "https://www.kroger.com/product/images/large/front/011110856197",
+          "ppm": "$0.41/oz"
+        },
+        {
+          "upc": "011110926227",
+          "name": "Mariano's Fresh Guacamole Mild Tub 8 oz",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.44/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-fresh-guacamole-mild-tub-8-oz/011110926227",
+          "image": "https://www.kroger.com/product/images/large/front/011110926227",
+          "ppm": "$0.44/oz"
+        },
+        {
+          "upc": "020166001017",
+          "name": "Wholly Guacamole Classic Mild 7.5 oz Tray",
+          "brand": "Wholly",
+          "packageInfo": {
+            "weight": "7.5 oz",
+            "packageSize": "7.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.51/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/wholly-guacamole-classic-mild-7-5-oz-tray/020166001017",
+          "image": "https://www.kroger.com/product/images/large/front/020166001017",
+          "ppm": "$0.51/oz"
+        },
+        {
+          "upc": "011110926241",
+          "name": "Mariano's Spinach Dip 12 oz Tub",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.37/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-spinach-dip-12-oz-tub/011110926241",
+          "image": "https://www.kroger.com/product/images/large/front/011110926241",
+          "ppm": "$0.37/oz"
+        },
+        {
+          "upc": "011110926258",
+          "name": "Mariano's Buffalo Chicken Dip 12 oz Tub",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "wasPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.40/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-buffalo-chicken-dip-12-oz-tub/011110926258",
+          "image": "https://www.kroger.com/product/images/large/front/011110926258",
+          "ppm": "$0.40/oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +422,6 @@
     "sub_category": "Prepared Dips & Ready Meals",
     "source_url": "https://www.marianos.com/c/prepared-meals-dips/05002",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.355513+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +429,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +450,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

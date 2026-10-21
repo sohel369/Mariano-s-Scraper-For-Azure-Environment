@@ -1,4 +1,1404 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "11/28",
+    "category": "Pantry",
+    "sub_category": "Canned Goods Soups & Grains"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00011&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/canned-goods/06001",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "011110816016",
+          "name": "Roundy's Whole Kernel Sweet Corn 15.25 oz Can",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "15.25 oz",
+            "packageSize": "15.25 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 0.89,
+              "priceString": "$0.89"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.06/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-whole-kernel-sweet-corn-15-25-oz-can/011110816016",
+          "image": "https://www.kroger.com/product/images/large/front/011110816016",
+          "ppm": "$0.06/oz"
+        },
+        {
+          "upc": "011110816023",
+          "name": "Roundy's Cut Green Beans 14.5 oz Can",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "14.5 oz",
+            "packageSize": "14.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 0.89,
+              "priceString": "$0.89"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.06/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-cut-green-beans-14-5-oz-can/011110816023",
+          "image": "https://www.kroger.com/product/images/large/front/011110816023",
+          "ppm": "$0.06/oz"
+        },
+        {
+          "upc": "011110816030",
+          "name": "Roundy's Sweet Peas 15 oz Can",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "15 oz",
+            "packageSize": "15 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 0.89,
+              "priceString": "$0.89"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.06/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-sweet-peas-15-oz-can/011110816030",
+          "image": "https://www.kroger.com/product/images/large/front/011110816030",
+          "ppm": "$0.06/oz"
+        },
+        {
+          "upc": "011110857040",
+          "name": "Simple Truth Organic Black Beans 15 oz Can",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "15 oz",
+            "packageSize": "15 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.19,
+              "priceString": "$1.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.08/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-black-beans-15-oz-can/011110857040",
+          "image": "https://www.kroger.com/product/images/large/front/011110857040",
+          "ppm": "$0.08/oz"
+        },
+        {
+          "upc": "011110857057",
+          "name": "Simple Truth Organic Garbanzo Chickpeas 15 oz Can",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "15 oz",
+            "packageSize": "15 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.19,
+              "priceString": "$1.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.08/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-garbanzo-chickpeas-15-oz-can/011110857057",
+          "image": "https://www.kroger.com/product/images/large/front/011110857057",
+          "ppm": "$0.08/oz"
+        },
+        {
+          "upc": "011110816061",
+          "name": "Roundy's Pinto Beans 15.5 oz Can",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "15.5 oz",
+            "packageSize": "15.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 0.99,
+              "priceString": "$0.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.06/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-pinto-beans-15-5-oz-can/011110816061",
+          "image": "https://www.kroger.com/product/images/large/front/011110816061",
+          "ppm": "$0.06/oz"
+        },
+        {
+          "upc": "051000001016",
+          "name": "Campbell's Chunky Classic Chicken Noodle Soup 18.8 oz",
+          "brand": "Campbell's",
+          "packageInfo": {
+            "weight": "18.8 oz",
+            "packageSize": "18.8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.11/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Mix or Match 3 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/campbell-s-chunky-classic-chicken-noodle-soup-18-8-oz/051000001016",
+          "image": "https://www.kroger.com/product/images/large/front/051000001016",
+          "ppm": "$0.11/oz"
+        },
+        {
+          "upc": "051000001023",
+          "name": "Campbell's Chunky Sirloin Burger Soup 18.8 oz",
+          "brand": "Campbell's",
+          "packageInfo": {
+            "weight": "18.8 oz",
+            "packageSize": "18.8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.11/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Mix or Match 3 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/campbell-s-chunky-sirloin-burger-soup-18-8-oz/051000001023",
+          "image": "https://www.kroger.com/product/images/large/front/051000001023",
+          "ppm": "$0.11/oz"
+        },
+        {
+          "upc": "041196001013",
+          "name": "Progresso Traditional Chicken Noodle Soup 19 oz",
+          "brand": "Progresso",
+          "packageInfo": {
+            "weight": "19 oz",
+            "packageSize": "19 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.19,
+              "priceString": "$2.19"
+            },
+            "wasPrice": {
+              "price": 2.69,
+              "priceString": "$2.69"
+            },
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/progresso-traditional-chicken-noodle-soup-19-oz/041196001013",
+          "image": "https://www.kroger.com/product/images/large/front/041196001013",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "076808001013",
+          "name": "Barilla Spaghetti Pasta 16 oz Blue Box",
+          "brand": "Barilla",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.49,
+              "priceString": "$1.49"
+            },
+            "wasPrice": {
+              "price": 1.89,
+              "priceString": "$1.89"
+            },
+            "unitPrice": {
+              "priceString": "$0.09/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/barilla-spaghetti-pasta-16-oz-blue-box/076808001013",
+          "image": "https://www.kroger.com/product/images/large/front/076808001013",
+          "ppm": "$0.09/oz"
+        },
+        {
+          "upc": "076808001020",
+          "name": "Barilla Penne Rigate Pasta 16 oz Blue Box",
+          "brand": "Barilla",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.49,
+              "priceString": "$1.49"
+            },
+            "wasPrice": {
+              "price": 1.89,
+              "priceString": "$1.89"
+            },
+            "unitPrice": {
+              "priceString": "$0.09/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/barilla-penne-rigate-pasta-16-oz-blue-box/076808001020",
+          "image": "https://www.kroger.com/product/images/large/front/076808001020",
+          "ppm": "$0.09/oz"
+        },
+        {
+          "upc": "011110977120",
+          "name": "HemisFares Bronze Cut Tagliatelle Pasta 16 oz",
+          "brand": "HemisFares",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.19/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/hemisfares-bronze-cut-tagliatelle-pasta-16-oz/011110977120",
+          "image": "https://www.kroger.com/product/images/large/front/011110977120",
+          "ppm": "$0.19/oz"
+        },
+        {
+          "upc": "011110816139",
+          "name": "Roundy's Traditional Spaghetti 16 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.19,
+              "priceString": "$1.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.07/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-traditional-spaghetti-16-oz/011110816139",
+          "image": "https://www.kroger.com/product/images/large/front/011110816139",
+          "ppm": "$0.07/oz"
+        },
+        {
+          "upc": "011110816146",
+          "name": "Roundy's Elbow Macaroni Pasta 16 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.19,
+              "priceString": "$1.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.07/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-elbow-macaroni-pasta-16-oz/011110816146",
+          "image": "https://www.kroger.com/product/images/large/front/011110816146",
+          "ppm": "$0.07/oz"
+        },
+        {
+          "upc": "021000004010",
+          "name": "Kraft Original Macaroni & Cheese Dinner 7.25 oz",
+          "brand": "Kraft",
+          "packageInfo": {
+            "weight": "7.25 oz",
+            "packageSize": "7.25 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.0,
+              "priceString": "$1.00"
+            },
+            "wasPrice": {
+              "price": 1.29,
+              "priceString": "$1.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.14/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "5 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kraft-original-macaroni-cheese-dinner-7-25-oz/021000004010",
+          "image": "https://www.kroger.com/product/images/large/front/021000004010",
+          "ppm": "$0.14/oz"
+        },
+        {
+          "upc": "080000001016",
+          "name": "Starkist Chunk Light Tuna in Water 5 oz Can",
+          "brand": "Starkist",
+          "packageInfo": {
+            "weight": "5 oz",
+            "packageSize": "5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.29,
+              "priceString": "$1.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.26/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/starkist-chunk-light-tuna-in-water-5-oz-can/080000001016",
+          "image": "https://www.kroger.com/product/images/large/front/080000001016",
+          "ppm": "$0.26/oz"
+        },
+        {
+          "upc": "011110816269",
+          "name": "Roundy's Chunk Light Tuna in Water 5 oz Can",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "5 oz",
+            "packageSize": "5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 0.99,
+              "priceString": "$0.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.20/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-chunk-light-tuna-in-water-5-oz-can/011110816269",
+          "image": "https://www.kroger.com/product/images/large/front/011110816269",
+          "ppm": "$0.20/oz"
+        },
+        {
+          "upc": "011110907271",
+          "name": "Kroger Pure Granulated White Sugar 4 lb Bag",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "4 lb",
+            "packageSize": "4 lb"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.82/lb"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-pure-granulated-white-sugar-4-lb-bag/011110907271",
+          "image": "https://www.kroger.com/product/images/large/front/011110907271",
+          "ppm": "$0.82/lb"
+        },
+        {
+          "upc": "011110816283",
+          "name": "Roundy's All-Purpose Flour 5 lb Bag",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "5 lb",
+            "packageSize": "5 lb"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.56/lb"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-all-purpose-flour-5-lb-bag/011110816283",
+          "image": "https://www.kroger.com/product/images/large/front/011110816283",
+          "ppm": "$0.56/lb"
+        },
+        {
+          "upc": "011110857293",
+          "name": "Simple Truth Organic Extra Virgin Olive Oil 16.9 fl oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "16.9 fl oz",
+            "packageSize": "16.9 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.99,
+              "priceString": "$7.99"
+            },
+            "wasPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.47/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-extra-virgin-olive-oil-16-9-fl-oz/011110857293",
+          "image": "https://www.kroger.com/product/images/large/front/011110857293",
+          "ppm": "$0.47/fl oz"
+        },
+        {
+          "upc": "011110816306",
+          "name": "Roundy's Pure Vegetable Oil 48 fl oz Bottle",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "48 fl oz",
+            "packageSize": "48 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.08/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-pure-vegetable-oil-48-fl-oz-bottle/011110816306",
+          "image": "https://www.kroger.com/product/images/large/front/011110816306",
+          "ppm": "$0.08/fl oz"
+        },
+        {
+          "upc": "051500001011",
+          "name": "Crisco Pure Vegetable Oil 40 fl oz Bottle",
+          "brand": "Crisco",
+          "packageInfo": {
+            "weight": "40 fl oz",
+            "packageSize": "40 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.11/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/crisco-pure-vegetable-oil-40-fl-oz-bottle/051500001011",
+          "image": "https://www.kroger.com/product/images/large/front/051500001011",
+          "ppm": "$0.11/fl oz"
+        },
+        {
+          "upc": "051500002018",
+          "name": "Jif Extra Crunchy Peanut Butter 16 oz Jar",
+          "brand": "Jif",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.19/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/jif-extra-crunchy-peanut-butter-16-oz-jar/051500002018",
+          "image": "https://www.kroger.com/product/images/large/front/051500002018",
+          "ppm": "$0.19/oz"
+        },
+        {
+          "upc": "011110816337",
+          "name": "Roundy's Creamy Peanut Butter 16 oz Jar",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-creamy-peanut-butter-16-oz-jar/011110816337",
+          "image": "https://www.kroger.com/product/images/large/front/011110816337",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "051500003015",
+          "name": "Smucker's Concord Grape Jelly 18 oz Jar",
+          "brand": "Smucker's",
+          "packageInfo": {
+            "weight": "18 oz",
+            "packageSize": "18 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.14/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/smucker-s-concord-grape-jelly-18-oz-jar/051500003015",
+          "image": "https://www.kroger.com/product/images/large/front/051500003015",
+          "ppm": "$0.14/oz"
+        },
+        {
+          "upc": "016000001015",
+          "name": "Cheerios Gluten Free Whole Grain Cereal 8.9 oz Box",
+          "brand": "Cheerios",
+          "packageInfo": {
+            "weight": "8.9 oz",
+            "packageSize": "8.9 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.39/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/cheerios-gluten-free-whole-grain-cereal-8-9-oz-box/016000001015",
+          "image": "https://www.kroger.com/product/images/large/front/016000001015",
+          "ppm": "$0.39/oz"
+        },
+        {
+          "upc": "016000001022",
+          "name": "Honey Nut Cheerios Cereal 10.8 oz Box",
+          "brand": "Honey",
+          "packageInfo": {
+            "weight": "10.8 oz",
+            "packageSize": "10.8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.32/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/honey-nut-cheerios-cereal-10-8-oz-box/016000001022",
+          "image": "https://www.kroger.com/product/images/large/front/016000001022",
+          "ppm": "$0.32/oz"
+        },
+        {
+          "upc": "038000001017",
+          "name": "Kellogg's Frosted Flakes Cereal 13.5 oz Box",
+          "brand": "Kellogg's",
+          "packageInfo": {
+            "weight": "13.5 oz",
+            "packageSize": "13.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.33/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Mix or Match 3 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kellogg-s-frosted-flakes-cereal-13-5-oz-box/038000001017",
+          "image": "https://www.kroger.com/product/images/large/front/038000001017",
+          "ppm": "$0.33/oz"
+        },
+        {
+          "upc": "011110816382",
+          "name": "Roundy's Toasted Oats Cereal 12 oz Box",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.19,
+              "priceString": "$2.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.18/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-toasted-oats-cereal-12-oz-box/011110816382",
+          "image": "https://www.kroger.com/product/images/large/front/011110816382",
+          "ppm": "$0.18/oz"
+        },
+        {
+          "upc": "030000001011",
+          "name": "Quaker Old Fashioned Rolled Oats 42 oz Tub",
+          "brand": "Quaker",
+          "packageInfo": {
+            "weight": "42 oz",
+            "packageSize": "42 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "wasPrice": {
+              "price": 5.79,
+              "priceString": "$5.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/quaker-old-fashioned-rolled-oats-42-oz-tub/030000001011",
+          "image": "https://www.kroger.com/product/images/large/front/030000001011",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "011110816405",
+          "name": "Roundy's Quick 1-Minute Rolled Oats 42 oz Tub",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "42 oz",
+            "packageSize": "42 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.10/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-quick-1-minute-rolled-oats-42-oz-tub/011110816405",
+          "image": "https://www.kroger.com/product/images/large/front/011110816405",
+          "ppm": "$0.10/oz"
+        },
+        {
+          "upc": "016000002012",
+          "name": "Nature Valley Oats 'n Honey Crunchy Granola Bars 12ct",
+          "brand": "Nature",
+          "packageInfo": {
+            "weight": "8.9 oz",
+            "packageSize": "8.9 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.34/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/nature-valley-oats-n-honey-crunchy-granola-bars-12ct/016000002012",
+          "image": "https://www.kroger.com/product/images/large/front/016000002012",
+          "ppm": "$0.34/oz"
+        },
+        {
+          "upc": "038000002014",
+          "name": "Pop-Tarts Frosted Strawberry Toaster Pastries 8ct",
+          "brand": "Pop-Tarts",
+          "packageInfo": {
+            "weight": "13.5 oz",
+            "packageSize": "13.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.24/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pop-tarts-frosted-strawberry-toaster-pastries-8ct/038000002014",
+          "image": "https://www.kroger.com/product/images/large/front/038000002014",
+          "ppm": "$0.24/oz"
+        },
+        {
+          "upc": "038000003011",
+          "name": "Pringles Original Potato Crisps 5.2 oz Can",
+          "brand": "Pringles",
+          "packageInfo": {
+            "weight": "5.2 oz",
+            "packageSize": "5.2 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.29,
+              "priceString": "$2.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.44/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pringles-original-potato-crisps-5-2-oz-can/038000003011",
+          "image": "https://www.kroger.com/product/images/large/front/038000003011",
+          "ppm": "$0.44/oz"
+        },
+        {
+          "upc": "044000001018",
+          "name": "Oreo Chocolate Sandwich Cookies 13.29 oz Pack",
+          "brand": "Oreo",
+          "packageInfo": {
+            "weight": "13.29 oz",
+            "packageSize": "13.29 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.29/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/oreo-chocolate-sandwich-cookies-13-29-oz-pack/044000001018",
+          "image": "https://www.kroger.com/product/images/large/front/044000001018",
+          "ppm": "$0.29/oz"
+        },
+        {
+          "upc": "011110816528",
+          "name": "Roundy's Vanilla Wafers Cookies 11 oz Box",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "11 oz",
+            "packageSize": "11 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.19,
+              "priceString": "$2.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.20/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-vanilla-wafers-cookies-11-oz-box/011110816528",
+          "image": "https://www.kroger.com/product/images/large/front/011110816528",
+          "ppm": "$0.20/oz"
+        },
+        {
+          "upc": "034000001019",
+          "name": "Hershey's Milk Chocolate Candy Bars 6pk 9.3 oz",
+          "brand": "Hershey's",
+          "packageInfo": {
+            "weight": "9.3 oz",
+            "packageSize": "9.3 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.59/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $9",
+            "volumeDealPrice": "9.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/hershey-s-milk-chocolate-candy-bars-6pk-9-3-oz/034000001019",
+          "image": "https://www.kroger.com/product/images/large/front/034000001019",
+          "ppm": "$0.59/oz"
+        },
+        {
+          "upc": "034000001026",
+          "name": "Reese's Peanut Butter Cups 6pk 9 oz Box",
+          "brand": "Reese's",
+          "packageInfo": {
+            "weight": "9 oz",
+            "packageSize": "9 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.61/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $9",
+            "volumeDealPrice": "9.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/reese-s-peanut-butter-cups-6pk-9-oz-box/034000001026",
+          "image": "https://www.kroger.com/product/images/large/front/034000001026",
+          "ppm": "$0.61/oz"
+        },
+        {
+          "upc": "040000001010",
+          "name": "M&M's Milk Chocolate Sharing Size Candy Bag 10.7 oz",
+          "brand": "M&M's",
+          "packageInfo": {
+            "weight": "10.7 oz",
+            "packageSize": "10.7 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.37/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.75",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/m-m-s-milk-chocolate-sharing-size-candy-bag-10-7-oz/040000001010",
+          "image": "https://www.kroger.com/product/images/large/front/040000001010",
+          "ppm": "$0.37/oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +1406,6 @@
     "sub_category": "Canned Goods Soups & Grains",
     "source_url": "https://www.marianos.com/c/canned-goods/06001",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.359301+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +1413,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +1434,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

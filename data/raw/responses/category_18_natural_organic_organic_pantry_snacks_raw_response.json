@@ -1,4 +1,1251 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "18/28",
+    "category": "Natural & Organic",
+    "sub_category": "Organic Pantry & Snacks"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00018&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/organic-pantry/09002",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "011110860026",
+          "name": "Simple Truth Organic Virgin Coconut Oil 14 fl oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "14 fl oz",
+            "packageSize": "14 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.43/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-virgin-coconut-oil-14-fl-oz/011110860026",
+          "image": "https://www.kroger.com/product/images/large/front/011110860026",
+          "ppm": "$0.43/fl oz"
+        },
+        {
+          "upc": "011110860033",
+          "name": "Simple Truth Organic 100% Pure Maple Syrup Grade A 12 fl oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "12 fl oz",
+            "packageSize": "12 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": {
+              "price": 7.99,
+              "priceString": "$7.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.58/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$5.99 with Digital Coupon",
+            "digitalCouponPrice": "5.99",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-100-pure-maple-syrup-grade-a-12-fl-oz/011110860033",
+          "image": "https://www.kroger.com/product/images/large/front/011110860033",
+          "ppm": "$0.58/fl oz"
+        },
+        {
+          "upc": "011110860040",
+          "name": "Simple Truth Organic Raw Wildflower Honey 12 oz Bear",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.42/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-raw-wildflower-honey-12-oz-bear/011110860040",
+          "image": "https://www.kroger.com/product/images/large/front/011110860040",
+          "ppm": "$0.42/oz"
+        },
+        {
+          "upc": "011110860057",
+          "name": "Simple Truth Organic Creamy Peanut Butter 16 oz Jar",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.22/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-creamy-peanut-butter-16-oz-jar/011110860057",
+          "image": "https://www.kroger.com/product/images/large/front/011110860057",
+          "ppm": "$0.22/oz"
+        },
+        {
+          "upc": "011110860064",
+          "name": "Simple Truth Organic Crunchy Peanut Butter 16 oz Jar",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.22/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-crunchy-peanut-butter-16-oz-jar/011110860064",
+          "image": "https://www.kroger.com/product/images/large/front/011110860064",
+          "ppm": "$0.22/oz"
+        },
+        {
+          "upc": "011110860095",
+          "name": "Simple Truth Organic White Quinoa 16 oz Pouch",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-white-quinoa-16-oz-pouch/011110860095",
+          "image": "https://www.kroger.com/product/images/large/front/011110860095",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "011110860101",
+          "name": "Simple Truth Organic Chia Seeds 12 oz Pouch",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.36/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-chia-seeds-12-oz-pouch/011110860101",
+          "image": "https://www.kroger.com/product/images/large/front/011110860101",
+          "ppm": "$0.36/oz"
+        },
+        {
+          "upc": "011110860118",
+          "name": "Simple Truth Organic Rolled Oats 18 oz Canister",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "18 oz",
+            "packageSize": "18 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.19/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-rolled-oats-18-oz-canister/011110860118",
+          "image": "https://www.kroger.com/product/images/large/front/011110860118",
+          "ppm": "$0.19/oz"
+        },
+        {
+          "upc": "011110860125",
+          "name": "Simple Truth Organic Quick Oats 18 oz Canister",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "18 oz",
+            "packageSize": "18 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.19/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-quick-oats-18-oz-canister/011110860125",
+          "image": "https://www.kroger.com/product/images/large/front/011110860125",
+          "ppm": "$0.19/oz"
+        },
+        {
+          "upc": "011110860132",
+          "name": "Simple Truth Organic Brown Rice 32 oz Bag",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.10/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-brown-rice-32-oz-bag/011110860132",
+          "image": "https://www.kroger.com/product/images/large/front/011110860132",
+          "ppm": "$0.10/oz"
+        },
+        {
+          "upc": "011110860149",
+          "name": "Simple Truth Organic Jasmine Rice 32 oz Bag",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.10/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-jasmine-rice-32-oz-bag/011110860149",
+          "image": "https://www.kroger.com/product/images/large/front/011110860149",
+          "ppm": "$0.10/oz"
+        },
+        {
+          "upc": "011110860156",
+          "name": "Simple Truth Organic Low Sodium Chicken Broth 32 oz Carton",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.08/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-low-sodium-chicken-broth-32-oz-carton/011110860156",
+          "image": "https://www.kroger.com/product/images/large/front/011110860156",
+          "ppm": "$0.08/oz"
+        },
+        {
+          "upc": "011110860163",
+          "name": "Simple Truth Organic Vegetable Broth 32 oz Carton",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.08/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-vegetable-broth-32-oz-carton/011110860163",
+          "image": "https://www.kroger.com/product/images/large/front/011110860163",
+          "ppm": "$0.08/oz"
+        },
+        {
+          "upc": "011110860170",
+          "name": "Simple Truth Organic Beef Broth 32 oz Carton",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "32 oz",
+            "packageSize": "32 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.08/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-beef-broth-32-oz-carton/011110860170",
+          "image": "https://www.kroger.com/product/images/large/front/011110860170",
+          "ppm": "$0.08/oz"
+        },
+        {
+          "upc": "011110860187",
+          "name": "Simple Truth Organic Diced Tomatoes 14.5 oz Can",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "14.5 oz",
+            "packageSize": "14.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.49,
+              "priceString": "$1.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.10/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-diced-tomatoes-14-5-oz-can/011110860187",
+          "image": "https://www.kroger.com/product/images/large/front/011110860187",
+          "ppm": "$0.10/oz"
+        },
+        {
+          "upc": "011110860194",
+          "name": "Simple Truth Organic Tomato Paste 6 oz Can",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "6 oz",
+            "packageSize": "6 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 0.99,
+              "priceString": "$0.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.17/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-tomato-paste-6-oz-can/011110860194",
+          "image": "https://www.kroger.com/product/images/large/front/011110860194",
+          "ppm": "$0.17/oz"
+        },
+        {
+          "upc": "011110860200",
+          "name": "Simple Truth Organic Marinara Sauce 24 oz Jar",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "24 oz",
+            "packageSize": "24 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-marinara-sauce-24-oz-jar/011110860200",
+          "image": "https://www.kroger.com/product/images/large/front/011110860200",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "011110860217",
+          "name": "Simple Truth Organic Spaghetti 16 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-spaghetti-16-oz/011110860217",
+          "image": "https://www.kroger.com/product/images/large/front/011110860217",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "011110860224",
+          "name": "Simple Truth Organic Penne Rigate 16 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-penne-rigate-16-oz/011110860224",
+          "image": "https://www.kroger.com/product/images/large/front/011110860224",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "011110860231",
+          "name": "Simple Truth Organic Whole Grain Bread 24 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "24 oz",
+            "packageSize": "24 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.14/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-whole-grain-bread-24-oz/011110860231",
+          "image": "https://www.kroger.com/product/images/large/front/011110860231",
+          "ppm": "$0.14/oz"
+        },
+        {
+          "upc": "011110860248",
+          "name": "Simple Truth Organic Multigrain Tortilla Chips 8 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.37/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-multigrain-tortilla-chips-8-oz/011110860248",
+          "image": "https://www.kroger.com/product/images/large/front/011110860248",
+          "ppm": "$0.37/oz"
+        },
+        {
+          "upc": "011110860255",
+          "name": "Simple Truth Organic Blue Corn Tortilla Chips 8 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.37/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-blue-corn-tortilla-chips-8-oz/011110860255",
+          "image": "https://www.kroger.com/product/images/large/front/011110860255",
+          "ppm": "$0.37/oz"
+        },
+        {
+          "upc": "011110860262",
+          "name": "Simple Truth Organic Medium Salsa 16 oz Jar",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.16/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-medium-salsa-16-oz-jar/011110860262",
+          "image": "https://www.kroger.com/product/images/large/front/011110860262",
+          "ppm": "$0.16/oz"
+        },
+        {
+          "upc": "011110860279",
+          "name": "Simple Truth Organic Raw Almonds 10 oz Bag",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.60/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-raw-almonds-10-oz-bag/011110860279",
+          "image": "https://www.kroger.com/product/images/large/front/011110860279",
+          "ppm": "$0.60/oz"
+        },
+        {
+          "upc": "011110860286",
+          "name": "Simple Truth Organic Raw Walnuts 10 oz Bag",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.60/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-raw-walnuts-10-oz-bag/011110860286",
+          "image": "https://www.kroger.com/product/images/large/front/011110860286",
+          "ppm": "$0.60/oz"
+        },
+        {
+          "upc": "011110860293",
+          "name": "Simple Truth Organic Cashews Roasted with Sea Salt 8 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "wasPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.60/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.75",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-cashews-roasted-with-sea-salt-8-oz/011110860293",
+          "image": "https://www.kroger.com/product/images/large/front/011110860293",
+          "ppm": "$0.60/oz"
+        },
+        {
+          "upc": "011110860309",
+          "name": "Simple Truth Organic Dried Cranberries 8 oz Pouch",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.44/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-dried-cranberries-8-oz-pouch/011110860309",
+          "image": "https://www.kroger.com/product/images/large/front/011110860309",
+          "ppm": "$0.44/oz"
+        },
+        {
+          "upc": "011110860316",
+          "name": "Simple Truth Organic Semi-Sweet Chocolate Chips 10 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "10 oz",
+            "packageSize": "10 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.35/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-semi-sweet-chocolate-chips-10-oz/011110860316",
+          "image": "https://www.kroger.com/product/images/large/front/011110860316",
+          "ppm": "$0.35/oz"
+        },
+        {
+          "upc": "011110860323",
+          "name": "Simple Truth Organic Cane Sugar 3 lb Bag",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "3 lb",
+            "packageSize": "3 lb"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$1.43/lb"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-cane-sugar-3-lb-bag/011110860323",
+          "image": "https://www.kroger.com/product/images/large/front/011110860323",
+          "ppm": "$1.43/lb"
+        },
+        {
+          "upc": "011110860330",
+          "name": "Simple Truth Organic Brown Sugar 24 oz Box",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "24 oz",
+            "packageSize": "24 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.10/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-brown-sugar-24-oz-box/011110860330",
+          "image": "https://www.kroger.com/product/images/large/front/011110860330",
+          "ppm": "$0.10/oz"
+        },
+        {
+          "upc": "011110860347",
+          "name": "Simple Truth Organic Ground Cinnamon 1.75 oz Jar",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "1.75 oz",
+            "packageSize": "1.75 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$1.59/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-ground-cinnamon-1-75-oz-jar/011110860347",
+          "image": "https://www.kroger.com/product/images/large/front/011110860347",
+          "ppm": "$1.59/oz"
+        },
+        {
+          "upc": "011110860354",
+          "name": "Simple Truth Organic Black Peppercorn Grinder 2.8 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "2.8 oz",
+            "packageSize": "2.8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$1.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-black-peppercorn-grinder-2-8-oz/011110860354",
+          "image": "https://www.kroger.com/product/images/large/front/011110860354",
+          "ppm": "$1.25/oz"
+        },
+        {
+          "upc": "011110860361",
+          "name": "Simple Truth Organic Pink Himalayan Salt 4.2 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "4.2 oz",
+            "packageSize": "4.2 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.83/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-pink-himalayan-salt-4-2-oz/011110860361",
+          "image": "https://www.kroger.com/product/images/large/front/011110860361",
+          "ppm": "$0.83/oz"
+        },
+        {
+          "upc": "011110860378",
+          "name": "Simple Truth Organic Cold Brew Coffee Concentrate 32 fl oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "32 fl oz",
+            "packageSize": "32 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.17/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$4.99 with Digital Coupon",
+            "digitalCouponPrice": "4.99",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-cold-brew-coffee-concentrate-32-fl-oz/011110860378",
+          "image": "https://www.kroger.com/product/images/large/front/011110860378",
+          "ppm": "$0.17/fl oz"
+        },
+        {
+          "upc": "011110860385",
+          "name": "Simple Truth Organic Kombucha Ginger Lemon 15.2 fl oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "15.2 fl oz",
+            "packageSize": "15.2 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.18/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-kombucha-ginger-lemon-15-2-fl-oz/011110860385",
+          "image": "https://www.kroger.com/product/images/large/front/011110860385",
+          "ppm": "$0.18/fl oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +1253,6 @@
     "sub_category": "Organic Pantry & Snacks",
     "source_url": "https://www.marianos.com/c/organic-pantry/09002",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.413930+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +1260,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +1281,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

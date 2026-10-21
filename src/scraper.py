@@ -257,12 +257,14 @@ class MarianoProductionScraper:
                 "records_collected": len(staging_records)
             }
 
-        # Atomic commit to production with strict 100% category requirement
+        # Atomic commit to production with strict 100% exact category set requirement
+        expected_cat_keys = [f"{e['category']}::{e['sub_category']}" for e in category_entries]
         is_committed = self.storage.commit_dataset_atomic(
             store_id=store_id,
             staging_filepath=staging_filepath,
             total_categories_expected=total_subcategories,
-            categories_processed=processed_categories_count
+            categories_processed=processed_categories_count,
+            expected_category_keys=expected_cat_keys
         )
 
         # Compute audit statistics

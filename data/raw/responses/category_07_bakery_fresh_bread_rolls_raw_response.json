@@ -1,4 +1,750 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "7/28",
+    "category": "Bakery",
+    "sub_category": "Fresh Bread & Rolls"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00007&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/bread-rolls/04001",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "011110931016",
+          "name": "Mariano's Signature Sourdough Bread Loaf 16 oz",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-signature-sourdough-bread-loaf-16-oz/011110931016",
+          "image": "https://www.kroger.com/product/images/large/front/011110931016",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "011110931023",
+          "name": "Mariano's Artisan French Baguette 12 oz",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.17/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-artisan-french-baguette-12-oz/011110931023",
+          "image": "https://www.kroger.com/product/images/large/front/011110931023",
+          "ppm": "$0.17/oz"
+        },
+        {
+          "upc": "011110931030",
+          "name": "Mariano's Everything Bagels 6ct 18 oz Pack",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "18 oz",
+            "packageSize": "18 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.22/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-everything-bagels-6ct-18-oz-pack/011110931030",
+          "image": "https://www.kroger.com/product/images/large/front/011110931030",
+          "ppm": "$0.22/oz"
+        },
+        {
+          "upc": "011110931047",
+          "name": "Mariano's Plain Bagels 6ct 18 oz Pack",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "18 oz",
+            "packageSize": "18 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.22/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-plain-bagels-6ct-18-oz-pack/011110931047",
+          "image": "https://www.kroger.com/product/images/large/front/011110931047",
+          "ppm": "$0.22/oz"
+        },
+        {
+          "upc": "011110915054",
+          "name": "Private Selection Brioche Hamburger Buns 4ct 8 oz",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.41/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-brioche-hamburger-buns-4ct-8-oz/011110915054",
+          "image": "https://www.kroger.com/product/images/large/front/011110915054",
+          "ppm": "$0.41/oz"
+        },
+        {
+          "upc": "011110814098",
+          "name": "Roundy's 100% Whole Wheat Bread 20 oz Loaf",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "20 oz",
+            "packageSize": "20 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.10/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-100-whole-wheat-bread-20-oz-loaf/011110814098",
+          "image": "https://www.kroger.com/product/images/large/front/011110814098",
+          "ppm": "$0.10/oz"
+        },
+        {
+          "upc": "011110814104",
+          "name": "Roundy's Enriched White Bread 20 oz Loaf",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "20 oz",
+            "packageSize": "20 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.79,
+              "priceString": "$1.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.09/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-enriched-white-bread-20-oz-loaf/011110814104",
+          "image": "https://www.kroger.com/product/images/large/front/011110814104",
+          "ppm": "$0.09/oz"
+        },
+        {
+          "upc": "072945001015",
+          "name": "Sara Lee Honey Wheat Bread 20 oz Loaf",
+          "brand": "Sara",
+          "packageInfo": {
+            "weight": "20 oz",
+            "packageSize": "20 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.14/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/sara-lee-honey-wheat-bread-20-oz-loaf/072945001015",
+          "image": "https://www.kroger.com/product/images/large/front/072945001015",
+          "ppm": "$0.14/oz"
+        },
+        {
+          "upc": "072250001021",
+          "name": "Nature's Own Honey Wheat Bread 20 oz Loaf",
+          "brand": "Nature's",
+          "packageInfo": {
+            "weight": "20 oz",
+            "packageSize": "20 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.17/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/nature-s-own-honey-wheat-bread-20-oz-loaf/072250001021",
+          "image": "https://www.kroger.com/product/images/large/front/072250001021",
+          "ppm": "$0.17/oz"
+        },
+        {
+          "upc": "013764001015",
+          "name": "Dave's Killer Bread 21 Whole Grains and Seeds 27 oz",
+          "brand": "Dave's",
+          "packageInfo": {
+            "weight": "27 oz",
+            "packageSize": "27 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.20/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$4.99 with Digital Coupon",
+            "digitalCouponPrice": "4.99",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/dave-s-killer-bread-21-whole-grains-and-seeds-27-oz/013764001015",
+          "image": "https://www.kroger.com/product/images/large/front/013764001015",
+          "ppm": "$0.20/oz"
+        },
+        {
+          "upc": "011110855183",
+          "name": "Simple Truth Organic 100% Whole Wheat Bread 24 oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "24 oz",
+            "packageSize": "24 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.14/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-100-whole-wheat-bread-24-oz/011110855183",
+          "image": "https://www.kroger.com/product/images/large/front/011110855183",
+          "ppm": "$0.14/oz"
+        },
+        {
+          "upc": "011110814197",
+          "name": "Roundy's Classic Hamburger Buns 8ct 12 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.17/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-classic-hamburger-buns-8ct-12-oz/011110814197",
+          "image": "https://www.kroger.com/product/images/large/front/011110814197",
+          "ppm": "$0.17/oz"
+        },
+        {
+          "upc": "011110814203",
+          "name": "Roundy's Classic Hot Dog Buns 8ct 12 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.17/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-classic-hot-dog-buns-8ct-12-oz/011110814203",
+          "image": "https://www.kroger.com/product/images/large/front/011110814203",
+          "ppm": "$0.17/oz"
+        },
+        {
+          "upc": "050998001015",
+          "name": "Ball Park Everything Hamburger Buns 8ct 15 oz",
+          "brand": "Ball",
+          "packageInfo": {
+            "weight": "15 oz",
+            "packageSize": "15 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.23/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/ball-park-everything-hamburger-buns-8ct-15-oz/050998001015",
+          "image": "https://www.kroger.com/product/images/large/front/050998001015",
+          "ppm": "$0.23/oz"
+        },
+        {
+          "upc": "073731001011",
+          "name": "Mission Super Soft Flour Tortillas 10ct 17.5 oz",
+          "brand": "Mission",
+          "packageInfo": {
+            "weight": "17.5 oz",
+            "packageSize": "17.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.16/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mission-super-soft-flour-tortillas-10ct-17-5-oz/073731001011",
+          "image": "https://www.kroger.com/product/images/large/front/073731001011",
+          "ppm": "$0.16/oz"
+        },
+        {
+          "upc": "011110814234",
+          "name": "Roundy's Burrito Size Flour Tortillas 8ct 20 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "20 oz",
+            "packageSize": "20 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.49,
+              "priceString": "$2.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.12/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-burrito-size-flour-tortillas-8ct-20-oz/011110814234",
+          "image": "https://www.kroger.com/product/images/large/front/011110814234",
+          "ppm": "$0.12/oz"
+        },
+        {
+          "upc": "011110931245",
+          "name": "Mariano's Artisan Ciabatta Rolls 4ct 12 oz",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.29/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-artisan-ciabatta-rolls-4ct-12-oz/011110931245",
+          "image": "https://www.kroger.com/product/images/large/front/011110931245",
+          "ppm": "$0.29/oz"
+        },
+        {
+          "upc": "011110931313",
+          "name": "Mariano's Cinnamon Rolls with Cream Cheese Frosting 4ct",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.31/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-cinnamon-rolls-with-cream-cheese-frosting-4ct/011110931313",
+          "image": "https://www.kroger.com/product/images/large/front/011110931313",
+          "ppm": "$0.31/oz"
+        },
+        {
+          "upc": "011110915320",
+          "name": "Private Selection Seeded Rye Bread Loaf 16 oz",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-seeded-rye-bread-loaf-16-oz/011110915320",
+          "image": "https://www.kroger.com/product/images/large/front/011110915320",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "011110931351",
+          "name": "Mariano's Artisan Rosemary Olive Oil Bread Loaf 16 oz",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-artisan-rosemary-olive-oil-bread-loaf-16-oz/011110931351",
+          "image": "https://www.kroger.com/product/images/large/front/011110931351",
+          "ppm": "$0.25/oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +752,6 @@
     "sub_category": "Fresh Bread & Rolls",
     "source_url": "https://www.marianos.com/c/bread-rolls/04001",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.335171+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +759,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +780,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

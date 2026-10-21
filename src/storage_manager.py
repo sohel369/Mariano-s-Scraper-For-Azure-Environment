@@ -116,12 +116,52 @@ class StorageManager:
                         continue
         return records
 
+    def sync_to_azure_blob(self, local_filepath: str, blob_name: str) -> bool:
+        """
+        Uploads published dataset, raw evidence, or checkpoint to Azure Blob Storage container.
+        Provides robust production cloud persistence with local filesystem fallback.
+        """
+        settings_path = os.path.join(self.base_dir, "config", "settings.json")
+        azure_cfg = {}
+        if os.path.exists(settings_path):
+            try:
+                with open(settings_path, "r", encoding="utf-8") as f:
+                    azure_cfg = json.load(f).get("safety_and_storage", {}).get("azure_blob_storage", {})
+            except Exception:
+                pass
+
+        if not azure_cfg.get("enabled"):
+            return False
+
+        conn_str_env = azure_cfg.get("connection_string_env", "AZURE_STORAGE_CONNECTION_STRING")
+        conn_str = os.environ.get(conn_str_env)
+        container_name = azure_cfg.get("container_name", "marianos-scraped-data")
+
+        try:
+            from azure.storage.blob import BlobServiceClient
+            if conn_str:
+                blob_service = BlobServiceClient.from_connection_string(conn_str)
+                container_client = blob_service.get_container_client(container_name)
+                if not container_client.exists():
+                    container_client.create_container()
+                blob_client = container_client.get_blob_client(blob_name)
+                with open(local_filepath, "rb") as data:
+                    blob_client.upload_blob(data, overwrite=True)
+                logger.info(f"SUCCESS: Uploaded {local_filepath} to Azure Blob Storage: {container_name}/{blob_name}")
+                return True
+        except ImportError:
+            logger.info(f"Azure Storage SDK not installed locally; logged cloud persistence staging for {blob_name}")
+        except Exception as e:
+            logger.warning(f"Azure Blob sync exception: {e}; local production persistence preserved.")
+        return False
+
     def commit_dataset_atomic(
         self,
         store_id: str,
         staging_filepath: str,
         total_categories_expected: int,
-        categories_processed: int
+        categories_processed: int,
+        expected_category_keys: Optional[List[str]] = None
     ) -> bool:
         """
         Validates the run and performs an atomic swap to data/output/marianos_scraped_data_store_{store_id}_latest.json.
@@ -150,6 +190,35 @@ class StorageManager:
             )
             return False
 
+        # Strict Exact Category Set Comparison against expected CSV categories
+        if expected_category_keys:
+            expected_set = set(expected_category_keys)
+            staged_categories = {f"{r.get('category')}::{r.get('sub_category')}" for r in records}
+            missing_categories = expected_set - staged_categories
+            unexpected_categories = staged_categories - expected_set
+
+            if missing_categories:
+                logger.error(
+                    f"ABORTING DATASET COMMIT: Missing required categories: {missing_categories}. "
+                    f"Exact set match required!"
+                )
+                return False
+            if unexpected_categories:
+                logger.error(
+                    f"ABORTING DATASET COMMIT: Unknown/unexpected category keys detected: {unexpected_categories}"
+                )
+                return False
+
+        # Duplicate product IDs check
+        seen_upcs = set()
+        for r in records:
+            upc = r.get("upc")
+            if upc:
+                if upc in seen_upcs:
+                    logger.error(f"ABORTING DATASET COMMIT: Duplicate product UPC detected: {upc}")
+                    return False
+                seen_upcs.add(upc)
+
         # Safe Atomic Swap:
         # 1. Write the new dataset to a temporary file first
         temp_final = f"{target_output}.tmp"
@@ -167,6 +236,9 @@ class StorageManager:
         # 3. Replace target with new validated dataset atomically
         shutil.move(temp_final, target_output)
         logger.info(f"SUCCESS: New Mariano's production dataset committed atomically to {target_output} ({total_count} records)")
+
+        # 4. Sync committed dataset to Azure Blob Storage if configured
+        self.sync_to_azure_blob(target_output, f"marianos_scraped_data_store_{store_id}_latest.json")
 
         # Clear checkpoint on clean completion
         self.clear_checkpoint(store_id)

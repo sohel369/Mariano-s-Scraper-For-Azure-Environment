@@ -1,4 +1,588 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "8/28",
+    "category": "Bakery",
+    "sub_category": "Pastries Cakes & Pies"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00008&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/pastries-desserts/04002",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "011110935069",
+          "name": "Bakery Fresh Goodness Glazed Donuts 6ct 14 oz Box",
+          "brand": "Bakery",
+          "packageInfo": {
+            "weight": "14 oz",
+            "packageSize": "14 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.29/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/bakery-fresh-goodness-glazed-donuts-6ct-14-oz-box/011110935069",
+          "image": "https://www.kroger.com/product/images/large/front/011110935069",
+          "ppm": "$0.29/oz"
+        },
+        {
+          "upc": "011110935076",
+          "name": "Bakery Fresh Goodness Chocolate Chip Cookies 18ct 14 oz",
+          "brand": "Bakery",
+          "packageInfo": {
+            "weight": "14 oz",
+            "packageSize": "14 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.36/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/bakery-fresh-goodness-chocolate-chip-cookies-18ct-14-oz/011110935076",
+          "image": "https://www.kroger.com/product/images/large/front/011110935076",
+          "ppm": "$0.36/oz"
+        },
+        {
+          "upc": "011110915085",
+          "name": "Private Selection Double Dark Chocolate Cake Slice 6 oz",
+          "brand": "Private",
+          "packageInfo": {
+            "weight": "6 oz",
+            "packageSize": "6 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.67/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/private-selection-double-dark-chocolate-cake-slice-6-oz/011110915085",
+          "image": "https://www.kroger.com/product/images/large/front/011110915085",
+          "ppm": "$0.67/oz"
+        },
+        {
+          "upc": "048121001018",
+          "name": "Thomas' Original English Muffins 6ct 12 oz",
+          "brand": "Thomas'",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/thomas-original-english-muffins-6ct-12-oz/048121001018",
+          "image": "https://www.kroger.com/product/images/large/front/048121001018",
+          "ppm": "$0.25/oz"
+        },
+        {
+          "upc": "011110814159",
+          "name": "Roundy's Plain English Muffins 6ct 12 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.19,
+              "priceString": "$2.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.18/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-plain-english-muffins-6ct-12-oz/011110814159",
+          "image": "https://www.kroger.com/product/images/large/front/011110814159",
+          "ppm": "$0.18/oz"
+        },
+        {
+          "upc": "011110931160",
+          "name": "Mariano's Bakery Blueberry Muffins 4ct 14 oz Clamshell",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "14 oz",
+            "packageSize": "14 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.32/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-bakery-blueberry-muffins-4ct-14-oz-clamshell/011110931160",
+          "image": "https://www.kroger.com/product/images/large/front/011110931160",
+          "ppm": "$0.32/oz"
+        },
+        {
+          "upc": "011110931177",
+          "name": "Mariano's Bakery Bran Muffins 4ct 14 oz Clamshell",
+          "brand": "Mariano's",
+          "packageInfo": {
+            "weight": "14 oz",
+            "packageSize": "14 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.39/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $9",
+            "volumeDealPrice": "9.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mariano-s-bakery-bran-muffins-4ct-14-oz-clamshell/011110931177",
+          "image": "https://www.kroger.com/product/images/large/front/011110931177",
+          "ppm": "$0.39/oz"
+        },
+        {
+          "upc": "011110935250",
+          "name": "Bakery Fresh Goodness Apple Turnover Pastries 2ct 8 oz",
+          "brand": "Bakery",
+          "packageInfo": {
+            "weight": "8 oz",
+            "packageSize": "8 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.35/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/bakery-fresh-goodness-apple-turnover-pastries-2ct-8-oz/011110935250",
+          "image": "https://www.kroger.com/product/images/large/front/011110935250",
+          "ppm": "$0.35/oz"
+        },
+        {
+          "upc": "072030001012",
+          "name": "Entenmann's Rich Frosted Donuts 8ct 16 oz Box",
+          "brand": "Entenmann's",
+          "packageInfo": {
+            "weight": "16 oz",
+            "packageSize": "16 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.28/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/entenmann-s-rich-frosted-donuts-8ct-16-oz-box/072030001012",
+          "image": "https://www.kroger.com/product/images/large/front/072030001012",
+          "ppm": "$0.28/oz"
+        },
+        {
+          "upc": "088810901014",
+          "name": "Hostess Twinkies Golden Snack Cakes 10ct 13.5 oz",
+          "brand": "Hostess",
+          "packageInfo": {
+            "weight": "13.5 oz",
+            "packageSize": "13.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.30/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/hostess-twinkies-golden-snack-cakes-10ct-13-5-oz/088810901014",
+          "image": "https://www.kroger.com/product/images/large/front/088810901014",
+          "ppm": "$0.30/oz"
+        },
+        {
+          "upc": "088810901021",
+          "name": "Hostess Chocolate Cupcakes 8ct 12.7 oz Box",
+          "brand": "Hostess",
+          "packageInfo": {
+            "weight": "12.7 oz",
+            "packageSize": "12.7 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.31/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/hostess-chocolate-cupcakes-8ct-12-7-oz-box/088810901021",
+          "image": "https://www.kroger.com/product/images/large/front/088810901021",
+          "ppm": "$0.31/oz"
+        },
+        {
+          "upc": "024300001017",
+          "name": "Little Debbie Oatmeal Creme Pies 12ct 16.2 oz",
+          "brand": "Little",
+          "packageInfo": {
+            "weight": "16.2 oz",
+            "packageSize": "16.2 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.17/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/little-debbie-oatmeal-creme-pies-12ct-16-2-oz/024300001017",
+          "image": "https://www.kroger.com/product/images/large/front/024300001017",
+          "ppm": "$0.17/oz"
+        },
+        {
+          "upc": "011110814302",
+          "name": "Roundy's Cornbread Muffins 4ct 14 oz Box",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "14 oz",
+            "packageSize": "14 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.24/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-cornbread-muffins-4ct-14-oz-box/011110814302",
+          "image": "https://www.kroger.com/product/images/large/front/011110814302",
+          "ppm": "$0.24/oz"
+        },
+        {
+          "upc": "073435001010",
+          "name": "King's Hawaiian Original Hawaiian Sweet Rolls 12ct 12 oz",
+          "brand": "King's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "wasPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.32/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/king-s-hawaiian-original-hawaiian-sweet-rolls-12ct-12-oz/073435001010",
+          "image": "https://www.kroger.com/product/images/large/front/073435001010",
+          "ppm": "$0.32/oz"
+        },
+        {
+          "upc": "011110814340",
+          "name": "Roundy's Sweet Hawaiian Dinner Rolls 12ct 12 oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "12 oz",
+            "packageSize": "12 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.25/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-sweet-hawaiian-dinner-rolls-12ct-12-oz/011110814340",
+          "image": "https://www.kroger.com/product/images/large/front/011110814340",
+          "ppm": "$0.25/oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +590,6 @@
     "sub_category": "Pastries Cakes & Pies",
     "source_url": "https://www.marianos.com/c/pastries-desserts/04002",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.341053+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +597,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +618,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

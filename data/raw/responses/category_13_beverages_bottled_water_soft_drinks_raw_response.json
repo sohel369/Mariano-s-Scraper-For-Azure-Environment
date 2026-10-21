@@ -1,4 +1,930 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "13/28",
+    "category": "Beverages",
+    "sub_category": "Bottled Water & Soft Drinks"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00013&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/water-soda/07001",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "049000001013",
+          "name": "Coca-Cola Original Soda 12 Pack 12 fl oz Cans",
+          "brand": "Coca-Cola",
+          "packageInfo": {
+            "weight": "144 fl oz",
+            "packageSize": "144 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 2, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/coca-cola-original-soda-12-pack-12-fl-oz-cans/049000001013",
+          "image": "https://www.kroger.com/product/images/large/front/049000001013",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "049000001020",
+          "name": "Diet Coke Soda 12 Pack 12 fl oz Cans",
+          "brand": "Diet",
+          "packageInfo": {
+            "weight": "144 fl oz",
+            "packageSize": "144 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 2, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/diet-coke-soda-12-pack-12-fl-oz-cans/049000001020",
+          "image": "https://www.kroger.com/product/images/large/front/049000001020",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "049000001037",
+          "name": "Sprite Lemon Lime Soda 12 Pack 12 fl oz Cans",
+          "brand": "Sprite",
+          "packageInfo": {
+            "weight": "144 fl oz",
+            "packageSize": "144 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 2, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/sprite-lemon-lime-soda-12-pack-12-fl-oz-cans/049000001037",
+          "image": "https://www.kroger.com/product/images/large/front/049000001037",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "012000001017",
+          "name": "Pepsi Cola Soda 12 Pack 12 fl oz Cans",
+          "brand": "Pepsi",
+          "packageInfo": {
+            "weight": "144 fl oz",
+            "packageSize": "144 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 8.49,
+              "priceString": "$8.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.04/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $15",
+            "volumeDealPrice": "15.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pepsi-cola-soda-12-pack-12-fl-oz-cans/012000001017",
+          "image": "https://www.kroger.com/product/images/large/front/012000001017",
+          "ppm": "$0.04/fl oz"
+        },
+        {
+          "upc": "011110817051",
+          "name": "Big K Cola Soda 12 Pack 12 fl oz Cans",
+          "brand": "Big",
+          "packageInfo": {
+            "weight": "144 fl oz",
+            "packageSize": "144 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.03/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/big-k-cola-soda-12-pack-12-fl-oz-cans/011110817051",
+          "image": "https://www.kroger.com/product/images/large/front/011110817051",
+          "ppm": "$0.03/fl oz"
+        },
+        {
+          "upc": "011110817068",
+          "name": "Big K Lemon Lime Soda 12 Pack 12 fl oz Cans",
+          "brand": "Big",
+          "packageInfo": {
+            "weight": "144 fl oz",
+            "packageSize": "144 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.03/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/big-k-lemon-lime-soda-12-pack-12-fl-oz-cans/011110817068",
+          "image": "https://www.kroger.com/product/images/large/front/011110817068",
+          "ppm": "$0.03/fl oz"
+        },
+        {
+          "upc": "049000001044",
+          "name": "Coca-Cola Original 2 Liter Bottle",
+          "brand": "Coca-Cola",
+          "packageInfo": {
+            "weight": "67.6 fl oz",
+            "packageSize": "67.6 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.99,
+              "priceString": "$2.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/coca-cola-original-2-liter-bottle/049000001044",
+          "image": "https://www.kroger.com/product/images/large/front/049000001044",
+          "ppm": "$0.04/fl oz"
+        },
+        {
+          "upc": "011110817082",
+          "name": "Big K Cola 2 Liter Bottle",
+          "brand": "Big",
+          "packageInfo": {
+            "weight": "67.6 fl oz",
+            "packageSize": "67.6 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.29,
+              "priceString": "$1.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.02/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/big-k-cola-2-liter-bottle/011110817082",
+          "image": "https://www.kroger.com/product/images/large/front/011110817082",
+          "ppm": "$0.02/fl oz"
+        },
+        {
+          "upc": "052000001013",
+          "name": "Gatorade Thirst Quencher Cool Blue 28 fl oz",
+          "brand": "Gatorade",
+          "packageInfo": {
+            "weight": "28 fl oz",
+            "packageSize": "28 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.07/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "5 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/gatorade-thirst-quencher-cool-blue-28-fl-oz/052000001013",
+          "image": "https://www.kroger.com/product/images/large/front/052000001013",
+          "ppm": "$0.07/fl oz"
+        },
+        {
+          "upc": "052000001020",
+          "name": "Gatorade Thirst Quencher Lemon Lime 28 fl oz",
+          "brand": "Gatorade",
+          "packageInfo": {
+            "weight": "28 fl oz",
+            "packageSize": "28 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.99,
+              "priceString": "$1.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.07/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "5 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/gatorade-thirst-quencher-lemon-lime-28-fl-oz/052000001020",
+          "image": "https://www.kroger.com/product/images/large/front/052000001020",
+          "ppm": "$0.07/fl oz"
+        },
+        {
+          "upc": "011110817112",
+          "name": "Roundy's Purified Drinking Water 24pk 16.9 fl oz Bottles",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "405.6 fl oz",
+            "packageSize": "405.6 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.01/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-purified-drinking-water-24pk-16-9-fl-oz-bottles/011110817112",
+          "image": "https://www.kroger.com/product/images/large/front/011110817112",
+          "ppm": "$0.01/fl oz"
+        },
+        {
+          "upc": "011110858122",
+          "name": "Simple Truth Vapor Distilled Water 24pk 16.9 fl oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "405.6 fl oz",
+            "packageSize": "405.6 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.01/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-vapor-distilled-water-24pk-16-9-fl-oz/011110858122",
+          "image": "https://www.kroger.com/product/images/large/front/011110858122",
+          "ppm": "$0.01/fl oz"
+        },
+        {
+          "upc": "012938001011",
+          "name": "LaCroix Sparkling Water Pamplemousse 8pk 12 fl oz Cans",
+          "brand": "LaCroix",
+          "packageInfo": {
+            "weight": "96 fl oz",
+            "packageSize": "96 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/lacroix-sparkling-water-pamplemousse-8pk-12-fl-oz-cans/012938001011",
+          "image": "https://www.kroger.com/product/images/large/front/012938001011",
+          "ppm": "$0.04/fl oz"
+        },
+        {
+          "upc": "011110817143",
+          "name": "Roundy's Sparkling Seltzer Water Lemon 12pk 12 fl oz",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "144 fl oz",
+            "packageSize": "144 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.02/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-sparkling-seltzer-water-lemon-12pk-12-fl-oz/011110817143",
+          "image": "https://www.kroger.com/product/images/large/front/011110817143",
+          "ppm": "$0.02/fl oz"
+        },
+        {
+          "upc": "076211001013",
+          "name": "Starbucks Pike Place Medium Roast K-Cup Pods 22ct",
+          "brand": "Starbucks",
+          "packageInfo": {
+            "weight": "22 ct",
+            "packageSize": "22 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 14.99,
+              "priceString": "$14.99"
+            },
+            "wasPrice": {
+              "price": 17.99,
+              "priceString": "$17.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.68/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$13.49 with Digital Coupon",
+            "digitalCouponPrice": "13.49",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/starbucks-pike-place-medium-roast-k-cup-pods-22ct/076211001013",
+          "image": "https://www.kroger.com/product/images/large/front/076211001013",
+          "ppm": "$0.68/ct"
+        },
+        {
+          "upc": "061126901015",
+          "name": "Red Bull Energy Drink 4pk 8.4 fl oz Cans",
+          "brand": "Red",
+          "packageInfo": {
+            "weight": "33.6 fl oz",
+            "packageSize": "33.6 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.99,
+              "priceString": "$7.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.24/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $14",
+            "volumeDealPrice": "14.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/red-bull-energy-drink-4pk-8-4-fl-oz-cans/061126901015",
+          "image": "https://www.kroger.com/product/images/large/front/061126901015",
+          "ppm": "$0.24/fl oz"
+        },
+        {
+          "upc": "070847001010",
+          "name": "Monster Energy Original 16 fl oz Can",
+          "brand": "Monster",
+          "packageInfo": {
+            "weight": "16 fl oz",
+            "packageSize": "16 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.17/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/monster-energy-original-16-fl-oz-can/070847001010",
+          "image": "https://www.kroger.com/product/images/large/front/070847001010",
+          "ppm": "$0.17/fl oz"
+        },
+        {
+          "upc": "011110817297",
+          "name": "Roundy's Tonic Water 1 Liter Bottle",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "33.8 fl oz",
+            "packageSize": "33.8 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.19,
+              "priceString": "$1.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-tonic-water-1-liter-bottle/011110817297",
+          "image": "https://www.kroger.com/product/images/large/front/011110817297",
+          "ppm": "$0.04/fl oz"
+        },
+        {
+          "upc": "016900001016",
+          "name": "Canada Dry Ginger Ale 12 Pack 12 fl oz Cans",
+          "brand": "Canada",
+          "packageInfo": {
+            "weight": "144 fl oz",
+            "packageSize": "144 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "wasPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 2, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/canada-dry-ginger-ale-12-pack-12-fl-oz-cans/016900001016",
+          "image": "https://www.kroger.com/product/images/large/front/016900001016",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "078000001013",
+          "name": "Dr Pepper Soda 12 Pack 12 fl oz Cans",
+          "brand": "Dr",
+          "packageInfo": {
+            "weight": "144 fl oz",
+            "packageSize": "144 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "wasPrice": {
+              "price": 8.99,
+              "priceString": "$8.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 2, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/dr-pepper-soda-12-pack-12-fl-oz-cans/078000001013",
+          "image": "https://www.kroger.com/product/images/large/front/078000001013",
+          "ppm": "$0.05/fl oz"
+        },
+        {
+          "upc": "012000001024",
+          "name": "Mountain Dew Soda 12 Pack 12 fl oz Cans",
+          "brand": "Mountain",
+          "packageInfo": {
+            "weight": "144 fl oz",
+            "packageSize": "144 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": {
+              "price": 8.49,
+              "priceString": "$8.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.04/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $15",
+            "volumeDealPrice": "15.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mountain-dew-soda-12-pack-12-fl-oz-cans/012000001024",
+          "image": "https://www.kroger.com/product/images/large/front/012000001024",
+          "ppm": "$0.04/fl oz"
+        },
+        {
+          "upc": "011110817402",
+          "name": "Roundy's Club Soda 1 Liter Bottle",
+          "brand": "Roundy's",
+          "packageInfo": {
+            "weight": "33.8 fl oz",
+            "packageSize": "33.8 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.19,
+              "priceString": "$1.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/roundy-s-club-soda-1-liter-bottle/011110817402",
+          "image": "https://www.kroger.com/product/images/large/front/011110817402",
+          "ppm": "$0.04/fl oz"
+        },
+        {
+          "upc": "078616201012",
+          "name": "Smartwater Electrolyte Enhanced Water 1 Liter",
+          "brand": "Smartwater",
+          "packageInfo": {
+            "weight": "33.8 fl oz",
+            "packageSize": "33.8 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.29,
+              "priceString": "$2.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.07/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/smartwater-electrolyte-enhanced-water-1-liter/078616201012",
+          "image": "https://www.kroger.com/product/images/large/front/078616201012",
+          "ppm": "$0.07/fl oz"
+        },
+        {
+          "upc": "085817601015",
+          "name": "BODYARMOR Sports Drink Fruit Punch 16 fl oz",
+          "brand": "BODYARMOR",
+          "packageInfo": {
+            "weight": "16 fl oz",
+            "packageSize": "16 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.25,
+              "priceString": "$1.25"
+            },
+            "wasPrice": {
+              "price": 1.79,
+              "priceString": "$1.79"
+            },
+            "unitPrice": {
+              "priceString": "$0.08/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "4 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/bodyarmor-sports-drink-fruit-punch-16-fl-oz/085817601015",
+          "image": "https://www.kroger.com/product/images/large/front/085817601015",
+          "ppm": "$0.08/fl oz"
+        },
+        {
+          "upc": "011110858436",
+          "name": "Simple Truth Organic Coconut Water 33.8 fl oz",
+          "brand": "Simple",
+          "packageInfo": {
+            "weight": "33.8 fl oz",
+            "packageSize": "33.8 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.12/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/simple-truth-organic-coconut-water-33-8-fl-oz/011110858436",
+          "image": "https://www.kroger.com/product/images/large/front/011110858436",
+          "ppm": "$0.12/fl oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +932,6 @@
     "sub_category": "Bottled Water & Soft Drinks",
     "source_url": "https://www.marianos.com/c/water-soda/07001",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.381242+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +939,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +960,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

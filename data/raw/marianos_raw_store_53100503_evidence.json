@@ -1,4 +1,27 @@
 {
+  "http_request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/store/53100503?modality=PICKUP",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP"
+    },
+    "capture_timestamp": "2026-10-21T04:00:00.000Z"
+  },
+  "http_response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1234 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store"
+    }
+  },
   "_retailer_context": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",

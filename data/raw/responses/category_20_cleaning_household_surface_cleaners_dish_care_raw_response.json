@@ -1,4 +1,648 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "20/28",
+    "category": "Cleaning & Household",
+    "sub_category": "Surface Cleaners & Dish Care"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00020&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/cleaners-dish/10002",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "037000001072",
+          "name": "Dawn Ultra Dishwashing Liquid Original 38 fl oz",
+          "brand": "Dawn",
+          "packageInfo": {
+            "weight": "38 fl oz",
+            "packageSize": "38 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.16/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/dawn-ultra-dishwashing-liquid-original-38-fl-oz/037000001072",
+          "image": "https://www.kroger.com/product/images/large/front/037000001072",
+          "ppm": "$0.16/fl oz"
+        },
+        {
+          "upc": "011110820143",
+          "name": "Home Sense Ultra Dishwashing Liquid 24 fl oz",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "24 fl oz",
+            "packageSize": "24 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.19,
+              "priceString": "$2.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.09/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-ultra-dishwashing-liquid-24-fl-oz/011110820143",
+          "image": "https://www.kroger.com/product/images/large/front/011110820143",
+          "ppm": "$0.09/fl oz"
+        },
+        {
+          "upc": "037000001089",
+          "name": "Cascade Complete ActionPacs Dishwasher Pods 43ct",
+          "brand": "Cascade",
+          "packageInfo": {
+            "weight": "43 ct",
+            "packageSize": "43 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 10.99,
+              "priceString": "$10.99"
+            },
+            "wasPrice": {
+              "price": 12.99,
+              "priceString": "$12.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.26/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $2.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/cascade-complete-actionpacs-dishwasher-pods-43ct/037000001089",
+          "image": "https://www.kroger.com/product/images/large/front/037000001089",
+          "ppm": "$0.26/ct"
+        },
+        {
+          "upc": "011110820167",
+          "name": "Home Sense Automatic Dishwasher Gel Fresh Lemon 75 oz",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "75 oz",
+            "packageSize": "75 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.05/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-automatic-dishwasher-gel-fresh-lemon-75-oz/011110820167",
+          "image": "https://www.kroger.com/product/images/large/front/011110820167",
+          "ppm": "$0.05/oz"
+        },
+        {
+          "upc": "044600001012",
+          "name": "Clorox Disinfecting Wipes Crisp Lemon 75ct Canister",
+          "brand": "Clorox",
+          "packageInfo": {
+            "weight": "75 ct",
+            "packageSize": "75 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.05/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/clorox-disinfecting-wipes-crisp-lemon-75ct-canister/044600001012",
+          "image": "https://www.kroger.com/product/images/large/front/044600001012",
+          "ppm": "$0.05/ct"
+        },
+        {
+          "upc": "011110820204",
+          "name": "Home Sense Disinfecting Wipes Lemon Scent 75ct",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "75 ct",
+            "packageSize": "75 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $5",
+            "volumeDealPrice": "5.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-disinfecting-wipes-lemon-scent-75ct/011110820204",
+          "image": "https://www.kroger.com/product/images/large/front/011110820204",
+          "ppm": "$0.04/ct"
+        },
+        {
+          "upc": "019200001014",
+          "name": "Lysol Disinfectant Spray Crisp Linen 19 oz Can",
+          "brand": "Lysol",
+          "packageInfo": {
+            "weight": "19 oz",
+            "packageSize": "19 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.29,
+              "priceString": "$7.29"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.38/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/lysol-disinfectant-spray-crisp-linen-19-oz-can/019200001014",
+          "image": "https://www.kroger.com/product/images/large/front/019200001014",
+          "ppm": "$0.38/oz"
+        },
+        {
+          "upc": "019800001018",
+          "name": "Windex Original Glass Cleaner Spray 23 fl oz",
+          "brand": "Windex",
+          "packageInfo": {
+            "weight": "23 fl oz",
+            "packageSize": "23 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "wasPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "unitPrice": {
+              "priceString": "$0.16/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/windex-original-glass-cleaner-spray-23-fl-oz/019800001018",
+          "image": "https://www.kroger.com/product/images/large/front/019800001018",
+          "ppm": "$0.16/fl oz"
+        },
+        {
+          "upc": "011110820235",
+          "name": "Home Sense Glass Cleaner Spray 32 fl oz",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "32 fl oz",
+            "packageSize": "32 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.19,
+              "priceString": "$2.19"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.07/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-glass-cleaner-spray-32-fl-oz/011110820235",
+          "image": "https://www.kroger.com/product/images/large/front/011110820235",
+          "ppm": "$0.07/fl oz"
+        },
+        {
+          "upc": "051131001015",
+          "name": "Scotch-Brite Non-Scratch Scrub Sponges 6pk",
+          "brand": "Scotch-Brite",
+          "packageInfo": {
+            "weight": "6 ct",
+            "packageSize": "6 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 5.99,
+              "priceString": "$5.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$1.00/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/scotch-brite-non-scratch-scrub-sponges-6pk/051131001015",
+          "image": "https://www.kroger.com/product/images/large/front/051131001015",
+          "ppm": "$1.00/ct"
+        },
+        {
+          "upc": "011110820266",
+          "name": "Home Sense Heavy Duty Sponges 6pk",
+          "brand": "Home",
+          "packageInfo": {
+            "weight": "6 ct",
+            "packageSize": "6 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.49,
+              "priceString": "$3.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.58/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/home-sense-heavy-duty-sponges-6pk/011110820266",
+          "image": "https://www.kroger.com/product/images/large/front/011110820266",
+          "ppm": "$0.58/ct"
+        },
+        {
+          "upc": "037000001119",
+          "name": "Swiffer WetJet Floor Cleaner Solution Refill 42.2 fl oz",
+          "brand": "Swiffer",
+          "packageInfo": {
+            "weight": "42.2 fl oz",
+            "packageSize": "42.2 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.99,
+              "priceString": "$6.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.17/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $1.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/swiffer-wetjet-floor-cleaner-solution-refill-42-2-fl-oz/037000001119",
+          "image": "https://www.kroger.com/product/images/large/front/037000001119",
+          "ppm": "$0.17/fl oz"
+        },
+        {
+          "upc": "035000001016",
+          "name": "Palmolive Ultra Strength Liquid Dish Soap 32.5 fl oz",
+          "brand": "Palmolive",
+          "packageInfo": {
+            "weight": "32.5 fl oz",
+            "packageSize": "32.5 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.29,
+              "priceString": "$3.29"
+            },
+            "wasPrice": {
+              "price": 3.99,
+              "priceString": "$3.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.10/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/palmolive-ultra-strength-liquid-dish-soap-32-5-fl-oz/035000001016",
+          "image": "https://www.kroger.com/product/images/large/front/035000001016",
+          "ppm": "$0.10/fl oz"
+        },
+        {
+          "upc": "085083001014",
+          "name": "Scrub Daddy Dual-Sided Scrubbing Sponge 4ct",
+          "brand": "Scrub",
+          "packageInfo": {
+            "weight": "4 ct",
+            "packageSize": "4 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 14.49,
+              "priceString": "$14.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$3.62/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/scrub-daddy-dual-sided-scrubbing-sponge-4ct/085083001014",
+          "image": "https://www.kroger.com/product/images/large/front/085083001014",
+          "ppm": "$3.62/ct"
+        },
+        {
+          "upc": "044600001029",
+          "name": "Clorox Clean-Up Cleaner with Bleach Spray 32 fl oz",
+          "brand": "Clorox",
+          "packageInfo": {
+            "weight": "32 fl oz",
+            "packageSize": "32 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.29,
+              "priceString": "$4.29"
+            },
+            "wasPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.13/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $0.75",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/clorox-clean-up-cleaner-with-bleach-spray-32-fl-oz/044600001029",
+          "image": "https://www.kroger.com/product/images/large/front/044600001029",
+          "ppm": "$0.13/fl oz"
+        },
+        {
+          "upc": "044600001036",
+          "name": "Pine-Sol Multi-Surface Cleaner Original Pine 48 fl oz",
+          "brand": "Pine-Sol",
+          "packageInfo": {
+            "weight": "48 fl oz",
+            "packageSize": "48 fl oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.09/fl oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/pine-sol-multi-surface-cleaner-original-pine-48-fl-oz/044600001036",
+          "image": "https://www.kroger.com/product/images/large/front/044600001036",
+          "ppm": "$0.09/fl oz"
+        },
+        {
+          "upc": "024200001018",
+          "name": "Soft Scrub with Bleach Cleanser 24 oz",
+          "brand": "Soft",
+          "packageInfo": {
+            "weight": "24 oz",
+            "packageSize": "24 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 3.79,
+              "priceString": "$3.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.16/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $6",
+            "volumeDealPrice": "6.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/soft-scrub-with-bleach-cleanser-24-oz/024200001018",
+          "image": "https://www.kroger.com/product/images/large/front/024200001018",
+          "ppm": "$0.16/oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +650,6 @@
     "sub_category": "Surface Cleaners & Dish Care",
     "source_url": "https://www.marianos.com/c/cleaners-dish/10002",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.432301+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +657,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +678,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }

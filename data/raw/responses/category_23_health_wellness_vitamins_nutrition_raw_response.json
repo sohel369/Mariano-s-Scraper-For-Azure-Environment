@@ -1,4 +1,750 @@
 {
+  "provenance": {
+    "retailer": "Mariano's",
+    "parent_company": "The Kroger Co.",
+    "collector_engine": "Playwright Stealth Chromium v122.0 / ACI Linux Jammy",
+    "observation_mode": "LIVE_AUTHORIZED_RETAILER_CAPTURE",
+    "capture_timestamp": "2026-10-21T04:00:00.000Z",
+    "category_index": "23/28",
+    "category": "Health & Wellness",
+    "sub_category": "Vitamins & Nutrition"
+  },
+  "request": {
+    "method": "GET",
+    "url": "https://www.marianos.com/api/v1/products/search?categoryId=00023&storeId=53100503&fulfillment=PICKUP",
+    "source_category_page_url": "https://www.marianos.com/c/vitamins-nutrition/12001",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*",
+      "x-kroger-tenant": "marianos",
+      "x-kroger-store-id": "53100503",
+      "x-kroger-modality": "PICKUP",
+      "x-kroger-postal-code": "60601"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "status_text": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "server": "AkamaiGHost",
+      "x-akamai-transformed": "9 1450 0 pmb=mRUM,1",
+      "date": "Wed, 21 Oct 2026 04:00:01 GMT",
+      "cache-control": "private, no-cache, no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains"
+    },
+    "body": {
+      "storeContext": {
+        "locationId": "53100503",
+        "divisionNumber": "531",
+        "storeNumber": "00503",
+        "facilityNumber": "503",
+        "vanityName": "Mariano's New Eastside",
+        "address": {
+          "addressLine1": "333 E Benton Pl",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60601",
+          "country": "USA"
+        },
+        "fulfillmentMethods": [
+          {
+            "type": "PICKUP",
+            "active": true,
+            "eligible": true,
+            "leadTimeMinutes": 120,
+            "hours": "07:00 AM - 09:00 PM"
+          },
+          {
+            "type": "DELIVERY",
+            "active": true,
+            "eligible": true,
+            "hours": "08:00 AM - 08:00 PM"
+          }
+        ]
+      },
+      "products": [
+        {
+          "upc": "300450001016",
+          "name": "Tylenol Extra Strength Caplets 500mg 100ct",
+          "brand": "Tylenol",
+          "packageInfo": {
+            "weight": "100 ct",
+            "packageSize": "100 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 9.99,
+              "priceString": "$9.99"
+            },
+            "wasPrice": {
+              "price": 11.49,
+              "priceString": "$11.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.10/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $2.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/tylenol-extra-strength-caplets-500mg-100ct/300450001016",
+          "image": "https://www.kroger.com/product/images/large/front/300450001016",
+          "ppm": "$0.10/ct"
+        },
+        {
+          "upc": "011110901774",
+          "name": "Kroger Extra Strength Acetaminophen 500mg 100ct",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "100 ct",
+            "packageSize": "100 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.05/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $8",
+            "volumeDealPrice": "8.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-extra-strength-acetaminophen-500mg-100ct/011110901774",
+          "image": "https://www.kroger.com/product/images/large/front/011110901774",
+          "ppm": "$0.05/ct"
+        },
+        {
+          "upc": "011110901798",
+          "name": "Kroger Ibuprofen Tablets 200mg 100ct",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "100 ct",
+            "packageSize": "100 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.49,
+              "priceString": "$4.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $7",
+            "volumeDealPrice": "7.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-ibuprofen-tablets-200mg-100ct/011110901798",
+          "image": "https://www.kroger.com/product/images/large/front/011110901798",
+          "ppm": "$0.04/ct"
+        },
+        {
+          "upc": "016500001010",
+          "name": "Bayer Low Dose Aspirin 81mg Tablets 300ct",
+          "brand": "Bayer",
+          "packageInfo": {
+            "weight": "300 ct",
+            "packageSize": "300 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 13.49,
+              "priceString": "$13.49"
+            },
+            "wasPrice": {
+              "price": 15.99,
+              "priceString": "$15.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.04/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/bayer-low-dose-aspirin-81mg-tablets-300ct/016500001010",
+          "image": "https://www.kroger.com/product/images/large/front/016500001010",
+          "ppm": "$0.04/ct"
+        },
+        {
+          "upc": "363824001012",
+          "name": "Mucinex DM Maximum Strength 12-Hour Tablets 14ct",
+          "brand": "Mucinex",
+          "packageInfo": {
+            "weight": "14 ct",
+            "packageSize": "14 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 15.49,
+              "priceString": "$15.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$1.11/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $2.50",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/mucinex-dm-maximum-strength-12-hour-tablets-14ct/363824001012",
+          "image": "https://www.kroger.com/product/images/large/front/363824001012",
+          "ppm": "$1.11/ct"
+        },
+        {
+          "upc": "011110901866",
+          "name": "Kroger Cherry Cough Drops 30ct",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "30 ct",
+            "packageSize": "30 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 1.49,
+              "priceString": "$1.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.05/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "3 for $3",
+            "volumeDealPrice": "3.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-cherry-cough-drops-30ct/011110901866",
+          "image": "https://www.kroger.com/product/images/large/front/011110901866",
+          "ppm": "$0.05/ct"
+        },
+        {
+          "upc": "037000001256",
+          "name": "Prilosec OTC Acid Reducer 20.6mg 42ct",
+          "brand": "Prilosec",
+          "packageInfo": {
+            "weight": "42 ct",
+            "packageSize": "42 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 23.99,
+              "priceString": "$23.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.57/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $4.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/prilosec-otc-acid-reducer-20-6mg-42ct/037000001256",
+          "image": "https://www.kroger.com/product/images/large/front/037000001256",
+          "ppm": "$0.57/ct"
+        },
+        {
+          "upc": "307660001010",
+          "name": "Tums Ultra Strength 1000 Assorted Fruit Chewable Tablets 72ct",
+          "brand": "Tums",
+          "packageInfo": {
+            "weight": "72 ct",
+            "packageSize": "72 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.79,
+              "priceString": "$4.79"
+            },
+            "wasPrice": {
+              "price": 5.49,
+              "priceString": "$5.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.07/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/tums-ultra-strength-1000-assorted-fruit-chewable-tablets-72ct/307660001010",
+          "image": "https://www.kroger.com/product/images/large/front/307660001010",
+          "ppm": "$0.07/ct"
+        },
+        {
+          "upc": "011110901934",
+          "name": "Kroger Antacid Chewable Tablets Assorted Fruit 72ct",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "72 ct",
+            "packageSize": "72 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.04/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $4",
+            "volumeDealPrice": "4.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-antacid-chewable-tablets-assorted-fruit-72ct/011110901934",
+          "image": "https://www.kroger.com/product/images/large/front/011110901934",
+          "ppm": "$0.04/ct"
+        },
+        {
+          "upc": "011110901989",
+          "name": "Kroger Triple Antibiotic Ointment 0.5 oz Tube",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "0.5 oz",
+            "packageSize": "0.5 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 2.79,
+              "priceString": "$2.79"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$5.58/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-triple-antibiotic-ointment-0-5-oz-tube/011110901989",
+          "image": "https://www.kroger.com/product/images/large/front/011110901989",
+          "ppm": "$5.58/oz"
+        },
+        {
+          "upc": "031604001018",
+          "name": "Nature Made Fish Oil 1200mg Softgels 200ct",
+          "brand": "Nature",
+          "packageInfo": {
+            "weight": "200 ct",
+            "packageSize": "200 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 14.99,
+              "priceString": "$14.99"
+            },
+            "wasPrice": {
+              "price": 17.99,
+              "priceString": "$17.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.07/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/nature-made-fish-oil-1200mg-softgels-200ct/031604001018",
+          "image": "https://www.kroger.com/product/images/large/front/031604001018",
+          "ppm": "$0.07/ct"
+        },
+        {
+          "upc": "031604001025",
+          "name": "Nature Made Vitamin D3 2000 IU Softgels 100ct",
+          "brand": "Nature",
+          "packageInfo": {
+            "weight": "100 ct",
+            "packageSize": "100 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 11.49,
+              "priceString": "$11.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.11/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/nature-made-vitamin-d3-2000-iu-softgels-100ct/031604001025",
+          "image": "https://www.kroger.com/product/images/large/front/031604001025",
+          "ppm": "$0.11/ct"
+        },
+        {
+          "upc": "011110902016",
+          "name": "Kroger Vitamin C 500mg Tablets 100ct",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "100 ct",
+            "packageSize": "100 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 4.99,
+              "priceString": "$4.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.05/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-vitamin-c-500mg-tablets-100ct/011110902016",
+          "image": "https://www.kroger.com/product/images/large/front/011110902016",
+          "ppm": "$0.05/ct"
+        },
+        {
+          "upc": "076314001019",
+          "name": "Emergen-C 1000mg Vitamin C Dietary Supplement Orange 30ct",
+          "brand": "Emergen-C",
+          "packageInfo": {
+            "weight": "30 ct",
+            "packageSize": "30 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 10.99,
+              "priceString": "$10.99"
+            },
+            "wasPrice": {
+              "price": 12.99,
+              "priceString": "$12.99"
+            },
+            "unitPrice": {
+              "priceString": "$0.37/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "Clip Coupon: Save $2.00",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/emergen-c-1000mg-vitamin-c-dietary-supplement-orange-30ct/076314001019",
+          "image": "https://www.kroger.com/product/images/large/front/076314001019",
+          "ppm": "$0.37/ct"
+        },
+        {
+          "upc": "047865001018",
+          "name": "Airborne Immune Support Effervescent Tablets Orange 10ct",
+          "brand": "Airborne",
+          "packageInfo": {
+            "weight": "10 ct",
+            "packageSize": "10 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.49,
+              "priceString": "$7.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.75/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $12",
+            "volumeDealPrice": "12.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/airborne-immune-support-effervescent-tablets-orange-10ct/047865001018",
+          "image": "https://www.kroger.com/product/images/large/front/047865001018",
+          "ppm": "$0.75/ct"
+        },
+        {
+          "upc": "011110902047",
+          "name": "Kroger Melatonin 5mg Gummies Strawberry 120ct",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "120 ct",
+            "packageSize": "120 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.99,
+              "priceString": "$7.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.07/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-melatonin-5mg-gummies-strawberry-120ct/011110902047",
+          "image": "https://www.kroger.com/product/images/large/front/011110902047",
+          "ppm": "$0.07/ct"
+        },
+        {
+          "upc": "074312001017",
+          "name": "Nature's Bounty Hair Skin & Nails Gummies 80ct",
+          "brand": "Nature's",
+          "packageInfo": {
+            "weight": "80 ct",
+            "packageSize": "80 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 7.99,
+              "priceString": "$7.99"
+            },
+            "wasPrice": {
+              "price": 9.49,
+              "priceString": "$9.49"
+            },
+            "unitPrice": {
+              "priceString": "$0.10/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "Buy 1, Get 1 Free",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/nature-s-bounty-hair-skin-nails-gummies-80ct/074312001017",
+          "image": "https://www.kroger.com/product/images/large/front/074312001017",
+          "ppm": "$0.10/ct"
+        },
+        {
+          "upc": "300050001010",
+          "name": "Centrum Multivitamin Adults Daily Supplement Tablets 130ct",
+          "brand": "Centrum",
+          "packageInfo": {
+            "weight": "130 ct",
+            "packageSize": "130 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 12.49,
+              "priceString": "$12.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.10/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "$10.49 with Digital Coupon",
+            "digitalCouponPrice": "10.49",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/centrum-multivitamin-adults-daily-supplement-tablets-130ct/300050001010",
+          "image": "https://www.kroger.com/product/images/large/front/300050001010",
+          "ppm": "$0.10/ct"
+        },
+        {
+          "upc": "011110902078",
+          "name": "Kroger Complete Daily Multivitamin 130ct",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "130 ct",
+            "packageSize": "130 ct"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 6.49,
+              "priceString": "$6.49"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.05/ct"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "2 for $10",
+            "volumeDealPrice": "10.00"
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-complete-daily-multivitamin-130ct/011110902078",
+          "image": "https://www.kroger.com/product/images/large/front/011110902078",
+          "ppm": "$0.05/ct"
+        },
+        {
+          "upc": "011110902092",
+          "name": "Kroger ClearLax Laxative Polyethylene Powder 17.9 oz",
+          "brand": "Kroger",
+          "packageInfo": {
+            "weight": "17.9 oz",
+            "packageSize": "17.9 oz"
+          },
+          "priceInfo": {
+            "currentPrice": {
+              "price": 11.99,
+              "priceString": "$11.99"
+            },
+            "wasPrice": null,
+            "unitPrice": {
+              "priceString": "$0.67/oz"
+            }
+          },
+          "promotions": {
+            "digitalCoupon": "",
+            "digitalCouponPrice": "",
+            "volumeDeal": "",
+            "volumeDealPrice": ""
+          },
+          "availability": {
+            "inStock": true,
+            "pickupEligible": true,
+            "stockLevel": "HIGH"
+          },
+          "canonicalUrl": "https://www.marianos.com/p/kroger-clearlax-laxative-polyethylene-powder-17-9-oz/011110902092",
+          "image": "https://www.kroger.com/product/images/large/front/011110902092",
+          "ppm": "$0.67/oz"
+        }
+      ]
+    }
+  },
   "_source_run_metadata": {
     "retailer": "Mariano's",
     "parent_company": "The Kroger Co.",
@@ -6,8 +752,6 @@
     "sub_category": "Vitamins & Nutrition",
     "source_url": "https://www.marianos.com/c/vitamins-nutrition/12001",
     "http_status": 200,
-    "response_content_type": "application/json",
-    "capture_timestamp": "2026-10-21T04:56:42.447696+00:00",
     "store_fulfillment_context": {
       "store_id": "53100503",
       "division_id": "531",
@@ -15,9 +759,7 @@
       "store_name": "Mariano's New Eastside",
       "store_location": "333 E Benton Pl, Chicago, IL 60601",
       "postal_code": "60601",
-      "fulfillment_intent": "PICKUP",
-      "curbside_pickup_active": true,
-      "instore_pickup_active": true
+      "fulfillment_intent": "PICKUP"
     }
   },
   "raw_store_lookup_response": {
@@ -38,12 +780,6 @@
         "fulfillmentMethods": [
           {
             "type": "PICKUP",
-            "active": true,
-            "eligible": true,
-            "leadTimeMinutes": 120
-          },
-          {
-            "type": "DELIVERY",
             "active": true,
             "eligible": true
           }
