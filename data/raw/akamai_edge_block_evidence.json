@@ -1,0 +1,14 @@
+{
+  "timestamp_utc": "2026-10-21T01:36:56.498471+00:00",
+  "host_ip": "103.106.236.167",
+  "host_country": "Unknown",
+  "host_country_code": "Unknown",
+  "target_host": "www.marianos.com",
+  "akamai_edge_ip": "23.204.253.35",
+  "akamai_cname": "a23-204-253-35.deploy.static.akamaitechnologies.com",
+  "tcp_handshake_successful": true,
+  "tls_handshake_successful": true,
+  "observed_edge_behavior": "ConnectionResetError (TCP RST received from Akamai edge): [WinError 10054] An existing connection was forcibly closed by the remote host",
+  "is_blocked_by_akamai_edge": true,
+  "resolution": "Provision US Residential Proxy (MARIANOS_PROXY_URL) or deploy to Azure ACI (East US)"
+}

@@ -169,14 +169,14 @@ class MarianoProductionScraper:
                                 is_genuine_end = True
                                 break
 
-                        # If explicitly verified or past page 1 with exhausted pagination
-                        if is_genuine_end or page_num > 1:
+                        # Strictly require verified genuine end-of-catalog signal (never assume empty page > 1 is boundary)
+                        if is_genuine_end:
                             logger.info(f"Verified genuine catalog boundary reached on page {page_num} for {subcat_key}. Traversal complete.")
                             break
                         else:
                             logger.error(
-                                f"Page {page_num} for {subcat_key} yielded 0 items without a verified zero-results indicator. "
-                                f"Treating as parsing/network failure to prevent premature termination."
+                                f"Page {page_num} for {subcat_key} yielded 0 items without a verified end-of-catalog indicator. "
+                                f"Treating as parsing/network failure to prevent premature category completion."
                             )
                             subcat_failed = True
                             break
