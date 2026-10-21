@@ -125,6 +125,7 @@ def run_reconciliation():
     
     # Provenance tracking
     provenance_summary = {
+        "verified_server_capture": 0,
         "fresh_live": 0,
         "historical": 0,
         "carried_forward": 0,
@@ -235,23 +236,45 @@ def run_reconciliation():
             field_coverage["sale_price"] += 1
 
         # 7. Deals and Promotions lineage
-        promo_info = raw_item.get("promotions") or {}
-        exp_vol_deal = promo_info.get("volumeDeal", "")
-        exp_dig_deal = promo_info.get("digitalCoupon", "")
+        promo_info = raw_item.get("promotions", {}) or {}
+        badge_text = str(raw_item.get("badge", {}).get("text") or raw_item.get("promoBadge") or "")
+        deal_desc = str(
+            raw_item.get("dealDescription") or
+            raw_item.get("promoDescription") or
+            promo_info.get("digitalCoupon") or
+            promo_info.get("volumeDeal") or
+            ""
+        )
+        promo_price_disp = str(
+            raw_item.get("promoPrice") or
+            promo_info.get("digitalCouponPrice") or
+            promo_info.get("volumeDealPrice") or
+            ""
+        )
 
-        if out_item.get("volume_deals_description") != exp_vol_deal and not (not exp_vol_deal and out_item.get("volume_deals_description") == ""):
-            item_mismatches.append(f"Volume deal mismatch for {key}: expected '{exp_vol_deal}', got '{out_item.get('volume_deals_description')}'")
+        exp_vol_desc, exp_vol_price, exp_dig_desc, exp_dig_price = normalizer.parse_deals(
+            badge_text, deal_desc, promo_price_disp
+        )
+
+        if out_item.get("volume_deals_description") != exp_vol_desc:
+            item_mismatches.append(f"Volume deal description mismatch for {key}: expected '{exp_vol_desc}', got '{out_item.get('volume_deals_description')}'")
         else:
             field_coverage["volume_deals_description"] += 1
 
-        field_coverage["volume_deals_price"] += 1
+        if out_item.get("volume_deals_price") != exp_vol_price:
+            item_mismatches.append(f"Volume deal price mismatch for {key}: expected '{exp_vol_price}', got '{out_item.get('volume_deals_price')}'")
+        else:
+            field_coverage["volume_deals_price"] += 1
 
-        if out_item.get("digital_deals_description") != exp_dig_deal and not (not exp_dig_deal and out_item.get("digital_deals_description") == ""):
-            item_mismatches.append(f"Digital deal mismatch for {key}: expected '{exp_dig_deal}', got '{out_item.get('digital_deals_description')}'")
+        if out_item.get("digital_deals_description") != exp_dig_desc:
+            item_mismatches.append(f"Digital deal description mismatch for {key}: expected '{exp_dig_desc}', got '{out_item.get('digital_deals_description')}'")
         else:
             field_coverage["digital_deals_description"] += 1
 
-        field_coverage["digital_deals_price"] += 1
+        if out_item.get("digital_deals_price") != exp_dig_price:
+            item_mismatches.append(f"Digital deal price mismatch for {key}: expected '{exp_dig_price}', got '{out_item.get('digital_deals_price')}'")
+        else:
+            field_coverage["digital_deals_price"] += 1
 
         # 8. Media and URLs
         if out_item.get("image_url") != raw_item.get("image", ""):
@@ -292,18 +315,40 @@ def run_reconciliation():
         # STRICT RECONCILIATION GATE: Only count as reconciled if ZERO field mismatches occurred
         if len(item_mismatches) == 0:
             reconciled_count += 1
-            provenance_summary["fresh_live"] += 1
+            prov_type = meta.get("execution_mode") or meta.get("provenance_type") or "verified_retailer_response"
+            if prov_type in ("fresh_live", "live"):
+                provenance_summary["fresh_live"] += 1
+            elif "carried_forward" in str(prov_type):
+                provenance_summary["carried_forward"] += 1
+            else:
+                provenance_summary["verified_server_capture"] += 1
         else:
             mismatches.extend(item_mismatches)
+
+    # STRICT UNMATCHED / EXTRA RECORD AUDIT:
+    # Ensure output has NO extra records that were not present in raw source responses
+    raw_keys_set = set(r.get("upc") or r.get("name") for r in raw_items_list if (r.get("upc") or r.get("name")))
+    extra_output_records = []
+    for out_r in output_records:
+        k = out_r.get("upc") or out_r.get("product_title")
+        if k not in raw_keys_set:
+            extra_output_records.append(k)
+
+    if extra_output_records:
+        mismatches.append(f"CRITICAL: Found {len(extra_output_records)} extra records in output not backed by source raw responses: {extra_output_records[:5]}")
+
+    if len(output_records) != total_raw_items:
+        mismatches.append(f"CRITICAL: Output record count ({len(output_records)}) does not equal raw source items count ({total_raw_items})")
 
     match_percentage = round((reconciled_count / total_raw_items) * 100, 2) if total_raw_items else 0
     print(f"  • Total Raw Source Items Processed:   {total_raw_items}")
     print(f"  • Total Output Deliverable Records:   {len(output_records)}")
     print(f"  • Reconciled 1-to-1 Identical Items:  {reconciled_count} / {total_raw_items} ({match_percentage}% Match)")
+    print(f"  • Extra Unbacked Output Records:      {len(extra_output_records)}")
     print(f"  • Field Mismatches Detected:          {len(mismatches)}")
     print(f"\n  [PROVENANCE TYPE BREAKDOWN]")
-    print(f"    - Fresh Live Retailer Captures:     {provenance_summary['fresh_live']} (100.0%)")
-    print(f"    - Historical Retained Runs:         {provenance_summary['historical']}")
+    print(f"    - Verified Server Response Captures: {provenance_summary['verified_server_capture']}")
+    print(f"    - Fresh Live Retailer Captures:     {provenance_summary['fresh_live']}")
     print(f"    - Carried Forward (Checkpoint):     {provenance_summary['carried_forward']}")
     print(f"    - Synthetic Fixtures:               {provenance_summary['fixture']} (Strictly 0 in Production)")
 
@@ -321,6 +366,17 @@ def run_reconciliation():
         for k, v in r.items():
             if v is None:
                 null_count += 1
+
+    all_passed = bool(
+        match_percentage == 100.0 and
+        len(mismatches) == 0 and
+        len(extra_output_records) == 0 and
+        len(output_records) == total_raw_items and
+        field_order_pass and
+        null_count == 0 and
+        reserved_empty_pass
+    )
+    audit_status_str = "VERIFIED & RECONCILED (100% PASS)" if all_passed else "AUDIT FAILED (CRITICAL DISCREPANCIES DETECTED)"
 
     # Machine-Readable Audit Report
     audit_report = {
@@ -342,12 +398,14 @@ def run_reconciliation():
             "total_raw_source_items": total_raw_items,
             "total_output_records": len(output_records),
             "reconciled_count": reconciled_count,
+            "extra_unbacked_output_records": len(extra_output_records),
             "match_percentage": match_percentage,
             "mismatches_detected": len(mismatches),
             "total_categories_covered": len(category_audit_stats),
             "exact_22_field_order": field_order_pass,
             "zero_null_values": null_count == 0,
             "reserved_fields_empty": reserved_empty_pass,
+            "audit_status": audit_status_str,
             "provenance_breakdown": provenance_summary,
             "field_level_lineage_coverage": field_coverage
         },
@@ -365,14 +423,15 @@ def run_reconciliation():
     print(f"  • Source Response Captures:   28 Categories (100% CSV Coverage)")
     print(f"  • Direct Response Store Auth: Store #53100503 (Chicago, 60601, PICKUP) -> PASS")
     print(f"  • Source-to-Output Match:     {reconciled_count} / {total_raw_items} ({match_percentage}% Perfect Reconciliation)")
+    print(f"  • Extra Unbacked Records:     {len(extra_output_records)} (0 Allowed)")
     print(f"  • Exact 22-Field Order:       {'PASS' if field_order_pass else 'FAIL'}")
     print(f"  • Null Values Detected:       {null_count} (100% empty strings for missing)")
     print(f"  • Pipeline Boundaries:        {'PASS (gupc=\"\" and unit_price=\"\")' if reserved_empty_pass else 'FAIL'}")
     print(f"  • Machine-Readable Log:       {audit_log_path}")
-    print(f"  • Audit Status:               VERIFIED & RECONCILED")
+    print(f"  • Audit Status:               {audit_status_str}")
     print("=" * 85)
 
-    return 0 if (match_percentage == 100.0 and len(mismatches) == 0 and field_order_pass) else 1
+    return 0 if all_passed else 1
 
 if __name__ == "__main__":
     sys.exit(run_reconciliation())

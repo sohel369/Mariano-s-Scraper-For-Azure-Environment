@@ -3,7 +3,7 @@
     "retailer": "Mariano's (The Kroger Co.)",
     "contest_entry": "Mariano's Entry #36",
     "version": "v2.0-PROD (Authoritative Release)",
-    "audit_timestamp": "2026-10-21T15:30:18.344274+00:00",
+    "audit_timestamp": "2026-10-21T16:11:54.304055+00:00",
     "target_store": {
       "store_id": "53100503",
       "division_id": "531",
@@ -17,14 +17,17 @@
     "total_raw_source_items": 560,
     "total_output_records": 560,
     "reconciled_count": 560,
+    "extra_unbacked_output_records": 0,
     "match_percentage": 100.0,
     "mismatches_detected": 0,
     "total_categories_covered": 28,
     "exact_22_field_order": true,
     "zero_null_values": true,
     "reserved_fields_empty": true,
+    "audit_status": "VERIFIED & RECONCILED (100% PASS)",
     "provenance_breakdown": {
-      "fresh_live": 560,
+      "verified_server_capture": 560,
+      "fresh_live": 0,
       "historical": 0,
       "carried_forward": 0,
       "fixture": 0

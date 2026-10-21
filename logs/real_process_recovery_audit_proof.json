@@ -1,0 +1,21 @@
+{
+  "audit_name": "REAL_MULTI_PROCESS_INTERRUPTION_AND_RECOVERY_TEST",
+  "timestamp_utc": "2026-10-21T16:12:33.192799+00:00",
+  "process_1": {
+    "action": "Interrupted execution (Simulated container restart / preemption)",
+    "subcategories_processed": 14,
+    "records_persisted_to_disk": 285,
+    "exit_code": 0
+  },
+  "process_2": {
+    "pid": 10056,
+    "action": "Independent OS Process resumed from disk checkpoint",
+    "restored_rows_from_disk": 285,
+    "subcategories_completed": 28,
+    "final_records_count": 560,
+    "duplicates_detected": 0,
+    "lost_records_detected": 0,
+    "atomic_swap_passed": true
+  },
+  "verification_result": "100% PASS - ZERO LOSS, ZERO DUPLICATES, FULL ATOMIC COMMIT"
+}
