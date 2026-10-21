@@ -107,3 +107,76 @@ def test_strict_100_percent_category_gate(tmp_path):
         categories_processed=5
     )
     assert commit_5_of_5 is True
+
+def test_deduplication_on_restore(tmp_path):
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=5)
+    store_id = "531"
+    
+    # Save checkpoint with rows 1..5
+    checkpoint_rows = [{"upc": f"UPC{i}", "title": f"Product {i}"} for i in range(1, 6)]
+    storage.save_checkpoint(store_id, ["Cat::Sub"], [r["upc"] for r in checkpoint_rows], checkpoint_rows)
+    
+    # Staging already has rows 1..3
+    staging_file = os.path.join(storage.staging_dir, "staging_dedup_test.jsonl")
+    for r in checkpoint_rows[:3]:
+        storage.write_staging_record(staging_file, r)
+        
+    # Restore from checkpoint - only rows 4 and 5 should be appended (2 rows)
+    restored = storage.restore_checkpoint_rows(store_id, staging_file)
+    assert restored == 2
+    
+    all_staged = storage.load_staging_records(staging_file)
+    assert len(all_staged) == 5
+    upcs = [r["upc"] for r in all_staged]
+    assert upcs == ["UPC1", "UPC2", "UPC3", "UPC4", "UPC5"]
+
+def test_exact_category_set_rejection_of_unexpected_keys(tmp_path):
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=5)
+    store_id = "531"
+    staging_file = os.path.join(storage.staging_dir, "staging_cat_test.jsonl")
+    
+    expected_keys = ["Produce::Apples", "Produce::Bananas"]
+    
+    # Staging has 5 items with an unexpected category
+    for i in range(5):
+        storage.write_staging_record(staging_file, {
+            "upc": f"UPC{i}",
+            "category": "Produce",
+            "sub_category": "RogueCategory"
+        })
+        
+    # Traversal reported expected keys, but records contain unknown category -> MUST FAIL
+    commit_failed = storage.commit_dataset_atomic(
+        store_id=store_id,
+        staging_filepath=staging_file,
+        total_categories_expected=2,
+        categories_processed=2,
+        expected_category_keys=expected_keys,
+        actual_completed_keys=expected_keys
+    )
+    assert commit_failed is False
+
+def test_mandatory_cloud_sync_failure_preserves_checkpoint(tmp_path):
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=5)
+    store_id = "531"
+    storage.save_checkpoint(store_id, ["Cat::Sub"], ["UPC1"])
+    
+    staging_file = os.path.join(storage.staging_dir, "staging_cloud_test.jsonl")
+    for i in range(5):
+        storage.write_staging_record(staging_file, {"upc": f"UPC{i}", "category": "Cat", "sub_category": "Sub"})
+        
+    # Commit with require_cloud_sync=True where no Azure connection string exists -> MUST FAIL and retain checkpoint
+    commit_result = storage.commit_dataset_atomic(
+        store_id=store_id,
+        staging_filepath=staging_file,
+        total_categories_expected=1,
+        categories_processed=1,
+        expected_category_keys=["Cat::Sub"],
+        actual_completed_keys=["Cat::Sub"],
+        require_cloud_sync=True
+    )
+    assert commit_result is False
+    
+    # Checkpoint must NOT be deleted
+    cp_after = storage.load_checkpoint(store_id)
+    assert cp_after["completed_subcategories"] == ["Cat::Sub"]

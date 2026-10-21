@@ -1,6 +1,7 @@
 {
-  "audit_name": "Mariano's Live Checkpoint Restoration & ID Recovery Proof",
-  "timestamp": "2026-10-21T05:18:33.745209+00:00",
+  "audit_name": "Mariano's Deterministic Checkpoint Restoration & ID Recovery Proof",
+  "test_type": "offline_deterministic_simulation",
+  "timestamp": "2026-10-21T06:09:55.820907+00:00",
   "target_store_id": "53100503",
   "verification_status": "VERIFIED_PASS",
   "phase1_interrupted_at": "14/28 subcategories",
@@ -10,6 +11,7 @@
   "final_total_records": 560,
   "duplicate_records": 0,
   "lost_records": 0,
+  "deduplication_idempotency_tested": true,
   "exact_category_set_match": true,
   "atomic_commit_result": true
 }

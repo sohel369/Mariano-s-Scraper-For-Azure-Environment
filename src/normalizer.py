@@ -58,6 +58,22 @@ class DataNormalizer:
             return False
         return bool(self.approx_weight_pattern.search(weight_str))
 
+    def extract_weight_from_title(self, title: str) -> str:
+        """
+        Extracts package weight/volume from product title if not present in packaging metadata.
+        Examples: 'Whole Milk 1 Gallon' -> '1 Gallon', 'Organic Bananas 2 lb' -> '2 lb'.
+        """
+        if not title:
+            return ""
+        pattern = re.compile(
+            r'\b(\d+(?:\.\d+)?\s*(?:fl\s*oz|oz|lb|lbs|gal|gallon|pt|pint|qt|quart|ct|count|pk|pack|ml|l|liter|g|kg))\b',
+            re.IGNORECASE
+        )
+        match = pattern.search(title)
+        if match:
+            return match.group(1).strip()
+        return ""
+
     def clean_price(self, price_raw: str) -> str:
         """
         Formats prices to consistent numeric format, e.g. '12.98'.

@@ -51,7 +51,7 @@
       "type": "Http",
       "inputs": {
         "method": "POST",
-        "uri": "https://management.azure.com/subscriptions/@{parameters('subscriptionId')}/resourceGroups/@{parameters('resourceGroup')}/providers/Microsoft.ContainerInstance/containerGroups/aci-marianos-scraper-job/start?api-version=2023-05-01",
+        "uri": "https://management.azure.com/subscriptions/@{parameters('subscriptionId')}/resourceGroups/@{parameters('resourceGroup')}/providers/Microsoft.ContainerInstance/containerGroups/@{parameters('containerGroupName')}/start?api-version=2023-05-01",
         "authentication": {
           "type": "ManagedServiceIdentity"
         }

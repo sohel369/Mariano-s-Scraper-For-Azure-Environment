@@ -1,14 +1,16 @@
 """
 ========================================================================================
-CHECKPOINT INTEGRITY & ROW-RESTORATION VERIFICATION AUDIT
+OFFLINE DETERMINISTIC RECOVERY VERIFICATION (Simulated Interruption & Resume Audit)
 ========================================================================================
-Purpose: Conclusively proves that upon process interruption:
-1. Genuine raw category responses (Subcategories 1-14) are safely captured and staged.
-2. Interruption is simulated and persisted state is verified.
+Purpose: Conclusively and deterministically proves that upon process interruption:
+1. Genuine raw category responses (Subcategories 1-14) are safely captured, parsed
+   via production MarianoPageParser, and staged.
+2. Interruption is simulated and persisted state/checkpoint rows are verified.
 3. Upon resume, StorageManager restores 100% of rows from disk into the new session.
-4. Traversal resumes for Subcategories 15-28 without duplicate re-queries.
-5. All 28 expected CSV categories match exactly (exact set equality).
-6. Zero duplicate UPCs, zero lost records, and 100% publication gate pass.
+4. Deduplication idempotency is tested: repeat resumes do not duplicate rows.
+5. Traversal resumes for Subcategories 15-28 without duplicate re-queries.
+6. All 28 expected CSV categories match exactly (exact set equality).
+7. Zero duplicate UPCs, zero lost records, and 100% publication gate pass.
 ========================================================================================
 """
 
@@ -30,7 +32,7 @@ from src.normalizer import DataNormalizer
 
 def run_checkpoint_integrity_audit():
     print("=" * 85)
-    print("MARIANO'S SCRAPER: GENUINE CHECKPOINT RESTORATION & ID-LEVEL RECOVERY AUDIT")
+    print("MARIANO'S SCRAPER: OFFLINE DETERMINISTIC RECOVERY & ROW RESTORATION AUDIT")
     print(f"Timestamp: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print("Version: v2.0-PROD (Authoritative Release for Mariano's Entry #36)")
     print("=" * 85)
@@ -41,6 +43,10 @@ def run_checkpoint_integrity_audit():
     expected_csv_keys = [f"{e['category']}::{e['sub_category']}" for e in category_entries]
     total_categories_count = len(expected_csv_keys)
     assert total_categories_count == 28, f"Expected 28 CSV categories, got {total_categories_count}"
+
+    location = config_loader.get_default_location()
+    normalizer = DataNormalizer(config_loader.load_private_brands())
+    parser = MarianoPageParser(normalizer)
 
     temp_dir = tempfile.mkdtemp(prefix="marianos_audit_recovery_")
     storage = StorageManager(base_dir=temp_dir, min_records_threshold=500)
@@ -71,36 +77,11 @@ def run_checkpoint_integrity_audit():
             
             raw_products = resp_payload.get("data", {}).get("products", [])
             for p in raw_products:
-                upc = p.get("upc")
-                price_info = p.get("priceInfo", {})
-                curr_p = price_info.get("currentPrice", {}).get("priceString", "")
-                reg_p = price_info.get("wasPrice", {}).get("priceString", curr_p) if price_info.get("wasPrice") else curr_p
-
-                record = {
-                    "zipcode": "60601",
-                    "store_name": "Mariano's New Eastside",
-                    "store_location": "333 E Benton Pl, Chicago, IL 60601",
-                    "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
-                    "store_brand": "yes" if "Simple Truth" in p.get("name", "") else "no",
-                    "category": entry["category"],
-                    "sub_category": entry["sub_category"],
-                    "product_title": p.get("name", ""),
-                    "weight": p.get("packageInfo", {}).get("weight", ""),
-                    "regular_price": reg_p.replace("$", ""),
-                    "sale_price": curr_p.replace("$", "") if curr_p != reg_p else "",
-                    "volume_deals_description": p.get("promotions", {}).get("volumeDeal", ""),
-                    "volume_deals_price": p.get("promotions", {}).get("volumeDealPrice", ""),
-                    "digital_deals_description": p.get("promotions", {}).get("digitalCoupon", ""),
-                    "digital_deals_price": p.get("promotions", {}).get("digitalCouponPrice", ""),
-                    "image_url": p.get("image", ""),
-                    "url": p.get("canonicalUrl", ""),
-                    "upc": upc,
-                    "gupc": "",
-                    "ppm": p.get("ppm", ""),
-                    "unit_price": "",
-                    "crawl_date": "2026-10-21"
-                }
-                phase1_upcs.append(upc)
+                rec_obj = parser.parse_product_item(p, entry["category"], entry["sub_category"], location)
+                if not rec_obj:
+                    continue
+                record = rec_obj.to_ordered_dict()
+                phase1_upcs.append(record["upc"])
                 phase1_records.append(record)
                 storage.write_staging_record(staging_file_run1, record)
 
@@ -113,7 +94,7 @@ def run_checkpoint_integrity_audit():
             scraped_ids=phase1_upcs,
             staged_records=phase1_records
         )
-        print(f"  • Collected: {len(phase1_upcs)} genuine records across 14 subcategories.")
+        print(f"  • Collected & Normalized: {len(phase1_upcs)} records across 14 subcategories via MarianoPageParser.")
         print(f"  • Checkpoint Saved: store_id={store_id}, completed=14/28 subcategories.")
         print(f"  • Process Interrupted: (Simulated unexpected container preemption / restart).")
 
@@ -127,13 +108,17 @@ def run_checkpoint_integrity_audit():
         new_storage = StorageManager(base_dir=temp_dir, min_records_threshold=500)
         cp_data = new_storage.load_checkpoint(store_id)
         restored_completed_subcats = cp_data.get("completed_subcategories", [])
-        restored_seen_keys = set(cp_data.get("scraped_ids", []))
         print(f"  • Checkpoint Detected: {len(restored_completed_subcats)} subcategories completed.")
 
         # Execute row restoration from disk
         restored_count = new_storage.restore_checkpoint_rows(store_id, staging_file_run2)
         print(f"  • StorageManager.restore_checkpoint_rows(): Restored {restored_count} rows from disk into fresh staging.")
         assert restored_count == len(phase1_records), f"Expected {len(phase1_records)} restored rows, got {restored_count}"
+
+        # Test deduplication idempotence: running restore again must NOT duplicate rows
+        dup_test_count = new_storage.restore_checkpoint_rows(store_id, staging_file_run2)
+        assert dup_test_count == 0, f"Expected 0 additional restored rows on repeated resume, got {dup_test_count}"
+        print(f"  • Idempotency Verified: Second restore attempt yielded 0 duplicate rows (PASS).")
 
         restored_staging_records = new_storage.load_staging_records(staging_file_run2)
         restored_upcs = [r["upc"] for r in restored_staging_records]
@@ -154,36 +139,11 @@ def run_checkpoint_integrity_audit():
             
             raw_products = resp_payload.get("data", {}).get("products", [])
             for p in raw_products:
-                upc = p.get("upc")
-                price_info = p.get("priceInfo", {})
-                curr_p = price_info.get("currentPrice", {}).get("priceString", "")
-                reg_p = price_info.get("wasPrice", {}).get("priceString", curr_p) if price_info.get("wasPrice") else curr_p
-
-                record = {
-                    "zipcode": "60601",
-                    "store_name": "Mariano's New Eastside",
-                    "store_location": "333 E Benton Pl, Chicago, IL 60601",
-                    "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
-                    "store_brand": "yes" if "Simple Truth" in p.get("name", "") else "no",
-                    "category": entry["category"],
-                    "sub_category": entry["sub_category"],
-                    "product_title": p.get("name", ""),
-                    "weight": p.get("packageInfo", {}).get("weight", ""),
-                    "regular_price": reg_p.replace("$", ""),
-                    "sale_price": curr_p.replace("$", "") if curr_p != reg_p else "",
-                    "volume_deals_description": p.get("promotions", {}).get("volumeDeal", ""),
-                    "volume_deals_price": p.get("promotions", {}).get("volumeDealPrice", ""),
-                    "digital_deals_description": p.get("promotions", {}).get("digitalCoupon", ""),
-                    "digital_deals_price": p.get("promotions", {}).get("digitalCouponPrice", ""),
-                    "image_url": p.get("image", ""),
-                    "url": p.get("canonicalUrl", ""),
-                    "upc": upc,
-                    "gupc": "",
-                    "ppm": p.get("ppm", ""),
-                    "unit_price": "",
-                    "crawl_date": "2026-10-21"
-                }
-                phase2_new_upcs.append(upc)
+                rec_obj = parser.parse_product_item(p, entry["category"], entry["sub_category"], location)
+                if not rec_obj:
+                    continue
+                record = rec_obj.to_ordered_dict()
+                phase2_new_upcs.append(record["upc"])
                 new_storage.write_staging_record(staging_file_run2, record)
 
             completed_all_keys.append(cat_key)
@@ -223,7 +183,8 @@ def run_checkpoint_integrity_audit():
             staging_filepath=staging_file_run2,
             total_categories_expected=28,
             categories_processed=len(completed_all_keys),
-            expected_category_keys=expected_csv_keys
+            expected_category_keys=expected_csv_keys,
+            actual_completed_keys=completed_all_keys
         )
         assert commit_ok is True, "Atomic commit gate failed unexpectedly!"
         print(f"  5. Production Atomic Commit Gate (Strict 100% Exact Category Set): PASS")
@@ -231,7 +192,8 @@ def run_checkpoint_integrity_audit():
         # Persist audit proof artifact
         proof_path = os.path.join(base_dir, "data", "raw", "checkpoint_recovery_audit_proof.json")
         audit_proof = {
-            "audit_name": "Mariano's Live Checkpoint Restoration & ID Recovery Proof",
+            "audit_name": "Mariano's Deterministic Checkpoint Restoration & ID Recovery Proof",
+            "test_type": "offline_deterministic_simulation",
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "target_store_id": store_id,
             "verification_status": "VERIFIED_PASS",
@@ -242,6 +204,7 @@ def run_checkpoint_integrity_audit():
             "final_total_records": actual_total,
             "duplicate_records": duplicates,
             "lost_records": len(missing_phase1),
+            "deduplication_idempotency_tested": True,
             "exact_category_set_match": True,
             "atomic_commit_result": True
         }

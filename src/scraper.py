@@ -67,33 +67,33 @@ class MarianoProductionScraper:
             f"ZIP={location.get('zipcode')}, ID={store_id}, Mode=In-Store/Pickup"
         )
 
-        # Validate Store Fulfillment Context directly from Unmodified Retailer Response (MANDATORY GATE)
-        raw_evidence_path = os.path.join(self.storage.base_dir, "data", "raw", "marianos_raw_store_53100503_evidence.json")
-        if not os.path.exists(raw_evidence_path):
-            # Also check responses dir fallback
-            fallback_resp = os.path.join(self.storage.base_dir, "data", "raw", "responses", "category_01_fresh_produce_fresh_fruits_raw_response.json")
-            if os.path.exists(fallback_resp):
-                raw_evidence_path = fallback_resp
-            else:
-                logger.error(f"CRITICAL: Mandatory store evidence file missing at {raw_evidence_path}. Halting execution.")
-                raise FileNotFoundError(f"Store verification evidence missing: {raw_evidence_path}")
+        # 2. Setup Browser Engine and Execute LIVE Store Verification (MANDATORY LIVE GATE)
+        self.browser_engine = BrowserEngine(self.settings, self.proxies)
+        self.browser_engine.start()
+        self.browser_engine.set_store_location(location)
 
+        logger.info(f"Executing LIVE store lookup verification for Store #{store_id}...")
         try:
-            with open(raw_evidence_path, "r", encoding="utf-8") as f:
-                evidence_data = json.load(f)
-            # Pass authentic raw_store_lookup_response directly without artificial wrappers
-            raw_response = evidence_data.get("raw_store_lookup_response") or evidence_data
+            live_store_payload = self.browser_engine.fetch_live_store_lookup(store_id, location)
+            raw_response = live_store_payload.get("raw_store_lookup_response") or live_store_payload
             validated_ctx = self.parser.validate_store_fulfillment_response(raw_response, expected_store_id=store_id)
             logger.info(
-                f"Response-based store verification PASSED: Location={validated_ctx['verified_store_id']} "
+                f"Live store verification PASSED: Location={validated_ctx['verified_store_id']} "
                 f"({validated_ctx['store_name']}), Address='{validated_ctx['store_location']}', "
                 f"Modality={validated_ctx['fulfillment_modality']}"
             )
+            # Write verified live evidence directly to disk for audit provenance
+            raw_evidence_path = os.path.join(self.storage.base_dir, "data", "raw", f"marianos_raw_store_{store_id}_evidence.json")
+            os.makedirs(os.path.dirname(raw_evidence_path), exist_ok=True)
+            with open(raw_evidence_path, "w", encoding="utf-8") as f:
+                json.dump(live_store_payload, f, indent=2, ensure_ascii=False)
         except Exception as ve:
-            logger.error(f"Mandatory response-based store verification failed: {ve}")
+            logger.error(f"Mandatory LIVE store verification failed: {ve}. Halting run before scraping.")
+            if self.browser_engine:
+                self.browser_engine.close()
             raise
 
-        # 2. Setup Staging and Checkpoints
+        # 3. Setup Staging and Checkpoints
         run_timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         staging_filename = f"staging_run_store_{store_id}_{run_timestamp}.jsonl"
         staging_filepath = os.path.join(self.storage.staging_dir, staging_filename)
@@ -108,15 +108,10 @@ class MarianoProductionScraper:
         if restored_count > 0:
             logger.info(f"Restored {restored_count} previously verified rows into staging session.")
 
-        # 3. Load Categories CSV
+        # 4. Load Categories CSV
         category_entries = self.config_loader.load_category_urls()
         total_subcategories = len(category_entries)
         logger.info(f"Loaded {total_subcategories} subcategories from Category URLs CSV")
-
-        # 4. Initialize Browser Engine with Location Context
-        self.browser_engine = BrowserEngine(self.settings, self.proxies)
-        self.browser_engine.start()
-        self.browser_engine.set_store_location(location)
 
         scraping_cfg = self.settings.get("scraping", {})
         max_retries = scraping_cfg.get("max_retries_per_page", 3)
@@ -158,7 +153,15 @@ class MarianoProductionScraper:
 
                     for attempt in range(1, max_retries + 1):
                         try:
-                            html_content = self.browser_engine.fetch_page_content(page_url)
+                            prov = self.browser_engine.fetch_page_with_provenance(
+                                page_url,
+                                run_id=run_timestamp,
+                                category_key=subcat_key,
+                                store_context=validated_ctx
+                            )
+                            if prov.get("is_blocked"):
+                                raise BotDetectionError(f"HTTP {prov.get('http_status')} or challenge encountered at {page_url}")
+                            html_content = prov.get("html", "")
                             # Verify response for silent blocking / CAPTCHA
                             self.anti_bot.inspect_html(html_content, page_url)
                             success = True
@@ -264,7 +267,8 @@ class MarianoProductionScraper:
             staging_filepath=staging_filepath,
             total_categories_expected=total_subcategories,
             categories_processed=processed_categories_count,
-            expected_category_keys=expected_cat_keys
+            expected_category_keys=expected_cat_keys,
+            actual_completed_keys=completed_subcategories
         )
 
         # Compute audit statistics

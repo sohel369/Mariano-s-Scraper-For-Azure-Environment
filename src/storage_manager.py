@@ -74,17 +74,45 @@ class StorageManager:
             shutil.move(rows_temp, rows_path)
 
     def restore_checkpoint_rows(self, store_id: str, current_staging_filepath: str) -> int:
-        """Restores previously collected rows from an interrupted run into current staging."""
+        """
+        Restores previously collected rows from an interrupted run into current staging.
+        Performs strict ID-level deduplication to prevent duplicate rows across repeat resumes.
+        """
         rows_path = self.get_checkpoint_rows_path(store_id)
         restored = 0
-        if os.path.exists(rows_path):
-            with open(rows_path, "r", encoding="utf-8") as src, open(current_staging_filepath, "a", encoding="utf-8") as dst:
-                for line in src:
-                    line = line.strip()
-                    if line:
-                        dst.write(line + "\n")
-                        restored += 1
-            logger.info(f"[LOG-OBS: CARRIED_FORWARD_HISTORICAL] Restored {restored} previously collected rows from checkpoint into {current_staging_filepath} (distinguishable from fresh observations).")
+        if not os.path.exists(rows_path):
+            return restored
+
+        # Ingest existing IDs already present in current staging to prevent duplicates
+        existing_keys = set()
+        if os.path.exists(current_staging_filepath):
+            for r in self.load_staging_records(current_staging_filepath):
+                key = r.get("upc") or r.get("product_id") or r.get("product_title")
+                if key:
+                    existing_keys.add(key)
+
+        with open(rows_path, "r", encoding="utf-8") as src, open(current_staging_filepath, "a", encoding="utf-8") as dst:
+            for line in src:
+                line_str = line.strip()
+                if not line_str:
+                    continue
+                try:
+                    record = json.loads(line_str)
+                    key = record.get("upc") or record.get("product_id") or record.get("product_title")
+                    if key and key in existing_keys:
+                        # Skip already present row to guarantee idempotence
+                        continue
+                    if key:
+                        existing_keys.add(key)
+                    dst.write(line_str + "\n")
+                    restored += 1
+                except json.JSONDecodeError:
+                    continue
+
+        logger.info(
+            f"[LOG-OBS: CARRIED_FORWARD_HISTORICAL] Restored {restored} unique previously collected rows "
+            f"from checkpoint into {current_staging_filepath} (deduplicated against existing staging)."
+        )
         return restored
 
     def clear_checkpoint(self, store_id: str) -> None:
@@ -161,11 +189,19 @@ class StorageManager:
         staging_filepath: str,
         total_categories_expected: int,
         categories_processed: int,
-        expected_category_keys: Optional[List[str]] = None
+        expected_category_keys: Optional[List[str]] = None,
+        actual_completed_keys: Optional[List[str]] = None,
+        require_cloud_sync: Optional[bool] = None
     ) -> bool:
         """
         Validates the run and performs an atomic swap to data/output/marianos_scraped_data_store_{store_id}_latest.json.
         CRITICAL RULE: Never overwrites last successful dataset with an empty or incomplete run.
+        Enforces:
+        - Minimum records threshold
+        - Exact category set traversal (100% completion, rejecting unexpected/missing keys)
+        - Unique product UPCs (zero duplicates)
+        - Atomic temporary file swap with backup
+        - Cloud synchronization gate (fails publication and preserves checkpoint if mandatory upload fails)
         """
         records = self.load_staging_records(staging_filepath)
         total_count = len(records)
@@ -193,21 +229,40 @@ class StorageManager:
         # Strict Exact Category Set Comparison against expected CSV categories
         if expected_category_keys:
             expected_set = set(expected_category_keys)
-            staged_categories = {f"{r.get('category')}::{r.get('sub_category')}" for r in records}
-            missing_categories = expected_set - staged_categories
-            unexpected_categories = staged_categories - expected_set
 
-            if missing_categories:
+            if actual_completed_keys is not None:
+                completed_set = set(actual_completed_keys)
+                missing_traversed = expected_set - completed_set
+                unexpected_traversed = completed_set - expected_set
+
+                if missing_traversed:
+                    logger.error(
+                        f"ABORTING DATASET COMMIT: Incomplete traversal. Missing expected categories: {missing_traversed}. "
+                        f"Exact set match required!"
+                    )
+                    return False
+                if unexpected_traversed:
+                    logger.error(
+                        f"ABORTING DATASET COMMIT: Unknown/unexpected category keys in traversal: {unexpected_traversed}"
+                    )
+                    return False
+
+            # Verify staged records contain no rogue/unknown category keys
+            staged_categories = {f"{r.get('category')}::{r.get('sub_category')}" for r in records}
+            unexpected_in_records = staged_categories - expected_set
+            if unexpected_in_records:
                 logger.error(
-                    f"ABORTING DATASET COMMIT: Missing required categories: {missing_categories}. "
-                    f"Exact set match required!"
+                    f"ABORTING DATASET COMMIT: Unknown/unexpected category keys detected in records: {unexpected_in_records}"
                 )
                 return False
-            if unexpected_categories:
-                logger.error(
-                    f"ABORTING DATASET COMMIT: Unknown/unexpected category keys detected: {unexpected_categories}"
-                )
-                return False
+
+            if actual_completed_keys is None:
+                missing_categories = expected_set - staged_categories
+                if missing_categories:
+                    logger.error(
+                        f"ABORTING DATASET COMMIT: Missing required categories in records: {missing_categories}. Exact set match required!"
+                    )
+                    return False
 
         # Duplicate product IDs check
         seen_upcs = set()
@@ -238,7 +293,30 @@ class StorageManager:
         logger.info(f"SUCCESS: New Mariano's production dataset committed atomically to {target_output} ({total_count} records)")
 
         # 4. Sync committed dataset to Azure Blob Storage if configured
-        self.sync_to_azure_blob(target_output, f"marianos_scraped_data_store_{store_id}_latest.json")
+        settings_path = os.path.join(self.base_dir, "config", "settings.json")
+        azure_cfg = {}
+        if os.path.exists(settings_path):
+            try:
+                with open(settings_path, "r", encoding="utf-8") as f:
+                    azure_cfg = json.load(f).get("safety_and_storage", {}).get("azure_blob_storage", {})
+            except Exception:
+                pass
+
+        cloud_enabled = azure_cfg.get("enabled", False)
+        mandatory_cloud_sync = require_cloud_sync if require_cloud_sync is not None else azure_cfg.get("require_cloud_sync_in_production", False)
+
+        if mandatory_cloud_sync or cloud_enabled:
+            sync_ok = self.sync_to_azure_blob(target_output, f"marianos_scraped_data_store_{store_id}_latest.json")
+            if mandatory_cloud_sync and not sync_ok:
+                logger.error(
+                    "ABORTING DATASET COMMIT: Mandatory Azure cloud sync failed. "
+                    "Rolling back atomic swap and preserving checkpoint for retry."
+                )
+                if os.path.exists(backup_output):
+                    shutil.copy2(backup_output, target_output)
+                elif os.path.exists(target_output):
+                    os.remove(target_output)
+                return False
 
         # Clear checkpoint on clean completion
         self.clear_checkpoint(store_id)
