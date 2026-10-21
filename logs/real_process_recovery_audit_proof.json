@@ -1,21 +1,19 @@
 {
-  "audit_name": "REAL_MULTI_PROCESS_INTERRUPTION_AND_RECOVERY_TEST",
-  "timestamp_utc": "2026-10-21T16:12:33.192799+00:00",
-  "process_1": {
-    "action": "Interrupted execution (Simulated container restart / preemption)",
-    "subcategories_processed": 14,
-    "records_persisted_to_disk": 285,
-    "exit_code": 0
+  "audit_name": "PACKAGED_RESPONSE_REPLAY_RECOVERY_TEST",
+  "test_type": "packaged_response_replay_recovery_test",
+  "timestamp_utc": "2026-10-21T16:23:27.531403+00:00",
+  "status": "PASS",
+  "measurements": {
+    "process_1_restored_records": 285,
+    "process_2_ingested_records": 275,
+    "total_final_records": 560,
+    "expected_total_records": 560,
+    "dynamically_calculated_lost_ids": 0,
+    "dynamically_calculated_duplicate_ids": 0,
+    "dynamically_calculated_unexpected_ids": 0,
+    "subcategory_coverage": "28/28"
   },
-  "process_2": {
-    "pid": 10056,
-    "action": "Independent OS Process resumed from disk checkpoint",
-    "restored_rows_from_disk": 285,
-    "subcategories_completed": 28,
-    "final_records_count": 560,
-    "duplicates_detected": 0,
-    "lost_records_detected": 0,
-    "atomic_swap_passed": true
-  },
-  "verification_result": "100% PASS - ZERO LOSS, ZERO DUPLICATES, FULL ATOMIC COMMIT"
+  "pre_commit_invariants_passed": true,
+  "atomic_swap_passed": true,
+  "verification_conclusion": "PACKAGED_RESPONSE_REPLAY_RECOVERY_TEST PASSED"
 }

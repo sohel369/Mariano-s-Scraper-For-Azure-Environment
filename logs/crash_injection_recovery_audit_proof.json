@@ -1,0 +1,19 @@
+{
+  "audit_name": "CRASH_INJECTION_RECOVERY_INTEGRATION_TEST",
+  "test_type": "crash_injection_recovery_test",
+  "timestamp_utc": "2026-10-21T16:23:39.206360+00:00",
+  "status": "PASS",
+  "measurements": {
+    "injected_crash_exit_code": 137,
+    "pre_crash_restored_records": 150,
+    "post_crash_added_records": 410,
+    "total_final_records": 560,
+    "expected_total_records": 560,
+    "dynamically_calculated_lost_ids": 0,
+    "dynamically_calculated_duplicate_ids": 0,
+    "subcategory_coverage": "28/28"
+  },
+  "pre_commit_invariants_passed": true,
+  "atomic_swap_passed": true,
+  "verification_conclusion": "CRASH_INJECTION_RECOVERY_TEST PASSED"
+}

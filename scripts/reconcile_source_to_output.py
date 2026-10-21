@@ -52,10 +52,13 @@ def run_reconciliation():
     
     logger.info(f"Loaded {len(output_records)} production output records from {output_path}")
 
-    # Build output lookup map by UPC and title
+    # Build output lookup map by UPC and title, with strict duplicate detection
     output_map = {}
+    output_duplicates = []
     for r in output_records:
         key = r.get("upc") or r.get("product_title")
+        if key in output_map:
+            output_duplicates.append(key)
         output_map[key] = r
 
     # 2. Ingest 28 Category Raw Responses
@@ -115,21 +118,52 @@ def run_reconciliation():
         for p in products:
             p["_category"] = cat_name
             p["_sub_category"] = subcat_name
+            p["_metadata"] = meta
+            p["_response_file"] = rf
             raw_items_list.append(p)
 
     # 3. Source-to-Output Deep Field-Level Reconciliation
     print(f"\n[STEP 2/3] SOURCE-TO-OUTPUT DEEP 22-FIELD LINEAGE RECONCILIATION:")
     reconciled_count = 0
-    field_level_checks_passed = 0
     mismatches = []
-    
+
+    # Check for duplicate output records
+    if output_duplicates:
+        mismatches.append(f"CRITICAL: Found {len(output_duplicates)} duplicate keys in output deliverable: {output_duplicates[:5]}")
+
+    # Check for duplicate raw items
+    raw_keys_seen = set()
+    raw_duplicates = []
+    for p in raw_items_list:
+        k = p.get("upc") or p.get("name")
+        if k in raw_keys_seen:
+            raw_duplicates.append(k)
+        raw_keys_seen.add(k)
+
+    if raw_duplicates:
+        mismatches.append(f"CRITICAL: Found {len(raw_duplicates)} duplicate keys in raw source responses: {raw_duplicates[:5]}")
+
+    # Bidirectional Mapping:
+    # 1. Output -> Raw: ensure every item in output exists in raw
+    raw_keys_map = {p.get("upc") or p.get("name"): p for p in raw_items_list if (p.get("upc") or p.get("name"))}
+    extra_output_records = []
+    for out_r in output_records:
+        k = out_r.get("upc") or out_r.get("product_title")
+        if k not in raw_keys_map:
+            extra_output_records.append(k)
+
+    if extra_output_records:
+        mismatches.append(f"CRITICAL: Extra output record not backed by source raw responses ({len(extra_output_records)} items): {extra_output_records[:5]}")
+
+    if len(output_records) != total_raw_items:
+        mismatches.append(f"CRITICAL: Output record count ({len(output_records)}) does not equal raw source items count ({total_raw_items})")
+
     # Provenance tracking
     provenance_summary = {
-        "verified_server_capture": 0,
-        "fresh_live": 0,
-        "historical": 0,
-        "carried_forward": 0,
-        "fixture": 0
+        "verified_server_replay": 0,
+        "fresh_live_capture": 0,
+        "carried_forward_historical": 0,
+        "synthetic_fixture": 0
     }
 
     field_coverage = {
@@ -278,14 +312,27 @@ def run_reconciliation():
 
         # 8. Media and URLs
         if out_item.get("image_url") != raw_item.get("image", ""):
-            item_mismatches.append(f"Image URL mismatch for {key}")
+            item_mismatches.append(f"Image URL mismatch for {key}: expected '{raw_item.get('image', '')}', got '{out_item.get('image_url')}'")
         else:
             field_coverage["image_url"] += 1
 
-        if out_item.get("url") != raw_item.get("canonicalUrl", "") and raw_item.get("canonicalUrl", "") not in out_item.get("url", ""):
-            item_mismatches.append(f"URL mismatch for {key}")
+        raw_canon = str(raw_item.get("canonicalUrl") or raw_item.get("productUrl") or raw_item.get("url") or "")
+        if raw_canon and not raw_canon.startswith("http"):
+            expected_canonical = f"https://www.marianos.com{raw_canon}"
         else:
-            field_coverage["url"] += 1
+            expected_canonical = raw_canon
+
+        out_url = out_item.get("url", "")
+        if expected_canonical != "":
+            if out_url != expected_canonical:
+                item_mismatches.append(f"URL mismatch for {key}: expected '{expected_canonical}', got '{out_url}'")
+            else:
+                field_coverage["url"] += 1
+        else:
+            if out_url != "":
+                item_mismatches.append(f"URL mismatch for {key}: expected empty string, got '{out_url}'")
+            else:
+                field_coverage["url"] += 1
 
         # 9. Reserved empty fields compliance
         if out_item.get("gupc") != "":
@@ -307,21 +354,26 @@ def run_reconciliation():
             field_coverage["ppm"] += 1
 
         # 11. Crawl date
-        if not out_item.get("crawl_date"):
-            item_mismatches.append(f"crawl_date missing for {key}")
+        import re
+        crawl_date_val = out_item.get("crawl_date", "")
+        if not crawl_date_val or not re.match(r'^\d{4}-\d{2}-\d{2}$', crawl_date_val):
+            item_mismatches.append(f"crawl_date format mismatch for {key}: expected YYYY-MM-DD, got '{crawl_date_val}'")
         else:
             field_coverage["crawl_date"] += 1
 
         # STRICT RECONCILIATION GATE: Only count as reconciled if ZERO field mismatches occurred
         if len(item_mismatches) == 0:
             reconciled_count += 1
-            prov_type = meta.get("execution_mode") or meta.get("provenance_type") or "verified_retailer_response"
+            item_meta = raw_item.get("_metadata", {})
+            prov_type = item_meta.get("execution_mode") or item_meta.get("provenance_type") or "verified_server_replay"
             if prov_type in ("fresh_live", "live"):
-                provenance_summary["fresh_live"] += 1
+                provenance_summary["fresh_live_capture"] += 1
             elif "carried_forward" in str(prov_type):
-                provenance_summary["carried_forward"] += 1
+                provenance_summary["carried_forward_historical"] += 1
+            elif "fixture" in str(prov_type):
+                provenance_summary["synthetic_fixture"] += 1
             else:
-                provenance_summary["verified_server_capture"] += 1
+                provenance_summary["verified_server_replay"] += 1
         else:
             mismatches.extend(item_mismatches)
 
@@ -347,10 +399,10 @@ def run_reconciliation():
     print(f"  • Extra Unbacked Output Records:      {len(extra_output_records)}")
     print(f"  • Field Mismatches Detected:          {len(mismatches)}")
     print(f"\n  [PROVENANCE TYPE BREAKDOWN]")
-    print(f"    - Verified Server Response Captures: {provenance_summary['verified_server_capture']}")
-    print(f"    - Fresh Live Retailer Captures:     {provenance_summary['fresh_live']}")
-    print(f"    - Carried Forward (Checkpoint):     {provenance_summary['carried_forward']}")
-    print(f"    - Synthetic Fixtures:               {provenance_summary['fixture']} (Strictly 0 in Production)")
+    print(f"    - Verified Server Replay Captures:  {provenance_summary['verified_server_replay']}")
+    print(f"    - Fresh Live Retailer Captures:     {provenance_summary['fresh_live_capture']}")
+    print(f"    - Carried Forward Historical:       {provenance_summary['carried_forward_historical']}")
+    print(f"    - Synthetic Fixtures:               {provenance_summary['synthetic_fixture']} (Strictly 0 in Production)")
 
     # 4. Required Schema & Rules Audit
     required_fields = config_loader.load_settings().get("required_json_fields", [])
