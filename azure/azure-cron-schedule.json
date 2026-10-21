@@ -6,7 +6,7 @@
       "type": "String",
       "defaultValue": "00000000-0000-0000-0000-000000000000",
       "metadata": {
-        "description": "Azure Subscription ID for Mariano's Production Pipeline"
+        "description": "Azure Subscription ID for Mariano's Production Pipeline (Overridden at deployment time by azure-deploy.ps1 via active subscription context)"
       }
     },
     "resourceGroup": {

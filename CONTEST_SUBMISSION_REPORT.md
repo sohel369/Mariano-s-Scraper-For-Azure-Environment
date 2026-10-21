@@ -5,8 +5,10 @@
 **Assigned Location:** Mariano's New Eastside (ZIP: `60601`)  
 **Store ID Reconciliation:** Full Kroger Location ID: `53100503` (Division: `531`, Store Number: `00503`)  
 **Physical Address:** 333 E Benton Pl, Chicago, IL 60601  
-**Source Package Version:** `v1.2.0-marianos-azure`  
-**Dataset Deliverable:** `data/output/marianos_contest_submission_500_records.json` (560 Valid Records)  
+**Source Package Version:** `v2.0-PROD (Authoritative Release for Mariano's Entry #36)`  
+**Contest Deliverable (Exact 500 Records):** data/output/marianos_contest_submission_500_records.json (Exact 500 Valid Records across 28 subcategories)  
+**Full Catalog Deliverable (560 Records):** data/output/marianos_scraped_data_store_53100503_full_catalog.json (560 Valid Records)  
+**Reconciliation Audit Report:** logs/source_to_output_reconciliation_audit.json  
 **Audit Statistics:** `data/output/marianos_audit_statistics.json`  
 **Raw Source Evidence:** `data/raw/marianos_raw_store_53100503_evidence.json`  
 **Collection Logs:** `data/logs/marianos_collection_store_53100503.log`  
@@ -20,7 +22,7 @@ In response to technical audit feedback for Entry #36, the following architectur
 3. **Response Payload Store & Fulfillment Validation:** Store selection (`53100503`) and fulfillment modality (`PICKUP`) are validated directly from incoming server response payloads (`storeLookup` and `modalityContext` GraphQL/JSON endpoints), not merely from cookie injection.
 4. **Bulk & Multipack Preservation:** Confirmed that bulk, family, and multipack items retain their genuine identity and weight (e.g. `12-pack`, `Family Size`, `4 lb Bag`), while ensuring pack labels alone never populate `volume_deals_description` unless tied to a qualifying multi-buy discount (`2 for $5`, `BOGO`).
 5. **Clear Separation of Test Fixtures vs. Live Scraper:** Explicitly labeled synthetic test scripts (`scripts/build_verified_dataset.py`, `scripts/generate_raw_evidence.py`) as offline CI/CD test fixtures, distinguishing them from the live Playwright collector (`src/scraper.py`, `scripts/run_scraper.py`).
-6. **Production Resilience & Azure Readiness:** Bi-weekly scheduled execution via Azure Logic Apps with atomic dataset protection (<500 records or <80% categories strictly refused).
+6. **Production Resilience & Azure Readiness:** Bi-weekly scheduled execution via Azure Logic Apps with atomic dataset protection (<500 records or incomplete subcategories strictly refused; 100% CSV coverage enforced).
 
 ---
 
@@ -164,7 +166,7 @@ py scripts/reproduce_observed_run.py --live --zipcode 60601
 py scripts/demonstrate_safety_and_recovery.py
 ```
 
-### D. Automated Unit Test Suite (13 passing tests):
+### D. Automated Unit Test Suite (18 passing tests):
 ```powershell
 py -m pytest tests/
 ```

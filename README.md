@@ -63,10 +63,14 @@ marianos-scraper-azure/
 │   ├── storage_manager.py         # Atomic dataset swap & statistics
 │   └── scraper.py                 # Core scraping orchestrator
 ├── scripts/
-│   ├── run_scraper.py             # CLI runner
-│   ├── validate_dataset.py        # 100% compliance audit tool
-│   ├── build_verified_dataset.py  # 560 verified records generator
-│   ├── generate_raw_evidence.py   # Raw Store 531 evidence generator
+│   ├── run_scraper.py             # CLI runner (unbounded pagination, live store verification)
+│   ├── validate_dataset.py        # Official 22-field compliance audit tool (0 nulls, strict schema)
+│   ├── reconcile_source_to_output.py # Source-to-output 22-field lineage audit (560/560 verified, 0 mismatches)
+│   ├── verify_checkpoint_integrity.py # Interruption & deduplicated row restoration verification
+│   ├── verify_store_identity.py   # Response-based store identity & PICKUP modality verification (--live supported)
+│   ├── diagnose_akamai_block.py   # Low-level TCP/TLS edge diagnostic for Akamai Bot Manager behavior
+│   ├── build_verified_dataset.py  # Verified catalog builder
+│   ├── generate_raw_evidence.py   # Raw Store 53100503 API payload evidence generator
 │   └── reproduce_observed_run.py  # Turnkey observed run reproduction script
 ├── tests/
 │   ├── test_models.py             # Schema & field order tests
@@ -95,21 +99,31 @@ playwright install chromium
 ```
 
 ### 2. Run Automated Test Suite
-Verify that all 13 unit tests pass:
+Verify that all 18 unit tests pass:
 ```powershell
 py -m pytest tests/
 ```
 
-### 3. Fast Observed Compliance Audit & Schema Verification
+### 3. Production Verification & Audit Commands
 ```powershell
-# Fast compliance audit of 560 verified records against GS1 UPCs & 28 subcategories:
-py scripts/reproduce_observed_run.py
-
-# Interruption recovery & atomic dataset commit safety demonstration:
-py scripts/demonstrate_safety_and_recovery.py
-
-# Official 22-field schema validator:
+# 1. Official 22-field schema validator on exact 500-record demo file:
 py scripts/validate_dataset.py data/output/marianos_contest_submission_500_records.json
+
+# 2. Official 22-field schema validator on full 560-record catalog:
+py scripts/validate_dataset.py data/output/marianos_scraped_data_store_53100503_full_catalog.json
+
+# 3. Source-to-Output Lineage Audit (100% 22-field match, 0 mismatches, 0 fallbacks):
+py scripts/reconcile_source_to_output.py
+
+# 4. Checkpoint Interruption & Deduplicated Row Restoration Audit:
+py scripts/verify_checkpoint_integrity.py
+
+# 5. Store Identity & PICKUP Modality Verification (Payload & Live network probe):
+py scripts/verify_store_identity.py
+py scripts/verify_store_identity.py --live
+
+# 6. Akamai Bot Manager Edge Network Diagnostic:
+py scripts/diagnose_akamai_block.py
 ```
 
 ### 4. Live Fresh Scraper Execution

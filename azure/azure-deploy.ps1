@@ -88,10 +88,27 @@ az container create `
 Write-Host "=== 7. Deploying Bi-Weekly Logic App Trigger Workflow ===" -ForegroundColor Cyan
 $SubId = (az account show --query id --output tsv)
 
+# Create Logic App with parameter overrides for current Azure subscription & resource group
+$LogicAppParams = @{
+    subscriptionId = @{ value = $SubId }
+    resourceGroup = @{ value = $ResourceGroup }
+    containerGroupName = @{ value = $AciName }
+} | ConvertTo-Json -Compress
+
 az logic workflow create `
   --resource-group $ResourceGroup `
   --location $Location `
   --name "logic-marianos-cron-trigger" `
   --definition "azure/azure-cron-schedule.json"
+
+# Assign Managed Identity permissions to allow Logic App to trigger Container Group Start
+$LogicAppPrincipalId = (az logic workflow show --resource-group $ResourceGroup --name "logic-marianos-cron-trigger" --query "identity.principalId" --output tsv 2>$null)
+if ($LogicAppPrincipalId) {
+    az role assignment create `
+      --assignee-object-id $LogicAppPrincipalId `
+      --role "Contributor" `
+      --scope "/subscriptions/$SubId/resourceGroups/$ResourceGroup/providers/Microsoft.ContainerInstance/containerGroups/$AciName" `
+      --assignee-principal-type ServicePrincipal
+}
 
 Write-Host "=== Deployment Succeeded! Mariano's container job, storage blob container, and bi-weekly schedule active in Azure. ===" -ForegroundColor Green

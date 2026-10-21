@@ -36,7 +36,13 @@ def run_reconciliation():
     parser = MarianoPageParser(normalizer)
 
     # 1. Load Deliverable Output Dataset
-    output_path = os.path.join(base_dir, "data", "output", "marianos_contest_submission_500_records.json")
+    full_catalog_path = os.path.join(base_dir, "data", "output", "marianos_scraped_data_store_53100503_full_catalog.json")
+    demo_500_path = os.path.join(base_dir, "data", "output", "marianos_contest_submission_500_records.json")
+    output_path = full_catalog_path if os.path.exists(full_catalog_path) else demo_500_path
+
+    if len(sys.argv) > 1 and os.path.exists(sys.argv[1]):
+        output_path = sys.argv[1]
+
     if not os.path.exists(output_path):
         logger.error(f"Deliverable output dataset not found at {output_path}")
         return 1
@@ -77,9 +83,17 @@ def run_reconciliation():
         raw_store_resp = resp_payload.get("raw_store_lookup_response", {})
         products = resp_payload.get("data", {}).get("products", [])
 
-        # Validate store fulfillment from actual response payload
-        validation_result = parser.validate_store_fulfillment_response(raw_store_resp, expected_store_id="53100503")
-        is_valid_store = bool(validation_result.get("verified_store_id") == "53100503")
+        # Validate store fulfillment from actual response payload - STRICT GATE
+        try:
+            validation_result = parser.validate_store_fulfillment_response(raw_store_resp, expected_store_id="53100503")
+            is_valid_store = bool(validation_result.get("verified_store_id") == "53100503")
+        except Exception as e:
+            logger.error(f"FATAL: Store fulfillment validation failed for {rf}: {e}")
+            return 1
+
+        if not is_valid_store:
+            logger.error(f"FATAL: Response {rf} failed expected Store #53100503 validation!")
+            return 1
 
         cat_name = meta.get("category", "")
         subcat_name = meta.get("sub_category", "")
@@ -135,41 +149,63 @@ def run_reconciliation():
             mismatches.append(f"Missing from output: {title} (UPC: {upc})")
             continue
 
+        item_mismatches = []
+
         # 1. Product title & UPC lineage
         if out_item.get("product_title") != title:
-            mismatches.append(f"Title mismatch for {upc}: '{out_item.get('product_title')}' != '{title}'")
+            item_mismatches.append(f"Title mismatch for {upc}: '{out_item.get('product_title')}' != '{title}'")
         else:
             field_coverage["product_title"] += 1
 
         if upc and out_item.get("upc") != upc:
-            mismatches.append(f"UPC mismatch for {title}: '{out_item.get('upc')}' != '{upc}'")
+            item_mismatches.append(f"UPC mismatch for {title}: '{out_item.get('upc')}' != '{upc}'")
         else:
             field_coverage["upc"] += 1
 
         # 2. Store and Location Context lineage
-        if out_item.get("zipcode") == "60601":
+        if out_item.get("zipcode") != "60601":
+            item_mismatches.append(f"Zipcode mismatch for {key}: expected '60601', got '{out_item.get('zipcode')}'")
+        else:
             field_coverage["zipcode"] += 1
-        if out_item.get("store_name") == "Mariano's New Eastside":
+
+        if out_item.get("store_name") != "Mariano's New Eastside":
+            item_mismatches.append(f"Store name mismatch for {key}: expected \"Mariano's New Eastside\", got '{out_item.get('store_name')}'")
+        else:
             field_coverage["store_name"] += 1
-        if "333 E Benton Pl" in out_item.get("store_location", ""):
+
+        if "333 E Benton Pl" not in out_item.get("store_location", ""):
+            item_mismatches.append(f"Store location mismatch for {key}: expected '333 E Benton Pl', got '{out_item.get('store_location')}'")
+        else:
             field_coverage["store_location"] += 1
-        if "marianos-logo" in out_item.get("store_logo", ""):
+
+        if "marianos-logo" not in out_item.get("store_logo", "") and "marianos" not in out_item.get("store_logo", ""):
+            item_mismatches.append(f"Store logo mismatch for {key}: '{out_item.get('store_logo')}'")
+        else:
             field_coverage["store_logo"] += 1
 
         # 3. Category & Subcategory taxonomy lineage
-        if out_item.get("category") == raw_item.get("_category"):
+        if out_item.get("category") != raw_item.get("_category"):
+            item_mismatches.append(f"Category mismatch for {key}: expected '{raw_item.get('_category')}', got '{out_item.get('category')}'")
+        else:
             field_coverage["category"] += 1
-        if out_item.get("sub_category") == raw_item.get("_sub_category"):
+
+        if out_item.get("sub_category") != raw_item.get("_sub_category"):
+            item_mismatches.append(f"Subcategory mismatch for {key}: expected '{raw_item.get('_sub_category')}', got '{out_item.get('sub_category')}'")
+        else:
             field_coverage["sub_category"] += 1
 
         # 4. Brand & Store Brand lineage
         expected_store_brand = normalizer.is_store_private_brand(title, raw_item.get("brand", ""))
-        if out_item.get("store_brand") == expected_store_brand:
+        if out_item.get("store_brand") != expected_store_brand:
+            item_mismatches.append(f"Store brand mismatch for {key}: expected '{expected_store_brand}', got '{out_item.get('store_brand')}'")
+        else:
             field_coverage["store_brand"] += 1
 
         # 5. Weight derivation lineage
         raw_weight = raw_item.get("packageInfo", {}).get("weight") or parser.extract_weight_from_title(title)
-        if out_item.get("weight") == raw_weight or (not raw_weight and out_item.get("weight") == ""):
+        if out_item.get("weight") != raw_weight and not (not raw_weight and out_item.get("weight") == ""):
+            item_mismatches.append(f"Weight mismatch for {key}: expected '{raw_weight}', got '{out_item.get('weight')}'")
+        else:
             field_coverage["weight"] += 1
 
         # 6. Pricing derivation lineage
@@ -188,47 +224,77 @@ def run_reconciliation():
             exp_reg = cleaned_curr
             exp_sale = ""
 
-        if out_item.get("regular_price") == exp_reg:
+        if out_item.get("regular_price") != exp_reg:
+            item_mismatches.append(f"Regular price mismatch for {key}: expected '{exp_reg}', got '{out_item.get('regular_price')}'")
+        else:
             field_coverage["regular_price"] += 1
-        if out_item.get("sale_price") == exp_sale:
+
+        if out_item.get("sale_price") != exp_sale:
+            item_mismatches.append(f"Sale price mismatch for {key}: expected '{exp_sale}', got '{out_item.get('sale_price')}'")
+        else:
             field_coverage["sale_price"] += 1
 
         # 7. Deals and Promotions lineage
         promo_info = raw_item.get("promotions") or {}
         exp_vol_deal = promo_info.get("volumeDeal", "")
         exp_dig_deal = promo_info.get("digitalCoupon", "")
-        if out_item.get("volume_deals_description") == exp_vol_deal or (not exp_vol_deal and out_item.get("volume_deals_description") == ""):
+
+        if out_item.get("volume_deals_description") != exp_vol_deal and not (not exp_vol_deal and out_item.get("volume_deals_description") == ""):
+            item_mismatches.append(f"Volume deal mismatch for {key}: expected '{exp_vol_deal}', got '{out_item.get('volume_deals_description')}'")
+        else:
             field_coverage["volume_deals_description"] += 1
+
         field_coverage["volume_deals_price"] += 1
-        if out_item.get("digital_deals_description") == exp_dig_deal or (not exp_dig_deal and out_item.get("digital_deals_description") == ""):
+
+        if out_item.get("digital_deals_description") != exp_dig_deal and not (not exp_dig_deal and out_item.get("digital_deals_description") == ""):
+            item_mismatches.append(f"Digital deal mismatch for {key}: expected '{exp_dig_deal}', got '{out_item.get('digital_deals_description')}'")
+        else:
             field_coverage["digital_deals_description"] += 1
+
         field_coverage["digital_deals_price"] += 1
 
         # 8. Media and URLs
-        if out_item.get("image_url") == raw_item.get("image", ""):
+        if out_item.get("image_url") != raw_item.get("image", ""):
+            item_mismatches.append(f"Image URL mismatch for {key}")
+        else:
             field_coverage["image_url"] += 1
-        if out_item.get("url") == raw_item.get("canonicalUrl", "") or raw_item.get("canonicalUrl", "") in out_item.get("url", ""):
+
+        if out_item.get("url") != raw_item.get("canonicalUrl", "") and raw_item.get("canonicalUrl", "") not in out_item.get("url", ""):
+            item_mismatches.append(f"URL mismatch for {key}")
+        else:
             field_coverage["url"] += 1
 
         # 9. Reserved empty fields compliance
-        if out_item.get("gupc") == "":
+        if out_item.get("gupc") != "":
+            item_mismatches.append(f"gupc must be empty string, got '{out_item.get('gupc')}'")
+        else:
             field_coverage["gupc"] += 1
-        if out_item.get("unit_price") == "":
+
+        if out_item.get("unit_price") != "":
+            item_mismatches.append(f"unit_price must be empty string, got '{out_item.get('unit_price')}'")
+        else:
             field_coverage["unit_price"] += 1
 
         # 10. PPM (Price Per Measure) Scraped Value Lineage
         unit_obj = price_info.get("unitPrice") or {}
         raw_ppm_val = raw_item.get("ppm") or unit_obj.get("priceString") or ""
-        if out_item.get("ppm") == raw_ppm_val:
+        if out_item.get("ppm") != raw_ppm_val:
+            item_mismatches.append(f"PPM mismatch for {key}: expected '{raw_ppm_val}', got '{out_item.get('ppm')}'")
+        else:
             field_coverage["ppm"] += 1
 
         # 11. Crawl date
-        if out_item.get("crawl_date"):
+        if not out_item.get("crawl_date"):
+            item_mismatches.append(f"crawl_date missing for {key}")
+        else:
             field_coverage["crawl_date"] += 1
 
-        # Provenance attribution
-        provenance_summary["fresh_live"] += 1
-        reconciled_count += 1
+        # STRICT RECONCILIATION GATE: Only count as reconciled if ZERO field mismatches occurred
+        if len(item_mismatches) == 0:
+            reconciled_count += 1
+            provenance_summary["fresh_live"] += 1
+        else:
+            mismatches.extend(item_mismatches)
 
     match_percentage = round((reconciled_count / total_raw_items) * 100, 2) if total_raw_items else 0
     print(f"  • Total Raw Source Items Processed:   {total_raw_items}")
