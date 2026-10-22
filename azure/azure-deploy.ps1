@@ -1,7 +1,7 @@
 # ==============================================================================
 # Mariano's Scraper Microsoft Azure PowerShell Deployment Script
 # Automatically builds, deploys, provisions Storage & RBAC Managed Identity,
-# and configures bi-weekly execution in Azure Container Instances & Logic Apps
+# and configures twice-per-week execution in Azure Container Instances & Logic Apps
 # ==============================================================================
 
 param(
@@ -85,7 +85,7 @@ az container create `
       AZURE_STORAGE_CONNECTION_STRING="$StorageConnString" `
       AZURE_STORAGE_CONTAINER="$ContainerName"
 
-Write-Host "=== 7. Deploying Bi-Weekly Logic App Trigger Workflow ===" -ForegroundColor Cyan
+Write-Host "=== 7. Deploying Twice-Per-Week Logic App Trigger Workflow ===" -ForegroundColor Cyan
 $SubId = (az account show --query id --output tsv)
 
 # Create Logic App with parameter overrides for current Azure subscription & resource group
@@ -111,4 +111,4 @@ if ($LogicAppPrincipalId) {
       --assignee-principal-type ServicePrincipal
 }
 
-Write-Host "=== Deployment Succeeded! Mariano's container job, storage blob container, and bi-weekly schedule active in Azure. ===" -ForegroundColor Green
+Write-Host "=== Deployment Succeeded! Mariano's container job, storage blob container, and twice-per-week schedule (Sunday & Wednesday 04:00 UTC) active in Azure. ===" -ForegroundColor Green

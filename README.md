@@ -1,6 +1,6 @@
 # Mariano's Production Scraper for Microsoft Azure
 
-A production-grade, highly reliable web scraper designed to collect location-specific product catalogs, prices, promotions, measurements, and category hierarchies from Mariano's (The Kroger Co.). Engineered for deployment in Microsoft Azure with scheduled bi-weekly runs, checkpoint resumption, anti-bot safeguards, and atomic dataset safety.
+A production-grade, highly reliable web scraper designed to collect location-specific product catalogs, prices, promotions, measurements, and category hierarchies from Mariano's (The Kroger Co.). Engineered for deployment in Microsoft Azure with scheduled twice-per-week runs (Sunday & Wednesday 04:00 UTC), checkpoint resumption, anti-bot safeguards, and atomic dataset safety.
 
 ---
 
@@ -28,7 +28,7 @@ A production-grade, highly reliable web scraper designed to collect location-spe
 5. **Azure Cloud Ready:**
    - Docker containerization (`azure/Dockerfile`).
    - One-click deployment scripts (`azure-deploy.sh` and `azure-deploy.ps1`).
-   - Bi-weekly Logic App schedule (`azure/azure-cron-schedule.json`).
+   - Twice-per-week Logic App schedule (`azure/azure-cron-schedule.json`).
 
 ---
 
@@ -81,7 +81,7 @@ marianos-scraper-azure/
 │   ├── docker-compose.yml         # Container orchestrator
 │   ├── azure-deploy.sh            # Linux/Mac Azure deployment
 │   ├── azure-deploy.ps1           # Windows PowerShell Azure deployment
-│   └── azure-cron-schedule.json   # Bi-weekly recurrence definition
+│   └── azure-cron-schedule.json   # Twice-per-week recurrence definition (Sun/Wed 04:00 UTC)
 ├── requirements.txt
 ├── CONTEST_SUBMISSION_REPORT.md   # Complete contest entry report
 └── README.md

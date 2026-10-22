@@ -1,173 +1,384 @@
+
 import os
 import json
 import time
 import random
 import logging
 import hashlib
+
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional
-from playwright.sync_api import sync_playwright, Browser, BrowserContext, Page, Response
+from urllib.parse import quote
 
-try:
-    from playwright_stealth import Stealth
-    _stealth_instance = Stealth()
-    def apply_stealth(page: Page) -> None:
-        _stealth_instance.apply_stealth_sync(page)
-except Exception:
-    def apply_stealth(page: Page) -> None:
-        pass
+from playwright.sync_api import (
+    sync_playwright,
+    Browser,
+    BrowserContext,
+    Page,
+    Response,
+    Error as PlaywrightError,
+)
 
 logger = logging.getLogger("MarianoScraper.BrowserEngine")
 
+
+def utc_now() -> str:
+    """Return the current UTC timestamp."""
+    return datetime.now(timezone.utc).isoformat()
+
+
+def sha256_bytes(data: bytes) -> str:
+    """Calculate SHA-256 for the supplied bytes."""
+    return hashlib.sha256(data).hexdigest()
+
+
+def safe_response_headers(
+    headers: Dict[str, str],
+) -> Dict[str, str]:
+    """Exclude common credential-bearing headers from evidence."""
+    sensitive_headers = {
+        "set-cookie",
+        "authorization",
+        "proxy-authorization",
+        "www-authenticate",
+    }
+
+    return {
+        str(key): str(value)
+        for key, value in headers.items()
+        if str(key).lower() not in sensitive_headers
+    }
+
+
+def extract_store_ids(payload: Any) -> set:
+    """
+    Extract explicit store identity fields from a JSON payload.
+    Generic 'id' fields are intentionally ignored.
+    """
+    identity_keys = {
+        "locationid",
+        "storeid",
+        "fulfillmentstoreid",
+        "store_id",
+        "location_id",
+        "fulfillment_store_id",
+    }
+
+    found = set()
+
+    def walk(value: Any) -> None:
+        if isinstance(value, dict):
+            for key, child in value.items():
+                if str(key).lower() in identity_keys:
+                    if isinstance(child, (str, int)):
+                        found.add(str(child))
+                walk(child)
+
+        elif isinstance(value, list):
+            for child in value:
+                walk(child)
+
+    walk(payload)
+    return found
+
+
 class BrowserEngine:
     """
-    Manages Playwright browser instances, anti-detect stealth capabilities,
-    store location context selection, and fulfillment state verification for Mariano's.
+    Playwright browser engine for retailer page collection.
+
+    Network failures are raised rather than silently replaced with
+    cached, historical, or fabricated responses.
     """
 
-    def __init__(self, settings: Dict[str, Any], proxy_config: Optional[Dict[str, Any]] = None):
+    def __init__(
+        self,
+        settings: Dict[str, Any],
+        proxy_config: Optional[Dict[str, Any]] = None,
+    ):
         self.settings = settings.get("scraping", {})
         self.proxy_config = proxy_config or {}
-        self.headless = self.settings.get("headless", True)
-        self.page_timeout = self.settings.get("page_timeout_ms", 45000)
-        self.min_delay = self.settings.get("request_delay_min_seconds", 2.0)
-        self.max_delay = self.settings.get("request_delay_max_seconds", 4.5)
+
+        self.headless = bool(
+            self.settings.get("headless", True)
+        )
+
+        self.page_timeout = int(
+            self.settings.get("page_timeout_ms", 45000)
+        )
+
+        self.store_lookup_timeout = int(
+            self.settings.get("store_lookup_timeout_ms", 15000)
+        )
+
+        self.min_delay = float(
+            self.settings.get("request_delay_min_seconds", 2.0)
+        )
+
+        self.max_delay = float(
+            self.settings.get("request_delay_max_seconds", 4.5)
+        )
+
+        if self.page_timeout <= 0:
+            raise ValueError("page_timeout_ms must be positive")
+
+        if self.store_lookup_timeout <= 0:
+            raise ValueError(
+                "store_lookup_timeout_ms must be positive"
+            )
+
+        if self.min_delay < 0 or self.max_delay < self.min_delay:
+            raise ValueError("Invalid request delay configuration")
 
         self._playwright = None
         self._browser: Optional[Browser] = None
         self._context: Optional[BrowserContext] = None
 
     def start(self) -> None:
-        """Starts Playwright and initializes browser context with stealth."""
-        if self._playwright is None:
+        """Start Playwright and create a browser context."""
+        if self._context is not None:
+            return
+
+        try:
             self._playwright = sync_playwright().start()
 
-        launch_args = [
-            "--disable-blink-features=AutomationControlled",
-            "--no-sandbox",
-            "--disable-setuid-sandbox",
-            "--disable-infobars",
-            "--window-position=0,0",
-            "--ignore-certifcate-errors",
-            "--ignore-certifcate-errors-spki-list",
-            "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        ]
+            launch_options: Dict[str, Any] = {
+                "headless": self.headless,
+            }
 
-        proxy_args = None
-        if self.proxy_config.get("enabled"):
-            server = self.proxy_config.get("http_proxy") or self.proxy_config.get("https_proxy")
-            if server:
-                proxy_args = {"server": server}
-                logger.info(f"Using proxy: {server.split('@')[-1] if '@' in server else server}")
+            if self.proxy_config.get("enabled"):
+                server = (
+                    self.proxy_config.get("http_proxy")
+                    or self.proxy_config.get("https_proxy")
+                )
 
-        self._browser = self._playwright.chromium.launch(
-            headless=self.headless,
-            args=launch_args,
-            proxy=proxy_args
-        )
+                if not server:
+                    raise ValueError(
+                        "Proxy is enabled but no proxy server is configured"
+                    )
 
-        self._context = self._browser.new_context(
-            viewport={"width": 1366, "height": 768},
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-            locale="en-US",
-            timezone_id="America/Chicago"
-        )
+                launch_options["proxy"] = {"server": server}
 
-    def set_store_location(self, location: Dict[str, Any]) -> None:
+            self._browser = self._playwright.chromium.launch(
+                **launch_options
+            )
+
+            self._context = self._browser.new_context(
+                viewport={"width": 1366, "height": 768},
+                user_agent=self.settings.get(
+                    "user_agent",
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/124.0.0.0 Safari/537.36",
+                ),
+                locale="en-US",
+                timezone_id="America/Chicago",
+            )
+
+            self._context.set_default_timeout(self.page_timeout)
+
+            logger.info("Browser context started")
+
+        except Exception:
+            logger.exception("Failed to start browser engine")
+            self.close()
+            raise
+
+    def set_store_location(
+        self,
+        location: Dict[str, Any],
+    ) -> None:
         """
-        Configures store and fulfillment context (Store ID, ZIP code, Pickup intent)
-        in browser cookies and local storage so that Mariano's in-store pricing is loaded.
+        Configure the requested store context.
+
+        Cookies express a requested context; they do not independently
+        prove that the retailer accepted that store selection.
         """
-        if not self._context:
-            return
+        if self._context is None:
+            self.start()
+
+        assert self._context is not None
 
         zipcode = str(location.get("zipcode", "60601"))
         division_id = str(location.get("division_id", "531"))
         store_number = str(location.get("store_number", "00503"))
         store_id = str(location.get("store_id", "53100503"))
-        
-        # Inject standard Mariano's / Kroger store context cookies
+
+        modality_value = json.dumps(
+            {
+                "intent": "PICKUP",
+                "postalCode": zipcode,
+                "divisionNumber": division_id,
+                "storeNumber": store_number,
+            },
+            separators=(",", ":"),
+        )
+
         cookies = [
-            {"name": "postalCode", "value": zipcode, "domain": ".marianos.com", "path": "/"},
-            {"name": "kroger.postalCode", "value": zipcode, "domain": ".marianos.com", "path": "/"},
-            {"name": "kroger.storeId", "value": store_id, "domain": ".marianos.com", "path": "/"},
-            {"name": "storeIntent", "value": "PICKUP", "domain": ".marianos.com", "path": "/"},
+            {
+                "name": "postalCode",
+                "value": zipcode,
+                "domain": ".marianos.com",
+                "path": "/",
+            },
+            {
+                "name": "kroger.postalCode",
+                "value": zipcode,
+                "domain": ".marianos.com",
+                "path": "/",
+            },
+            {
+                "name": "kroger.storeId",
+                "value": store_id,
+                "domain": ".marianos.com",
+                "path": "/",
+            },
+            {
+                "name": "storeIntent",
+                "value": "PICKUP",
+                "domain": ".marianos.com",
+                "path": "/",
+            },
             {
                 "name": "kroger.modality",
-                "value": f'{{"intent":"PICKUP","postalCode":"{zipcode}","divisionNumber":"{division_id}","storeNumber":"{store_number}"}}',
+                "value": modality_value,
                 "domain": ".marianos.com",
-                "path": "/"
-            }
+                "path": "/",
+            },
         ]
+
         try:
             self._context.add_cookies(cookies)
+
             logger.info(
-                f"Mariano's store context verified: Division={division_id}, StoreNum={store_number}, "
-                f"FullStoreID={store_id}, ZIP={zipcode}, Intent=PICKUP"
+                "Requested store context configured: "
+                "division=%s store_number=%s store_id=%s "
+                "zipcode=%s modality=PICKUP",
+                division_id,
+                store_number,
+                store_id,
+                zipcode,
             )
-        except Exception as e:
-            logger.warning(f"Failed to set store context cookies: {e}")
 
-    def fetch_live_store_lookup(self, store_id: str, location_info: Dict[str, Any]) -> Dict[str, Any]:
-        """Fetch and return an actual retailer HTTP response for store verification.
+        except Exception:
+            logger.exception("Failed to configure store context")
+            raise
 
-        No synthetic payload or disk fallback is allowed here. If the endpoint is
-        unavailable, blocked, non-JSON, or returns an unexpected store, the caller
-        must stop the collection run and report the failure.
+    def fetch_live_store_lookup(
+        self,
+        store_id: str,
+        location_info: Dict[str, Any],
+    ) -> Dict[str, Any]:
         """
-        if not self._context:
+        Fetch a live store lookup response and verify store identity.
+
+        Override MARIANOS_STORE_LOOKUP_URL_TEMPLATE if the retailer's
+        documented/current endpoint differs from the default.
+        """
+        if self._context is None:
             self.start()
 
-        # Keep the endpoint configurable because retailer endpoint paths can change.
+        assert self._context is not None
+
+        store_id = str(store_id).strip()
+
+        if not store_id:
+            raise ValueError("store_id must not be empty")
+
         endpoint_template = os.environ.get(
             "MARIANOS_STORE_LOOKUP_URL_TEMPLATE",
-            "https://www.marianos.com/api/v1/locations/{store_id}"
+            "https://www.marianos.com/api/v1/store/"
+            "{store_id}?modality=PICKUP",
         )
-        store_url = endpoint_template.format(store_id=store_id)
-        logger.info("Requesting live store lookup from configured retailer endpoint: %s", store_url)
 
-        timeout_ms = int(self.settings.get("store_lookup_timeout_ms", 12000))
-        response = self._context.request.get(
-            store_url,
-            timeout=timeout_ms,
-            headers={"Accept": "application/json"}
+        store_url = endpoint_template.format(
+            store_id=quote(store_id, safe="")
         )
-        status = response.status
-        response_headers = dict(response.headers)
-        response_bytes = response.body()
-        response_hash = hashlib.sha256(response_bytes).hexdigest()
 
-        if not 200 <= status < 300:
-            raise RuntimeError(
-                f"Live store lookup failed with HTTP {status}; no replay fallback is permitted."
+        logger.info("Requesting store lookup: %s", store_url)
+
+        try:
+            response = self._context.request.get(
+                store_url,
+                timeout=self.store_lookup_timeout,
+                headers={"Accept": "application/json"},
             )
+
+            response_bytes = response.body()
+            response_headers = safe_response_headers(
+                dict(response.headers)
+            )
+
+        except Exception as exc:
+            logger.exception("Store lookup request failed")
+
+            raise RuntimeError(
+                "Store lookup failed before a usable HTTP response "
+                "was received. Check connectivity, endpoint, timeout, "
+                "and retailer access."
+            ) from exc
+
         content_type = response_headers.get("content-type", "")
+
+        response_metadata = {
+            "status_code": response.status,
+            "headers": response_headers,
+            "content_type": content_type,
+            "content_length_bytes": len(response_bytes),
+            "body_sha256": sha256_bytes(response_bytes),
+            "provenance_type": "fresh_live_http_response",
+        }
+
+        if not 200 <= response.status < 300:
+            response_metadata["provenance_type"] = (
+                "live_http_error_response"
+            )
+
+            raise RuntimeError(
+                f"Live store lookup failed with HTTP {response.status}; "
+                "no replay fallback is permitted."
+            )
+
+        # Use Playwright's JSON parser so invalid JSON is rejected.
         try:
             payload = response.json()
         except Exception as exc:
             raise RuntimeError(
-                f"Live store lookup returned non-JSON content (content-type={content_type!r}); refusing to fabricate store data."
+                "Live store lookup returned non-JSON content; "
+                f"content-type={content_type!r}"
             ) from exc
+
         if not isinstance(payload, (dict, list)):
-            raise RuntimeError("Live store lookup JSON must be an object or list; refusing to infer store identity.")
+            raise RuntimeError(
+                "Store lookup JSON must be an object or list"
+            )
+
+        observed_ids = extract_store_ids(payload)
+
+        if not observed_ids:
+            raise RuntimeError(
+                "Store lookup JSON contains no recognized store ID; "
+                "store identity cannot be verified."
+            )
+
+        if store_id not in observed_ids:
+            raise RuntimeError(
+                f"Store identity mismatch: requested {store_id}; "
+                f"observed IDs: {sorted(observed_ids)}"
+            )
+
+        response_metadata["store_identity_verified"] = True
+        response_metadata["observed_store_ids"] = sorted(observed_ids)
 
         return {
             "request_metadata": {
                 "request_url": response.url,
-                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "timestamp": utc_now(),
                 "method": "GET",
-                "requested_store_id": str(store_id),
-                "requested_fulfillment": "PICKUP"
+                "requested_store_id": store_id,
+                "requested_fulfillment": "PICKUP",
             },
-            "response_metadata": {
-                "status_code": status,
-                "headers": response_headers,
-                "content_type": content_type,
-                "content_length_bytes": len(response_bytes),
-                "body_sha256": response_hash,
-                "provenance_type": "fresh_live_http_response"
-            },
-            "raw_store_lookup_response": payload
+            "response_metadata": response_metadata,
+            "raw_store_lookup_response": payload,
         }
 
     def fetch_page_with_provenance(
@@ -175,89 +386,177 @@ class BrowserEngine:
         url: str,
         run_id: str = "",
         category_key: str = "",
-        store_context: Optional[Dict[str, Any]] = None
+        store_context: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """
-        Navigates to URL, captures full HTTP request/response evidence,
-        computes SHA-256 hash of raw response bytes, and returns provenance manifest.
+        Capture a main-document HTTP response and rendered HTML.
+
+        response_body_sha256 hashes HTTP response bytes.
+        rendered_html_sha256 hashes page.content() output.
+        These hashes refer to different artifacts.
         """
-        if not self._context:
+        if self._context is None:
             self.start()
 
+        assert self._context is not None
+
+        if not url.startswith(("https://", "http://")):
+            raise ValueError("url must use HTTP or HTTPS")
+
         delay = random.uniform(self.min_delay, self.max_delay)
-        time.sleep(delay)
+
+        if delay > 0:
+            time.sleep(delay)
 
         page: Page = self._context.new_page()
-        apply_stealth(page)
-
-        response_meta = {
-            "status": 200,
-            "headers": {},
-            "url": url,
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }
-
-        def on_response(response: Response):
-            if response.url.split("?")[0] == url.split("?")[0] or "products" in response.url:
-                response_meta["status"] = response.status
-                response_meta["headers"] = dict(response.headers)
-                response_meta["url"] = response.url
-
-        page.on("response", on_response)
 
         try:
-            logger.info(f"Navigating to {url} (pacing delay: {delay:.2f}s)")
-            main_response = page.goto(url, wait_until="domcontentloaded", timeout=self.page_timeout)
-            if main_response:
-                response_meta["status"] = main_response.status
-                response_meta["headers"] = dict(main_response.headers)
+            logger.info(
+                "Navigating to %s; run_id=%s category=%s",
+                url,
+                run_id,
+                category_key,
+            )
 
-            page.evaluate("window.scrollBy(0, 800)")
-            time.sleep(1.0)
+            main_response: Optional[Response] = page.goto(
+                url,
+                wait_until="domcontentloaded",
+                timeout=self.page_timeout,
+            )
 
-            content = page.content()
-            content_bytes = content.encode("utf-8")
-            sha256_hash = hashlib.sha256(content_bytes).hexdigest()
+            if main_response is None:
+                raise RuntimeError(
+                    f"No main-document HTTP response received: {url}"
+                )
 
-            is_blocked = response_meta["status"] in (403, 429) or "access denied" in content.lower()
+            response_body = main_response.body()
+            response_headers = safe_response_headers(
+                dict(main_response.headers)
+            )
 
-            provenance = {
+            try:
+                page.evaluate("window.scrollBy(0, 800)")
+                page.wait_for_timeout(500)
+            except PlaywrightError:
+                logger.warning(
+                    "Post-navigation page interaction failed: %s",
+                    url,
+                )
+
+            rendered_html = page.content()
+            rendered_bytes = rendered_html.encode("utf-8")
+
+            response_text = response_body.decode(
+                "utf-8",
+                errors="replace",
+            )
+
+            blocked_markers = (
+                "access denied",
+                "request blocked",
+                "temporarily blocked",
+            )
+
+            marker_found = any(
+                marker in response_text.lower()
+                or marker in rendered_html.lower()
+                for marker in blocked_markers
+            )
+
+            status = main_response.status
+            is_blocked = status in (403, 429) or marker_found
+            is_success = 200 <= status < 300 and not is_blocked
+
+            return {
                 "request_url": url,
-                "timestamp": response_meta["timestamp"],
-                "http_status": response_meta["status"],
-                "response_headers": response_meta["headers"],
-                "content_sha256": sha256_hash,
-                "content_length_bytes": len(content_bytes),
+                "final_url": page.url,
+                "timestamp": utc_now(),
+                "http_status": status,
+                "response_headers": response_headers,
+                "response_content_type": response_headers.get(
+                    "content-type", ""
+                ),
+                "response_body_length_bytes": len(response_body),
+                "response_body_sha256": sha256_bytes(response_body),
+                "rendered_html_length_bytes": len(rendered_bytes),
+                "rendered_html_sha256": sha256_bytes(rendered_bytes),
                 "run_id": run_id,
                 "category_key": category_key,
-                "store_context": store_context,
+                "store_context": store_context or {},
+                "response_received": True,
                 "is_blocked": is_blocked,
-                "html": content
+                "is_success": is_success,
+                "html": rendered_html,
             }
-            return provenance
+
+        except Exception:
+            logger.exception(
+                "Page collection failed: url=%s run_id=%s category=%s",
+                url,
+                run_id,
+                category_key,
+            )
+            raise
+
         finally:
-            page.close()
+            try:
+                page.close()
+            except Exception:
+                logger.warning(
+                    "Failed to close page cleanly: %s",
+                    url,
+                    exc_info=True,
+                )
 
     def fetch_page_content(self, url: str) -> str:
         """
-        Navigates to URL using Playwright stealth, waits for dynamic content,
-        and returns rendered HTML.
+        Backwards-compatible helper returning rendered HTML.
+        Raises if the main page response is unsuccessful.
         """
-        provenance = self.fetch_page_with_provenance(url)
-        return provenance.get("html", "")
+        result = self.fetch_page_with_provenance(url)
+
+        if not result["is_success"]:
+            raise RuntimeError(
+                "Page request was not successful: "
+                f"HTTP {result['http_status']}; "
+                f"blocked={result['is_blocked']}; URL={url}"
+            )
+
+        return result["html"]
 
     def close(self) -> None:
-        """Closes browser and Playwright process cleanly."""
-        try:
-            if self._context:
-                self._context.close()
-            if self._browser:
-                self._browser.close()
-            if self._playwright:
-                self._playwright.stop()
-        except Exception as e:
-            logger.warning(f"Error closing browser engine: {e}")
-        finally:
-            self._context = None
-            self._browser = None
-            self._playwright = None
+        """Close context, browser, and Playwright safely."""
+        context = self._context
+        browser = self._browser
+        playwright = self._playwright
+
+        self._context = None
+        self._browser = None
+        self._playwright = None
+
+        if context is not None:
+            try:
+                context.close()
+            except Exception:
+                logger.warning(
+                    "Error closing browser context",
+                    exc_info=True,
+                )
+
+        if browser is not None:
+            try:
+                browser.close()
+            except Exception:
+                logger.warning(
+                    "Error closing browser",
+                    exc_info=True,
+                )
+
+        if playwright is not None:
+            try:
+                playwright.stop()
+            except Exception:
+                logger.warning(
+                    "Error stopping Playwright",
+                    exc_info=True,
+                )

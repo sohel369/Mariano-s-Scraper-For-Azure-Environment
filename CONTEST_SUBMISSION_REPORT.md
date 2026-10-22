@@ -22,7 +22,7 @@ In response to technical audit feedback for Entry #36, the following architectur
 3. **Response Payload Store & Fulfillment Validation:** Store selection (`53100503`) and fulfillment modality (`PICKUP`) are validated directly from incoming server response payloads (`storeLookup` and `modalityContext` GraphQL/JSON endpoints), not merely from cookie injection.
 4. **Bulk & Multipack Preservation:** Confirmed that bulk, family, and multipack items retain their genuine identity and weight (e.g. `12-pack`, `Family Size`, `4 lb Bag`), while ensuring pack labels alone never populate `volume_deals_description` unless tied to a qualifying multi-buy discount (`2 for $5`, `BOGO`).
 5. **Clear Separation of Test Fixtures vs. Live Scraper:** Explicitly labeled synthetic test scripts (`scripts/build_verified_dataset.py`, `scripts/generate_raw_evidence.py`) as offline CI/CD test fixtures, distinguishing them from the live Playwright collector (`src/scraper.py`, `scripts/run_scraper.py`).
-6. **Production Resilience & Azure Readiness:** Bi-weekly scheduled execution via Azure Logic Apps with atomic dataset protection (<500 records or incomplete subcategories strictly refused; 100% CSV coverage enforced).
+6. **Production Resilience & Azure Readiness:** Twice-per-week scheduled execution via Azure Logic Apps (Sundays & Wednesdays at 04:00 UTC) with atomic dataset protection (<500 records or incomplete subcategories strictly refused; 100% CSV coverage enforced).
 
 ---
 
@@ -175,7 +175,7 @@ py -m pytest tests/
 
 ## 7. Cloud Deployment, Operating Costs & Delivery Schedule
 
-### Azure Operating Costs (Bi-weekly per store):
+### Azure Operating Costs (Twice-per-week per store):
 * **Azure Container Instances (ACI):** 2 vCPU, 4 GB RAM, 8 runs/month (~20 min total runtime) = **$0.48/month**
 * **Azure Logic Apps:** Recurrence trigger + HTTP action = **$0.02/month**
 * **Azure Blob Storage (Cool Tier):** 10 GB storage + LRS = **$0.18/month**
@@ -188,7 +188,7 @@ py -m pytest tests/
 * **Next Concrete Deliverable (Milestone 1):** 
   Within **4 hours** of proxy provision or Azure US environment access, we will deliver an initial fresh live crawl batch of 50 verified products from Fresh Produce with unmodified raw HTTP/GraphQL retailer response captures and source-to-output trace.
 * **Final Production Milestone (Milestone 2):** 
-  Within **24 hours**, full bi-weekly unattended live collection covering all 28 subcategories (500+ genuine products, out-of-stock preservation, 0 count drop, atomic safety gates) running on Azure Container Instances.
+  Within **24 hours**, full twice-per-week unattended live collection covering all 28 subcategories (500+ genuine products, out-of-stock preservation, 0 count drop, atomic safety gates) running on Azure Container Instances.
 
 ---
 

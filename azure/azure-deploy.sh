@@ -3,7 +3,7 @@ set -e
 
 # ==============================================================================
 # Mariano's Scraper Microsoft Azure Deployment Script
-# Automatically builds, deploys, and configures bi-weekly execution in Azure
+# Automatically builds, deploys, and configures twice-per-week execution in Azure
 # ==============================================================================
 
 RESOURCE_GROUP="rg-marianos-scraper-prod"
@@ -41,7 +41,7 @@ az container create \
       MARIANOS_PROXY_URL="$MARIANOS_PROXY_URL" \
       AZURE_STORAGE_CONNECTION_STRING="$AZURE_STORAGE_CONNECTION_STRING"
 
-echo "=== 5. Deploying Bi-Weekly Logic App Trigger Workflow ==="
+echo "=== 5. Deploying Twice-Per-Week Logic App Trigger Workflow ==="
 az logic workflow create \
   --resource-group "$RESOURCE_GROUP" \
   --location "$LOCATION" \
@@ -51,4 +51,4 @@ az logic workflow create \
 echo "=== Azure Deployment Completed Successfully! ==="
 echo "ACR Registry: $ACR_LOGIN_SERVER"
 echo "Container: $ACI_NAME"
-echo "Schedule: Bi-weekly via Logic Apps (Sunday & Wednesday 04:00 UTC)"
+echo "Schedule: Twice-per-week via Logic Apps (Sunday & Wednesday 04:00 UTC)"

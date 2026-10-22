@@ -1,7 +1,7 @@
 {
   "audit_name": "CRASH_INJECTION_RECOVERY_INTEGRATION_TEST",
   "test_type": "crash_injection_recovery_test",
-  "timestamp_utc": "2026-10-21T16:55:28.925011+00:00",
+  "timestamp_utc": "2026-10-22T17:08:16.735965+00:00",
   "status": "PASS",
   "measurements": {
     "injected_crash_exit_code": 137,

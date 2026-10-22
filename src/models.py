@@ -62,32 +62,8 @@ class MarianoProductRecord(BaseModel):
         return list(cls.model_fields.keys())
 
     def to_ordered_dict(self) -> OrderedDict:
-        """
-        Returns an OrderedDict guaranteeing the exact 22-field sequence
-        prescribed in the contest specification.
-        """
-        ordered_fields = [
-            ("zipcode", self.zipcode),
-            ("store_name", self.store_name),
-            ("store_location", self.store_location),
-            ("store_logo", self.store_logo),
-            ("store_brand", self.store_brand),
-            ("category", self.category),
-            ("sub_category", self.sub_category),
-            ("product_title", self.product_title),
-            ("weight", self.weight),
-            ("regular_price", self.regular_price),
-            ("sale_price", self.sale_price),
-            ("volume_deals_description", self.volume_deals_description),
-            ("volume_deals_price", self.volume_deals_price),
-            ("digital_deals_description", self.digital_deals_description),
-            ("digital_deals_price", self.digital_deals_price),
-            ("image_url", self.image_url),
-            ("url", self.url),
-            ("upc", self.upc),
-            ("gupc", self.gupc),
-            ("ppm", self.ppm),
-            ("unit_price", self.unit_price),
-            ("crawl_date", self.crawl_date)
-        ]
-        return OrderedDict(ordered_fields)
+        """Return every schema field in the model's declared order."""
+        return OrderedDict(
+            (name, getattr(self, name))
+            for name in self.__class__.model_fields
+        )
