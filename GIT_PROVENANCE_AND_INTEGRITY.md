@@ -1,21 +1,21 @@
 # GIT PROVENANCE & FILE INTEGRITY MANIFEST
 
-**Generated UTC:** 2026-10-23T03:44:10.092649+00:00  
+**Generated UTC:** 2026-10-23T04:02:02.530575+00:00  
 **Repository URL:** [https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git](https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git)  
 **Branch:** `main`  
-**HEAD Commit:** `17b209c9a09f733a103d8e574f842cad48a6241d`  
-**Working Tree Clean:** `False`  
+**HEAD Commit:** `784ceb32b373db7fcaa7a82d873b11ecc5bd9125`  
+**Working Tree Clean:** `True`  
 
 ## 1. Recent Authoritative Commits
 ```text
+784ceb3 Implement indefinite store assortment retention, crawl_date separation, and Azure bounded probe specification
+9c8bd66 Add Git provenance, file integrity manifest and checksums
 17b209c Isolate test fixtures output to tests/fixtures/output to prevent touching production data
 75df6bf Integrate category route mapping audit, dynamic rejection gate, and review remediation status
 8fac4e1 Synchronize baseline run session dates to 2026-10-21 and link parent brief URLs
 a461e4f Reconcile 14 parent CSV URLs to 28 subcategories and add automated missing-route rejection proof
 dd3681a Add dataset version, provenance and lineage manifest
 88680a3 Document source provenance, category route coverage, and standardize twice-per-week schedule
-798ac6c Harden fetch_live_store_lookup to prevent synthetic payloads and add unit tests
-9cbc826 Eliminate synthetic store payload dictionary: issue real live HTTP requests via Playwright context and fallback cleanly on network error
 ```
 
 ## 2. Deliverable File SHA-256 Checksums
@@ -33,4 +33,4 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 
 ## 3. Remote Verification Link
 The full commit history, diffs, and trees can be inspected directly on GitHub at:
-`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/17b209c9a09f733a103d8e574f842cad48a6241d`
+`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/784ceb32b373db7fcaa7a82d873b11ecc5bd9125`

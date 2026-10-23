@@ -1,18 +1,18 @@
 {
-  "generated_utc": "2026-10-23T03:44:10.092649+00:00",
+  "generated_utc": "2026-10-23T04:02:02.530575+00:00",
   "git_repository": "https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git",
   "branch": "main",
-  "head_commit": "17b209c9a09f733a103d8e574f842cad48a6241d",
-  "working_tree_clean": false,
+  "head_commit": "784ceb32b373db7fcaa7a82d873b11ecc5bd9125",
+  "working_tree_clean": true,
   "recent_commits": [
+    "784ceb3 Implement indefinite store assortment retention, crawl_date separation, and Azure bounded probe specification",
+    "9c8bd66 Add Git provenance, file integrity manifest and checksums",
     "17b209c Isolate test fixtures output to tests/fixtures/output to prevent touching production data",
     "75df6bf Integrate category route mapping audit, dynamic rejection gate, and review remediation status",
     "8fac4e1 Synchronize baseline run session dates to 2026-10-21 and link parent brief URLs",
     "a461e4f Reconcile 14 parent CSV URLs to 28 subcategories and add automated missing-route rejection proof",
     "dd3681a Add dataset version, provenance and lineage manifest",
-    "88680a3 Document source provenance, category route coverage, and standardize twice-per-week schedule",
-    "798ac6c Harden fetch_live_store_lookup to prevent synthetic payloads and add unit tests",
-    "9cbc826 Eliminate synthetic store payload dictionary: issue real live HTTP requests via Playwright context and fallback cleanly on network error"
+    "88680a3 Document source provenance, category route coverage, and standardize twice-per-week schedule"
   ],
   "file_sha256_checksums": {
     "data/output/marianos_scraped_data_store_53100503_full_catalog.json": {
