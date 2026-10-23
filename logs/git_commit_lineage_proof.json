@@ -1,18 +1,18 @@
 {
-  "generated_utc": "2026-10-23T04:44:45.031787+00:00",
+  "generated_utc": "2026-10-23T05:00:19.367469+00:00",
   "git_repository": "https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git",
   "branch": "main",
-  "head_commit": "f213f86f41d2ca62ab998f684596e11883e600ee",
+  "head_commit": "159791805789ddf0ffe8fb466f61f0c7d19d0320",
   "working_tree_clean": false,
   "recent_commits": [
+    "1597918 Update README verification commands with 28-row mapping and assortment retention proofs",
+    "48de21f Update git provenance to commit f213f86",
     "f213f86 Calibrate technical claims: conservative network timeout wording, baseline catalog framing, proposed probe date",
     "7bd7073 Update git provenance to commit a40caa4",
     "a40caa4 Refine retention lifecycle terminology to baseline catalog records",
     "4dd2b0f Update git provenance to commit 535f25a",
     "535f25a Add production assortment retention and date separation lifecycle proof script",
-    "e5d7556 Update git provenance to commit 5b0c9c0",
-    "5b0c9c0 Reconcile exact 28 buyer brief category CSV rows, update route mapping audit and dynamic gate proof",
-    "b4f79aa Update git provenance to HEAD commit 784ceb3"
+    "e5d7556 Update git provenance to commit 5b0c9c0"
   ],
   "file_sha256_checksums": {
     "data/output/marianos_scraped_data_store_53100503_full_catalog.json": {
