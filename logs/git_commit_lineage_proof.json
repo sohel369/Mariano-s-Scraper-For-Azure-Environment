@@ -1,18 +1,18 @@
 {
-  "generated_utc": "2026-10-23T04:02:02.530575+00:00",
+  "generated_utc": "2026-10-23T04:14:49.749933+00:00",
   "git_repository": "https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git",
   "branch": "main",
-  "head_commit": "784ceb32b373db7fcaa7a82d873b11ecc5bd9125",
-  "working_tree_clean": true,
+  "head_commit": "b4f79aa73ecaa12ed2e24ebecbe9a336f1de05a5",
+  "working_tree_clean": false,
   "recent_commits": [
+    "b4f79aa Update git provenance to HEAD commit 784ceb3",
     "784ceb3 Implement indefinite store assortment retention, crawl_date separation, and Azure bounded probe specification",
     "9c8bd66 Add Git provenance, file integrity manifest and checksums",
     "17b209c Isolate test fixtures output to tests/fixtures/output to prevent touching production data",
     "75df6bf Integrate category route mapping audit, dynamic rejection gate, and review remediation status",
     "8fac4e1 Synchronize baseline run session dates to 2026-10-21 and link parent brief URLs",
     "a461e4f Reconcile 14 parent CSV URLs to 28 subcategories and add automated missing-route rejection proof",
-    "dd3681a Add dataset version, provenance and lineage manifest",
-    "88680a3 Document source provenance, category route coverage, and standardize twice-per-week schedule"
+    "dd3681a Add dataset version, provenance and lineage manifest"
   ],
   "file_sha256_checksums": {
     "data/output/marianos_scraped_data_store_53100503_full_catalog.json": {
@@ -32,23 +32,23 @@
     },
     "data/input/Marianos_Category_URLs_Original_Brief.csv": {
       "exists": true,
-      "size_bytes": 1502,
-      "sha256": "c3c52bb4ee6d17becafcea390ab7c55be29ee0301b8a89acf0c5197f69ff4fe8"
+      "size_bytes": 2610,
+      "sha256": "f34aa83b485a6b56af4ca3a66cdd6d7be63ad88d95f95dc803466adc76c9adef"
     },
     "data/input/Marianos_Category_URLs.csv": {
       "exists": true,
-      "size_bytes": 5536,
-      "sha256": "4ccd4c936da460be3274e02ff2e5caaaf839e059abd74e32aad7f1d13684c7ea"
+      "size_bytes": 6095,
+      "sha256": "29ef0da05bc3e6d2a7b6eff036df02371052afa9bf6316b3c9fb546c81b09cc0"
     },
     "logs/category_route_mapping_structure_audit.json": {
       "exists": true,
       "size_bytes": 404,
-      "sha256": "474b312b5ea1596822478c29f8a4e1af9f3f308ddec8754e41135bf223e0a40e"
+      "sha256": "9f09370c24921c229126e51f3f2ae54c46bdec0fd1cf583f29ee3480addc510d"
     },
     "logs/missing_route_rejection_audit_proof.json": {
       "exists": true,
-      "size_bytes": 567,
-      "sha256": "5ba200f5b86a6182420c3d230bc44a6afcad03a8e75e2e9a3b245e21fda8cd57"
+      "size_bytes": 588,
+      "sha256": "9e641965d8899e2383386954da95e582dacb5e18d287ce376c9d91aaf3c7cfc0"
     }
   }
 }

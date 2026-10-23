@@ -1,7 +1,7 @@
 {
   "audit_type": "CSV CONFIGURATION MAPPING ONLY",
-  "original_parent_rows": 14,
-  "unique_original_parent_urls": 14,
+  "original_parent_rows": 28,
+  "unique_original_parent_urls": 28,
   "child_route_rows": 28,
   "unique_child_urls": 28,
   "parent_urls_without_child_mapping": [],

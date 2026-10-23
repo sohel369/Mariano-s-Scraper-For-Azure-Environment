@@ -83,12 +83,13 @@ def run_proof():
 
         # Case 2: Full 28 of 28 completed
         print(f"\n[TEST 2] EVALUATING FULL 100% TRAVERSAL (28/28 Routes Completed):")
-        # Add records for the missing route
+        # Add records for the omitted route to achieve 100% full coverage
+        omitted_dept, omitted_sub = omitted_route.split("::")
         for i in range(20):
             storage.write_staging_record(staging_file, {
                 "upc": f"0222200{i:05d}",
-                "category": "Pet Care",
-                "sub_category": "Cat Food & Litter"
+                "category": omitted_dept,
+                "sub_category": omitted_sub
             })
         storage.save_checkpoint(
             store_id=store_id,

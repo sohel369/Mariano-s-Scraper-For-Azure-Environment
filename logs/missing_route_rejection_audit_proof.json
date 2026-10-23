@@ -1,11 +1,11 @@
 {
   "proof_name": "MISSING_ROUTE_REJECTION_GATE_VERIFICATION",
-  "timestamp": "2026-10-23T03:23:44.097002+00:00",
+  "timestamp": "2026-10-23T04:14:00.092455+00:00",
   "status": "100% PASS - GATE STRICTLY ENFORCED",
   "test_1_incomplete_route": {
     "expected_routes_count": 28,
     "completed_routes_count": 27,
-    "omitted_route": "Pet Care::Cat Food & Litter",
+    "omitted_route": "Hardware Home Improvement::Hardware & Hand Tools",
     "gate_rejected_commit": true,
     "output_file_prevented": true
   },

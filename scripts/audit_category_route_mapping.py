@@ -21,7 +21,7 @@ report={
  'parent_urls_without_child_mapping':missing_parent_mapping,
  'child_rows_with_unknown_parent_url':unknown_parent_mapping,
  'child_rows_missing_url_or_name':missing_child_fields,
- 'mapping_structure_pass':bool(len(parents)==14 and len(parent_urls)==14 and len(rows)==28 and not missing_parent_mapping and not unknown_parent_mapping and not missing_child_fields),
+ 'mapping_structure_pass':bool(len(parents)==28 and len(parent_urls)==28 and len(rows)==28 and not missing_parent_mapping and not unknown_parent_mapping and not missing_child_fields),
  'does_not_prove_live_route_visits_or_pagination':True
 }
 out=BASE/'logs/category_route_mapping_structure_audit.json'
