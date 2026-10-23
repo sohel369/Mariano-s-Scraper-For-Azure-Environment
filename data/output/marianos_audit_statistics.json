@@ -66,7 +66,7 @@
         "gupc": "",
         "ppm": "$0.31/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       },
       {
         "zipcode": "60601",
@@ -90,7 +90,7 @@
         "gupc": "",
         "ppm": "$0.37/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       },
       {
         "zipcode": "60601",
@@ -114,7 +114,7 @@
         "gupc": "",
         "ppm": "$0.70/lb",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       }
     ],
     "volume_deals": [
@@ -140,7 +140,7 @@
         "gupc": "",
         "ppm": "$0.37/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       },
       {
         "zipcode": "60601",
@@ -164,7 +164,7 @@
         "gupc": "",
         "ppm": "$0.11/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       },
       {
         "zipcode": "60601",
@@ -188,7 +188,7 @@
         "gupc": "",
         "ppm": "$0.21/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       }
     ],
     "digital_deals": [
@@ -214,7 +214,7 @@
         "gupc": "",
         "ppm": "$0.31/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       },
       {
         "zipcode": "60601",
@@ -238,7 +238,7 @@
         "gupc": "",
         "ppm": "$0.25/oz",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       },
       {
         "zipcode": "60601",
@@ -262,7 +262,7 @@
         "gupc": "",
         "ppm": "$3.00/lb",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       }
     ],
     "no_deals": [
@@ -288,7 +288,7 @@
         "gupc": "",
         "ppm": "$0.70/lb",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       },
       {
         "zipcode": "60601",
@@ -312,7 +312,7 @@
         "gupc": "",
         "ppm": "$1.10/lb",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       },
       {
         "zipcode": "60601",
@@ -336,7 +336,7 @@
         "gupc": "",
         "ppm": "$1.50/lb",
         "unit_price": "",
-        "crawl_date": "2026-10-20"
+        "crawl_date": "2026-10-21"
       }
     ]
   },
