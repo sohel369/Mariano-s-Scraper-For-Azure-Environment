@@ -99,30 +99,39 @@ playwright install chromium
 ```
 
 ### 2. Run Automated Test Suite
-Verify that all 18 unit tests pass:
+Verify that all 23 unit tests pass:
 ```powershell
 py -m pytest tests/
 ```
 
 ### 3. Production Verification & Audit Commands
 ```powershell
-# 1. Official 22-field schema validator on exact 500-record demo file:
+# 1. 28-row parent category brief mapping audit:
+py scripts/audit_category_route_mapping.py
+
+# 2. Automated missing-route publication rejection gate proof:
+py scripts/verify_missing_route_rejection.py
+
+# 3. Store assortment retention & date separation lifecycle proof:
+py scripts/verify_assortment_retention_lifecycle.py
+
+# 4. Official 22-field schema validator on exact 500-record demo file:
 py scripts/validate_dataset.py data/output/marianos_contest_submission_500_records.json
 
-# 2. Official 22-field schema validator on full 560-record catalog:
+# 5. Official 22-field schema validator on full 560-record catalog:
 py scripts/validate_dataset.py data/output/marianos_scraped_data_store_53100503_full_catalog.json
 
-# 3. Source-to-Output Lineage Audit (100% 22-field match, 0 mismatches, 0 fallbacks):
+# 6. Source-to-Output Lineage Audit (100% 22-field match, 0 mismatches, 0 fallbacks):
 py scripts/reconcile_source_to_output.py
 
-# 4. Checkpoint Interruption & Deduplicated Row Restoration Audit:
+# 7. Checkpoint Interruption & Deduplicated Row Restoration Audit:
 py scripts/verify_checkpoint_integrity.py
 
-# 5. Store Identity & PICKUP Modality Verification (Payload & Live network probe):
+# 8. Store Identity & PICKUP Modality Verification (Payload & Live network probe):
 py scripts/verify_store_identity.py
 py scripts/verify_store_identity.py --live
 
-# 6. Akamai Bot Manager Edge Network Diagnostic:
+# 9. Akamai Edge Network Diagnostic:
 py scripts/diagnose_akamai_block.py
 ```
 
