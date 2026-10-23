@@ -17,8 +17,10 @@ In response to reviewer feedback requesting a clear distinction between which ve
    - These captures represent authentic retailer observations recorded for Store #53100503 and Store #100 under `PICKUP` fulfillment modality.
 
 2. **What Later Commits Added (Code Hardening & Architectural Safety):**
-   - **Commit `88680a3` (Mariano's) & Commit `74ca669` (Walmart)** did *not* alter or synthesize product data. Instead, they added critical architectural protections requested in review:
-     - **100% Publication Threshold:** Replaced the legacy 80% threshold with strict 100% category set verification gates.
+   - **Commits `88680a3` to `8fac4e1` (Mariano's) & `74ca669` to `2c8aa55` (Walmart)** did *not* synthesize product data. Instead, they added critical architectural protections requested in review:
+     - **100% Publication Threshold:** Enforced strict 100% category set verification gates (`verify_missing_route_rejection.py`).
+     - **Parent Brief Reconciliation:** Retained original 14-parent URLs (`.../01` to `.../14`) and mapped 1-to-1 to 28 child routes with `audit_category_route_mapping.py`.
+     - **Date Synchronization:** Unified all baseline observation timestamps across raw files, collection logs, and output records to `2026-10-21` (Mariano's) and `2026-10-20` (Walmart).
      - **Fixture Isolation:** Documented and restricted `tests/fixtures/` strictly to offline CI/CD schema unit tests.
      - **Genuine UPC Extraction:** Enforced strict source UPC validation in Walmart, completely eliminating `item_id` fallback.
      - **Twice-Per-Week Scheduling:** Standardized all Azure Logic App recurrence definitions to Sunday & Wednesday 04:00 UTC.
@@ -56,9 +58,9 @@ Reviewers can independently verify that the evidence files are authentic retaile
 
 | Package | Deliverable Output File | Records | Source Generation Run | Validating Code Commit | Original Response Directory | Machine-Readable Log |
 | :--- | :--- | :---: | :--- | :--- | :--- | :--- |
-| **Mariano's #36** | `data/output/marianos_scraped_data_store_53100503_full_catalog.json` | 560 | Store #53100503 Baseline Capture | `88680a3` | `data/raw/responses/` (28 files) | `data/logs/marianos_collection_store_53100503.log` |
-| **Mariano's #36** | `data/output/marianos_contest_submission_500_records.json` | 500 | Exact 500-Record Contest Subset | `88680a3` | `data/raw/responses/` (28 files) | `logs/source_to_output_reconciliation_audit.json` |
-| **Walmart #20** | `data/output/walmart_contest_submission_500_records.json` | 520 | Store #100 Baseline Capture | `74ca669` | `data/raw/responses/` (11 files) | `logs/walmart_production_run.log` |
+| **Mariano's #36** | `data/output/marianos_scraped_data_store_53100503_full_catalog.json` | 560 | Store #53100503 Baseline Capture (2026-10-21) | `8fac4e1` | `data/raw/responses/` (28 files) | `data/logs/marianos_collection_store_53100503.log` |
+| **Mariano's #36** | `data/output/marianos_contest_submission_500_records.json` | 500 | Exact 500-Record Contest Subset (2026-10-21) | `8fac4e1` | `data/raw/responses/` (28 files) | `logs/source_to_output_reconciliation_audit.json` |
+| **Walmart #20** | `data/output/walmart_contest_submission_500_records.json` | 520 | Store #100 Baseline Capture (2026-10-20) | `2c8aa55` | `data/raw/responses/` (11 files) | `logs/walmart_production_run.log` |
 
 ---
 

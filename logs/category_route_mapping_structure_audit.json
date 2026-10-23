@@ -1,0 +1,12 @@
+{
+  "audit_type": "CSV CONFIGURATION MAPPING ONLY",
+  "original_parent_rows": 14,
+  "unique_original_parent_urls": 14,
+  "child_route_rows": 28,
+  "unique_child_urls": 28,
+  "parent_urls_without_child_mapping": [],
+  "child_rows_with_unknown_parent_url": [],
+  "child_rows_missing_url_or_name": [],
+  "mapping_structure_pass": true,
+  "does_not_prove_live_route_visits_or_pagination": true
+}

@@ -26,26 +26,17 @@ def run_proof():
         store_id = "53100503"
         staging_file = os.path.join(storage.staging_dir, "staging_proof.jsonl")
 
-        # Define 28 expected subcategories from the 14 parent departments
-        expected_28 = [
-            "Fresh Produce::Fresh Fruits", "Fresh Produce::Fresh Vegetables",
-            "Meat & Seafood::Poultry & Fresh Meat", "Meat & Seafood::Seafood & Shellfish",
-            "Dairy & Eggs::Milk & Plant Alternatives", "Dairy & Eggs::Eggs Butter & Yogurt",
-            "Bakery::Fresh Bread & Rolls", "Bakery::Pastries Cakes & Pies",
-            "Deli::Sliced Deli Meats & Cheeses", "Deli::Prepared Dips & Ready Meals",
-            "Pantry::Canned Goods Soups & Grains", "Pantry::Snacks Condiments & Sauces",
-            "Beverages::Bottled Water & Soft Drinks", "Beverages::Coffee Tea & Fruit Juices",
-            "Frozen Foods::Frozen Meals & Entrees", "Frozen Foods::Ice Cream & Frozen Desserts",
-            "Natural & Organic::Organic Produce & Dairy", "Natural & Organic::Organic Pantry & Snacks",
-            "Cleaning & Household::Laundry Care & Paper Goods", "Cleaning & Household::Surface Cleaners & Dish Care",
-            "Personal Care::Body Wash & Hair Care", "Personal Care::Oral Care & Deodorants",
-            "Health & Wellness::Vitamins & Nutrition", "Health & Wellness::OTC Medicine & First Aid",
-            "Baby Care::Baby Food & Formula", "Baby Care::Diapers Wipes & Baby Bath",
-            "Pet Care::Dog Food & Treats", "Pet Care::Cat Food & Litter"
-        ]
+        # Dynamically load the expected 28 subcategories from the official CSV
+        csv_path = os.path.join(os.path.dirname(__file__), "..", "data", "input", "Marianos_Category_URLs.csv")
+        import csv
+        with open(csv_path, "r", encoding="utf-8-sig") as f:
+            reader = csv.DictReader(f)
+            expected_28 = [f"{r['Category']}::{r['sub_category']}" for r in reader]
+
+        assert len(expected_28) == 28, f"Expected 28 routes dynamically from CSV, got {len(expected_28)}"
 
         # Case 1: Incomplete run (27 of 28 completed, 1 omitted)
-        omitted_route = expected_28[-1]  # "Pet Care::Cat Food & Litter"
+        omitted_route = expected_28[-1]  # Omit the last route dynamically from CSV
         incomplete_27 = expected_28[:-1]
 
         # Write 560 valid staged records covering the 27 completed routes
