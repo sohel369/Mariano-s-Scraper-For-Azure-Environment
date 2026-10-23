@@ -27,8 +27,9 @@ In response to reviewer feedback requesting a clear distinction between which ve
      - **Crash-Injection Integration:** Added separate-process ungraceful termination tests (`os._exit(137)`) proving zero data loss across restarts.
 
 3. **Runtime Confirmation:**
-   - No fresh live network crawl was executed today from the local host because outbound egress from Bangladesh (`103.106.236.167`) is rejected at the edge layer by Akamai Bot Manager (Socket Read Timeout / TCP RST, recorded in `data/raw/akamai_edge_block_evidence.json`).
-   - Fresh live runs will commence immediately upon execution in Microsoft Azure US Container Instances.
+   - The local connection to the Akamai edge timed out/reset, so a fresh live capture could not be verified from the current local environment (recorded in `data/raw/akamai_edge_block_evidence.json`).
+   - Deliverable outputs in this package reflect baseline replay captures rather than a fresh live collection.
+   - Live production runs with full leaf-subcategory discovery and complete pagination will be executed once deployed within an authorized US egress environment (e.g. Azure Container Instances).
 
 ---
 
@@ -66,4 +67,4 @@ Reviewers can independently verify that the evidence files are authentic retaile
 
 ## 4. Conclusion for Reviewers
 
-All deliverable datasets and raw response files are strictly linked to genuine observations of Store #53100503 and Store #100. Offline test fixtures in `tests/fixtures/` are strictly reserved for unit testing schema validation, and have zero presence in the deliverable catalogs or raw response directories.
+Deliverable datasets in this package serve as the verified baseline contract for testing the strict 22-field ordering, 0-null constraint, indefinite assortment retention, and dynamic category rejection gates. Offline test fixtures in `tests/fixtures/` are strictly isolated to `tests/fixtures/output/` for unit testing schema validation. Independent authentication of unmodified live network responses will be established upon execution in an authorized cloud environment.

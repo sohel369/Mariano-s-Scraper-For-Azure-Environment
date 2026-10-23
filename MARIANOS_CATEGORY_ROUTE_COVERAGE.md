@@ -58,6 +58,8 @@ In response to reviewer instructions ("*including incomplete or blocked units*")
    These categories do not have `/d/` department headers and are mapped directly to `/pl/` relevance listing routes with full pagination parameter handling (`?page={n}`).
 3. **Store Assortment Retention Across Blocked / Empty Units:**  
    If an edge timeout or temporary inventory zero occurs on a specific subcategory during an execution run, the publication gate strictly **aborts** publication. Furthermore, `StorageManager.merge_indefinite_store_assortment()` ensures that prior verified assortment products are retained indefinitely.
+4. **Configuration Mapping vs. Live Traversal:**  
+   While all 28 brief parent rows are structurally verified and mapped to child targets in configuration, complete observed leaf-subcategory coverage, dynamic DOM pagination, and live network collection across every single product page will be established during authorized live execution.
 
 ---
 

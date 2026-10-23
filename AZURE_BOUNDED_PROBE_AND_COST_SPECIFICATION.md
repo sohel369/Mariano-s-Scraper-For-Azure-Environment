@@ -2,7 +2,7 @@
 
 **Package:** Mariano's Scraper Entry #36 (and Walmart Scraper Entry #20)  
 **Authoritative Response to Review Target:** October 22 Evening Review — Item 3 & Bounded Probe Requirement  
-**Next Inspectable Delivery Target:** **October 26, 2026**  
+**Next Inspectable Delivery Target:** **Proposed: October 26, 2026 (Subject to Buyer Authorization)**  
 
 ---
 
@@ -46,7 +46,7 @@ All components are strictly scoped to minimal open-standard infrastructure. **No
 
 ## 3. Next Inspectable Delivery Date
 
-* **Next Delivery Target:** **Monday, October 26, 2026**
+* **Proposed Delivery Target:** **Monday, October 26, 2026 (Subject to Buyer Access Approval)**
 * **Target Deliverables for October 26:**
   1. Resulting evidence log from the bounded probe (`logs/azure_bounded_probe_result.json`).
   2. Assortment retention verification report demonstrating indefinite preservation of out-of-stock items and carried-forward vs. fresh observation timestamps.
