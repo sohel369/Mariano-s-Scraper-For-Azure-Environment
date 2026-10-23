@@ -1,6 +1,6 @@
 {
-  "proof_name": "PRODUCTION_ASSORTMENT_RETENTION_AND_DATE_SEPARATION",
-  "timestamp_utc": "2026-10-23T04:28:10.741316+00:00",
+  "proof_name": "BASELINE_ASSORTMENT_RETENTION_AND_DATE_SEPARATION",
+  "timestamp_utc": "2026-10-23T04:35:42.359073+00:00",
   "baseline_total_records": 560,
   "simulated_unavailable_count": 10,
   "fresh_evidence_count": 550,
@@ -11,5 +11,5 @@
   "zero_records_lost": true,
   "date_separation_verified": true,
   "atomic_commit_pass": true,
-  "status": "100% PASS - INDEFINITE RETENTION & DATE SEPARATION CONFIRMED"
+  "status": "100% PASS - INDEFINITE RETENTION & DATE SEPARATION CONFIRMED ON BASELINE CATALOG"
 }

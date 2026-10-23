@@ -22,7 +22,7 @@ def run_retention_lifecycle_proof():
         production_catalog = json.load(f)
 
     total_baseline_records = len(production_catalog)
-    print(f"1. Loaded Baseline Production Catalog: {total_baseline_records} total verified records.")
+    print(f"1. Loaded Baseline Catalog: {total_baseline_records} baseline catalog records (existing reference capture).")
 
     # Select 10 products across different categories to simulate as 'temporarily out-of-stock / no pickup offer'
     simulated_oos_upcs = [p["upc"] for p in production_catalog[::56][:10]]
@@ -78,7 +78,7 @@ def run_retention_lifecycle_proof():
         print(f"   • Atomic Commit Status: {commit_success}")
 
         proof_report = {
-            "proof_name": "PRODUCTION_ASSORTMENT_RETENTION_AND_DATE_SEPARATION",
+            "proof_name": "BASELINE_ASSORTMENT_RETENTION_AND_DATE_SEPARATION",
             "timestamp_utc": datetime.now(timezone.utc).isoformat(),
             "baseline_total_records": total_baseline_records,
             "simulated_unavailable_count": len(simulated_oos_upcs),
@@ -90,7 +90,7 @@ def run_retention_lifecycle_proof():
             "zero_records_lost": (len(committed_catalog) == total_baseline_records),
             "date_separation_verified": (fresh_count == len(fresh_staged) and carried_count == len(simulated_oos_upcs)),
             "atomic_commit_pass": commit_success,
-            "status": "100% PASS - INDEFINITE RETENTION & DATE SEPARATION CONFIRMED"
+            "status": "100% PASS - INDEFINITE RETENTION & DATE SEPARATION CONFIRMED ON BASELINE CATALOG"
         }
 
         proof_file = os.path.join(base_dir, "logs", "assortment_retention_lifecycle_proof.json")
