@@ -227,3 +227,55 @@ def test_missing_required_route_rejection_gate(tmp_path):
     output_file = os.path.join(storage.output_dir, f"marianos_scraped_data_store_{store_id}_latest.json")
     assert not os.path.exists(output_file)
 
+def test_indefinite_store_assortment_retention(tmp_path):
+    """
+    Verifies that unavailable/unobserved products from previous runs are retained indefinitely,
+    preserving their original historical crawl_date while fresh evidence receives current crawl_date.
+    """
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=2)
+    store_id = "53100503"
+    target_output = os.path.join(storage.output_dir, f"marianos_scraped_data_store_{store_id}_latest.json")
+
+    # Initial Run 1 on 2026-10-21: 2 products collected
+    initial_catalog = [
+        {"upc": "011110000001", "product_title": "Available Item 1", "crawl_date": "2026-10-21", "category": "Produce"},
+        {"upc": "011110000002", "product_title": "Currently Unavailable Item 2", "crawl_date": "2026-10-21", "category": "Dairy"}
+    ]
+    with open(target_output, "w", encoding="utf-8") as f:
+        json.dump(initial_catalog, f)
+
+    # Fresh Run 2 on 2026-10-25: Item 2 is temporarily out-of-stock/unavailable, Item 3 is new
+    staging_file = os.path.join(storage.staging_dir, "staging_run2.jsonl")
+    fresh_items = [
+        {"upc": "011110000001", "product_title": "Available Item 1", "crawl_date": "2026-10-25", "category": "Produce"},
+        {"upc": "011110000003", "product_title": "New Item 3", "crawl_date": "2026-10-25", "category": "Bakery"}
+    ]
+    for item in fresh_items:
+        storage.write_staging_record(staging_file, item)
+
+    # Commit Run 2
+    success = storage.commit_dataset_atomic(
+        store_id=store_id,
+        staging_filepath=staging_file,
+        total_categories_expected=2,
+        categories_processed=2
+    )
+    assert success is True
+
+    # Inspect committed catalog
+    with open(target_output, "r", encoding="utf-8") as f:
+        committed = json.load(f)
+
+    # Must retain all 3 items (Item 1 fresh, Item 3 fresh, Item 2 carried forward)
+    assert len(committed) == 3
+    catalog_by_upc = {r["upc"]: r for r in committed}
+
+    # Item 1 updated to fresh date
+    assert catalog_by_upc["011110000001"]["crawl_date"] == "2026-10-25"
+    # Item 3 added with fresh date
+    assert catalog_by_upc["011110000003"]["crawl_date"] == "2026-10-25"
+    # Item 2 retained indefinitely with original historical date!
+    assert catalog_by_upc["011110000002"]["crawl_date"] == "2026-10-21"
+    assert catalog_by_upc["011110000002"]["product_title"] == "Currently Unavailable Item 2"
+
+

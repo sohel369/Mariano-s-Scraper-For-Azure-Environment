@@ -2,7 +2,7 @@ import os
 import json
 import shutil
 import logging
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 from datetime import datetime, timezone
 
 logger = logging.getLogger("MarianoScraper.Storage")
@@ -183,6 +183,46 @@ class StorageManager:
             logger.warning(f"Azure Blob sync exception: {e}; local production persistence preserved.")
         return False
 
+    def merge_indefinite_store_assortment(
+        self,
+        fresh_records: List[Dict[str, Any]],
+        existing_target_filepath: str
+    ) -> Tuple[List[Dict[str, Any]], int]:
+        """
+        Per Brief Requirement:
+        'retain all unavailable store-assortment products indefinitely, including those with 
+        no current pickup offer or price; keep carried observation dates/values distinct from fresh evidence.'
+        
+        Preserves historical products missing from fresh crawl while maintaining their original crawl_date.
+        """
+        if not os.path.exists(existing_target_filepath):
+            return fresh_records, 0
+
+        try:
+            with open(existing_target_filepath, "r", encoding="utf-8") as f:
+                previous_records = json.load(f)
+        except Exception as e:
+            logger.warning(f"Could not load previous catalog for assortment retention: {e}")
+            return fresh_records, 0
+
+        fresh_upcs = {r.get("upc") for r in fresh_records if r.get("upc")}
+        carried_forward = []
+
+        for prev in previous_records:
+            upc = prev.get("upc")
+            if upc and upc not in fresh_upcs:
+                # Retain unavailable store-assortment product indefinitely with original crawl_date
+                carried_forward.append(prev)
+
+        if carried_forward:
+            logger.info(
+                f"[LOG-OBS: ASSORTMENT_RETENTION] Retained {len(carried_forward)} unavailable store-assortment "
+                f"products indefinitely from previous catalog (original crawl_dates preserved)."
+            )
+
+        merged = fresh_records + carried_forward
+        return merged, len(carried_forward)
+
     def commit_dataset_atomic(
         self,
         store_id: str,
@@ -273,6 +313,11 @@ class StorageManager:
                     logger.error(f"ABORTING DATASET COMMIT: Duplicate product UPC detected: {upc}")
                     return False
                 seen_upcs.add(upc)
+
+        # Indefinite Store Assortment Retention:
+        # Merge unavailable/unobserved products from previous catalog, retaining original crawl_date
+        records, retained_count = self.merge_indefinite_store_assortment(records, target_output)
+        total_count = len(records)
 
         # Safe Atomic Swap:
         # 1. Write the new dataset to a temporary file first
