@@ -180,3 +180,50 @@ def test_mandatory_cloud_sync_failure_preserves_checkpoint(tmp_path):
     # Checkpoint must NOT be deleted
     cp_after = storage.load_checkpoint(store_id)
     assert cp_after["completed_subcategories"] == ["Cat::Sub"]
+
+def test_missing_required_route_rejection_gate(tmp_path):
+    """Proves that omitting even a single required route from the expected 28-subcategory set strictly aborts publication."""
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=10)
+    store_id = "53100503"
+    staging_file = os.path.join(storage.staging_dir, "staging_missing_route_test.jsonl")
+
+    # Full expected set of 28 subcategories
+    expected_28 = [f"Dept_{d}::Sub_{s}" for d in range(1, 15) for s in range(1, 3)]
+    assert len(expected_28) == 28
+
+    # Simulate a run where 1 route is omitted/incomplete (27 of 28 completed)
+    incomplete_27 = expected_28[:-1]  # Omitting 'Dept_14::Sub_2'
+    omitted_route = expected_28[-1]
+
+    # Staged 20 valid records covering the 27 completed routes
+    for i in range(20):
+        cat_key = incomplete_27[i % len(incomplete_27)]
+        dept, sub = cat_key.split("::")
+        storage.write_staging_record(staging_file, {
+            "upc": f"01111000{i:04d}",
+            "category": dept,
+            "sub_category": sub
+        })
+
+    # Save checkpoint reflecting 27 completed routes
+    storage.save_checkpoint(
+        store_id=store_id,
+        completed_subcategories=incomplete_27,
+        scraped_ids=[f"01111000{i:04d}" for i in range(20)]
+    )
+
+    # Attempt commit with 27 out of 28 completed -> MUST REJECT (return False)
+    rejection_result = storage.commit_dataset_atomic(
+        store_id=store_id,
+        staging_filepath=staging_file,
+        total_categories_expected=28,
+        categories_processed=27,
+        expected_category_keys=expected_28,
+        actual_completed_keys=incomplete_27
+    )
+    assert rejection_result is False, f"Gate failed to reject missing route: {omitted_route}"
+
+    # Verify output file was NEVER created
+    output_file = os.path.join(storage.output_dir, f"marianos_scraped_data_store_{store_id}_latest.json")
+    assert not os.path.exists(output_file)
+
