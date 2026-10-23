@@ -1,18 +1,18 @@
 {
-  "generated_utc": "2026-10-23T04:15:18.984512+00:00",
+  "generated_utc": "2026-10-23T04:28:44.311919+00:00",
   "git_repository": "https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git",
   "branch": "main",
-  "head_commit": "5b0c9c0569feedb852ec8b445ab3033b2f1d6e5c",
-  "working_tree_clean": true,
+  "head_commit": "535f25aa7b16cb57b74d1fa8e6a1b11a282962d2",
+  "working_tree_clean": false,
   "recent_commits": [
+    "535f25a Add production assortment retention and date separation lifecycle proof script",
+    "e5d7556 Update git provenance to commit 5b0c9c0",
     "5b0c9c0 Reconcile exact 28 buyer brief category CSV rows, update route mapping audit and dynamic gate proof",
     "b4f79aa Update git provenance to HEAD commit 784ceb3",
     "784ceb3 Implement indefinite store assortment retention, crawl_date separation, and Azure bounded probe specification",
     "9c8bd66 Add Git provenance, file integrity manifest and checksums",
     "17b209c Isolate test fixtures output to tests/fixtures/output to prevent touching production data",
-    "75df6bf Integrate category route mapping audit, dynamic rejection gate, and review remediation status",
-    "8fac4e1 Synchronize baseline run session dates to 2026-10-21 and link parent brief URLs",
-    "a461e4f Reconcile 14 parent CSV URLs to 28 subcategories and add automated missing-route rejection proof"
+    "75df6bf Integrate category route mapping audit, dynamic rejection gate, and review remediation status"
   ],
   "file_sha256_checksums": {
     "data/output/marianos_scraped_data_store_53100503_full_catalog.json": {
@@ -48,7 +48,7 @@
     "logs/missing_route_rejection_audit_proof.json": {
       "exists": true,
       "size_bytes": 588,
-      "sha256": "9e641965d8899e2383386954da95e582dacb5e18d287ce376c9d91aaf3c7cfc0"
+      "sha256": "24efcca7109d92be323e80254b2dd4bd38747c7ace782cd9e83fe35cba124d14"
     }
   }
 }

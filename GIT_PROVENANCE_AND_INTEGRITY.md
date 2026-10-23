@@ -1,21 +1,21 @@
 # GIT PROVENANCE & FILE INTEGRITY MANIFEST
 
-**Generated UTC:** 2026-10-23T04:15:18.984512+00:00  
+**Generated UTC:** 2026-10-23T04:28:44.311919+00:00  
 **Repository URL:** [https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git](https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git)  
 **Branch:** `main`  
-**HEAD Commit:** `5b0c9c0569feedb852ec8b445ab3033b2f1d6e5c`  
-**Working Tree Clean:** `True`  
+**HEAD Commit:** `535f25aa7b16cb57b74d1fa8e6a1b11a282962d2`  
+**Working Tree Clean:** `False`  
 
 ## 1. Recent Authoritative Commits
 ```text
+535f25a Add production assortment retention and date separation lifecycle proof script
+e5d7556 Update git provenance to commit 5b0c9c0
 5b0c9c0 Reconcile exact 28 buyer brief category CSV rows, update route mapping audit and dynamic gate proof
 b4f79aa Update git provenance to HEAD commit 784ceb3
 784ceb3 Implement indefinite store assortment retention, crawl_date separation, and Azure bounded probe specification
 9c8bd66 Add Git provenance, file integrity manifest and checksums
 17b209c Isolate test fixtures output to tests/fixtures/output to prevent touching production data
 75df6bf Integrate category route mapping audit, dynamic rejection gate, and review remediation status
-8fac4e1 Synchronize baseline run session dates to 2026-10-21 and link parent brief URLs
-a461e4f Reconcile 14 parent CSV URLs to 28 subcategories and add automated missing-route rejection proof
 ```
 
 ## 2. Deliverable File SHA-256 Checksums
@@ -29,8 +29,8 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 | `data/input/Marianos_Category_URLs_Original_Brief.csv` | 2610 | `f34aa83b485a6b56af4ca3a66cdd6d7be63ad88d95f95dc803466adc76c9adef` |
 | `data/input/Marianos_Category_URLs.csv` | 6095 | `29ef0da05bc3e6d2a7b6eff036df02371052afa9bf6316b3c9fb546c81b09cc0` |
 | `logs/category_route_mapping_structure_audit.json` | 404 | `9f09370c24921c229126e51f3f2ae54c46bdec0fd1cf583f29ee3480addc510d` |
-| `logs/missing_route_rejection_audit_proof.json` | 588 | `9e641965d8899e2383386954da95e582dacb5e18d287ce376c9d91aaf3c7cfc0` |
+| `logs/missing_route_rejection_audit_proof.json` | 588 | `24efcca7109d92be323e80254b2dd4bd38747c7ace782cd9e83fe35cba124d14` |
 
 ## 3. Remote Verification Link
 The full commit history, diffs, and trees can be inspected directly on GitHub at:
-`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/5b0c9c0569feedb852ec8b445ab3033b2f1d6e5c`
+`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/535f25aa7b16cb57b74d1fa8e6a1b11a282962d2`
