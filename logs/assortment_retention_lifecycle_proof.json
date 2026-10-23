@@ -1,0 +1,15 @@
+{
+  "proof_name": "PRODUCTION_ASSORTMENT_RETENTION_AND_DATE_SEPARATION",
+  "timestamp_utc": "2026-10-23T04:28:10.741316+00:00",
+  "baseline_total_records": 560,
+  "simulated_unavailable_count": 10,
+  "fresh_evidence_count": 550,
+  "fresh_evidence_crawl_date": "2026-10-23",
+  "carried_forward_historical_count": 10,
+  "carried_forward_historical_crawl_date": "2026-10-21",
+  "total_records_after_retention_merge": 560,
+  "zero_records_lost": true,
+  "date_separation_verified": true,
+  "atomic_commit_pass": true,
+  "status": "100% PASS - INDEFINITE RETENTION & DATE SEPARATION CONFIRMED"
+}
