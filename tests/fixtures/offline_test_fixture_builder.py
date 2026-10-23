@@ -766,15 +766,17 @@ def generate_verified_marianos_dataset():
             )
             records_list.append(record.to_ordered_dict())
 
-    # Write output
-    output_filename = "marianos_contest_submission_500_records.json"
-    output_path = os.path.join(storage.output_dir, output_filename)
+    # Write output to dedicated fixture output directory to avoid touching production catalog
+    fixture_output_dir = os.path.join(os.path.dirname(__file__), "output")
+    os.makedirs(fixture_output_dir, exist_ok=True)
+    output_filename = "fixture_marianos_500_records.json"
+    output_path = os.path.join(fixture_output_dir, output_filename)
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(records_list, f, indent=2, ensure_ascii=False)
 
-    print(f"SUCCESS: Generated {len(records_list)} verified records in {output_path}")
+    print(f"SUCCESS: Generated {len(records_list)} fixture records in {output_path}")
 
-    # Generate Audit Statistics
+    # Generate Audit Statistics for Fixture
     stats = storage.calculate_statistics(records_list)
     stats["runtime_seconds"] = 138.45
     stats["store_id"] = "53100503"
@@ -786,10 +788,10 @@ def generate_verified_marianos_dataset():
     stats["categories_processed"] = f"{len(category_data)}/{len(category_data)}"
     stats["atomic_commit_successful"] = True
 
-    stats_path = os.path.join(storage.output_dir, "marianos_audit_statistics.json")
+    stats_path = os.path.join(fixture_output_dir, "fixture_marianos_audit_statistics.json")
     with open(stats_path, "w", encoding="utf-8") as f:
         json.dump(stats, f, indent=2)
-    print(f"SUCCESS: Audit statistics generated at {stats_path}")
+    print(f"SUCCESS: Fixture audit statistics generated at {stats_path}")
 
 if __name__ == "__main__":
     generate_verified_marianos_dataset()

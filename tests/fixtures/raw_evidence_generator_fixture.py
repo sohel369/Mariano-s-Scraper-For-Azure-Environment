@@ -292,16 +292,16 @@ def generate_marianos_raw_evidence():
         ]
     }
 
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    raw_dir = os.path.join(base_dir, "data", "raw")
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    raw_dir = os.path.join(os.path.dirname(__file__), "output")
     os.makedirs(raw_dir, exist_ok=True)
 
     # Write both reconciled 53100503 and 531 for compatibility
-    for fname in ["marianos_raw_store_53100503_evidence.json", "marianos_raw_store_531_evidence.json"]:
+    for fname in ["fixture_marianos_raw_store_53100503_evidence.json", "fixture_marianos_raw_store_531_evidence.json"]:
         out_path = os.path.join(raw_dir, fname)
         with open(out_path, "w", encoding="utf-8") as f:
             json.dump(evidence, f, indent=2)
-        print(f"SUCCESS: Raw Mariano's evidence saved to {out_path}")
+        print(f"SUCCESS: Fixture raw Mariano's evidence saved to {out_path}")
 
 if __name__ == "__main__":
     generate_marianos_raw_evidence()
