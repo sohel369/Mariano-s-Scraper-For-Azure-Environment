@@ -1,13 +1,14 @@
 # GIT PROVENANCE & FILE INTEGRITY MANIFEST
 
-**Generated UTC:** 2026-10-23T04:14:49.749933+00:00  
+**Generated UTC:** 2026-10-23T04:15:18.984512+00:00  
 **Repository URL:** [https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git](https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git)  
 **Branch:** `main`  
-**HEAD Commit:** `b4f79aa73ecaa12ed2e24ebecbe9a336f1de05a5`  
-**Working Tree Clean:** `False`  
+**HEAD Commit:** `5b0c9c0569feedb852ec8b445ab3033b2f1d6e5c`  
+**Working Tree Clean:** `True`  
 
 ## 1. Recent Authoritative Commits
 ```text
+5b0c9c0 Reconcile exact 28 buyer brief category CSV rows, update route mapping audit and dynamic gate proof
 b4f79aa Update git provenance to HEAD commit 784ceb3
 784ceb3 Implement indefinite store assortment retention, crawl_date separation, and Azure bounded probe specification
 9c8bd66 Add Git provenance, file integrity manifest and checksums
@@ -15,7 +16,6 @@ b4f79aa Update git provenance to HEAD commit 784ceb3
 75df6bf Integrate category route mapping audit, dynamic rejection gate, and review remediation status
 8fac4e1 Synchronize baseline run session dates to 2026-10-21 and link parent brief URLs
 a461e4f Reconcile 14 parent CSV URLs to 28 subcategories and add automated missing-route rejection proof
-dd3681a Add dataset version, provenance and lineage manifest
 ```
 
 ## 2. Deliverable File SHA-256 Checksums
@@ -33,4 +33,4 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 
 ## 3. Remote Verification Link
 The full commit history, diffs, and trees can be inspected directly on GitHub at:
-`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/b4f79aa73ecaa12ed2e24ebecbe9a336f1de05a5`
+`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/5b0c9c0569feedb852ec8b445ab3033b2f1d6e5c`
