@@ -77,8 +77,8 @@ az container create `
   --registry-username $AcrUsername `
   --registry-password $AcrPassword `
   --assign-identity $IdentityId `
-  --cpu 2 `
-  --memory 4 `
+  --cpu 1 `
+  --memory 2 `
   --restart-policy Never `
   --environment-variables `
       MARIANOS_PROXY_URL="$env:MARIANOS_PROXY_URL" `

@@ -1,0 +1,41 @@
+{
+  "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
+  "pinned_git_commit": "c5552948160e958cd5e3eaddf01fe0f09e00a733",
+  "timestamp_utc": "2026-10-27T02:09:43.476046+00:00",
+  "execution_environment": {
+    "host_ip": "192.168.137.1",
+    "os": "win32",
+    "python_version": "3.13.6"
+  },
+  "circuit_breaker_limits": {
+    "max_records_override": 20,
+    "max_requests_ceiling": 3,
+    "max_retries_ceiling": 1,
+    "run_deadline_seconds": 60.0
+  },
+  "store_target": {
+    "configured_address": "1720 N Milwaukee Ave, Vernon Hills, IL 60061",
+    "configured_zipcode": "60061",
+    "fulfillment_intent": "PICKUP",
+    "store_id": "53108502",
+    "division_id": "531",
+    "store_number": "08502",
+    "store_name": "Mariano's Vernon Hills"
+  },
+  "probe_metrics": {
+    "total_requests_executed": 2,
+    "total_retries_executed": 1,
+    "elapsed_seconds": 5.91,
+    "http_status_code": null,
+    "edge_connection_success": false,
+    "challenge_detected": false,
+    "challenge_classification": null,
+    "store_fulfillment_verified_in_source": false,
+    "verified_retailer_id_in_source": null
+  },
+  "collected_records_count": 0,
+  "sample_records": [],
+  "verified_cleanup": true,
+  "overall_status": "FAILED_LOCAL_CONNECTION_RESET",
+  "resolution_notes": "Local connection forcibly reset by Akamai edge: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))"
+}

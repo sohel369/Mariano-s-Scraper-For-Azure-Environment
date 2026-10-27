@@ -1,5 +1,17 @@
 [
   {
+    "store_id": "53108502",
+    "division_id": "531",
+    "store_number": "08502",
+    "zipcode": "60061",
+    "store_name": "Mariano's Vernon Hills",
+    "store_location": "1720 N Milwaukee Ave, Vernon Hills, IL 60061",
+    "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
+    "fulfillment_intent": "PICKUP",
+    "is_default": true,
+    "role": "PRIMARY_DEMONSTRATION_STORE"
+  },
+  {
     "store_id": "53100503",
     "division_id": "531",
     "store_number": "00503",
@@ -8,7 +20,8 @@
     "store_location": "333 E Benton Pl, Chicago, IL 60601",
     "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
     "fulfillment_intent": "PICKUP",
-    "is_default": true
+    "is_default": false,
+    "role": "BASELINE_REPLAY_CATALOG_STORE"
   },
   {
     "store_id": "53100527",
@@ -19,7 +32,8 @@
     "store_location": "40 S Halsted St, Chicago, IL 60661",
     "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
     "fulfillment_intent": "PICKUP",
-    "is_default": false
+    "is_default": false,
+    "role": "MULTI_STORE_DIRECTORY"
   },
   {
     "store_id": "53100528",
@@ -30,6 +44,7 @@
     "store_location": "3030 N Broadway, Chicago, IL 60657",
     "store_logo": "https://www.marianos.com/content/v2/binary/image/marianos-logo.svg",
     "fulfillment_intent": "PICKUP",
-    "is_default": false
+    "is_default": false,
+    "role": "MULTI_STORE_DIRECTORY"
   }
 ]

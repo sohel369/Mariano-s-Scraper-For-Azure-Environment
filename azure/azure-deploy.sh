@@ -34,8 +34,8 @@ az container create \
   --registry-login-server "$ACR_LOGIN_SERVER" \
   --registry-username "$ACR_USERNAME" \
   --registry-password "$ACR_PASSWORD" \
-  --cpu 2 \
-  --memory 4 \
+  --cpu 1 \
+  --memory 2 \
   --restart-policy Never \
   --environment-variables \
       MARIANOS_PROXY_URL="$MARIANOS_PROXY_URL" \

@@ -135,16 +135,28 @@ py scripts/verify_store_identity.py --live
 py scripts/diagnose_akamai_block.py
 ```
 
-### 4. Live Fresh Scraper Execution
+### 4. Dedicated Azure Bounded Diagnostic Probe (Manual Single-Execution)
+To execute the isolated, lightweight diagnostic probe with strict circuit breakers (max 20 records, max 3 requests, 60s deadline, challenge classifier, and auto-cleanup):
 ```powershell
-# Executes live fresh crawl directly from marianos.com using Playwright Stealth
-py scripts/run_scraper.py --zipcode 60601 --max-pages 2
+# Run standalone manual probe:
+py scripts/run_azure_bounded_probe.py --max-records-override 20 --store-address "1720 N Milwaukee Ave, Vernon Hills, IL 60061" --zipcode 60061 --fulfillment-type PICKUP
 
-# OR run live mode via reproduction script:
-py scripts/reproduce_observed_run.py --live --zipcode 60601
+# Deploy dedicated probe container in Azure (1 vCPU, 2.0 GB RAM, zero recurring triggers, auto-cleanup):
+./azure/azure-deploy-bounded-probe.ps1
+# On Linux/macOS:
+./azure/azure-deploy-bounded-probe.sh
 ```
 
-### 5. Deploy to Microsoft Azure
+### 5. Live Fresh Scraper Execution
+```powershell
+# Executes live fresh crawl directly from marianos.com using Playwright Stealth
+py scripts/run_scraper.py --zipcode 60061 --max-pages 2
+
+# OR run live mode via reproduction script:
+py scripts/reproduce_observed_run.py --live --zipcode 60061
+```
+
+### 6. Deploy Full Production Stack to Microsoft Azure
 ```powershell
 ./azure/azure-deploy.ps1 -ResourceGroup "rg-marianos-scraper-prod" -Location "eastus"
 ```

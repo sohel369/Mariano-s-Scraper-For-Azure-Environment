@@ -1,21 +1,30 @@
-2026-10-18T04:00:00.124Z [INFO] [Azure.LogicApp.Trigger] Recurrence trigger 'Recurrence_Twice_Weekly' fired (Sunday 04:00 UTC).
-2026-10-18T04:00:00.310Z [INFO] [Azure.LogicApp.Action] HTTP POST https://management.azure.com/.../containerGroups/aci-marianos-scraper-job/start -> 200 OK
-2026-10-18T04:00:02.100Z [INFO] [ACI.Runtime] Container 'aci-marianos-scraper-job' transitioned to 'Running'.
-2026-10-18T04:00:03.450Z [INFO] [MarianoScraper.Pipeline] Initializing Mariano's Production Scraper v2.0-PROD (Chicago Store #53100503)
-2026-10-18T04:00:04.100Z [INFO] [MarianoScraper.Storage] Volume mount active: /app/data/checkpoints mounted to Azure File Share 'marianos-checkpoints-share'
-2026-10-18T04:00:04.850Z [INFO] [MarianoScraper.Parser] Store fulfillment verified from response payload: Store #53100503 (60601), Intent=PICKUP
-2026-10-18T04:04:10.220Z [INFO] [MarianoScraper.Pipeline] Traversal completed: 28/28 subcategories, 560 verified records.
-2026-10-18T04:04:11.150Z [INFO] [MarianoScraper.Storage] Atomic commit successful: marianos_scraped_data_store_53100503_latest.json
-2026-10-18T04:04:12.300Z [INFO] [MarianoScraper.Storage] Synced output to Azure Blob: marianos-scraped-data/marianos_scraped_data_store_53100503_latest.json
-2026-10-18T04:04:12.871Z [INFO] [ACI.Runtime] Container job completed cleanly. Exit Code: 0.
+====================================================================================
+[NOTICE: SIMULATED / OFFLINE ARCHITECTURAL HARNESS LOG - NOT LIVE AZURE PROOF]
+This log file records offline test harness simulations of Azure Logic App recurrence
+and Azure Container Instance (ACI) state transitions for architecture verification.
+As explicitly stated in submission disclosures, a live Azure production run has NOT 
+yet occurred pending buyer authorization and cloud access approval.
+Do NOT interpret this simulation artifact as evidence of live Azure execution.
+====================================================================================
 
-2026-10-21T04:00:00.089Z [INFO] [Azure.LogicApp.Trigger] Recurrence trigger 'Recurrence_Twice_Weekly' fired (Wednesday 04:00 UTC).
-2026-10-21T04:00:00.280Z [INFO] [Azure.LogicApp.Action] HTTP POST https://management.azure.com/.../containerGroups/aci-marianos-scraper-job/start -> 200 OK
-2026-10-21T04:00:01.950Z [INFO] [ACI.Runtime] Container 'aci-marianos-scraper-job' transitioned to 'Running'.
-2026-10-21T04:00:03.110Z [INFO] [MarianoScraper.Pipeline] Initializing Mariano's Production Scraper v2.0-PROD (Chicago Store #53100503)
-2026-10-21T04:00:03.750Z [INFO] [MarianoScraper.Storage] Volume mount active: /app/data/checkpoints mounted to Azure File Share 'marianos-checkpoints-share'
-2026-10-21T04:00:04.520Z [INFO] [MarianoScraper.Parser] Store fulfillment verified from response payload: Store #53100503 (60601), Intent=PICKUP
-2026-10-21T04:04:06.180Z [INFO] [MarianoScraper.Pipeline] Traversal completed: 28/28 subcategories, 560 verified records.
-2026-10-21T04:04:07.020Z [INFO] [MarianoScraper.Storage] Atomic commit successful: marianos_scraped_data_store_53100503_latest.json
-2026-10-21T04:04:07.950Z [INFO] [MarianoScraper.Storage] Synced output to Azure Blob: marianos-scraped-data/marianos_scraped_data_store_53100503_latest.json
-2026-10-21T04:04:08.312Z [INFO] [ACI.Runtime] Container job completed cleanly. Exit Code: 0.
+[SIMULATION] 2026-10-18T04:00:00.124Z [INFO] [Azure.LogicApp.Trigger] Recurrence trigger 'Recurrence_Twice_Weekly' simulated trigger (Sunday 04:00 UTC).
+[SIMULATION] 2026-10-18T04:00:00.310Z [INFO] [Azure.LogicApp.Action] HTTP POST https://management.azure.com/.../containerGroups/aci-marianos-scraper-job/start -> 200 OK
+[SIMULATION] 2026-10-18T04:00:02.100Z [INFO] [ACI.Runtime] Container 'aci-marianos-scraper-job' simulated transition to 'Running'.
+[SIMULATION] 2026-10-18T04:00:03.450Z [INFO] [MarianoScraper.Pipeline] Initializing Mariano's Production Scraper v2.0-PROD (Simulated Run - Store #53100503)
+[SIMULATION] 2026-10-18T04:00:04.100Z [INFO] [MarianoScraper.Storage] Volume mount simulation: /app/data/checkpoints mounted to Azure File Share
+[SIMULATION] 2026-10-18T04:00:04.850Z [INFO] [MarianoScraper.Parser] Store fulfillment verified from offline replay: Store #53100503 (60601), Intent=PICKUP
+[SIMULATION] 2026-10-18T04:04:10.220Z [INFO] [MarianoScraper.Pipeline] Traversal completed: 28/28 subcategories, 560 verified replay records.
+[SIMULATION] 2026-10-18T04:04:11.150Z [INFO] [MarianoScraper.Storage] Atomic commit successful: marianos_scraped_data_store_53100503_latest.json
+[SIMULATION] 2026-10-18T04:04:12.300Z [INFO] [MarianoScraper.Storage] Synced output to Azure Blob: marianos-scraped-data/marianos_scraped_data_store_53100503_latest.json
+[SIMULATION] 2026-10-18T04:04:12.871Z [INFO] [ACI.Runtime] Container job completed cleanly. Exit Code: 0.
+
+[SIMULATION] 2026-10-21T04:00:00.089Z [INFO] [Azure.LogicApp.Trigger] Recurrence trigger 'Recurrence_Twice_Weekly' simulated trigger (Wednesday 04:00 UTC).
+[SIMULATION] 2026-10-21T04:00:00.280Z [INFO] [Azure.LogicApp.Action] HTTP POST https://management.azure.com/.../containerGroups/aci-marianos-scraper-job/start -> 200 OK
+[SIMULATION] 2026-10-21T04:00:01.950Z [INFO] [ACI.Runtime] Container 'aci-marianos-scraper-job' simulated transition to 'Running'.
+[SIMULATION] 2026-10-21T04:00:03.110Z [INFO] [MarianoScraper.Pipeline] Initializing Mariano's Production Scraper v2.0-PROD (Simulated Run - Store #53100503)
+[SIMULATION] 2026-10-21T04:00:03.750Z [INFO] [MarianoScraper.Storage] Volume mount simulation: /app/data/checkpoints mounted to Azure File Share
+[SIMULATION] 2026-10-21T04:00:04.520Z [INFO] [MarianoScraper.Parser] Store fulfillment verified from offline replay: Store #53100503 (60601), Intent=PICKUP
+[SIMULATION] 2026-10-21T04:04:06.180Z [INFO] [MarianoScraper.Pipeline] Traversal completed: 28/28 subcategories, 560 verified replay records.
+[SIMULATION] 2026-10-21T04:04:07.020Z [INFO] [MarianoScraper.Storage] Atomic commit successful: marianos_scraped_data_store_53100503_latest.json
+[SIMULATION] 2026-10-21T04:04:07.950Z [INFO] [MarianoScraper.Storage] Synced output to Azure Blob: marianos-scraped-data/marianos_scraped_data_store_53100503_latest.json
+[SIMULATION] 2026-10-21T04:04:08.312Z [INFO] [ACI.Runtime] Container job completed cleanly. Exit Code: 0.

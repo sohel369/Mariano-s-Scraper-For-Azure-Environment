@@ -1,16 +1,16 @@
 {
-  "timestamp_utc": "2026-10-22T16:56:13.107571+00:00",
+  "timestamp_utc": "2026-10-23T04:30:19.255586+00:00",
   "host_ip": "103.106.236.167",
-  "host_country": "Bangladesh",
-  "host_country_code": "BD",
+  "host_country": "Unknown",
+  "host_country_code": "Unknown",
   "target_host": "www.marianos.com",
   "akamai_edge_ip": "23.204.253.35",
   "akamai_cname": "a23-204-253-35.deploy.static.akamaitechnologies.com",
   "is_akamai_infrastructure": true,
   "tcp_handshake_successful": true,
   "tls_handshake_successful": true,
-  "observed_edge_action": "Socket Read Timeout (Akamai edge dropped packets silently)",
-  "observed_edge_error": "None",
+  "observed_edge_action": "TCP RST Packet Received (Connection was reset by Akamai edge)",
+  "observed_edge_error": "[WinError 10054] An existing connection was forcibly closed by the remote host",
   "is_blocked_by_akamai_edge": true,
   "resolution": "Provision US Residential Proxy (MARIANOS_PROXY_URL) or deploy to Azure ACI (East US)"
 }
