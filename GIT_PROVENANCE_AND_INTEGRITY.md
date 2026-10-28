@@ -1,21 +1,21 @@
 # GIT PROVENANCE & FILE INTEGRITY MANIFEST
 
-**Generated UTC:** 2026-10-27T02:11:54.458374+00:00  
+**Generated UTC:** 2026-10-28T03:57:31.320738+00:00  
 **Repository URL:** [https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git](https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git)  
 **Branch:** `main`  
-**HEAD Commit:** `7cc4100e81424c615923bc269e30ec45aa6e281b`  
+**HEAD Commit:** `9f4d29f5c1e8e8944a2d221afe0f289bc7c3cb9b`  
 **Working Tree Clean:** `True`  
 
 ## 1. Recent Authoritative Commits
 ```text
+9f4d29f Address review: Genuine parsing, store 53100502, URL-fallback retention, and failure-mode verification
+06ae8aa Update git provenance to commit 7cc4100
 7cc4100 Implement dedicated Azure bounded probe, Vernon Hills store, and cost ceiling specification
 c555294 Update git provenance to commit 1597918
 1597918 Update README verification commands with 28-row mapping and assortment retention proofs
 48de21f Update git provenance to commit f213f86
 f213f86 Calibrate technical claims: conservative network timeout wording, baseline catalog framing, proposed probe date
 7bd7073 Update git provenance to commit a40caa4
-a40caa4 Refine retention lifecycle terminology to baseline catalog records
-4dd2b0f Update git provenance to commit 535f25a
 ```
 
 ## 2. Deliverable File SHA-256 Checksums
@@ -29,8 +29,8 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 | `data/input/Marianos_Category_URLs_Original_Brief.csv` | 2610 | `f34aa83b485a6b56af4ca3a66cdd6d7be63ad88d95f95dc803466adc76c9adef` |
 | `data/input/Marianos_Category_URLs.csv` | 6095 | `29ef0da05bc3e6d2a7b6eff036df02371052afa9bf6316b3c9fb546c81b09cc0` |
 | `logs/category_route_mapping_structure_audit.json` | 404 | `9f09370c24921c229126e51f3f2ae54c46bdec0fd1cf583f29ee3480addc510d` |
-| `logs/missing_route_rejection_audit_proof.json` | 588 | `6117eca7538b88e73095a017e92b879ee1d860743c7affe53b26be125e32d942` |
+| `logs/missing_route_rejection_audit_proof.json` | 588 | `8d76438fca05e9acfbbb15dac74696ef3df1c00ccbd9a790f511f1170fdf9c1a` |
 
 ## 3. Remote Verification Link
 The full commit history, diffs, and trees can be inspected directly on GitHub at:
-`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/7cc4100e81424c615923bc269e30ec45aa6e281b`
+`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/9f4d29f5c1e8e8944a2d221afe0f289bc7c3cb9b`
