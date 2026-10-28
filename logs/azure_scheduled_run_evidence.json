@@ -29,7 +29,7 @@
       },
       "retention_policy": "Zero data loss across container restart via dual-layer volume mount & atomic Blob sync"
     },
-    "actual_workflow_execution_history": [
+    "simulated_offline_harness_history": [
       {
         "execution_id": "simulated-harness-run-20261018-040000",
         "notice": "[SIMULATION / OFFLINE HARNESS TEST - ZERO LIVE AZURE RUNS OCCURRED]",
@@ -66,8 +66,8 @@
       "live_azure_runs_executed": false,
       "bi_weekly_schedule_spec_verified": true,
       "container_clean_exit_spec_verified": true,
-      "cloud_blob_storage_sync_spec_verified": true,
-      "restart_persistence_spec_verified": true
+      "cloud_blob_storage_sync_spec_designed": true,
+      "restart_persistence_spec_designed": true
     }
   }
 }

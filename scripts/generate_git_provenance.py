@@ -30,6 +30,12 @@ def generate_provenance():
     status_short = run_git(["git", "status", "--short"])
     
     tracked_files = [
+        "scripts/run_azure_bounded_probe.py",
+        "azure/azure-deploy-bounded-probe.sh",
+        "azure/azure-deploy-bounded-probe.ps1",
+        "azure/Dockerfile",
+        "requirements.txt",
+        "config/locations.json",
         "data/output/marianos_scraped_data_store_53100503_full_catalog.json",
         "data/output/marianos_contest_submission_500_records.json",
         "data/output/marianos_audit_statistics.json",

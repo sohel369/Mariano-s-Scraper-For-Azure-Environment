@@ -1,6 +1,6 @@
 {
   "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
-  "pinned_git_commit": "06ae8aa7ef1500e2b46b2872170715bc28df1aa7",
+  "pinned_git_commit": "c5b3740fde30c0c146bc5181c8acff7fc4b6a405",
   "timestamp_utc": "2026-10-28T03:54:23.253822+00:00",
   "execution_environment": {
     "host_ip": "10.112.50.140",
