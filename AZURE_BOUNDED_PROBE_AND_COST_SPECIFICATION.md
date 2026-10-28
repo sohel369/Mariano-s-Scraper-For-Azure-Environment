@@ -1,46 +1,51 @@
 # AZURE BOUNDED PROBE & DEPENDENCY COST SPECIFICATION (MARIANO'S ENTRY #36)
 
 **Package:** Mariano's Scraper Entry #36  
-**Authoritative Response to Review:** October 26 Comprehensive Review & Diagnostic Specification  
-**Demonstration Store:** **Mariano's Vernon Hills (1720 N Milwaukee Ave, Vernon Hills, IL 60061, PICKUP)**  
-**Baseline Store Separation:** 560-product baseline strictly maintained for New Eastside (Store `53100503`, `60601`)  
+**Authoritative Response to Review:** October 27 Review & Strict Diagnostic Guardrails  
+**Target Demonstration Store:** **Mariano's Vernon Hills (1720 N Milwaukee Ave, Vernon Hills, IL 60061, PICKUP)**  
+- **Official Retailer URL:** `https://www.marianos.com/stores/grocery/il/vernon-hills/marianos-vernon-hills/531/00502`  
+- **Retailer IDs:** Division `531`, Store Number `00502`, Store ID `53100502`  
+**Baseline Store Separation:** 560-product baseline strictly designated as **Unverified Replay Baseline** for historical New Eastside (Store `53100503`, `60601`). No live provenance is claimed for the baseline.  
 **Execution Authorization Status:** Standalone diagnostic plan submitted for review; **no unapproved cloud spending, instances, or proxy subscriptions active.**  
-**Milestone Target:** **Wednesday, October 28, 2026** (Executable immediately at any time upon buyer authorization without reserving an appointment).
+**Milestone Target:** **Thursday, October 29, 2026 at 18:00 UTC (14:00 EDT)** (Executable immediately at any time upon buyer authorization without reserving an appointment).
 
 ---
 
 ## 1. Dedicated Standalone Diagnostic Probe Specification
 
-In direct response to reviewer requirements for an executable diagnostic with pinned versioning, strict circuit breakers, challenge classification, and verified cleanup:
+In direct response to reviewer requirements for an executable diagnostic with pinned versioning, strict circuit breakers, challenge classification, genuine parsing (zero mock records), and verified cleanup:
 
 ### A. Manual-Only Execution Command
 The bounded probe runs strictly as an isolated, manual diagnostic command. It does **not** create recurring triggers, Logic Apps, or scheduled jobs:
 ```powershell
-# Local / Container Manual Probe Command
+# Standalone Manual Probe Execution:
 python scripts/run_azure_bounded_probe.py --max-records-override 20 --store-address "1720 N Milwaukee Ave, Vernon Hills, IL 60061" --zipcode 60061 --fulfillment-type PICKUP
 
-# Dedicated Azure Container Deployment (Manual Single-Execution & Auto-Cleanup)
+# Dedicated Azure Container Deployment (Manual Single-Execution, External Evidence Extraction & Guaranteed Teardown)
 ./azure/azure-deploy-bounded-probe.sh
 # Or on Windows PowerShell:
 ./azure/azure-deploy-bounded-probe.ps1
 ```
 
-### B. Enforced Circuit Breaker Limits & Guardrails
+### B. Enforced Circuit Breaker Limits & Failure Guardrails
 
 | Parameter | Enforced Limit | Implementation in `scripts/run_azure_bounded_probe.py` |
 | :--- | :---: | :--- |
 | **Pinned Version / Git Commit** | Pinned | Automatically records exact commit SHA-256 / HEAD hash into output artifact. |
-| **Target Store & Address** | Vernon Hills | `1720 N Milwaukee Ave, Vernon Hills, IL 60061` (Store `#8502`, Division `531`, ID `53108502`). |
-| **Fulfillment Context** | `PICKUP` | Verifies pickup fulfillment context in request and in-response metadata. |
+| **Target Store & Address** | Vernon Hills | `1720 N Milwaukee Ave, Vernon Hills, IL 60061` (Store `#00502`, Division `531`, ID `53100502`). |
+| **Fulfillment Modality** | `PICKUP` | Establishes `kroger.modality=PICKUP` and `kroger.storeId=53100502` session cookies. |
+| **Structural Store Validation** | Enforced | Structural verification of division 531, store 00502, and pickup modality; unrelated text matches strictly fail. |
+| **Genuine Parsing Only** | Zero Mock Data | **Zero generated/synthetic records.** Uses `MarianoPageParser` to parse actual HTML/JSON, or reports 0 products truthfully. |
+| **Non-Success HTTP Stops** | Immediate Abort | HTTP != 200 (e.g. 500, 403, 404) immediately sets failing status and exits with status code 1. |
 | **Maximum Record Limit** | **Max 20 Items** | Hard ceiling via `--max-records-override 20` (stops parsing after 20 products). |
 | **Maximum Page Depth** | **1 Page Only** | Probes single category page (`/d/meat-seafood`), zero deep pagination. |
-| **Aggregate Request Count** | **Max 3 Requests** | Hard ceiling (max 5); execution immediately terminates if cap reached. |
-| **Aggregate Retry Count** | **Max 1 Retry** | Single retry on network drop; stops immediately on failure. |
-| **Whole-Run Deadline** | **60.0 Seconds** | Monotonic timer ceiling; aborts gracefully with `ABORTED_DEADLINE_EXCEEDED` if exceeded. |
+| **Aggregate Request Ceiling** | **Max 3 Requests** | Counts actual HTTP attempts and redirects against aggregate ceiling; aborts if exceeded. |
+| **Aggregate Retry Limit** | **Max 1 Retry** | Single retry on network drop; stops immediately on failure. |
+| **Whole-Run Deadline** | **60.0 Seconds** | Monotonic timer ceiling covering connection, redirects, body reading, and export. Aborts with exit code 1 if exceeded. |
+| **Response Byte Ceiling** | **2.5 MB Max** | Streams response in chunks; aborts with `ABORTED_BYTE_LIMIT_EXCEEDED` if body exceeds 2.5 MB. |
 | **Challenge Classifier** | Active Inspection | Classifies PerimeterX (`_pxAppId`, `px-captcha`, `challenge.js`, `Press & Hold`) and Akamai Bot Manager (`ak_bmsc`, `bm_sz`, Access Denied). |
-| **Failure Stop Protocol** | Immediate Abort | If challenge/block detected or connection reset, stops immediately without hammering edge. |
-| **Verified Cleanup** | Graceful Terminate | `finally` block terminates HTTP sessions, sockets, and browser processes with zero orphans. |
-| **Durable Evidence Output** | JSON Artifact | Writes complete diagnostic metrics, headers, and store context to `logs/azure_bounded_probe_result.json`. |
+| **Durable Evidence Extraction** | Externalized | Result JSON extracted outside the container to `logs/azure_bounded_probe_result.json` prior to container deletion. |
+| **Guaranteed Resource Teardown** | Verified Cleanup | Deletes ACI container group AND deletes ephemeral ACR registry; verifies 0 remaining resources. |
 
 ---
 
@@ -50,7 +55,7 @@ All deployment scripts and specifications are strictly aligned to the lightweigh
 
 | Component | CPU Allocation | Memory Allocation | OS Runtime |
 | :--- | :---: | :---: | :--- |
-| **Bounded Diagnostic Probe** (`azure-deploy-bounded-probe.sh`) | **1 vCPU** | **2.0 GB RAM** | Linux Jammy / Python 3.11+ |
+| **Bounded Diagnostic Probe** (`azure-deploy-bounded-probe.sh` / `.ps1`) | **1 vCPU** | **2.0 GB RAM** | Linux Jammy / Python 3.11+ |
 | **Production Scraper Stack** (`azure-deploy.sh` / `azure-deploy.ps1`) | **1 vCPU** | **2.0 GB RAM** | Linux Jammy / Python 3.11+ |
 | **Container Engine** (`docker-compose.yml`) | **1 vCPU** | **2.0 GB RAM** | Playwright Stealth Headless |
 
@@ -58,18 +63,20 @@ All deployment scripts and specifications are strictly aligned to the lightweigh
 
 ## 3. Total One-Time Test Ceiling vs. Monthly Production Budget
 
-To provide complete cost predictability, the one-time diagnostic test cost is strictly separated from the recurring monthly production estimate:
+To provide complete cost predictability and eliminate cost table contradictions, the one-time diagnostic test cost is strictly separated from the recurring monthly production estimate:
 
 ### A. Total One-Time Test Ceiling (Single Diagnostic Run)
-*Calculated for 1 vCPU / 2.0 GB RAM running for ~2 minutes during the bounded probe:*
+*Calculated for 1 vCPU / 2.0 GB RAM running for ~2 minutes during the bounded probe, with immediate ACR teardown:*
 
 | Line Item | Execution Scope | Azure Retail Unit Pricing | Maximum Test Ceiling |
 | :--- | :--- | :--- | :---: |
 | **ACI Container Compute** | 1 vCPU, 2 GB for ~120 seconds | $0.0000135/vCPU-s + $0.0000015/GB-s | **$0.0020** |
-| **Azure Container Registry (ACR)** | Basic Tier (1-day storage & build) | $0.167/day prorated + $0.0003/build-min | **$0.0200** |
+| **Azure Container Registry (ACR)** | Basic Tier (Prorated ~15 min ephemeral lifecycle) | $0.167/day ($0.007/hour); auto-deleted by script | **$0.0050** |
+| **ACR 24-Hour Safety Margin** | (In the event ACR is left for full 24 hours before deletion) | Standard Azure Basic ACR daily rate | *$0.1670 max* |
 | **Diagnostic Log Storage** | Hot LRS (1 PUT operation + ~5 KB JSON) | $0.018/GB-mo + $0.0004/10K ops | **$0.0010** |
 | **Total Bandwidth Egress** | < 2.5 MB outbound data | First 100 GB/month egress is free | **$0.0000** |
-| **TOTAL ONE-TIME TEST CEILING** | **Single Bounded Diagnostic Run** | **Complete Probe + Auto-Cleanup** | **< $0.05 (Five Cents)** |
+| **TOTAL ONE-TIME TEST CEILING** | **Immediate Teardown (Normal Path)** | **Complete Probe + Auto-Cleanup** | **< $0.01 (One Cent)** |
+| **TOTAL ONE-TIME TEST CEILING** | **24-Hour ACR Retention Margin** | **Absolute worst-case uncleaned ACR** | **< $0.20 (Twenty Cents)** |
 
 ### B. Monthly Production Estimate (Twice-Weekly Production Sweeps)
 *Calculated separately for 8 full catalog sweeps per month across all 28 categories:*
@@ -84,17 +91,17 @@ To provide complete cost predictability, the one-time diagnostic test cost is st
 
 ---
 
-## 4. Reconciliation of Historical Simulation Logs
+## 4. Reconciliation of Historical Simulation Logs & Baseline Designation
 
 In accordance with reviewer instructions:
-- `logs/azure_execution_history.log` has been reconciled and explicitly stamped with `[SIMULATION / OFFLINE ARCHITECTURAL HARNESS LOG]`.
+- `logs/azure_execution_history.log` and `logs/azure_scheduled_run_evidence.json` have been reconciled and explicitly stamped as offline simulation harness logs (`[SIMULATION / OFFLINE HARNESS TEST - ZERO LIVE AZURE RUNS OCCURRED]`).
 - All October 18 and October 21 entries are formally designated as offline architectural harness simulations.
-- **Affirmation:** As stated in all correspondence, zero live Azure runs have taken place. Live Azure execution remains strictly pending buyer review, approval, and environment provisioning.
-- Baseline catalog data (`data/output/mariano_catalog_560.json`) remains strictly designated as 560 replay records for the New Eastside store (`53100503`), completely separate from the Vernon Hills (`1720 N Milwaukee Ave, 60061`) live diagnostic target.
+- **Formally Designated Unverified Replay Baseline:** The 560 baseline catalog records (`data/output/mariano_catalog_560.json`) match fixture tuples and check digits, establishing schema and offline test overlap, but remain designated as **Unverified Replay Baseline** pending genuine live collection evidence.
+- The demonstration store target is strictly **Mariano's Vernon Hills (1720 N Milwaukee Ave, Store #00502, Division 531, ID 53100502)**, completely separate from the New Eastside replay baseline.
 
 ---
 
 ## 5. Next Milestone Target
 
-* **Proposed Delivery Target:** **Wednesday, October 28, 2026**
+* **Proposed Delivery Target:** **Thursday, October 29, 2026 at 18:00 UTC (14:00 EDT)**
 * **Readiness:** The dedicated diagnostic probe (`scripts/run_azure_bounded_probe.py`) and single-run deployment scripts (`azure/azure-deploy-bounded-probe.sh` / `.ps1`) are packaged, tested, and ready for immediate manual execution at any time once approved.

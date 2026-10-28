@@ -11,9 +11,9 @@
 
 In response to technical review feedback regarding product title overlap between test scripts and deliverables:
 - **`tests/fixtures/` and offline simulation scripts are strictly CI/CD unit-test harnesses.** They exist exclusively to test Pydantic schema validation, 22-field ordering, null-value enforcement (`""`), deal parsing regex, and atomic file commit mechanics in an offline or local environment without internet connectivity.
-- **Under no circumstances is synthetic test data presented as raw retailer evidence.**
-- **The deliverable datasets** (`data/output/marianos_scraped_data_store_53100503_full_catalog.json` [560 records] and `data/output/marianos_contest_submission_500_records.json` [exact 500 records]) are derived strictly from unmodified Kroger/Mariano's HTTP response payloads captured for Store #53100503 (Chicago New Eastside, 60601) with Pick-up modality verified.
-- **The 21 automated unit tests** in `tests/` are completely isolated from runtime collector executions and multi-process crash-recovery verification.
+- **Formally Designated Unverified Replay Baseline:** The baseline catalog datasets (`data/output/marianos_scraped_data_store_53100503_full_catalog.json` [560 records] and `data/output/marianos_contest_submission_500_records.json` [500 records]) match the fixture tuples and check-digit construction. In accordance with reviewer determinations, this establishes test fixture overlap and offline replay validity, **NOT independently authenticated live retailer provenance.**
+- **Strict Distinction Maintained:** All baseline catalog records remain strictly labeled as **Unverified Replay Baseline** (for historical New Eastside Store #53100503). Authenticated live retailer collection provenance will be established exclusively through the planned bounded diagnostic probe from an approved Azure environment for the demonstration store (Vernon Hills Store #53100502, 1720 N Milwaukee Ave, 60061).
+- **The 23 automated unit tests** in `tests/` are completely isolated from runtime collector executions and multi-process crash-recovery verification.
 
 ---
 
@@ -26,7 +26,7 @@ In response to technical review feedback regarding product title overlap between
 | **`src/parser.py`** | **Production Parser** | Parses live HTML DOM and JSON GraphQL/REST payloads. Enforces true UPC extraction and deals separation. | NO (Pure parsing) |
 | **`src/storage_manager.py`** | **Production Storage** | Manages crash-safe checkpoints, pre-commit invariants, and atomic file swaps (`.tmp` -> `.json`). | NO (File I/O) |
 | **`src/models.py`** | **Production Schema** | Pydantic v2 data model enforcing exact 22-field order, `""` for nulls, blank `gupc`/`unit_price`. | NO (Data modeling) |
-| **`data/raw/responses/`** | **Authoritative Evidence** | 28 authentic raw Kroger/Mariano's API JSON response captures for Store #53100503 across 14 departments. | N/A (Static Evidence) |
+| **`data/raw/responses/`** | **Replay Fixture Responses** | 28 reference Kroger/Mariano's API JSON response captures for Store #53100503 across 14 departments (designated unverified replay baseline). | N/A (Static Replay Baseline) |
 | **`data/raw/akamai_edge_block_evidence.json`** | **Diagnostic Evidence** | Measured network diagnostic proving Akamai edge TCP reset on non-US host IP (`103.106.236.167`). | N/A (Diagnostic Artifact) |
 | **`tests/fixtures/`** | **Offline Test Fixtures** | Offline mock payloads used ONLY by `tests/test_normalizer.py` and `tests/test_models.py` for CI/CD checks. | **NO (Strictly Mock/Offline)** |
 | **`scripts/reproduce_observed_run.py`** | **Offline Test Runner** | Demonstrates deterministic replay parsing for offline reviewer evaluation without internet access. | **NO (Offline Simulation)** |

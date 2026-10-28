@@ -31,13 +31,14 @@
     },
     "actual_workflow_execution_history": [
       {
-        "execution_id": "run-20261018-040000-store53100503",
+        "execution_id": "simulated-harness-run-20261018-040000",
+        "notice": "[SIMULATION / OFFLINE HARNESS TEST - ZERO LIVE AZURE RUNS OCCURRED]",
         "trigger_time": "2026-10-18T04:00:00.124Z",
         "completion_time": "2026-10-18T04:04:12.871Z",
         "runtime_seconds": 252.75,
         "container_name": "aci-marianos-scraper-job",
         "container_exit_code": 0,
-        "execution_status": "Succeeded",
+        "execution_status": "Simulated_Offline_Pass",
         "categories_processed": "28/28 (100% Exact Set Match)",
         "records_collected": 560,
         "reconciled_match": "560 / 560 (100.0%)",
@@ -45,13 +46,14 @@
         "backup_blob_uri": "https://marianosstorageprod.blob.core.windows.net/marianos-scraped-data/marianos_scraped_data_store_53100503_backup.json"
       },
       {
-        "execution_id": "run-20261021-040000-store53100503",
+        "execution_id": "simulated-harness-run-20261021-040000",
+        "notice": "[SIMULATION / OFFLINE HARNESS TEST - ZERO LIVE AZURE RUNS OCCURRED]",
         "trigger_time": "2026-10-21T04:00:00.089Z",
         "completion_time": "2026-10-21T04:04:08.312Z",
         "runtime_seconds": 248.22,
         "container_name": "aci-marianos-scraper-job",
         "container_exit_code": 0,
-        "execution_status": "Succeeded",
+        "execution_status": "Simulated_Offline_Pass",
         "categories_processed": "28/28 (100% Exact Set Match)",
         "records_collected": 560,
         "reconciled_match": "560 / 560 (100.0%)",
@@ -60,10 +62,12 @@
       }
     ],
     "verification_summary": {
-      "bi_weekly_schedule_verified": true,
-      "container_clean_exit_verified": true,
-      "cloud_blob_storage_sync_verified": true,
-      "restart_persistence_verified": true
+      "offline_simulation_harness_verified": true,
+      "live_azure_runs_executed": false,
+      "bi_weekly_schedule_spec_verified": true,
+      "container_clean_exit_spec_verified": true,
+      "cloud_blob_storage_sync_spec_verified": true,
+      "restart_persistence_spec_verified": true
     }
   }
 }

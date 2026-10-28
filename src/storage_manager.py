@@ -183,6 +183,31 @@ class StorageManager:
             logger.warning(f"Azure Blob sync exception: {e}; local production persistence preserved.")
         return False
 
+    @staticmethod
+    def get_product_identity_key(record: Dict[str, Any]) -> str:
+        """
+        Builds a stable product identity key using genuine source identifiers:
+        1. Genuine UPC (if populated and not blank)
+        2. Stable product URL (fallback if UPC is blank)
+        3. Product ID or title + category fallback (if URL is also blank)
+        Ensures items with empty UPC are never dropped during assortment retention.
+        """
+        upc = str(record.get("upc") or "").strip()
+        if upc:
+            return f"upc:{upc}"
+        url = str(record.get("url") or "").strip().rstrip("/")
+        if url:
+            return f"url:{url}"
+        pid = str(record.get("product_id") or record.get("id") or "").strip()
+        if pid:
+            return f"pid:{pid}"
+        title = str(record.get("product_title") or "").strip().lower()
+        cat = str(record.get("category") or "").strip().lower()
+        subcat = str(record.get("sub_category") or "").strip().lower()
+        if title:
+            return f"title:{cat}:{subcat}:{title}"
+        return f"raw:{hash(json.dumps(record, sort_keys=True))}"
+
     def merge_indefinite_store_assortment(
         self,
         fresh_records: List[Dict[str, Any]],
@@ -194,6 +219,8 @@ class StorageManager:
         no current pickup offer or price; keep carried observation dates/values distinct from fresh evidence.'
         
         Preserves historical products missing from fresh crawl while maintaining their original crawl_date.
+        Uses a consistent genuine source-ID/URL fallback (never drops items with blank UPC).
+        Fails safely if historical catalog cannot be read.
         """
         if not os.path.exists(existing_target_filepath):
             return fresh_records, 0
@@ -201,17 +228,20 @@ class StorageManager:
         try:
             with open(existing_target_filepath, "r", encoding="utf-8") as f:
                 previous_records = json.load(f)
+            if not isinstance(previous_records, list):
+                logger.warning(f"Previous catalog at {existing_target_filepath} is not a valid list. Preserving fresh records safely.")
+                return fresh_records, 0
         except Exception as e:
-            logger.warning(f"Could not load previous catalog for assortment retention: {e}")
+            logger.warning(f"Could not load previous catalog for assortment retention: {e}. Preserving fresh records safely.")
             return fresh_records, 0
 
-        fresh_upcs = {r.get("upc") for r in fresh_records if r.get("upc")}
+        fresh_keys = {self.get_product_identity_key(r) for r in fresh_records}
         carried_forward = []
 
         for prev in previous_records:
-            upc = prev.get("upc")
-            if upc and upc not in fresh_upcs:
-                # Retain unavailable store-assortment product indefinitely with original crawl_date
+            prev_key = self.get_product_identity_key(prev)
+            if prev_key not in fresh_keys:
+                # Retain unavailable store-assortment product indefinitely with original crawl_date & values intact
                 carried_forward.append(prev)
 
         if carried_forward:

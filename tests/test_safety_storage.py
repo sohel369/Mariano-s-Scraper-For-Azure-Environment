@@ -236,19 +236,20 @@ def test_indefinite_store_assortment_retention(tmp_path):
     store_id = "53100503"
     target_output = os.path.join(storage.output_dir, f"marianos_scraped_data_store_{store_id}_latest.json")
 
-    # Initial Run 1 on 2026-10-21: 2 products collected
+    # Initial Run 1 on 2026-10-21: 3 products collected (including Item 4 with blank UPC and stable URL)
     initial_catalog = [
-        {"upc": "011110000001", "product_title": "Available Item 1", "crawl_date": "2026-10-21", "category": "Produce"},
-        {"upc": "011110000002", "product_title": "Currently Unavailable Item 2", "crawl_date": "2026-10-21", "category": "Dairy"}
+        {"upc": "011110000001", "url": "https://www.marianos.com/p/item-1", "product_title": "Available Item 1", "crawl_date": "2026-10-21", "category": "Produce"},
+        {"upc": "011110000002", "url": "https://www.marianos.com/p/item-2", "product_title": "Currently Unavailable Item 2", "crawl_date": "2026-10-21", "category": "Dairy"},
+        {"upc": "", "url": "https://www.marianos.com/p/item-blank-upc-4", "product_title": "Historical Item Blank UPC 4", "crawl_date": "2026-10-21", "category": "Deli"}
     ]
     with open(target_output, "w", encoding="utf-8") as f:
         json.dump(initial_catalog, f)
 
-    # Fresh Run 2 on 2026-10-25: Item 2 is temporarily out-of-stock/unavailable, Item 3 is new
+    # Fresh Run 2 on 2026-10-25: Item 2 & Item 4 are temporarily out-of-stock/unavailable, Item 3 is new
     staging_file = os.path.join(storage.staging_dir, "staging_run2.jsonl")
     fresh_items = [
-        {"upc": "011110000001", "product_title": "Available Item 1", "crawl_date": "2026-10-25", "category": "Produce"},
-        {"upc": "011110000003", "product_title": "New Item 3", "crawl_date": "2026-10-25", "category": "Bakery"}
+        {"upc": "011110000001", "url": "https://www.marianos.com/p/item-1", "product_title": "Available Item 1", "crawl_date": "2026-10-25", "category": "Produce"},
+        {"upc": "011110000003", "url": "https://www.marianos.com/p/item-3", "product_title": "New Item 3", "crawl_date": "2026-10-25", "category": "Bakery"}
     ]
     for item in fresh_items:
         storage.write_staging_record(staging_file, item)
@@ -266,16 +267,19 @@ def test_indefinite_store_assortment_retention(tmp_path):
     with open(target_output, "r", encoding="utf-8") as f:
         committed = json.load(f)
 
-    # Must retain all 3 items (Item 1 fresh, Item 3 fresh, Item 2 carried forward)
-    assert len(committed) == 3
-    catalog_by_upc = {r["upc"]: r for r in committed}
+    # Must retain all 4 items (Item 1 fresh, Item 3 fresh, Item 2 carried forward, Item 4 carried forward with blank UPC)
+    assert len(committed) == 4
+    catalog_by_url = {r["url"]: r for r in committed}
 
     # Item 1 updated to fresh date
-    assert catalog_by_upc["011110000001"]["crawl_date"] == "2026-10-25"
+    assert catalog_by_url["https://www.marianos.com/p/item-1"]["crawl_date"] == "2026-10-25"
     # Item 3 added with fresh date
-    assert catalog_by_upc["011110000003"]["crawl_date"] == "2026-10-25"
+    assert catalog_by_url["https://www.marianos.com/p/item-3"]["crawl_date"] == "2026-10-25"
     # Item 2 retained indefinitely with original historical date!
-    assert catalog_by_upc["011110000002"]["crawl_date"] == "2026-10-21"
-    assert catalog_by_upc["011110000002"]["product_title"] == "Currently Unavailable Item 2"
+    assert catalog_by_url["https://www.marianos.com/p/item-2"]["crawl_date"] == "2026-10-21"
+    assert catalog_by_url["https://www.marianos.com/p/item-2"]["product_title"] == "Currently Unavailable Item 2"
+    # Item 4 (blank UPC) retained indefinitely with original historical date!
+    assert catalog_by_url["https://www.marianos.com/p/item-blank-upc-4"]["crawl_date"] == "2026-10-21"
+    assert catalog_by_url["https://www.marianos.com/p/item-blank-upc-4"]["upc"] == ""
 
 
