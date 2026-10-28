@@ -1,13 +1,14 @@
 # GIT PROVENANCE & FILE INTEGRITY MANIFEST
 
-**Generated UTC:** 2026-10-28T13:24:07.292173+00:00  
+**Generated UTC:** 2026-10-28T13:24:36.916693+00:00  
 **Repository URL:** [https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git](https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git)  
 **Branch:** `main`  
-**HEAD Commit:** `c5b3740fde30c0c146bc5181c8acff7fc4b6a405`  
-**Working Tree Clean:** `False`  
+**HEAD Commit:** `8340ca91662c6674ec593d039beba16ba398904c`  
+**Working Tree Clean:** `True`  
 
 ## 1. Recent Authoritative Commits
 ```text
+8340ca9 chore(audit): pin diagnostic probe sha256 checksums and harmonize simulation evidence
 c5b3740 Update git provenance to commit 9f4d29f
 9f4d29f Address review: Genuine parsing, store 53100502, URL-fallback retention, and failure-mode verification
 06ae8aa Update git provenance to commit 7cc4100
@@ -15,7 +16,6 @@ c5b3740 Update git provenance to commit 9f4d29f
 c555294 Update git provenance to commit 1597918
 1597918 Update README verification commands with 28-row mapping and assortment retention proofs
 48de21f Update git provenance to commit f213f86
-f213f86 Calibrate technical claims: conservative network timeout wording, baseline catalog framing, proposed probe date
 ```
 
 ## 2. Deliverable File SHA-256 Checksums
@@ -39,4 +39,4 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 
 ## 3. Remote Verification Link
 The full commit history, diffs, and trees can be inspected directly on GitHub at:
-`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/c5b3740fde30c0c146bc5181c8acff7fc4b6a405`
+`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/8340ca91662c6674ec593d039beba16ba398904c`
