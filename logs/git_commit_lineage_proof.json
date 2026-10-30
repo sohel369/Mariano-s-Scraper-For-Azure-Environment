@@ -1,34 +1,34 @@
 {
-  "generated_utc": "2026-10-30T00:08:01.777858+00:00",
+  "generated_utc": "2026-10-30T15:30:46.318514+00:00",
   "git_repository": "https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git",
   "branch": "main",
-  "head_commit": "d45813622ae4d64ba4c8f5c7f251fd0ab4d1c208",
+  "head_commit": "b7aa7ed0f5da8617d8b40aca27621ea37b85969c",
   "working_tree_clean": true,
   "recent_commits": [
+    "b7aa7ed fix(probe): enforce error-safe cleanup, product-price binding, deadline supervisor, and retry limits",
+    "9d5165c chore(provenance): update manifest to authoritative commit d458136",
     "d458136 refactor(probe): enforce exact store identity, pre-dispatch attempt bounding, and verified cleanup",
     "bc137cf build(dist): automate multi-target packaging with sha256 checksum reporting",
     "dd2711d chore(provenance): update integrity manifest to commit 8340ca9",
     "8340ca9 chore(audit): pin diagnostic probe sha256 checksums and harmonize simulation evidence",
     "c5b3740 Update git provenance to commit 9f4d29f",
-    "9f4d29f Address review: Genuine parsing, store 53100502, URL-fallback retention, and failure-mode verification",
-    "06ae8aa Update git provenance to commit 7cc4100",
-    "7cc4100 Implement dedicated Azure bounded probe, Vernon Hills store, and cost ceiling specification"
+    "9f4d29f Address review: Genuine parsing, store 53100502, URL-fallback retention, and failure-mode verification"
   ],
   "file_sha256_checksums": {
     "scripts/run_azure_bounded_probe.py": {
       "exists": true,
-      "size_bytes": 32911,
-      "sha256": "5176f4f51c57d58dc3976c59132d2295b3196933b36c4f18e24d6c6963b01b85"
+      "size_bytes": 41554,
+      "sha256": "ccdfe03110d9f8cc7b25488eb489f5720b490efd9e0b8fd524b509fb38896c22"
     },
     "azure/azure-deploy-bounded-probe.sh": {
       "exists": true,
-      "size_bytes": 8296,
-      "sha256": "2b31a9ea5f2fe44c984780025d9312cd742ab0d5fac184f510091034c12eeb0e"
+      "size_bytes": 9618,
+      "sha256": "b7b65e509703ede690493000292ab328bbd9fde9a5748aa64dd23b2b5db253de"
     },
     "azure/azure-deploy-bounded-probe.ps1": {
       "exists": true,
-      "size_bytes": 8438,
-      "sha256": "878c45d89617d864de854ad584aa6b44254726e160074e39935f4632a2c29160"
+      "size_bytes": 10795,
+      "sha256": "ae5fe4c951e56febc2eec476bf010c434cf5c2b6acec6966ae96b3499a9fa098"
     },
     "azure/Dockerfile": {
       "exists": true,
