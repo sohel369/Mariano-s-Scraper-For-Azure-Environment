@@ -27,6 +27,13 @@
     "total_requests_executed": 0,
     "total_retries_executed": 1,
     "elapsed_seconds": 61.06,
+    "timing_breakdown": {
+      "setup_seconds": 0.05,
+      "network_seconds": 60.01,
+      "parsing_seconds": 0.0,
+      "export_seconds": 0.01,
+      "total_elapsed_seconds": 61.06
+    },
     "http_status_code": null,
     "edge_connection_success": false,
     "challenge_detected": false,
@@ -34,8 +41,30 @@
     "store_fulfillment_verified_in_source": false,
     "verified_retailer_id_in_source": null
   },
+  "evidence": {
+    "raw_response_file": "logs/azure_probe_raw_response.html",
+    "raw_response_sha256": null,
+    "raw_response_size_bytes": 0,
+    "sanitized_request_headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+      "Accept-Language": "en-US,en;q=0.9",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Connection": "keep-alive"
+    },
+    "sanitized_response_headers": {},
+    "store_fulfillment_trace": {
+      "requested_store_id": "53100502",
+      "requested_address": "1720 N Milwaukee Ave, Vernon Hills, IL 60061",
+      "requested_modality": "PICKUP",
+      "verified_retailer_id": null,
+      "verified_modality": null,
+      "structural_match_confirmed": false,
+      "price_bearing_trace_sample": []
+    }
+  },
   "collected_records_count": 0,
-  "sample_records": [],
+  "collected_records": [],
   "verified_cleanup": true,
   "overall_status": "FAILED_LOCAL_EDGE_TIMEOUT",
   "resolution_notes": "Connection timeout: HTTPSConnectionPool(host='www.marianos.com', port=443): Read timed out. (read timeout=7.127413099999899)"

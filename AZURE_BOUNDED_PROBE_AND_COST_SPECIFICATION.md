@@ -1,25 +1,25 @@
 # AZURE BOUNDED PROBE & DEPENDENCY COST SPECIFICATION (MARIANO'S ENTRY #36)
 
 **Package:** Mariano's Scraper Entry #36  
-**Authoritative Response to Review:** October 27 Review & Strict Diagnostic Guardrails  
+**Authoritative Response to Review:** October 29 Review & Strict Diagnostic Guardrails  
 **Target Demonstration Store:** **Mariano's Vernon Hills (1720 N Milwaukee Ave, Vernon Hills, IL 60061, PICKUP)**  
 - **Official Retailer URL:** `https://www.marianos.com/stores/grocery/il/vernon-hills/marianos-vernon-hills/531/00502`  
-- **Retailer IDs:** Division `531`, Store Number `00502`, Store ID `53100502`  
+- **Retailer IDs:** Division `531`, Store Number `00502`, Store ID `53100502` (exact matching; conflicting IDs like `99900502` strictly rejected)  
 **Baseline Store Separation:** 560-product baseline strictly designated as **Unverified Replay Baseline** for historical New Eastside (Store `53100503`, `60601`). No live provenance is claimed for the baseline.  
 **Execution Authorization Status:** Standalone diagnostic plan submitted for review; **no unapproved cloud spending, instances, or proxy subscriptions active.**  
-**Milestone Target:** **Thursday, October 29, 2026 at 18:00 UTC (14:00 EDT)** (Executable immediately at any time upon buyer authorization without reserving an appointment).
+**Milestone Target:** **Friday, October 30, 2026 at 18:00 UTC (14:00 EDT / 13:00 CDT)** (Executable immediately at any time upon buyer authorization without reserving an appointment).
 
 ---
 
 ## 1. Dedicated Standalone Diagnostic Probe Specification
 
-In direct response to reviewer requirements for an executable diagnostic with pinned versioning, strict circuit breakers, challenge classification, genuine parsing (zero mock records), and verified cleanup:
+In direct response to reviewer requirements for an executable diagnostic with pinned versioning, strict circuit breakers, pre-dispatch attempt counting, challenge classification, genuine parsing (zero mock records), and verified cleanup:
 
 ### A. Manual-Only Execution Command
 The bounded probe runs strictly as an isolated, manual diagnostic command. It does **not** create recurring triggers, Logic Apps, or scheduled jobs:
 ```powershell
 # Standalone Manual Probe Execution:
-python scripts/run_azure_bounded_probe.py --max-records-override 20 --store-address "1720 N Milwaukee Ave, Vernon Hills, IL 60061" --zipcode 60061 --fulfillment-type PICKUP
+python scripts/run_azure_bounded_probe.py --max-records-override 20 --store-address "1720 N Milwaukee Ave, Vernon Hills, IL 60061" --zipcode 60061 --fulfillment-type PICKUP --max-requests 3 --run-deadline-seconds 60.0
 
 # Dedicated Azure Container Deployment (Manual Single-Execution, External Evidence Extraction & Guaranteed Teardown)
 ./azure/azure-deploy-bounded-probe.sh
@@ -32,20 +32,21 @@ python scripts/run_azure_bounded_probe.py --max-records-override 20 --store-addr
 | Parameter | Enforced Limit | Implementation in `scripts/run_azure_bounded_probe.py` |
 | :--- | :---: | :--- |
 | **Pinned Version / Git Commit** | Pinned | Automatically records exact commit SHA-256 / HEAD hash into output artifact. |
-| **Target Store & Address** | Vernon Hills | `1720 N Milwaukee Ave, Vernon Hills, IL 60061` (Store `#00502`, Division `531`, ID `53100502`). |
-| **Fulfillment Modality** | `PICKUP` | Establishes `kroger.modality=PICKUP` and `kroger.storeId=53100502` session cookies. |
-| **Structural Store Validation** | Enforced | Structural verification of division 531, store 00502, and pickup modality; unrelated text matches strictly fail. |
+| **Target Store & Address** | Vernon Hills | `1720 N Milwaukee Ave, Vernon Hills, IL 60061` (Store `#00502`, Division `531`, ID `53100502`). Conflicting IDs (e.g. `99900502`) strictly rejected. |
+| **Fulfillment Modality** | `PICKUP` | Establishes `kroger.modality=PICKUP` and `kroger.storeId=53100502` session cookies. Requires explicit `PICKUP` modality in payload; absent modality fails. |
+| **Structural Store Validation** | Exact & Price-Bound | Structural verification of division 531, store 00502, and explicit pickup modality with price-bearing source context; cookie-only or unrelated text matches strictly fail. |
 | **Genuine Parsing Only** | Zero Mock Data | **Zero generated/synthetic records.** Uses `MarianoPageParser` to parse actual HTML/JSON, or reports 0 products truthfully. |
 | **Non-Success HTTP Stops** | Immediate Abort | HTTP != 200 (e.g. 500, 403, 404) immediately sets failing status and exits with status code 1. |
-| **Maximum Record Limit** | **Max 20 Items** | Hard ceiling via `--max-records-override 20` (stops parsing after 20 products). |
+| **Maximum Record Limit** | **Max 20 Items** | Hard ceiling via `--max-records-override 20` (stops parsing after 20 products; all 20 rows preserved in output). |
 | **Maximum Page Depth** | **1 Page Only** | Probes single category page (`/d/meat-seafood`), zero deep pagination. |
-| **Aggregate Request Ceiling** | **Max 3 Requests** | Counts actual HTTP attempts and redirects against aggregate ceiling; aborts if exceeded. |
+| **Pre-Dispatch Attempt Counter** | **Max 3 Requests** | Counts attempts **before** dispatch via `BoundedRequestAdapter`; counts timeouts and redirect hops against ceiling. |
 | **Aggregate Retry Limit** | **Max 1 Retry** | Single retry on network drop; stops immediately on failure. |
-| **Whole-Run Deadline** | **60.0 Seconds** | Monotonic timer ceiling covering connection, redirects, body reading, and export. Aborts with exit code 1 if exceeded. |
+| **Whole-Run Deadline** | **60.0 Seconds** | Monotonic timer ceiling covering connection, redirects, body reading, parsing, and export. Aborts with exit code 1 if exceeded. |
 | **Response Byte Ceiling** | **2.5 MB Max** | Streams response in chunks; aborts with `ABORTED_BYTE_LIMIT_EXCEEDED` if body exceeds 2.5 MB. |
 | **Challenge Classifier** | Active Inspection | Classifies PerimeterX (`_pxAppId`, `px-captcha`, `challenge.js`, `Press & Hold`) and Akamai Bot Manager (`ak_bmsc`, `bm_sz`, Access Denied). |
-| **Durable Evidence Extraction** | Externalized | Result JSON extracted outside the container to `logs/azure_bounded_probe_result.json` prior to container deletion. |
-| **Guaranteed Resource Teardown** | Verified Cleanup | Deletes ACI container group AND deletes ephemeral ACR registry; verifies 0 remaining resources. |
+| **Durable Evidence Extraction** | Externalized | Result JSON and raw response HTML extracted outside the container prior to container deletion. |
+| **Resource Group Protection** | Dedicated / Refused | Strictly refuses pre-existing resource groups to prevent deleting shared resources; auto-generates dedicated ephemeral group. |
+| **Guaranteed Resource Teardown** | Active Polling | Deletes ACI container AND deletes ephemeral ACR registry; active polling confirms absence without unverified `--no-wait`. |
 
 ---
 

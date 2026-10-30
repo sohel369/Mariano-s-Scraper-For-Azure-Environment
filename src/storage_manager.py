@@ -228,12 +228,13 @@ class StorageManager:
         try:
             with open(existing_target_filepath, "r", encoding="utf-8") as f:
                 previous_records = json.load(f)
-            if not isinstance(previous_records, list):
-                logger.warning(f"Previous catalog at {existing_target_filepath} is not a valid list. Preserving fresh records safely.")
-                return fresh_records, 0
         except Exception as e:
-            logger.warning(f"Could not load previous catalog for assortment retention: {e}. Preserving fresh records safely.")
-            return fresh_records, 0
+            logger.error(f"FATAL: Could not read previous catalog at {existing_target_filepath}: {e}. Aborting merge to prevent dropping historical assortment.")
+            raise RuntimeError(f"Historical catalog at {existing_target_filepath} is unreadable: {e}")
+
+        if not isinstance(previous_records, list):
+            logger.error(f"FATAL: Previous catalog at {existing_target_filepath} is not a valid JSON list. Aborting merge to prevent dropping historical assortment.")
+            raise RuntimeError(f"Historical catalog at {existing_target_filepath} is not a JSON list (type: {type(previous_records).__name__})")
 
         fresh_keys = {self.get_product_identity_key(r) for r in fresh_records}
         carried_forward = []
@@ -345,8 +346,13 @@ class StorageManager:
                 seen_upcs.add(upc)
 
         # Indefinite Store Assortment Retention:
-        # Merge unavailable/unobserved products from previous catalog, retaining original crawl_date
-        records, retained_count = self.merge_indefinite_store_assortment(records, target_output)
+        # Merge unavailable/unobserved products from previous catalog, retaining original crawl_date.
+        # Fails safely and aborts publication if historical catalog is unreadable or non-list.
+        try:
+            records, retained_count = self.merge_indefinite_store_assortment(records, target_output)
+        except RuntimeError as e:
+            logger.error(f"ABORTING DATASET COMMIT: {e}. Preserving previous catalog and checkpoints intact.")
+            return False
         total_count = len(records)
 
         # Safe Atomic Swap:

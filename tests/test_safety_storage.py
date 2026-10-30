@@ -283,3 +283,60 @@ def test_indefinite_store_assortment_retention(tmp_path):
     assert catalog_by_url["https://www.marianos.com/p/item-blank-upc-4"]["upc"] == ""
 
 
+def test_indefinite_store_assortment_retention_unreadable_catalog_aborts(tmp_path):
+    """
+    Verifies Item 5 audit requirement:
+    When historical catalog is unreadable, corrupted, or non-list,
+    merge_indefinite_store_assortment raises RuntimeError and commit_dataset_atomic
+    aborts publication, preserving the existing file and checkpoints without data loss.
+    """
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=1)
+    store_id = "53100503"
+    target_output = os.path.join(storage.output_dir, f"marianos_scraped_data_store_{store_id}_latest.json")
+
+    # Case A: Corrupted non-JSON historical file
+    corrupt_content = "CORRUPTED_NON_JSON_CONTENT_<<<ERROR>>>"
+    with open(target_output, "w", encoding="utf-8") as f:
+        f.write(corrupt_content)
+
+    fresh_records = [
+        {"upc": "011110000001", "url": "https://www.marianos.com/p/item-1", "product_title": "Fresh Item 1", "crawl_date": "2026-10-29"}
+    ]
+
+    # Direct merge call must raise RuntimeError to prevent silent assortment drop
+    with pytest.raises(RuntimeError) as exc_info:
+        storage.merge_indefinite_store_assortment(fresh_records, target_output)
+    assert "unreadable" in str(exc_info.value).lower()
+
+    # Dataset commit must abort and return False, preserving the file
+    staging_file = os.path.join(storage.staging_dir, "staging_run_corrupt.jsonl")
+    storage.write_staging_record(staging_file, fresh_records[0])
+
+    committed = storage.commit_dataset_atomic(
+        store_id=store_id,
+        staging_filepath=staging_file,
+        total_categories_expected=1,
+        categories_processed=1
+    )
+    assert committed is False
+    with open(target_output, "r", encoding="utf-8") as f:
+        assert f.read() == corrupt_content
+
+    # Case B: Non-list JSON historical file (e.g. dictionary or object)
+    with open(target_output, "w", encoding="utf-8") as f:
+        json.dump({"error": "not_a_list_catalog"}, f)
+
+    with pytest.raises(RuntimeError) as exc_info_dict:
+        storage.merge_indefinite_store_assortment(fresh_records, target_output)
+    assert "not a json list" in str(exc_info_dict.value).lower()
+
+    committed_dict = storage.commit_dataset_atomic(
+        store_id=store_id,
+        staging_filepath=staging_file,
+        total_categories_expected=1,
+        categories_processed=1
+    )
+    assert committed_dict is False
+
+
+
