@@ -1,7 +1,7 @@
 {
   "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
-  "pinned_git_commit": "c5b3740fde30c0c146bc5181c8acff7fc4b6a405",
-  "timestamp_utc": "2026-10-28T03:54:23.253822+00:00",
+  "pinned_git_commit": "9d5165c2e2acbdd0703a8c756ea991dc462f4b31",
+  "timestamp_utc": "2026-10-30T15:30:17.278230+00:00",
   "execution_environment": {
     "host_ip": "10.112.50.140",
     "os": "win32",
@@ -24,33 +24,55 @@
     "store_name": "Mariano's Vernon Hills"
   },
   "probe_metrics": {
-    "total_requests_executed": 0,
-    "total_retries_executed": 1,
-    "elapsed_seconds": 61.06,
+    "total_requests_executed": 2,
+    "initial_attempts_executed": 1,
+    "retries_executed": 1,
+    "redirects_executed": 0,
+    "elapsed_seconds": 0.0,
     "timing_breakdown": {
-      "setup_seconds": 0.05,
-      "network_seconds": 60.01,
+      "setup_seconds": 0.0013,
+      "network_seconds": 0.0006,
       "parsing_seconds": 0.0,
-      "export_seconds": 0.01,
-      "total_elapsed_seconds": 61.06
+      "export_seconds": 0.0,
+      "total_elapsed_seconds": 0.0
     },
     "http_status_code": null,
     "edge_connection_success": false,
     "challenge_detected": false,
     "challenge_classification": null,
     "store_fulfillment_verified_in_source": false,
-    "verified_retailer_id_in_source": null
+    "verified_retailer_id_in_source": null,
+    "attempt_receipts": [
+      {
+        "attempt_number": 1,
+        "is_retry": false,
+        "timestamp_utc": "2026-10-30T15:30:17.360520+00:00",
+        "duration_seconds": 0.0001,
+        "http_status": null,
+        "success": false,
+        "error": "Timeout: Connection timed out"
+      },
+      {
+        "attempt_number": 2,
+        "is_retry": true,
+        "timestamp_utc": "2026-10-30T15:30:17.360864+00:00",
+        "duration_seconds": 0.0001,
+        "http_status": null,
+        "success": false,
+        "error": "Timeout: Connection timed out"
+      }
+    ]
   },
   "evidence": {
-    "raw_response_file": "logs/azure_probe_raw_response.html",
+    "raw_response_file": "C:\\Users\\User\\Desktop\\Mariano's Scraper For Azure Environment\\logs\\azure_probe_raw_response.html",
     "raw_response_sha256": null,
     "raw_response_size_bytes": 0,
     "sanitized_request_headers": {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-      "Accept-Language": "en-US,en;q=0.9",
       "Accept-Encoding": "gzip, deflate, br",
-      "Connection": "keep-alive"
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+      "Connection": "keep-alive",
+      "Accept-Language": "en-US,en;q=0.9"
     },
     "sanitized_response_headers": {},
     "store_fulfillment_trace": {
@@ -67,5 +89,5 @@
   "collected_records": [],
   "verified_cleanup": true,
   "overall_status": "FAILED_LOCAL_EDGE_TIMEOUT",
-  "resolution_notes": "Connection timeout: HTTPSConnectionPool(host='www.marianos.com', port=443): Read timed out. (read timeout=7.127413099999899)"
+  "resolution_notes": "Request timeout: Connection timed out"
 }

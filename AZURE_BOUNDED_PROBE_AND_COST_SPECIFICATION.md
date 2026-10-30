@@ -1,13 +1,13 @@
 # AZURE BOUNDED PROBE & DEPENDENCY COST SPECIFICATION (MARIANO'S ENTRY #36)
 
 **Package:** Mariano's Scraper Entry #36  
-**Authoritative Response to Review:** October 29 Review & Strict Diagnostic Guardrails  
+**Authoritative Response to Review:** October 30 Review & Strict Diagnostic Guardrails  
 **Target Demonstration Store:** **Mariano's Vernon Hills (1720 N Milwaukee Ave, Vernon Hills, IL 60061, PICKUP)**  
 - **Official Retailer URL:** `https://www.marianos.com/stores/grocery/il/vernon-hills/marianos-vernon-hills/531/00502`  
 - **Retailer IDs:** Division `531`, Store Number `00502`, Store ID `53100502` (exact matching; conflicting IDs like `99900502` strictly rejected)  
 **Baseline Store Separation:** 560-product baseline strictly designated as **Unverified Replay Baseline** for historical New Eastside (Store `53100503`, `60601`). No live provenance is claimed for the baseline.  
 **Execution Authorization Status:** Standalone diagnostic plan submitted for review; **no unapproved cloud spending, instances, or proxy subscriptions active.**  
-**Milestone Target:** **Friday, October 30, 2026 at 18:00 UTC (14:00 EDT / 13:00 CDT)** (Executable immediately at any time upon buyer authorization without reserving an appointment).
+**Milestone Target:** **Saturday, October 31, 2026 at 18:00 UTC (14:00 EDT / 13:00 CDT)** (Executable immediately at any time upon buyer authorization without reserving an appointment).
 
 ---
 
@@ -19,7 +19,7 @@ In direct response to reviewer requirements for an executable diagnostic with pi
 The bounded probe runs strictly as an isolated, manual diagnostic command. It does **not** create recurring triggers, Logic Apps, or scheduled jobs:
 ```powershell
 # Standalone Manual Probe Execution:
-python scripts/run_azure_bounded_probe.py --max-records-override 20 --store-address "1720 N Milwaukee Ave, Vernon Hills, IL 60061" --zipcode 60061 --fulfillment-type PICKUP --max-requests 3 --run-deadline-seconds 60.0
+python scripts/run_azure_bounded_probe.py --max-records-override 20 --store-address "1720 N Milwaukee Ave, Vernon Hills, IL 60061" --zipcode 60061 --fulfillment-type PICKUP --max-requests 3 --max-retries 1 --run-deadline-seconds 60.0
 
 # Dedicated Azure Container Deployment (Manual Single-Execution, External Evidence Extraction & Guaranteed Teardown)
 ./azure/azure-deploy-bounded-probe.sh

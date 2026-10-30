@@ -177,6 +177,38 @@ class MarianoPageParser:
         if not title:
             return None
 
+        # Product-level store & fulfillment context binding
+        # Rejects products explicitly tied to conflicting stores (e.g. 53100503) or modalities (e.g. SHIPPING)
+        price_info = item.get("priceInfo", {}) or {}
+        prod_loc = str(
+            item.get("locationId") or
+            item.get("storeId") or
+            item.get("fulfillmentStoreId") or
+            price_info.get("locationId") or
+            price_info.get("storeId") or
+            ""
+        ).strip()
+        expected_store_id = str(location_info.get("store_id", "53100502")).strip()
+        expected_store_num = str(location_info.get("store_number", "00502")).strip()
+
+        if prod_loc and prod_loc not in (expected_store_id, expected_store_num):
+            logger.debug(f"Excluding product with conflicting locationId: {title} ({prod_loc} != {expected_store_id})")
+            return None
+
+        prod_modality = str(
+            item.get("modality") or
+            item.get("fulfillment") or
+            item.get("fulfillmentType") or
+            item.get("fulfillmentModality") or
+            price_info.get("modality") or
+            price_info.get("fulfillment") or
+            ""
+        ).strip().upper()
+
+        if prod_modality and prod_modality != "PICKUP":
+            logger.debug(f"Excluding product with conflicting modality: {title} ({prod_modality} != PICKUP)")
+            return None
+
         brand = str(item.get("brand") or "").strip()
         store_brand = self.normalizer.is_store_private_brand(title, brand)
 
@@ -336,13 +368,17 @@ class MarianoPageParser:
                 
                 if title_elem and price_elem:
                     upc = card.get("data-upc", "")
+                    card_loc = card.get("data-location-id") or card.get("data-store-id") or ""
+                    card_mod = card.get("data-fulfillment") or card.get("data-modality") or ""
                     raw_items.append({
                         "upc": upc,
                         "name": title_elem.get_text(strip=True),
                         "priceInfo": {"currentPrice": {"priceString": price_elem.get_text(strip=True)}},
                         "canonicalUrl": link_elem["href"] if link_elem and link_elem.get("href") else "",
                         "image": img_elem["src"] if img_elem and img_elem.get("src") else "",
-                        "sellerName": "Mariano's"
+                        "sellerName": "Mariano's",
+                        "locationId": card_loc,
+                        "modality": card_mod
                     })
 
         logger.info(f"Extracted {len(raw_items)} candidate items from page for {category} -> {sub_category}")
