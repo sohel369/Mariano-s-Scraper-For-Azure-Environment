@@ -1,18 +1,18 @@
 {
-  "generated_utc": "2026-10-30T15:30:46.318514+00:00",
+  "generated_utc": "2026-10-30T16:12:57.796165+00:00",
   "git_repository": "https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git",
   "branch": "main",
-  "head_commit": "b7aa7ed0f5da8617d8b40aca27621ea37b85969c",
+  "head_commit": "0ca5246b2d7c7c22b6a9115269f03e5058397e69",
   "working_tree_clean": true,
   "recent_commits": [
+    "0ca5246 chore(evidence): update probe diagnostic result with commit 9c447d7",
+    "9c447d7 chore(provenance): update manifest to authoritative commit b7aa7ed",
     "b7aa7ed fix(probe): enforce error-safe cleanup, product-price binding, deadline supervisor, and retry limits",
     "9d5165c chore(provenance): update manifest to authoritative commit d458136",
     "d458136 refactor(probe): enforce exact store identity, pre-dispatch attempt bounding, and verified cleanup",
     "bc137cf build(dist): automate multi-target packaging with sha256 checksum reporting",
     "dd2711d chore(provenance): update integrity manifest to commit 8340ca9",
-    "8340ca9 chore(audit): pin diagnostic probe sha256 checksums and harmonize simulation evidence",
-    "c5b3740 Update git provenance to commit 9f4d29f",
-    "9f4d29f Address review: Genuine parsing, store 53100502, URL-fallback retention, and failure-mode verification"
+    "8340ca9 chore(audit): pin diagnostic probe sha256 checksums and harmonize simulation evidence"
   ],
   "file_sha256_checksums": {
     "scripts/run_azure_bounded_probe.py": {
