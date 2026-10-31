@@ -1,9 +1,10 @@
 {
   "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
-  "pinned_git_commit": "9c447d70c05fabfc1974d186b67e42725b1b5846",
-  "timestamp_utc": "2026-10-30T16:03:37.590003+00:00",
+  "pinned_git_commit": "e671ac9128eea118db8afefa045a52f7c85c62c9",
+  "timestamp_utc": "2026-10-31T14:17:33.606070+00:00",
   "execution_environment": {
-    "host_ip": "192.168.137.1",
+    "execution_environment_type": "OFFLINE_LOCAL_DIAGNOSTIC_ATTEMPT",
+    "host_ip": "10.112.50.140",
     "os": "win32",
     "python_version": "3.13.6"
   },
@@ -28,13 +29,13 @@
     "initial_attempts_executed": 1,
     "retries_executed": 1,
     "redirects_executed": 0,
-    "elapsed_seconds": 0.0,
+    "elapsed_seconds": 0.0556,
     "timing_breakdown": {
-      "setup_seconds": 0.0009,
-      "network_seconds": 0.0004,
+      "setup_seconds": 0.0011,
+      "network_seconds": 0.0003,
       "parsing_seconds": 0.0,
-      "export_seconds": 0.0,
-      "total_elapsed_seconds": 0.0
+      "export_seconds": 0.0014,
+      "total_elapsed_seconds": 0.0556
     },
     "http_status_code": null,
     "edge_connection_success": false,
@@ -46,18 +47,22 @@
       {
         "attempt_number": 1,
         "is_retry": false,
-        "timestamp_utc": "2026-10-30T16:03:37.642734+00:00",
+        "timestamp_utc": "2026-10-31T14:17:33.658347+00:00",
         "duration_seconds": 0.0001,
         "http_status": null,
+        "bytes_read": 0,
+        "payload_sha256": null,
         "success": false,
         "error": "Timeout: Connection timed out"
       },
       {
         "attempt_number": 2,
         "is_retry": true,
-        "timestamp_utc": "2026-10-30T16:03:37.642948+00:00",
+        "timestamp_utc": "2026-10-31T14:17:33.658555+00:00",
         "duration_seconds": 0.0,
         "http_status": null,
+        "bytes_read": 0,
+        "payload_sha256": null,
         "success": false,
         "error": "Timeout: Connection timed out"
       }

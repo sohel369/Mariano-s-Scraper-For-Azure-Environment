@@ -178,36 +178,46 @@ class MarianoPageParser:
             return None
 
         # Product-level store & fulfillment context binding
-        # Rejects products explicitly tied to conflicting stores (e.g. 53100503) or modalities (e.g. SHIPPING)
+        # Rejects contradictory secondary evidence: inspects ALL location and modality fields across item and priceInfo
         price_info = item.get("priceInfo", {}) or {}
-        prod_loc = str(
-            item.get("locationId") or
-            item.get("storeId") or
-            item.get("fulfillmentStoreId") or
-            price_info.get("locationId") or
-            price_info.get("storeId") or
-            ""
-        ).strip()
         expected_store_id = str(location_info.get("store_id", "53100502")).strip()
         expected_store_num = str(location_info.get("store_number", "00502")).strip()
+        valid_store_ids = {expected_store_id, expected_store_num, "vernon-hills"}
 
-        if prod_loc and prod_loc not in (expected_store_id, expected_store_num):
-            logger.debug(f"Excluding product with conflicting locationId: {title} ({prod_loc} != {expected_store_id})")
-            return None
+        # Check every location/store identifier candidate across item and priceInfo
+        loc_candidates = [
+            item.get("locationId"),
+            item.get("storeId"),
+            item.get("fulfillmentStoreId"),
+            item.get("vanityId"),
+            price_info.get("locationId"),
+            price_info.get("storeId"),
+            price_info.get("fulfillmentStoreId")
+        ]
+        for candidate in loc_candidates:
+            if candidate is not None:
+                cand_str = str(candidate).strip()
+                if cand_str and cand_str not in valid_store_ids:
+                    logger.debug(f"Excluding product with contradictory location identifier: {title} ('{cand_str}' not in {valid_store_ids})")
+                    return None
 
-        prod_modality = str(
-            item.get("modality") or
-            item.get("fulfillment") or
-            item.get("fulfillmentType") or
-            item.get("fulfillmentModality") or
-            price_info.get("modality") or
-            price_info.get("fulfillment") or
-            ""
-        ).strip().upper()
-
-        if prod_modality and prod_modality != "PICKUP":
-            logger.debug(f"Excluding product with conflicting modality: {title} ({prod_modality} != PICKUP)")
-            return None
+        # Check every modality/fulfillment identifier candidate across item and priceInfo
+        mod_candidates = [
+            item.get("modality"),
+            item.get("fulfillment"),
+            item.get("fulfillmentType"),
+            item.get("fulfillmentModality"),
+            price_info.get("modality"),
+            price_info.get("fulfillment"),
+            price_info.get("fulfillmentType"),
+            price_info.get("fulfillmentModality")
+        ]
+        for mod in mod_candidates:
+            if mod is not None:
+                mod_str = str(mod).strip().upper()
+                if mod_str and mod_str != "PICKUP":
+                    logger.debug(f"Excluding product with contradictory fulfillment modality: {title} ('{mod_str}' != PICKUP)")
+                    return None
 
         brand = str(item.get("brand") or "").strip()
         store_brand = self.normalizer.is_store_private_brand(title, brand)

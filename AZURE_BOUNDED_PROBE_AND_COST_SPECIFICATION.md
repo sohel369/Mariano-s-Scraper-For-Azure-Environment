@@ -104,5 +104,5 @@ In accordance with reviewer instructions:
 
 ## 5. Next Milestone Target
 
-* **Proposed Delivery Target:** **Thursday, October 29, 2026 at 18:00 UTC (14:00 EDT)**
+* **Proposed Delivery Target:** **Sunday, November 1, 2026 at 18:00 UTC (14:00 EDT / 13:00 CDT)**
 * **Readiness:** The dedicated diagnostic probe (`scripts/run_azure_bounded_probe.py`) and single-run deployment scripts (`azure/azure-deploy-bounded-probe.sh` / `.ps1`) are packaged, tested, and ready for immediate manual execution at any time once approved.

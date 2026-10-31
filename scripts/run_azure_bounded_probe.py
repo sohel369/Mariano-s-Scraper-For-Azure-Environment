@@ -84,11 +84,8 @@ class BoundedRequestAdapter(HTTPAdapter):
         else:
             self.current_attempt_started = True
 
-        expected_count = self.probe.initial_attempts_count + self.probe.total_retries_executed + self.probe.redirects_count
-        if self.probe.aggregate_requests_count < expected_count:
-            self.probe.aggregate_requests_count = expected_count
-        else:
-            self.probe.aggregate_requests_count += 1
+        self.probe.aggregate_requests_count += 1
+        self.probe._attempt_dispatched_via_adapter = True
 
         return super().send(request, **kwargs)
 
@@ -141,6 +138,7 @@ class AzureBoundedProbeRunner:
         self.initial_attempts_count = 0
         self.total_retries_executed = 0
         self.redirects_count = 0
+        self._attempt_dispatched_via_adapter = False
         self.attempt_receipts: List[Dict[str, Any]] = []
 
         self.collected_records: List[Dict[str, Any]] = []
@@ -285,63 +283,89 @@ class AzureBoundedProbeRunner:
             store_data = props.get("initialStore", {}) or props.get("store", {})
             modality_data = props.get("modality", {}) or props.get("currentModality", {})
 
-            returned_store_id = str(store_data.get("storeId") or store_data.get("vanityId") or "").strip()
+            returned_store_id = str(store_data.get("storeId") or "").strip()
+            returned_vanity_id = str(store_data.get("vanityId") or "").strip()
             returned_division_id = str(store_data.get("divisionId") or store_data.get("divisionNumber") or "").strip()
             returned_store_number = str(store_data.get("storeNumber") or "").strip()
             returned_modality = str(modality_data.get("type") or modality_data.get("modality") or "").strip().upper()
 
-            # Contradiction check: REJECT ANY conflicting identifiers
-            # If storeId is returned, it MUST be 53100502 or 00502 (reject 99900502, 53100503, etc.)
+            # Contradiction check: REJECT ANY conflicting store identifiers
             if returned_store_id and returned_store_id not in ("53100502", "00502"):
+                self.failure_reason = f"Store storeId mismatch: {returned_store_id} (expected 53100502)"
+                self.probe_status = "FAILED_CONFLICTING_STORE_IDENTITY"
                 self.store_fulfillment_verified = False
                 return False
 
-            # If divisionId is returned, it MUST be 531 (reject 999)
+            if returned_vanity_id and returned_vanity_id not in ("53100502", "00502"):
+                self.failure_reason = f"Store vanityId mismatch: {returned_vanity_id} (expected 53100502)"
+                self.probe_status = "FAILED_CONFLICTING_STORE_IDENTITY"
+                self.store_fulfillment_verified = False
+                return False
+
             if returned_division_id and returned_division_id != "531":
+                self.failure_reason = f"Store divisionId mismatch: {returned_division_id} (expected 531)"
+                self.probe_status = "FAILED_CONFLICTING_STORE_IDENTITY"
                 self.store_fulfillment_verified = False
                 return False
 
-            # If storeNumber is returned, it MUST be 00502 (reject 99900502, 00503)
             if returned_store_number and returned_store_number != "00502":
+                self.failure_reason = f"Store storeNumber mismatch: {returned_store_number} (expected 00502)"
+                self.probe_status = "FAILED_CONFLICTING_STORE_IDENTITY"
                 self.store_fulfillment_verified = False
                 return False
 
             # Explicit modality check: MUST be 'PICKUP' (reject SHIPPING, DELIVERY, absent)
             if not returned_modality or returned_modality != "PICKUP":
+                self.failure_reason = f"Fulfillment modality mismatch: {returned_modality} (expected PICKUP)"
+                self.probe_status = "FAILED_CONFLICTING_STORE_IDENTITY"
                 self.store_fulfillment_verified = False
                 return False
 
             # Both store ID and division/store number must be established and consistent
             exact_store_match = (
-                returned_store_id == "53100502" or 
+                returned_store_id in ("53100502", "00502") or
+                returned_vanity_id in ("53100502", "00502") or
                 (returned_division_id == "531" and (returned_store_number == "00502" or returned_store_id == "00502"))
             )
 
             if exact_store_match:
-                # Inspect products in props to ensure they are not bound to a conflicting store/modality
+                # Inspect ALL products in props to ensure NONE have conflicting store/modality
                 prods = (
                     props.get("products", []) or
                     props.get("catalog", {}).get("products", []) or
                     props.get("initialData", {}).get("products", [])
                 )
                 if prods:
-                    valid_local_found = False
                     for p in prods:
-                        p_loc = str(p.get("locationId") or p.get("storeId") or p.get("priceInfo", {}).get("locationId") or "").strip()
-                        p_mod = str(p.get("modality") or p.get("fulfillment") or "").strip().upper()
-                        # If product has explicit location/modality, it must match 53100502 / PICKUP
-                        if (not p_loc or p_loc in ("53100502", "00502")) and (not p_mod or p_mod == "PICKUP"):
-                            valid_local_found = True
-                            break
-                    if not valid_local_found:
-                        logger.warning("Structural verification rejected: All products in payload belong to conflicting location/modality.")
-                        self.store_fulfillment_verified = False
-                        return False
+                        p_loc = str(p.get("locationId") or "").strip()
+                        p_store = str(p.get("storeId") or "").strip()
+                        p_vanity = str(p.get("vanityId") or "").strip()
+                        p_ful = str(p.get("fulfillmentStoreId") or "").strip()
+                        price_info = p.get("priceInfo", {}) or {}
+                        pi_loc = str(price_info.get("locationId") or "").strip()
+                        pi_store = str(price_info.get("storeId") or "").strip()
+                        p_mod = str(p.get("modality") or p.get("fulfillment") or price_info.get("modality") or "").strip().upper()
+
+                        store_candidates = [v for v in (p_loc, p_store, p_vanity, p_ful, pi_loc, pi_store) if v]
+                        conflicting = [v for v in store_candidates if v not in ("53100502", "00502")]
+                        if conflicting:
+                            self.failure_reason = f"Conflicting product store metadata in payload: {conflicting} (expected 53100502/00502)"
+                            self.probe_status = "FAILED_CONFLICTING_STORE_IDENTITY"
+                            self.store_fulfillment_verified = False
+                            return False
+
+                        if p_mod and p_mod != "PICKUP":
+                            self.failure_reason = f"Conflicting product modality in payload: {p_mod} (expected PICKUP)"
+                            self.probe_status = "FAILED_CONFLICTING_STORE_IDENTITY"
+                            self.store_fulfillment_verified = False
+                            return False
 
                 self.verified_retailer_id = "53100502"
                 self.store_fulfillment_verified = True
                 return True
             else:
+                self.failure_reason = "Store match could not be established structurally"
+                self.probe_status = "FAILED_MISSING_STORE_CONTEXT"
                 self.store_fulfillment_verified = False
                 return False
 
@@ -349,12 +373,16 @@ class AzureBoundedProbeRunner:
         conflicting_store_markers = [
             '"storeId":"53100503"', '"storeNumber":"00503"', 'data-store-id="53100503"',
             '"storeId":"99900502"', '"storeNumber":"99900502"', 'data-store-id="99900502"',
+            '"vanityId":"53100503"', '"vanityId": "53100503"',
             '"modality":"SHIPPING"', '"currentModality":"SHIPPING"', 'data-modality="SHIPPING"',
             '"modality":"DELIVERY"', '"currentModality":"DELIVERY"', 'data-modality="DELIVERY"'
         ]
-        if any(marker in body_text for marker in conflicting_store_markers):
-            self.store_fulfillment_verified = False
-            return False
+        for marker in conflicting_store_markers:
+            if marker in body_text:
+                self.failure_reason = f"Conflicting store/modality marker found in payload: {marker}"
+                self.probe_status = "FAILED_CONFLICTING_STORE_IDENTITY"
+                self.store_fulfillment_verified = False
+                return False
 
         exact_canonical_meta = 'data-store-id="53100502"'
         has_exact_store = (
@@ -373,8 +401,35 @@ class AzureBoundedProbeRunner:
             self.store_fulfillment_verified = True
             return True
 
+        self.failure_reason = "Structured store markers for Vernon Hills #53100502 not found in HTML"
+        self.probe_status = "FAILED_MISSING_STORE_CONTEXT"
         self.store_fulfillment_verified = False
         return False
+
+    def _persist_probe_result(self, probe_result: Dict[str, Any]) -> float:
+        """
+        Updates elapsed time metrics, evaluates whole-run deadline against all operations
+        including file I/O and console output, overrides status if deadline was breached,
+        and ensures the on-disk JSON always contains accurate non-zero timing and consistent status.
+        """
+        current_elapsed = time.monotonic() - self.start_time_monotonic
+        self.timing_breakdown["total_elapsed_seconds"] = round(current_elapsed, 4)
+        probe_result["probe_metrics"]["elapsed_seconds"] = round(current_elapsed, 4)
+
+        if current_elapsed > self.run_deadline_seconds and self.probe_status.startswith("SUCCESS"):
+            self.probe_status = "ABORTED_DEADLINE_EXCEEDED"
+            self.failure_reason = (
+                f"Whole-run deadline of {self.run_deadline_seconds}s exceeded through finalization "
+                f"(total elapsed: {current_elapsed:.4f}s)"
+            )
+            probe_result["overall_status"] = self.probe_status
+            probe_result["resolution_notes"] = self.failure_reason
+
+        os.makedirs(os.path.dirname(self.output_file), exist_ok=True)
+        with open(self.output_file, "w", encoding="utf-8") as f:
+            json.dump(probe_result, f, indent=2)
+
+        return current_elapsed
 
     def execute_bounded_probe(self) -> Dict[str, Any]:
         """
@@ -445,15 +500,7 @@ class AzureBoundedProbeRunner:
                     self.initial_attempts_count += 1
                     initial_attempt_done = True
 
-                # Synchronize aggregate requests count before dispatch
-                self.aggregate_requests_count = (
-                    self.initial_attempts_count + self.total_retries_executed + self.redirects_count
-                )
-                if self.aggregate_requests_count > self.max_requests:
-                    self.probe_status = "ABORTED_REQUEST_LIMIT_EXCEEDED"
-                    self.failure_reason = f"Aggregate request ceiling ({self.max_requests}) exceeded before dispatch"
-                    break
-
+                attempt_bytes = bytearray()
                 remaining_timeout = max(0.01, min(self._get_remaining_seconds(), 15.0))
                 req_start = time.monotonic()
                 attempt_receipt: Dict[str, Any] = {
@@ -462,13 +509,19 @@ class AzureBoundedProbeRunner:
                     "timestamp_utc": datetime.now(timezone.utc).isoformat(),
                     "duration_seconds": 0.0,
                     "http_status": None,
+                    "bytes_read": 0,
+                    "payload_sha256": None,
                     "success": False,
                     "error": None
                 }
 
                 try:
                     adapter.current_attempt_started = False
+                    self._attempt_dispatched_via_adapter = False
                     resp = session.get(target_url, timeout=remaining_timeout, stream=True)
+                    if not self._attempt_dispatched_via_adapter:
+                        self.aggregate_requests_count = self.initial_attempts_count + self.total_retries_executed + self.redirects_count
+
                     attempt_receipt["duration_seconds"] = round(time.monotonic() - req_start, 4)
                     attempt_receipt["http_status"] = resp.status_code
                     self.http_status_code = resp.status_code
@@ -476,10 +529,10 @@ class AzureBoundedProbeRunner:
                     headers_dict = dict(resp.headers)
                     logger.info(f"Received HTTP {resp.status_code} in {attempt_receipt['duration_seconds']}s")
 
-                    # Stream response with bounded byte ceiling
+                    # Stream response with bounded byte ceiling into attempt_bytes
                     for chunk in resp.iter_content(chunk_size=8192):
-                        content_bytes.extend(chunk)
-                        if len(content_bytes) > self.max_response_bytes:
+                        attempt_bytes.extend(chunk)
+                        if len(attempt_bytes) > self.max_response_bytes:
                             self.probe_status = "ABORTED_BYTE_LIMIT_EXCEEDED"
                             self.failure_reason = f"Response body exceeded {self.max_response_bytes} bytes ceiling"
                             logger.warning(self.failure_reason)
@@ -490,15 +543,20 @@ class AzureBoundedProbeRunner:
                             logger.warning(self.failure_reason)
                             break
 
+                    attempt_receipt["bytes_read"] = len(attempt_bytes)
+                    attempt_receipt["payload_sha256"] = hashlib.sha256(attempt_bytes).hexdigest() if attempt_bytes else None
+
                     if self.probe_status.startswith("ABORTED_"):
+                        content_bytes = attempt_bytes
                         attempt_receipt["error"] = self.probe_status
                         self.attempt_receipts.append(attempt_receipt)
                         break
 
-                    body_text = content_bytes.decode("utf-8", errors="replace")
+                    body_text = attempt_bytes.decode("utf-8", errors="replace")
 
                     # 1. Non-success HTTP check
                     if resp.status_code != 200:
+                        content_bytes = attempt_bytes
                         self.probe_status = f"FAILED_HTTP_{resp.status_code}"
                         self.failure_reason = f"Server returned non-success HTTP status code {resp.status_code}"
                         logger.warning(self.failure_reason)
@@ -509,6 +567,7 @@ class AzureBoundedProbeRunner:
                     # 2. Challenge Page Classification (PerimeterX / Akamai check)
                     challenge_type = self.classify_challenge_page(resp.status_code, headers_dict, body_text)
                     if challenge_type:
+                        content_bytes = attempt_bytes
                         self.challenge_detected = True
                         self.challenge_classification = challenge_type
                         self.probe_status = f"FAILED_{challenge_type}"
@@ -521,8 +580,11 @@ class AzureBoundedProbeRunner:
                     # 3. Structural Store and Fulfillment Context Verification
                     has_store_context = self.validate_store_and_fulfillment_structurally(resp.status_code, headers_dict, body_text)
                     if not has_store_context:
-                        self.probe_status = "FAILED_MISSING_STORE_CONTEXT"
-                        self.failure_reason = "Response payload does not contain verified structural store context for Store #53100502 (Vernon Hills, PICKUP)"
+                        content_bytes = attempt_bytes
+                        if not self.probe_status or self.probe_status.startswith("INITIALIZING"):
+                            self.probe_status = "FAILED_MISSING_STORE_CONTEXT"
+                        if not self.failure_reason:
+                            self.failure_reason = "Response payload does not contain verified structural store context for Store #53100502 (Vernon Hills, PICKUP)"
                         logger.warning(self.failure_reason)
                         attempt_receipt["error"] = self.failure_reason
                         self.attempt_receipts.append(attempt_receipt)
@@ -530,6 +592,7 @@ class AzureBoundedProbeRunner:
 
                     # 4. Check deadline before parsing
                     if self._is_deadline_exceeded():
+                        content_bytes = attempt_bytes
                         self.probe_status = "ABORTED_DEADLINE_EXCEEDED"
                         self.failure_reason = f"Whole-run deadline of {self.run_deadline_seconds}s exceeded before parsing"
                         logger.warning(self.failure_reason)
@@ -553,6 +616,7 @@ class AzureBoundedProbeRunner:
                     logger.info(f"Genuine parser extracted {len(self.collected_records)} records from response payload.")
 
                     if len(self.collected_records) == 0:
+                        content_bytes = attempt_bytes
                         if self.connectivity_only:
                             self.probe_status = "SUCCESS_CONNECTIVITY_ONLY"
                             self.failure_reason = None
@@ -560,6 +624,7 @@ class AzureBoundedProbeRunner:
                             self.probe_status = "FAILED_ZERO_PRODUCTS_PARSED"
                             self.failure_reason = "Connectivity verified and store context present, but parser found 0 valid product records matching Vernon Hills (53100502, PICKUP)"
                     else:
+                        content_bytes = attempt_bytes
                         self.probe_status = "SUCCESS_PROBE_COMPLETE"
                         self.failure_reason = None
                         attempt_receipt["success"] = True
@@ -568,27 +633,42 @@ class AzureBoundedProbeRunner:
                     break
 
                 except requests.exceptions.Timeout as e:
+                    attempt_receipt["bytes_read"] = len(attempt_bytes)
+                    attempt_receipt["payload_sha256"] = hashlib.sha256(attempt_bytes).hexdigest() if attempt_bytes else None
+                    if not self._attempt_dispatched_via_adapter:
+                        self.aggregate_requests_count = self.initial_attempts_count + self.total_retries_executed + self.redirects_count
                     attempt_receipt["duration_seconds"] = round(time.monotonic() - req_start, 4)
                     attempt_receipt["error"] = f"Timeout: {e}"
                     self.attempt_receipts.append(attempt_receipt)
+                    content_bytes = attempt_bytes
                     logger.warning(f"Request attempt timed out: {e}")
                     self.failure_reason = f"Request timeout: {e}"
                     if self._is_deadline_exceeded():
                         self.probe_status = "ABORTED_DEADLINE_EXCEEDED"
                         break
                 except requests.exceptions.RequestException as e:
+                    attempt_receipt["bytes_read"] = len(attempt_bytes)
+                    attempt_receipt["payload_sha256"] = hashlib.sha256(attempt_bytes).hexdigest() if attempt_bytes else None
+                    if not self._attempt_dispatched_via_adapter:
+                        self.aggregate_requests_count = self.initial_attempts_count + self.total_retries_executed + self.redirects_count
                     attempt_receipt["duration_seconds"] = round(time.monotonic() - req_start, 4)
                     attempt_receipt["error"] = f"RequestException: {e}"
                     self.attempt_receipts.append(attempt_receipt)
+                    content_bytes = attempt_bytes
                     logger.warning(f"Connection failure encountered: {e}")
                     self.failure_reason = f"Connection error: {e}"
                     if self._is_deadline_exceeded():
                         self.probe_status = "ABORTED_DEADLINE_EXCEEDED"
                         break
                 except (RuntimeError, TimeoutError) as e:
+                    attempt_receipt["bytes_read"] = len(attempt_bytes)
+                    attempt_receipt["payload_sha256"] = hashlib.sha256(attempt_bytes).hexdigest() if attempt_bytes else None
+                    if not self._attempt_dispatched_via_adapter:
+                        self.aggregate_requests_count = self.initial_attempts_count + self.total_retries_executed + self.redirects_count
                     attempt_receipt["duration_seconds"] = round(time.monotonic() - req_start, 4)
                     attempt_receipt["error"] = f"CircuitBreaker: {e}"
                     self.attempt_receipts.append(attempt_receipt)
+                    content_bytes = attempt_bytes
                     logger.warning(f"Circuit breaker triggered: {e}")
                     break
 
@@ -623,6 +703,7 @@ class AzureBoundedProbeRunner:
             "pinned_git_commit": git_hash,
             "timestamp_utc": self.start_time_utc,
             "execution_environment": {
+                "execution_environment_type": "OFFLINE_LOCAL_DIAGNOSTIC_ATTEMPT",
                 "host_ip": host_ip,
                 "os": sys.platform,
                 "python_version": sys.version.split()[0]
@@ -695,31 +776,16 @@ class AzureBoundedProbeRunner:
             "resolution_notes": self.failure_reason
         }
 
-        # Persist durable evidence export to disk
-        os.makedirs(os.path.dirname(self.output_file), exist_ok=True)
-        with open(self.output_file, "w", encoding="utf-8") as f:
-            json.dump(probe_result, f, indent=2)
-
+        # Persist durable evidence export to disk with accurate elapsed timing
+        export_start = time.monotonic()
+        self._persist_probe_result(probe_result)
         self.timing_breakdown["export_seconds"] = round(time.monotonic() - export_start, 4)
 
         # POST-FINALIZATION SUPERVISOR DEADLINE CHECK
-        # Covers all blocking operations: parsing, socket cleanup, raw file write, and JSON disk export
-        final_elapsed = time.monotonic() - self.start_time_monotonic
-        self.timing_breakdown["total_elapsed_seconds"] = round(final_elapsed, 4)
-        probe_result["probe_metrics"]["elapsed_seconds"] = round(final_elapsed, 4)
-
-        if final_elapsed > self.run_deadline_seconds and self.probe_status.startswith("SUCCESS"):
-            self.probe_status = "ABORTED_DEADLINE_EXCEEDED"
-            self.failure_reason = f"Whole-run deadline of {self.run_deadline_seconds}s exceeded through finalization (total elapsed: {final_elapsed:.4f}s)"
-            probe_result["overall_status"] = self.probe_status
-            probe_result["resolution_notes"] = self.failure_reason
-
-            # Re-write the updated JSON file on disk immediately to ensure persistent evidence matches failure status
-            with open(self.output_file, "w", encoding="utf-8") as f:
-                json.dump(probe_result, f, indent=2)
+        self._persist_probe_result(probe_result)
 
         logger.info(f"Durable probe result exported to: {self.output_file}")
-        logger.info(f"Overall Probe Status: {self.probe_status} (Elapsed: {final_elapsed:.4f}s)")
+        logger.info(f"Overall Probe Status: {self.probe_status} (Elapsed: {probe_result['probe_metrics']['elapsed_seconds']}s)")
 
         # Output JSON delimiter for container log extraction
         print("\n===AZURE_PROBE_JSON_START===")
@@ -731,6 +797,9 @@ class AzureBoundedProbeRunner:
             print("\n===AZURE_RAW_RESPONSE_BASE64_START===")
             print(base64.b64encode(self.raw_response_bytes).decode("ascii"))
             print("===AZURE_RAW_RESPONSE_BASE64_END===\n")
+
+        # Re-persist to supervise deadline across console delimiter printing and stdout flush
+        self._persist_probe_result(probe_result)
 
         return probe_result
 
@@ -764,6 +833,12 @@ def main():
     )
 
     result = runner.execute_bounded_probe()
+
+    final_check = time.monotonic() - runner.start_time_monotonic
+    if final_check > runner.run_deadline_seconds and result["overall_status"].startswith("SUCCESS"):
+        result["overall_status"] = "ABORTED_DEADLINE_EXCEEDED"
+        result["resolution_notes"] = f"Whole-run deadline exceeded before process exit ({final_check:.4f}s)"
+        runner._persist_probe_result(result)
 
     print("=" * 70)
     print("AZURE BOUNDED PROBE EXECUTION SUMMARY:")

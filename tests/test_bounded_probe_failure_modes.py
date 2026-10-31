@@ -321,3 +321,201 @@ def test_trace_fields_have_no_nulls_and_correct_keys(tmp_path):
     assert "regular_price" in first_item and first_item["regular_price"] != ""
     assert "verified_store_id" in first_item and first_item["verified_store_id"] == "53100502"
     assert "verified_modality" in first_item and first_item["verified_modality"] == "PICKUP"
+
+
+def test_bounded_adapter_dispatch_counting_with_adapter_send(tmp_path):
+    """Verifies that aggregate_requests_count tracks actual dispatches in adapter.send without double-counting."""
+    # Case A: max_requests=1, max_retries=0: does NOT pre-abort before dispatch
+    output_json = tmp_path / "probe_result_1.json"
+    runner1 = AzureBoundedProbeRunner(max_requests=1, max_retries=0, output_file=str(output_json))
+
+    adapter1 = BoundedRequestAdapter(probe=runner1)
+    mock_request = MagicMock()
+    with patch("requests.adapters.HTTPAdapter.send") as mock_super_send:
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_super_send.return_value = mock_resp
+
+        # First send must succeed and increment aggregate_requests_count to 1
+        resp = adapter1.send(mock_request)
+        assert runner1.aggregate_requests_count == 1
+        assert runner1.probe_status == "INITIALIZING"
+
+        # Subsequent send must raise RuntimeError because max_requests (1) is reached
+        with pytest.raises(RuntimeError) as exc_info:
+            adapter1.send(mock_request)
+        assert "Aggregate request ceiling (1) reached" in str(exc_info.value)
+
+    # Case B: Probe with max_requests=3, max_retries=0: exactly 1 dispatch reports total_requests_executed == 1
+    output_json2 = tmp_path / "probe_result_2.json"
+    runner2 = AzureBoundedProbeRunner(max_requests=3, max_retries=0, connectivity_only=True, output_file=str(output_json2))
+
+    html_payload = '<html><body>"storeId":"53100502" "modality":"PICKUP" $1.99</body></html>'.encode("utf-8")
+    with patch("requests.adapters.HTTPAdapter.send") as mock_super_send:
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_resp.is_redirect = False
+        mock_resp.headers = {"Content-Type": "text/html"}
+        mock_resp.iter_content.return_value = [html_payload]
+        mock_super_send.return_value = mock_resp
+
+        res = runner2.execute_bounded_probe()
+        assert res["probe_metrics"]["total_requests_executed"] == 1
+        assert res["probe_metrics"]["initial_attempts_executed"] == 1
+        assert res["probe_metrics"]["retries_executed"] == 0
+
+
+def test_attempt_buffer_reset_on_chunked_transfer_failure(tmp_path):
+    """Verifies Reviewer Item 5: Injected chunked-transfer error on attempt 1 resets attempt buffer; no body concatenation."""
+    output_json = tmp_path / "probe_result.json"
+    runner = AzureBoundedProbeRunner(max_retries=1, max_requests=3, connectivity_only=True, output_file=str(output_json))
+
+    attempt = 0
+    def mock_get(*args, **kwargs):
+        nonlocal attempt
+        attempt += 1
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_resp.headers = {"Content-Type": "text/html"}
+        if attempt == 1:
+            def failing_chunks(chunk_size=8192):
+                yield b"A" * 500
+                raise requests.exceptions.ChunkedEncodingError("Chunked stream broken")
+            mock_resp.iter_content = failing_chunks
+            return mock_resp
+        else:
+            valid_payload = b'<html><body>"storeId":"53100502" "modality":"PICKUP" $1.99' + (b"B" * 1000) + b'</body></html>'
+            mock_resp.iter_content = lambda chunk_size=8192: [valid_payload]
+            return mock_resp
+
+    with patch("requests.Session.get", side_effect=mock_get):
+        res = runner.execute_bounded_probe()
+
+    assert res["overall_status"] == "SUCCESS_CONNECTIVITY_ONLY"
+    assert len(res["probe_metrics"]["attempt_receipts"]) == 2
+    # Attempt 1 recorded 500 bytes before error
+    assert res["probe_metrics"]["attempt_receipts"][0]["bytes_read"] == 500
+    assert "Chunked stream broken" in res["probe_metrics"]["attempt_receipts"][0]["error"]
+    # Attempt 2 buffer was clean; raw response must NOT contain 'A' * 500!
+    assert b"A" * 500 not in runner.raw_response_bytes
+    assert b"B" * 1000 in runner.raw_response_bytes
+
+
+def test_store_verification_rejects_vanity_id_mismatch(tmp_path):
+    """Verifies Reviewer Item 3: Page with storeId 53100502 but vanityId 53100503 is rejected."""
+    runner = AzureBoundedProbeRunner(output_file=str(tmp_path / "probe_result.json"))
+
+    body_with_bad_vanity = """
+    <html><body>
+      <script id="__NEXT_DATA__" type="application/json">
+        {"props":{"pageProps":{"store":{"storeId":"53100502","vanityId":"53100503","divisionId":"531","storeNumber":"00502"},"modality":{"type":"PICKUP"}}}}
+      </script>
+      <div class="price">$5.99</div>
+    </body></html>
+    """
+    verified = runner.validate_store_and_fulfillment_structurally(
+        status_code=200,
+        headers={"Content-Type": "text/html"},
+        body_text=body_with_bad_vanity
+    )
+    assert verified is False
+    assert runner.store_fulfillment_verified is False
+    assert runner.probe_status == "FAILED_CONFLICTING_STORE_IDENTITY"
+    assert "vanityId" in runner.failure_reason
+
+
+def test_store_verification_rejects_embedded_priceinfo_store_mismatch(tmp_path):
+    """Verifies Reviewer Item 3: Top-level store matches 53100502, but embedded product priceInfo specifies 53100503."""
+    runner = AzureBoundedProbeRunner(output_file=str(tmp_path / "probe_result.json"))
+
+    body_with_priceinfo_mismatch = """
+    <html><body>
+      <script id="__NEXT_DATA__" type="application/json">
+        {
+          "props": {
+            "pageProps": {
+              "store": {"storeId": "53100502", "divisionId": "531", "storeNumber": "00502"},
+              "modality": {"type": "PICKUP"},
+              "products": [
+                {
+                  "name": "Local Fresh Meat",
+                  "locationId": "53100502",
+                  "modality": "PICKUP",
+                  "priceInfo": {
+                    "storeId": "53100503",
+                    "locationId": "53100503",
+                    "currentPrice": {"price": 4.99}
+                  },
+                  "canonicalUrl": "/p/meat/0001111000999"
+                }
+              ]
+            }
+          }
+        }
+      </script>
+      <div class="price">$4.99</div>
+    </body></html>
+    """
+    verified = runner.validate_store_and_fulfillment_structurally(
+        status_code=200,
+        headers={"Content-Type": "text/html"},
+        body_text=body_with_priceinfo_mismatch
+    )
+    assert verified is False
+    assert runner.store_fulfillment_verified is False
+    assert runner.probe_status == "FAILED_CONFLICTING_STORE_IDENTITY"
+    assert "53100503" in runner.failure_reason
+
+
+def test_on_disk_json_has_accurate_elapsed_seconds_on_success(tmp_path):
+    """Verifies Reviewer Item 6: On-disk JSON contains non-zero elapsed_seconds after successful run."""
+    output_json = tmp_path / "probe_result.json"
+    runner = AzureBoundedProbeRunner(connectivity_only=True, output_file=str(output_json))
+
+    html_success = '<html><body>"storeId":"53100502" "modality":"PICKUP" $1.99</body></html>'
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.headers = {"Content-Type": "text/html"}
+    mock_resp.iter_content.return_value = [html_success.encode("utf-8")]
+
+    with patch("requests.Session.get", return_value=mock_resp):
+        res = runner.execute_bounded_probe()
+
+    assert res["overall_status"] == "SUCCESS_CONNECTIVITY_ONLY"
+    assert res["probe_metrics"]["elapsed_seconds"] > 0.0
+
+    # Verify directly from on-disk JSON file
+    with open(output_json, "r", encoding="utf-8") as f:
+        disk_data = json.load(f)
+    assert disk_data["probe_metrics"]["elapsed_seconds"] > 0.0
+    assert disk_data["probe_metrics"]["elapsed_seconds"] == res["probe_metrics"]["elapsed_seconds"]
+    assert disk_data["overall_status"] == "SUCCESS_CONNECTIVITY_ONLY"
+
+
+def test_whole_run_deadline_supervisor_over_delimiter_printing(tmp_path):
+    """Verifies Reviewer Item 6: Delay during delimiter printing overrides status and updates disk to ABORTED_DEADLINE_EXCEEDED."""
+    output_json = tmp_path / "probe_result.json"
+    runner = AzureBoundedProbeRunner(run_deadline_seconds=0.1, connectivity_only=True, output_file=str(output_json))
+
+    html_success = '<html><body>"storeId":"53100502" "modality":"PICKUP" $1.99</body></html>'
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.headers = {"Content-Type": "text/html"}
+    mock_resp.iter_content.return_value = [html_success.encode("utf-8")]
+
+    orig_print = print
+    def slow_print(*args, **kwargs):
+        # Inject delay when delimiter is printed
+        if args and any("===AZURE_PROBE_JSON_START===" in str(a) for a in args):
+            time.sleep(0.15)
+        return orig_print(*args, **kwargs)
+
+    with patch("requests.Session.get", return_value=mock_resp), patch("builtins.print", side_effect=slow_print):
+        res = runner.execute_bounded_probe()
+
+    assert res["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
+    assert res["probe_metrics"]["elapsed_seconds"] > 0.1
+
+    with open(output_json, "r", encoding="utf-8") as f:
+        disk_data = json.load(f)
+    assert disk_data["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
