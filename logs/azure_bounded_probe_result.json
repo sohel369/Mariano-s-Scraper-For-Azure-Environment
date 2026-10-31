@@ -1,7 +1,7 @@
 {
   "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
-  "pinned_git_commit": "e671ac9128eea118db8afefa045a52f7c85c62c9",
-  "timestamp_utc": "2026-10-31T14:17:33.606070+00:00",
+  "pinned_git_commit": "9eee4674d7e47b353b35ec6a97eb663efef770ea",
+  "timestamp_utc": "2026-10-31T14:52:16.007926+00:00",
   "execution_environment": {
     "execution_environment_type": "OFFLINE_LOCAL_DIAGNOSTIC_ATTEMPT",
     "host_ip": "10.112.50.140",
@@ -29,13 +29,13 @@
     "initial_attempts_executed": 1,
     "retries_executed": 1,
     "redirects_executed": 0,
-    "elapsed_seconds": 0.0556,
+    "elapsed_seconds": 0.057,
     "timing_breakdown": {
-      "setup_seconds": 0.0011,
-      "network_seconds": 0.0003,
+      "setup_seconds": 0.0009,
+      "network_seconds": 0.0005,
       "parsing_seconds": 0.0,
       "export_seconds": 0.0014,
-      "total_elapsed_seconds": 0.0556
+      "total_elapsed_seconds": 0.057
     },
     "http_status_code": null,
     "edge_connection_success": false,
@@ -47,7 +47,7 @@
       {
         "attempt_number": 1,
         "is_retry": false,
-        "timestamp_utc": "2026-10-31T14:17:33.658347+00:00",
+        "timestamp_utc": "2026-10-31T14:52:16.061150+00:00",
         "duration_seconds": 0.0001,
         "http_status": null,
         "bytes_read": 0,
@@ -58,7 +58,7 @@
       {
         "attempt_number": 2,
         "is_retry": true,
-        "timestamp_utc": "2026-10-31T14:17:33.658555+00:00",
+        "timestamp_utc": "2026-10-31T14:52:16.061449+00:00",
         "duration_seconds": 0.0,
         "http_status": null,
         "bytes_read": 0,
@@ -87,6 +87,22 @@
       "verified_retailer_id": null,
       "verified_modality": null,
       "structural_match_confirmed": false,
+      "inspected_source_paths": [
+        "props.pageProps.store.storeId",
+        "props.pageProps.store.vanityId",
+        "props.pageProps.store.divisionId",
+        "props.pageProps.store.storeNumber",
+        "props.pageProps.modality.type",
+        "product.locationId",
+        "product.storeId",
+        "product.vanityId",
+        "product.fulfillmentStoreId",
+        "product.priceInfo.locationId",
+        "product.priceInfo.storeId",
+        "product.priceInfo.modality",
+        "product.modality"
+      ],
+      "schema_authority_note": "Kroger/Mariano's schema uses storeId as primary location identifier and storeNumber as 5-digit division-scoped ID. vanityId and priceInfo.locationId/storeId are non-interchangeable; any mismatch against target 53100502/00502 is rejected.",
       "price_bearing_trace_sample": []
     }
   },

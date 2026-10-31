@@ -756,6 +756,25 @@ class AzureBoundedProbeRunner:
                     "verified_retailer_id": self.verified_retailer_id,
                     "verified_modality": "PICKUP" if self.store_fulfillment_verified else None,
                     "structural_match_confirmed": self.store_fulfillment_verified,
+                    "inspected_source_paths": [
+                        "props.pageProps.store.storeId",
+                        "props.pageProps.store.vanityId",
+                        "props.pageProps.store.divisionId",
+                        "props.pageProps.store.storeNumber",
+                        "props.pageProps.modality.type",
+                        "product.locationId",
+                        "product.storeId",
+                        "product.vanityId",
+                        "product.fulfillmentStoreId",
+                        "product.priceInfo.locationId",
+                        "product.priceInfo.storeId",
+                        "product.priceInfo.modality",
+                        "product.modality"
+                    ],
+                    "schema_authority_note": (
+                        "Kroger/Mariano's schema uses storeId as primary location identifier and storeNumber as 5-digit division-scoped ID. "
+                        "vanityId and priceInfo.locationId/storeId are non-interchangeable; any mismatch against target 53100502/00502 is rejected."
+                    ),
                     "price_bearing_trace_sample": [
                         {
                             "product_title": r.get("product_title", ""),

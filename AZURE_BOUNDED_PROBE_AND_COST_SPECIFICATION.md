@@ -67,17 +67,17 @@ All deployment scripts and specifications are strictly aligned to the lightweigh
 To provide complete cost predictability and eliminate cost table contradictions, the one-time diagnostic test cost is strictly separated from the recurring monthly production estimate:
 
 ### A. Total One-Time Test Ceiling (Single Diagnostic Run)
-*Calculated for 1 vCPU / 2.0 GB RAM running for ~2 minutes during the bounded probe, with immediate ACR teardown:*
+*Calculated for 1 vCPU / 2.0 GB RAM running for ~2 minutes during the bounded probe, with immediate synchronous teardown and verified absence of all created resources:*
 
 | Line Item | Execution Scope | Azure Retail Unit Pricing | Maximum Test Ceiling |
 | :--- | :--- | :--- | :---: |
 | **ACI Container Compute** | 1 vCPU, 2 GB for ~120 seconds | $0.0000135/vCPU-s + $0.0000015/GB-s | **$0.0020** |
 | **Azure Container Registry (ACR)** | Basic Tier (Prorated ~15 min ephemeral lifecycle) | $0.167/day ($0.007/hour); auto-deleted by script | **$0.0050** |
-| **ACR 24-Hour Safety Margin** | (In the event ACR is left for full 24 hours before deletion) | Standard Azure Basic ACR daily rate | *$0.1670 max* |
 | **Diagnostic Log Storage** | Hot LRS (1 PUT operation + ~5 KB JSON) | $0.018/GB-mo + $0.0004/10K ops | **$0.0010** |
 | **Total Bandwidth Egress** | < 2.5 MB outbound data | First 100 GB/month egress is free | **$0.0000** |
-| **TOTAL ONE-TIME TEST CEILING** | **Immediate Teardown (Normal Path)** | **Complete Probe + Auto-Cleanup** | **< $0.01 (One Cent)** |
-| **TOTAL ONE-TIME TEST CEILING** | **24-Hour ACR Retention Margin** | **Absolute worst-case uncleaned ACR** | **< $0.20 (Twenty Cents)** |
+| **TOTAL ONE-TIME TEST CEILING** | **Immediate Synchronous Teardown** | **Complete Probe + Verified Absence** | **< $0.01 (One Cent)** |
+
+*Cost Enforcement Mechanism:* The deployment script (`azure-deploy-bounded-probe.sh` / `.ps1`) strictly auto-teardowns all created resources upon EXIT via trap/finally blocks, and synchronously polls for confirmed absence of ACI, ACR, and the Ephemeral Resource Group (`az group exists` returning `false`). If any resource deletion cannot be confirmed absent, the script reports `Residual Cost: UNRESOLVED` and exits with code 1. No hypothetical multi-hour fallback is treated as an enforced ceiling.
 
 ### B. Monthly Production Estimate (Twice-Weekly Production Sweeps)
 *Calculated separately for 8 full catalog sweeps per month across all 28 categories:*
