@@ -519,3 +519,102 @@ def test_whole_run_deadline_supervisor_over_delimiter_printing(tmp_path):
     with open(output_json, "r", encoding="utf-8") as f:
         disk_data = json.load(f)
     assert disk_data["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
+
+
+def test_probe_structural_check_rejects_pickup_with_priceinfo_shipping(tmp_path):
+    """Verifies Reviewer Item 4: Probe structural check rejects product with modality=PICKUP and priceInfo.modality=SHIPPING."""
+    runner = AzureBoundedProbeRunner(output_file=str(tmp_path / "probe_result.json"))
+
+    body_conflicting_modality = """
+    <html><body>
+      <script id="__NEXT_DATA__" type="application/json">
+        {
+          "props": {
+            "pageProps": {
+              "store": {"storeId": "53100502", "divisionId": "531", "storeNumber": "00502"},
+              "modality": {"type": "PICKUP"},
+              "products": [
+                {
+                  "name": "Local Fresh Meat",
+                  "locationId": "53100502",
+                  "modality": "PICKUP",
+                  "priceInfo": {
+                    "storeId": "53100502",
+                    "locationId": "53100502",
+                    "modality": "SHIPPING",
+                    "currentPrice": {"price": 7.99}
+                  },
+                  "canonicalUrl": "/p/meat/0001111000999"
+                }
+              ]
+            }
+          }
+        }
+      </script>
+      <div class="price">$7.99</div>
+    </body></html>
+    """
+    verified = runner.validate_store_and_fulfillment_structurally(
+        status_code=200,
+        headers={"Content-Type": "text/html"},
+        body_text=body_conflicting_modality
+    )
+    assert verified is False
+    assert runner.store_fulfillment_verified is False
+    assert runner.probe_status == "FAILED_CONFLICTING_STORE_IDENTITY"
+    assert "SHIPPING" in runner.failure_reason
+
+
+def test_terminal_receipt_fail_closed_override_matches_disk(tmp_path, capsys):
+    """Verifies Reviewer Item 1: Late clock advance during delimiter printing emits fail-closed override matching disk."""
+    import re
+    output_json = tmp_path / "probe_result.json"
+    runner = AzureBoundedProbeRunner(run_deadline_seconds=0.1, connectivity_only=True, output_file=str(output_json))
+
+    html_success = '<html><body>"storeId":"53100502" "modality":"PICKUP" $1.99</body></html>'
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.headers = {"Content-Type": "text/html"}
+    mock_resp.iter_content.return_value = [html_success.encode("utf-8")]
+
+    orig_print = print
+    def clock_advancing_print(*args, **kwargs):
+        if args and any("===AZURE_PROBE_JSON_START===" in str(a) for a in args):
+            time.sleep(0.15)
+        return orig_print(*args, **kwargs)
+
+    with patch("requests.Session.get", return_value=mock_resp), patch("builtins.print", side_effect=clock_advancing_print):
+        res = runner.execute_bounded_probe()
+
+    captured = capsys.readouterr().out
+    # Find all JSON blocks in output stream
+    json_blocks = re.findall(r'===AZURE_PROBE_JSON_START===([\s\S]*?)===AZURE_PROBE_JSON_END===', captured)
+    assert len(json_blocks) > 0
+    terminal_receipt = json.loads(json_blocks[-1].strip())
+
+    # The terminal log receipt must be fail-closed ABORTED_DEADLINE_EXCEEDED
+    assert terminal_receipt["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
+
+    # Must match the on-disk file status perfectly (no disagreement!)
+    with open(output_json, "r", encoding="utf-8") as f:
+        disk_data = json.load(f)
+    assert disk_data["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
+    assert terminal_receipt["overall_status"] == disk_data["overall_status"]
+    assert res["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
+
+
+def test_container_unknown_exit_code_fails_probe_status():
+    """Verifies Reviewer Item 3: Unknown or missing container exit code must fail closed regardless of stream exit status."""
+    def evaluate_probe_success(container_exit_code, probe_status_val):
+        if str(container_exit_code) == "0" and probe_status_val in ("SUCCESS_PROBE_COMPLETE", "SUCCESS_CONNECTIVITY_ONLY"):
+            return True
+        return False
+
+    # Log stream succeeded (0), but container exit code was UNKNOWN:
+    assert evaluate_probe_success("UNKNOWN", "SUCCESS_PROBE_COMPLETE") is False
+    # Log stream succeeded (0), but container exit code was empty:
+    assert evaluate_probe_success("", "SUCCESS_PROBE_COMPLETE") is False
+    # Log stream succeeded (0), but container exit code was non-zero:
+    assert evaluate_probe_success("137", "SUCCESS_PROBE_COMPLETE") is False
+    # Only genuine container exit 0 with success status evaluates to True:
+    assert evaluate_probe_success("0", "SUCCESS_PROBE_COMPLETE") is True

@@ -62,22 +62,23 @@ All deployment scripts and specifications are strictly aligned to the lightweigh
 
 ---
 
-## 3. Total One-Time Test Ceiling vs. Monthly Production Budget
+## 3. Estimated Theoretical Consumption Cost for Dedicated Diagnostic Lifecycle vs. Monthly Production Budget
 
-To provide complete cost predictability and eliminate cost table contradictions, the one-time diagnostic test cost is strictly separated from the recurring monthly production estimate:
+To provide complete cost predictability and eliminate cost table contradictions, the estimated one-time diagnostic test consumption is strictly separated from the recurring monthly production estimate:
 
-### A. Total One-Time Test Ceiling (Single Diagnostic Run)
-*Calculated for 1 vCPU / 2.0 GB RAM running for ~2 minutes during the bounded probe, with immediate synchronous teardown and verified absence of all created resources:*
+### A. Estimated Theoretical Consumption Cost (Dedicated Diagnostic Lifecycle)
+*Calculated across the entire actual lifecycle (build, registry, execution, evidence recovery, and teardown) based on published Azure retail unit rates, with immediate synchronous teardown and verified absence of all created resources:*
 
-| Line Item | Execution Scope | Azure Retail Unit Pricing | Maximum Test Ceiling |
+| Lifecycle Phase | Technical Scope | Azure Retail Unit Pricing | Estimated Consumption Cost |
 | :--- | :--- | :--- | :---: |
-| **ACI Container Compute** | 1 vCPU, 2 GB for ~120 seconds | $0.0000135/vCPU-s + $0.0000015/GB-s | **$0.0020** |
-| **Azure Container Registry (ACR)** | Basic Tier (Prorated ~15 min ephemeral lifecycle) | $0.167/day ($0.007/hour); auto-deleted by script | **$0.0050** |
-| **Diagnostic Log Storage** | Hot LRS (1 PUT operation + ~5 KB JSON) | $0.018/GB-mo + $0.0004/10K ops | **$0.0010** |
-| **Total Bandwidth Egress** | < 2.5 MB outbound data | First 100 GB/month egress is free | **$0.0000** |
-| **TOTAL ONE-TIME TEST CEILING** | **Immediate Synchronous Teardown** | **Complete Probe + Verified Absence** | **< $0.01 (One Cent)** |
+| **ACR Container Image Build** | Cloud build task execution (~60 seconds CPU) | $0.00005/second build compute | **$0.0030** |
+| **Azure Container Registry (ACR)** | Basic Tier (Prorated ~15 min ephemeral lifecycle) | $0.167/day ($0.007/hour); auto-deleted by script | **$0.0020** |
+| **ACI Container Compute** | 1 vCPU, 2.0 GB RAM (bounded 60-second deadline) | $0.0000135/vCPU-s + $0.0000015/GB-s | **$0.0010** |
+| **Evidence Retrieval & Recovery** | External log extraction (< 2.5 MB outbound transfer) | First 100 GB/month egress is free | **$0.0000** |
+| **Teardown & Absence Polling** | Ephemeral Resource Group deletion & absence verification | ARM management operations are free | **$0.0000** |
+| **TOTAL ESTIMATED LIFECYCLE COST** | **Immediate Synchronous Teardown** | **Complete Probe + Verified Absence** | **< $0.01 (One Cent)** |
 
-*Cost Enforcement Mechanism:* The deployment script (`azure-deploy-bounded-probe.sh` / `.ps1`) strictly auto-teardowns all created resources upon EXIT via trap/finally blocks, and synchronously polls for confirmed absence of ACI, ACR, and the Ephemeral Resource Group (`az group exists` returning `false`). If any resource deletion cannot be confirmed absent, the script reports `Residual Cost: UNRESOLVED` and exits with code 1. No hypothetical multi-hour fallback is treated as an enforced ceiling.
+*Cost Enforcement & Scope Note:* The figure below $0.01 is an architectural consumption estimate calculated from Azure retail rates for this diagnostic lifecycle, not an enforced billing ceiling or measured live Azure telemetry. Programmatic protection against unexpected costs is enforced by hard operational bounds: single-run execution, a uniquely generated dedicated ephemeral resource group, hard 60s probe deadline, 180s build timeout, 90s log-stream timeout, and synchronous polling for confirmed absence of ACI, ACR, and the Ephemeral Resource Group (`az group exists` returning `false`) upon process exit. If any resource deletion cannot be confirmed absent, the script reports `Residual Cost: UNRESOLVED` and exits with code 1.
 
 ### B. Monthly Production Estimate (Twice-Weekly Production Sweeps)
 *Calculated separately for 8 full catalog sweeps per month across all 28 categories:*
@@ -104,5 +105,5 @@ In accordance with reviewer instructions:
 
 ## 5. Next Milestone Target
 
-* **Proposed Delivery Target:** **Sunday, November 1, 2026 at 18:00 UTC (14:00 EDT / 13:00 CDT)**
+* **Proposed Delivery Target:** **Monday, November 2, 2026 at 18:00 UTC (13:00 EST / 12:00 CST)**
 * **Readiness:** The dedicated diagnostic probe (`scripts/run_azure_bounded_probe.py`) and single-run deployment scripts (`azure/azure-deploy-bounded-probe.sh` / `.ps1`) are packaged, tested, and ready for immediate manual execution at any time once approved.

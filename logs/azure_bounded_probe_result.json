@@ -1,10 +1,11 @@
 {
   "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
-  "pinned_git_commit": "9eee4674d7e47b353b35ec6a97eb663efef770ea",
-  "timestamp_utc": "2026-10-31T14:52:16.007926+00:00",
+  "run_id": "run_1793551802",
+  "pinned_git_commit": "c2f92a6b4ac9cf86034ea80543203a792624e6a4",
+  "timestamp_utc": "2026-11-01T16:50:02.923264+00:00",
   "execution_environment": {
     "execution_environment_type": "OFFLINE_LOCAL_DIAGNOSTIC_ATTEMPT",
-    "host_ip": "10.112.50.140",
+    "host_ip": "192.168.137.1",
     "os": "win32",
     "python_version": "3.13.6"
   },
@@ -29,13 +30,13 @@
     "initial_attempts_executed": 1,
     "retries_executed": 1,
     "redirects_executed": 0,
-    "elapsed_seconds": 0.057,
+    "elapsed_seconds": 0.0805,
     "timing_breakdown": {
-      "setup_seconds": 0.0009,
+      "setup_seconds": 0.0012,
       "network_seconds": 0.0005,
       "parsing_seconds": 0.0,
-      "export_seconds": 0.0014,
-      "total_elapsed_seconds": 0.057
+      "export_seconds": 0.0019,
+      "total_elapsed_seconds": 0.0805
     },
     "http_status_code": null,
     "edge_connection_success": false,
@@ -47,7 +48,7 @@
       {
         "attempt_number": 1,
         "is_retry": false,
-        "timestamp_utc": "2026-10-31T14:52:16.061150+00:00",
+        "timestamp_utc": "2026-11-01T16:50:02.998749+00:00",
         "duration_seconds": 0.0001,
         "http_status": null,
         "bytes_read": 0,
@@ -58,8 +59,8 @@
       {
         "attempt_number": 2,
         "is_retry": true,
-        "timestamp_utc": "2026-10-31T14:52:16.061449+00:00",
-        "duration_seconds": 0.0,
+        "timestamp_utc": "2026-11-01T16:50:02.998997+00:00",
+        "duration_seconds": 0.0001,
         "http_status": null,
         "bytes_read": 0,
         "payload_sha256": null,

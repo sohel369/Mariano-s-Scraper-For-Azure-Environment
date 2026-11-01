@@ -108,8 +108,10 @@ class AzureBoundedProbeRunner:
         run_deadline_seconds: float = 60.0,
         max_response_bytes: int = 2_500_000,
         connectivity_only: bool = False,
-        output_file: Optional[str] = None
+        output_file: Optional[str] = None,
+        run_id: Optional[str] = None
     ):
+        self.run_id = run_id or f"run_{int(time.time())}"
         self.start_time_monotonic = time.monotonic()
         self.start_time_utc = datetime.now(timezone.utc).isoformat()
 
@@ -344,8 +346,6 @@ class AzureBoundedProbeRunner:
                         price_info = p.get("priceInfo", {}) or {}
                         pi_loc = str(price_info.get("locationId") or "").strip()
                         pi_store = str(price_info.get("storeId") or "").strip()
-                        p_mod = str(p.get("modality") or p.get("fulfillment") or price_info.get("modality") or "").strip().upper()
-
                         store_candidates = [v for v in (p_loc, p_store, p_vanity, p_ful, pi_loc, pi_store) if v]
                         conflicting = [v for v in store_candidates if v not in ("53100502", "00502")]
                         if conflicting:
@@ -354,8 +354,22 @@ class AzureBoundedProbeRunner:
                             self.store_fulfillment_verified = False
                             return False
 
-                        if p_mod and p_mod != "PICKUP":
-                            self.failure_reason = f"Conflicting product modality in payload: {p_mod} (expected PICKUP)"
+                        mod_candidates = [
+                            p.get("modality"),
+                            p.get("fulfillment"),
+                            p.get("fulfillmentType"),
+                            p.get("fulfillmentModality"),
+                            price_info.get("modality"),
+                            price_info.get("fulfillment"),
+                            price_info.get("fulfillmentType"),
+                            price_info.get("fulfillmentModality")
+                        ]
+                        conflicting_mods = [
+                            str(m).strip().upper() for m in mod_candidates
+                            if m is not None and str(m).strip().upper() and str(m).strip().upper() != "PICKUP"
+                        ]
+                        if conflicting_mods:
+                            self.failure_reason = f"Conflicting product modality in payload: {conflicting_mods} (expected PICKUP)"
                             self.probe_status = "FAILED_CONFLICTING_STORE_IDENTITY"
                             self.store_fulfillment_verified = False
                             return False
@@ -700,6 +714,7 @@ class AzureBoundedProbeRunner:
         # Build comprehensive diagnostic evidence
         probe_result: Dict[str, Any] = {
             "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
+            "run_id": self.run_id,
             "pinned_git_commit": git_hash,
             "timestamp_utc": self.start_time_utc,
             "execution_environment": {
@@ -810,15 +825,24 @@ class AzureBoundedProbeRunner:
         print("\n===AZURE_PROBE_JSON_START===")
         print(json.dumps(probe_result, indent=2))
         print("===AZURE_PROBE_JSON_END===\n")
+        sys.stdout.flush()
 
         # Output base64 raw response delimiter for external host preservation
         if self.raw_response_bytes:
             print("\n===AZURE_RAW_RESPONSE_BASE64_START===")
             print(base64.b64encode(self.raw_response_bytes).decode("ascii"))
             print("===AZURE_RAW_RESPONSE_BASE64_END===\n")
+            sys.stdout.flush()
 
         # Re-persist to supervise deadline across console delimiter printing and stdout flush
-        self._persist_probe_result(probe_result)
+        post_print_elapsed = self._persist_probe_result(probe_result)
+
+        # Fail-closed terminal override: If post-print elapsed exceeded deadline, emit authoritative override block
+        if post_print_elapsed > self.run_deadline_seconds and self.probe_status == "ABORTED_DEADLINE_EXCEEDED":
+            print("\n===AZURE_PROBE_JSON_START===")
+            print(json.dumps(probe_result, indent=2))
+            print("===AZURE_PROBE_JSON_END===\n")
+            sys.stdout.flush()
 
         return probe_result
 
@@ -835,6 +859,7 @@ def main():
     parser.add_argument("--max-response-bytes", type=int, default=2_500_000, help="Max response body bytes ceiling")
     parser.add_argument("--connectivity-only", action="store_true", help="Report connectivity success without requiring parsed products")
     parser.add_argument("--output", type=str, default=None, help="Output JSON path")
+    parser.add_argument("--run-id", type=str, default=None, help="Diagnostic run identifier")
 
     args = parser.parse_args()
 
@@ -848,7 +873,8 @@ def main():
         run_deadline_seconds=args.run_deadline_seconds,
         max_response_bytes=args.max_response_bytes,
         connectivity_only=args.connectivity_only,
-        output_file=args.output
+        output_file=args.output,
+        run_id=args.run_id
     )
 
     result = runner.execute_bounded_probe()
