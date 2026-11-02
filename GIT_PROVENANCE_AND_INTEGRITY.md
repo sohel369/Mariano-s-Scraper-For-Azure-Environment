@@ -1,21 +1,21 @@
 # GIT PROVENANCE & FILE INTEGRITY MANIFEST
 
-**Generated UTC:** 2026-11-01T16:51:17.086673+00:00  
+**Generated UTC:** 2026-11-02T06:27:16.135808+00:00  
 **Repository URL:** [https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git](https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git)  
 **Branch:** `main`  
-**HEAD Commit:** `15ef5df7bf504e393304dd0ad765fb95c0846b2c`  
+**HEAD Commit:** `00a4238ff39195a735136ff51154ece6e624ecc0`  
 **Working Tree Clean:** `True`  
 
 ## 1. Recent Authoritative Commits
 ```text
+00a4238 Resolve Reviewer November 2 items: independent deadline supervisor, bounded CLI timeouts on all platforms, strict commit binding, and end-to-end orchestration integration tests
+f684f5b Update provenance manifest and checksums for implementation commit 15ef5df
 15ef5df Resolve Reviewer November 1 items: fail-closed delimiter supervisor, recovery loop integrity, exit code evaluation, and modality validator
 c2f92a6 Update provenance manifest and checksums for implementation commit 7862094
 7862094 Reconcile cost plan and document inspected source paths in store fulfillment trace
 9eee467 Update provenance manifest and checksums for implementation commit d02a2bc
 d02a2bc Resolve Reviewer October 31 edge cases: transport counting, buffer reset, structural store verification, run isolation, and deadline supervisor
 e671ac9 chore(provenance): synchronize manifest to commit 0ca5246
-0ca5246 chore(evidence): update probe diagnostic result with commit 9c447d7
-9c447d7 chore(provenance): update manifest to authoritative commit b7aa7ed
 ```
 
 ## 2. Deliverable File SHA-256 Checksums
@@ -23,9 +23,9 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 
 | File Path | Size (Bytes) | SHA-256 Checksum |
 | :--- | :---: | :--- |
-| `scripts/run_azure_bounded_probe.py` | 49052 | `25ddb6afa8845362bce099870ef62036bda20baffb7df33704b7d8ba25a8a3e4` |
-| `azure/azure-deploy-bounded-probe.sh` | 17118 | `d0f75a81019feb2ea03b27ea92eb69fd9941ee93b07c68b30ddd21d233915261` |
-| `azure/azure-deploy-bounded-probe.ps1` | 19521 | `e7ec36aa4398c552f3d75c1bfe31ad0c1403ad9e6a566fbc102f29455b8f2479` |
+| `scripts/run_azure_bounded_probe.py` | 55312 | `9a3260daba5a9b875ef0c8bf5013ff58858201f934c6e4f4c3097fefe11e10a5` |
+| `azure/azure-deploy-bounded-probe.sh` | 19098 | `f21c52ec4952e64594c0f14bd092ffc7587a7144d39278e541a0f12cb85af2c8` |
+| `azure/azure-deploy-bounded-probe.ps1` | 24081 | `2e2f1882635b265a56f87727edeaf57b0674ac81df6c1d22050e2fa105e38f96` |
 | `azure/Dockerfile` | 899 | `389b2a87c26d5e67f3ee758cb949d064b6cfd9cb7a744a803d7c47a6371ae77a` |
 | `requirements.txt` | 136 | `7031d71cdcedb7eb39d2179e74b1c2330240b624888e8884a81d85c293d86977` |
 | `config/locations.json` | 1747 | `41715044b6679a1b8f8e9ac568e7029c5997107febcd1a4fe939bb874ee21300` |
@@ -39,4 +39,4 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 
 ## 3. Remote Verification Link
 The full commit history, diffs, and trees can be inspected directly on GitHub at:
-`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/15ef5df7bf504e393304dd0ad765fb95c0846b2c`
+`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/00a4238ff39195a735136ff51154ece6e624ecc0`
