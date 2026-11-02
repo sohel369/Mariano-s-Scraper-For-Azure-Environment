@@ -103,7 +103,9 @@ In accordance with reviewer instructions:
 
 ---
 
-## 5. Next Milestone Target
+## 5. Next Milestone & Checkpoint Definition
 
-* **Proposed Delivery Target:** **Monday, November 2, 2026 at 18:00 UTC (13:00 EST / 12:00 CST)**
-* **Readiness:** The dedicated diagnostic probe (`scripts/run_azure_bounded_probe.py`) and single-run deployment scripts (`azure/azure-deploy-bounded-probe.sh` / `.ps1`) are packaged, tested, and ready for immediate manual execution at any time once approved.
+* **Checkpoint Scope:** **Monday, November 2, 2026 at 18:00 UTC (13:00 EST / 12:00 CST)** is formally designated as the **Review Checkpoint for the corrected deliverable package, provenance manifest, and offline orchestration test verification**, NOT approval or authorization to execute live cloud deployment.
+* **Strictly Conditional Live Diagnostic Execution:** No live Azure deployment, container creation, or live retailer network requests will be performed without explicit prior written authorization from the client.
+* **Separation of Baselines:** The 560-row historical replay dataset remains strictly categorized as an unverified offline replay baseline, preserved separately from any future genuine Vernon Hills live demonstration, full production sweeps, and observed Azure telemetry.
+* **Readiness:** The dedicated diagnostic probe (`scripts/run_azure_bounded_probe.py`) and single-run deployment scripts (`azure/azure-deploy-bounded-probe.sh` / `.ps1`) are packaged, hardened with independent process timeouts, verified against substituted Azure CLI mocks, and ready for execution upon written client direction.

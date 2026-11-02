@@ -228,9 +228,9 @@ def test_enforced_deadline_through_finalization_with_injected_write_delay(tmp_pa
     assert disk_data["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
 
 
-def test_retry_allowance_zero_retries_makes_single_attempt():
+def test_retry_allowance_zero_retries_makes_single_attempt(tmp_path):
     """Verifies Reviewer Item 4: With max_retries=0 and simulated timeout, exactly 1 attempt occurs."""
-    runner = AzureBoundedProbeRunner(max_retries=0, max_requests=3)
+    runner = AzureBoundedProbeRunner(max_retries=0, max_requests=3, output_file=str(tmp_path / "probe_result.json"))
 
     mock_request = MagicMock()
     call_count = 0
@@ -250,9 +250,9 @@ def test_retry_allowance_zero_retries_makes_single_attempt():
     assert res["probe_metrics"]["retries_executed"] == 0
 
 
-def test_retry_allowance_one_retry_makes_two_attempts():
+def test_retry_allowance_one_retry_makes_two_attempts(tmp_path):
     """Verifies Reviewer Item 4: With max_retries=1 and simulated timeouts, exactly 2 attempts occur."""
-    runner = AzureBoundedProbeRunner(max_retries=1, max_requests=3)
+    runner = AzureBoundedProbeRunner(max_retries=1, max_requests=3, output_file=str(tmp_path / "probe_result.json"))
 
     call_count = 0
 
@@ -618,3 +618,27 @@ def test_container_unknown_exit_code_fails_probe_status():
     assert evaluate_probe_success("137", "SUCCESS_PROBE_COMPLETE") is False
     # Only genuine container exit 0 with success status evaluates to True:
     assert evaluate_probe_success("0", "SUCCESS_PROBE_COMPLETE") is True
+
+
+def test_independent_supervisor_preempts_blocked_execution(tmp_path):
+    """Verifies Reviewer Item 1: Independent background supervisor enforces deadline even if operation blocks."""
+    output_json = tmp_path / "probe_result.json"
+    runner = AzureBoundedProbeRunner(run_deadline_seconds=0.3, connectivity_only=True, output_file=str(output_json))
+
+    def blocking_get(*args, **kwargs):
+        time.sleep(0.6)
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_resp.headers = {"Content-Type": "text/html"}
+        mock_resp.iter_content.return_value = [b"data"]
+        return mock_resp
+
+    with patch("requests.Session.get", side_effect=blocking_get):
+        res = runner.execute_bounded_probe()
+
+    assert res["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
+    assert "ABORTED_DEADLINE_EXCEEDED" in runner.probe_status
+    assert os.path.exists(output_json)
+    with open(output_json, "r", encoding="utf-8") as f:
+        disk_data = json.load(f)
+    assert disk_data["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"

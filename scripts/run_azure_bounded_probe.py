@@ -31,6 +31,7 @@ import hashlib
 import argparse
 import logging
 import subprocess
+import threading
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List, Set
 
@@ -88,6 +89,74 @@ class BoundedRequestAdapter(HTTPAdapter):
         self.probe._attempt_dispatched_via_adapter = True
 
         return super().send(request, **kwargs)
+
+
+class IndependentDeadlineSupervisor:
+    """
+    Independent background watchdog supervisor thread running concurrently with the probe.
+    Monitors total monotonic elapsed time independently of the main execution thread.
+    If the main thread hangs or print/flush/disk I/O blocks past the deadline,
+    this supervisor preemptively enforces ABORTED_DEADLINE_EXCEEDED, writes the
+    fail-closed terminal receipt to disk, emits terminal delimiters to stdout/stderr,
+    and terminates the process after a grace period.
+    """
+    def __init__(self, runner: "AzureBoundedProbeRunner", grace_period: float = 1.0):
+        self.runner = runner
+        self.deadline_seconds = runner.run_deadline_seconds
+        self.grace_period = grace_period
+        self._stop_event = threading.Event()
+        self._thread = threading.Thread(target=self._run_monitor, daemon=True, name="DeadlineSupervisorThread")
+        self.triggered = False
+
+    def start(self):
+        self._thread.start()
+
+    def cancel(self):
+        self._stop_event.set()
+
+    def _run_monitor(self):
+        while not self._stop_event.is_set():
+            elapsed = time.monotonic() - self.runner.start_time_monotonic
+            remaining = self.deadline_seconds - elapsed
+            if remaining <= 0:
+                self.triggered = True
+                self._enforce_deadline(elapsed)
+                break
+            time.sleep(min(0.05, max(0.005, remaining)))
+
+    def _enforce_deadline(self, elapsed: float):
+        logger.warning(
+            f"Independent deadline supervisor enforced hard deadline at {elapsed:.4f}s "
+            f"(configured deadline: {self.deadline_seconds}s)"
+        )
+        self.runner.probe_status = "ABORTED_DEADLINE_EXCEEDED"
+        self.runner.failure_reason = (
+            f"Whole-run hard deadline of {self.deadline_seconds}s exceeded and enforced by independent supervisor "
+            f"(elapsed: {elapsed:.4f}s)"
+        )
+        # 1. Emergency atomic disk persistence
+        try:
+            self.runner._emergency_persist_deadline_exceeded(elapsed)
+        except Exception as e:
+            logger.error(f"Failed to persist emergency deadline receipt: {e}")
+
+        # 2. Emergency terminal receipt emission to stdout
+        try:
+            emergency_receipt = self.runner._generate_probe_result_dict()
+            emergency_receipt["overall_status"] = "ABORTED_DEADLINE_EXCEEDED"
+            emergency_receipt["resolution_notes"] = self.runner.failure_reason
+            emergency_receipt["probe_metrics"]["elapsed_seconds"] = round(elapsed, 4)
+            sys.stdout.write("\n===AZURE_PROBE_JSON_START===\n")
+            sys.stdout.write(json.dumps(emergency_receipt, indent=2))
+            sys.stdout.write("\n===AZURE_PROBE_JSON_END===\n\n")
+            sys.stdout.flush()
+        except Exception:
+            pass
+
+        # 3. Wait grace period for main thread; if blocked, force termination fail-closed
+        if not self._stop_event.wait(timeout=self.grace_period):
+            logger.error("Main thread blocked past grace period after deadline breach; terminating process fail-closed.")
+            os._exit(1)
 
 
 class AzureBoundedProbeRunner:
@@ -155,6 +224,8 @@ class AzureBoundedProbeRunner:
         self.verified_retailer_id: Optional[str] = None
         self.raw_response_bytes: bytes = b""
         self.raw_response_sha256: Optional[str] = None
+        self.sanitized_request_headers: Dict[str, str] = {}
+        self.sanitized_response_headers: Dict[str, str] = {}
 
         # Timing breakdown
         self.timing_breakdown = {
@@ -420,6 +491,131 @@ class AzureBoundedProbeRunner:
         self.store_fulfillment_verified = False
         return False
 
+    def _emergency_persist_deadline_exceeded(self, elapsed: float):
+        """
+        Emergency persistence invoked by the independent deadline supervisor
+        to atomically write an ABORTED_DEADLINE_EXCEEDED receipt to disk.
+        """
+        try:
+            result = self._generate_probe_result_dict()
+            result["overall_status"] = "ABORTED_DEADLINE_EXCEEDED"
+            result["resolution_notes"] = (
+                f"Whole-run hard deadline of {self.run_deadline_seconds}s exceeded and enforced by independent supervisor "
+                f"(elapsed: {elapsed:.4f}s)"
+            )
+            result["probe_metrics"]["elapsed_seconds"] = round(elapsed, 4)
+            os.makedirs(os.path.dirname(self.output_file), exist_ok=True)
+            with open(self.output_file, "w", encoding="utf-8") as f:
+                json.dump(result, f, indent=2)
+                f.flush()
+                try:
+                    os.fsync(f.fileno())
+                except Exception:
+                    pass
+        except Exception as e:
+            logger.error(f"Failed in _emergency_persist_deadline_exceeded: {e}")
+
+    def _generate_probe_result_dict(self) -> Dict[str, Any]:
+        git_hash = self._get_git_commit_hash()
+        host_ip = "UNKNOWN"
+        try:
+            host_ip = socket.gethostbyname(socket.gethostname())
+        except Exception:
+            pass
+        return {
+            "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
+            "run_id": self.run_id,
+            "pinned_git_commit": git_hash,
+            "timestamp_utc": self.start_time_utc,
+            "execution_environment": {
+                "execution_environment_type": "OFFLINE_LOCAL_DIAGNOSTIC_ATTEMPT",
+                "host_ip": host_ip,
+                "os": sys.platform,
+                "python_version": sys.version.split()[0]
+            },
+            "circuit_breaker_limits": {
+                "max_records_override": self.max_records_override,
+                "max_requests_ceiling": self.max_requests,
+                "max_retries_ceiling": self.max_retries,
+                "run_deadline_seconds": self.run_deadline_seconds,
+                "max_response_bytes": self.max_response_bytes
+            },
+            "store_target": {
+                "configured_address": self.target_store_address,
+                "configured_zipcode": self.target_zipcode,
+                "fulfillment_intent": self.fulfillment_type,
+                "store_id": self.target_store.get("store_id"),
+                "division_id": self.target_store.get("division_id", "531"),
+                "store_number": self.target_store.get("store_number", "00502"),
+                "store_name": self.target_store.get("store_name", "Mariano's Vernon Hills")
+            },
+            "probe_metrics": {
+                "total_requests_executed": self.aggregate_requests_count,
+                "initial_attempts_executed": self.initial_attempts_count,
+                "retries_executed": self.total_retries_executed,
+                "redirects_executed": self.redirects_count,
+                "elapsed_seconds": round(time.monotonic() - self.start_time_monotonic, 4),
+                "timing_breakdown": self.timing_breakdown,
+                "http_status_code": self.http_status_code,
+                "edge_connection_success": self.edge_connection_success,
+                "challenge_detected": self.challenge_detected,
+                "challenge_classification": self.challenge_classification,
+                "store_fulfillment_verified_in_source": self.store_fulfillment_verified,
+                "verified_retailer_id_in_source": self.verified_retailer_id,
+                "attempt_receipts": self.attempt_receipts
+            },
+            "evidence": {
+                "raw_response_file": self.raw_response_file,
+                "raw_response_sha256": self.raw_response_sha256,
+                "raw_response_size_bytes": len(self.raw_response_bytes),
+                "sanitized_request_headers": self.sanitized_request_headers,
+                "sanitized_response_headers": self.sanitized_response_headers,
+                "store_fulfillment_trace": {
+                    "requested_store_id": "53100502",
+                    "requested_address": self.target_store_address,
+                    "requested_modality": "PICKUP",
+                    "verified_retailer_id": self.verified_retailer_id,
+                    "verified_modality": "PICKUP" if self.store_fulfillment_verified else None,
+                    "structural_match_confirmed": self.store_fulfillment_verified,
+                    "inspected_source_paths": [
+                        "props.pageProps.store.storeId",
+                        "props.pageProps.store.vanityId",
+                        "props.pageProps.store.divisionId",
+                        "props.pageProps.store.storeNumber",
+                        "props.pageProps.modality.type",
+                        "product.locationId",
+                        "product.storeId",
+                        "product.vanityId",
+                        "product.fulfillmentStoreId",
+                        "product.priceInfo.locationId",
+                        "product.priceInfo.storeId",
+                        "product.priceInfo.modality",
+                        "product.modality"
+                    ],
+                    "schema_authority_note": (
+                        "Kroger/Mariano's schema uses storeId as primary location identifier and storeNumber as 5-digit division-scoped ID. "
+                        "vanityId and priceInfo.locationId/storeId are non-interchangeable; any mismatch against target 53100502/00502 is rejected."
+                    ),
+                    "price_bearing_trace_sample": [
+                        {
+                            "product_title": r.get("product_title", ""),
+                            "upc": r.get("upc", ""),
+                            "regular_price": r.get("regular_price", ""),
+                            "sale_price": r.get("sale_price", ""),
+                            "url": r.get("url", ""),
+                            "verified_store_id": self.target_store.get("store_id", "53100502"),
+                            "verified_modality": "PICKUP"
+                        } for r in self.collected_records[:5]
+                    ]
+                }
+            },
+            "collected_records_count": len(self.collected_records),
+            "collected_records": self.collected_records,
+            "verified_cleanup": self.verified_cleanup,
+            "overall_status": self.probe_status,
+            "resolution_notes": self.failure_reason
+        }
+
     def _persist_probe_result(self, probe_result: Dict[str, Any]) -> float:
         """
         Updates elapsed time metrics, evaluates whole-run deadline against all operations
@@ -442,6 +638,11 @@ class AzureBoundedProbeRunner:
         os.makedirs(os.path.dirname(self.output_file), exist_ok=True)
         with open(self.output_file, "w", encoding="utf-8") as f:
             json.dump(probe_result, f, indent=2)
+            f.flush()
+            try:
+                os.fsync(f.fileno())
+            except Exception:
+                pass
 
         return current_elapsed
 
@@ -457,6 +658,10 @@ class AzureBoundedProbeRunner:
         except Exception:
             pass
 
+        # Start independent deadline supervisor watchdog thread
+        supervisor = IndependentDeadlineSupervisor(runner=self)
+        supervisor.start()
+
         session = requests.Session()
         adapter = BoundedRequestAdapter(probe=self)
         session.mount("https://", adapter)
@@ -469,6 +674,9 @@ class AzureBoundedProbeRunner:
             "Accept-Encoding": "gzip, deflate, br",
             "Connection": "keep-alive"
         })
+        self.sanitized_request_headers = {
+            k: v for k, v in session.headers.items() if k.lower() not in ("authorization", "cookie")
+        }
 
         session.cookies.set("kroger.modality", "PICKUP", domain=".marianos.com")
         session.cookies.set("kroger.storeId", "53100502", domain=".marianos.com")
@@ -541,6 +749,9 @@ class AzureBoundedProbeRunner:
                     self.http_status_code = resp.status_code
                     self.edge_connection_success = True
                     headers_dict = dict(resp.headers)
+                    self.sanitized_response_headers = {
+                        k: v for k, v in headers_dict.items() if k.lower() not in ("set-cookie",)
+                    }
                     logger.info(f"Received HTTP {resp.status_code} in {attempt_receipt['duration_seconds']}s")
 
                     # Stream response with bounded byte ceiling into attempt_bytes
@@ -709,140 +920,57 @@ class AzureBoundedProbeRunner:
             else:
                 self.probe_status = "FAILED_UNKNOWN"
 
-        export_start = time.monotonic()
+        # PHASE 2: BOUNDED FINALIZATION PHASE (Persistence, Verification, Terminal Delimiter Emission)
+        finalization_start = time.monotonic()
+        try:
+            probe_result = self._generate_probe_result_dict()
+            self._persist_probe_result(probe_result)
+            self.timing_breakdown["export_seconds"] = round(time.monotonic() - finalization_start, 4)
 
-        # Build comprehensive diagnostic evidence
-        probe_result: Dict[str, Any] = {
-            "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
-            "run_id": self.run_id,
-            "pinned_git_commit": git_hash,
-            "timestamp_utc": self.start_time_utc,
-            "execution_environment": {
-                "execution_environment_type": "OFFLINE_LOCAL_DIAGNOSTIC_ATTEMPT",
-                "host_ip": host_ip,
-                "os": sys.platform,
-                "python_version": sys.version.split()[0]
-            },
-            "circuit_breaker_limits": {
-                "max_records_override": self.max_records_override,
-                "max_requests_ceiling": self.max_requests,
-                "max_retries_ceiling": self.max_retries,
-                "run_deadline_seconds": self.run_deadline_seconds,
-                "max_response_bytes": self.max_response_bytes
-            },
-            "store_target": {
-                "configured_address": self.target_store_address,
-                "configured_zipcode": self.target_zipcode,
-                "fulfillment_intent": self.fulfillment_type,
-                "store_id": self.target_store.get("store_id"),
-                "division_id": self.target_store.get("division_id", "531"),
-                "store_number": self.target_store.get("store_number", "00502"),
-                "store_name": self.target_store.get("store_name", "Mariano's Vernon Hills")
-            },
-            "probe_metrics": {
-                "total_requests_executed": self.aggregate_requests_count,
-                "initial_attempts_executed": self.initial_attempts_count,
-                "retries_executed": self.total_retries_executed,
-                "redirects_executed": self.redirects_count,
-                "elapsed_seconds": 0.0,  # Will be finalized post-write
-                "timing_breakdown": self.timing_breakdown,
-                "http_status_code": self.http_status_code,
-                "edge_connection_success": self.edge_connection_success,
-                "challenge_detected": self.challenge_detected,
-                "challenge_classification": self.challenge_classification,
-                "store_fulfillment_verified_in_source": self.store_fulfillment_verified,
-                "verified_retailer_id_in_source": self.verified_retailer_id,
-                "attempt_receipts": self.attempt_receipts
-            },
-            "evidence": {
-                "raw_response_file": self.raw_response_file,
-                "raw_response_sha256": self.raw_response_sha256,
-                "raw_response_size_bytes": len(self.raw_response_bytes),
-                "sanitized_request_headers": {
-                    k: v for k, v in session.headers.items() if k.lower() not in ("authorization", "cookie")
-                },
-                "sanitized_response_headers": {
-                    k: v for k, v in headers_dict.items() if k.lower() not in ("set-cookie",)
-                },
-                "store_fulfillment_trace": {
-                    "requested_store_id": "53100502",
-                    "requested_address": self.target_store_address,
-                    "requested_modality": "PICKUP",
-                    "verified_retailer_id": self.verified_retailer_id,
-                    "verified_modality": "PICKUP" if self.store_fulfillment_verified else None,
-                    "structural_match_confirmed": self.store_fulfillment_verified,
-                    "inspected_source_paths": [
-                        "props.pageProps.store.storeId",
-                        "props.pageProps.store.vanityId",
-                        "props.pageProps.store.divisionId",
-                        "props.pageProps.store.storeNumber",
-                        "props.pageProps.modality.type",
-                        "product.locationId",
-                        "product.storeId",
-                        "product.vanityId",
-                        "product.fulfillmentStoreId",
-                        "product.priceInfo.locationId",
-                        "product.priceInfo.storeId",
-                        "product.priceInfo.modality",
-                        "product.modality"
-                    ],
-                    "schema_authority_note": (
-                        "Kroger/Mariano's schema uses storeId as primary location identifier and storeNumber as 5-digit division-scoped ID. "
-                        "vanityId and priceInfo.locationId/storeId are non-interchangeable; any mismatch against target 53100502/00502 is rejected."
-                    ),
-                    "price_bearing_trace_sample": [
-                        {
-                            "product_title": r.get("product_title", ""),
-                            "upc": r.get("upc", ""),
-                            "regular_price": r.get("regular_price", ""),
-                            "sale_price": r.get("sale_price", ""),
-                            "url": r.get("url", ""),
-                            "verified_store_id": self.target_store.get("store_id", "53100502"),
-                            "verified_modality": "PICKUP"
-                        } for r in self.collected_records[:5]
-                    ]
-                }
-            },
-            "collected_records_count": len(self.collected_records),
-            "collected_records": self.collected_records,
-            "verified_cleanup": self.verified_cleanup,
-            "overall_status": self.probe_status,
-            "resolution_notes": self.failure_reason
-        }
+            # Strict disk verification: ensure result file was secured and is valid
+            if not os.path.exists(self.output_file) or os.path.getsize(self.output_file) == 0:
+                self.probe_status = "FAILED_FINALIZATION_UNVERIFIED"
+                self.failure_reason = "Failed to secure valid probe result JSON on disk"
+                probe_result["overall_status"] = self.probe_status
+                probe_result["resolution_notes"] = self.failure_reason
 
-        # Persist durable evidence export to disk with accurate elapsed timing
-        export_start = time.monotonic()
-        self._persist_probe_result(probe_result)
-        self.timing_breakdown["export_seconds"] = round(time.monotonic() - export_start, 4)
+            # Evaluate deadline before delimiter printing
+            pre_print_elapsed = time.monotonic() - self.start_time_monotonic
+            if pre_print_elapsed > self.run_deadline_seconds and self.probe_status.startswith("SUCCESS"):
+                self.probe_status = "ABORTED_DEADLINE_EXCEEDED"
+                self.failure_reason = f"Whole-run deadline exceeded before delimiter printing ({pre_print_elapsed:.4f}s)"
+                probe_result["overall_status"] = self.probe_status
+                probe_result["resolution_notes"] = self.failure_reason
+                self._persist_probe_result(probe_result)
 
-        # POST-FINALIZATION SUPERVISOR DEADLINE CHECK
-        self._persist_probe_result(probe_result)
+            logger.info(f"Durable probe result exported to: {self.output_file}")
+            logger.info(f"Overall Probe Status: {self.probe_status} (Elapsed: {probe_result['probe_metrics']['elapsed_seconds']}s)")
 
-        logger.info(f"Durable probe result exported to: {self.output_file}")
-        logger.info(f"Overall Probe Status: {self.probe_status} (Elapsed: {probe_result['probe_metrics']['elapsed_seconds']}s)")
-
-        # Output JSON delimiter for container log extraction
-        print("\n===AZURE_PROBE_JSON_START===")
-        print(json.dumps(probe_result, indent=2))
-        print("===AZURE_PROBE_JSON_END===\n")
-        sys.stdout.flush()
-
-        # Output base64 raw response delimiter for external host preservation
-        if self.raw_response_bytes:
-            print("\n===AZURE_RAW_RESPONSE_BASE64_START===")
-            print(base64.b64encode(self.raw_response_bytes).decode("ascii"))
-            print("===AZURE_RAW_RESPONSE_BASE64_END===\n")
-            sys.stdout.flush()
-
-        # Re-persist to supervise deadline across console delimiter printing and stdout flush
-        post_print_elapsed = self._persist_probe_result(probe_result)
-
-        # Fail-closed terminal override: If post-print elapsed exceeded deadline, emit authoritative override block
-        if post_print_elapsed > self.run_deadline_seconds and self.probe_status == "ABORTED_DEADLINE_EXCEEDED":
+            # Output JSON delimiter for container log extraction
             print("\n===AZURE_PROBE_JSON_START===")
             print(json.dumps(probe_result, indent=2))
             print("===AZURE_PROBE_JSON_END===\n")
             sys.stdout.flush()
+
+            # Output base64 raw response delimiter for external host preservation
+            if self.raw_response_bytes:
+                print("\n===AZURE_RAW_RESPONSE_BASE64_START===")
+                print(base64.b64encode(self.raw_response_bytes).decode("ascii"))
+                print("===AZURE_RAW_RESPONSE_BASE64_END===\n")
+                sys.stdout.flush()
+
+            # Re-persist to supervise deadline across console delimiter printing and stdout flush
+            post_print_elapsed = self._persist_probe_result(probe_result)
+
+            # Fail-closed terminal override: If post-print elapsed exceeded deadline, emit authoritative override block
+            if post_print_elapsed > self.run_deadline_seconds and self.probe_status == "ABORTED_DEADLINE_EXCEEDED":
+                print("\n===AZURE_PROBE_JSON_START===")
+                print(json.dumps(probe_result, indent=2))
+                print("===AZURE_PROBE_JSON_END===\n")
+                sys.stdout.flush()
+
+        finally:
+            supervisor.cancel()
 
         return probe_result
 

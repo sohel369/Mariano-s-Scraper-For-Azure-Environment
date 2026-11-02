@@ -28,7 +28,10 @@ CONTAINER_EXIT_CODE="UNKNOWN"
 
 SUPPLIED_RG="$1"
 LOCATION="${2:-eastus}"
-OUTPUT_DIR="logs"
+OUTPUT_DIR="${OUTPUT_DIR:-logs}"
+if [ -n "${3:-}" ]; then
+  OUTPUT_DIR="$3"
+fi
 RUN_ID="$(date +%Y%m%d_%H%M%S)_$((RANDOM % 9000 + 1000))"
 PROBE_RESULT_FILE="$OUTPUT_DIR/azure_bounded_probe_result.json"
 RAW_RESPONSE_FILE="$OUTPUT_DIR/azure_probe_raw_response.html"
@@ -42,15 +45,39 @@ rm -f "$PROBE_RESULT_FILE" "$RAW_RESPONSE_FILE" "$CONTAINER_LOG_FILE"
 # Resolve pinned git commit hash
 PINNED_COMMIT=$(git rev-parse HEAD 2>/dev/null || cat logs/git_commit_lineage_proof.json 2>/dev/null | grep -o '"head_commit": "[^"]*' | cut -d'"' -f4 || echo "")
 
-# Helper: Run command with timeout if available
+# Preflight: Verify required timeout utility and commit hash
+if ! command -v timeout >/dev/null 2>&1; then
+  echo "====================================================================================" >&2
+  echo "CRITICAL PREFLIGHT ERROR: 'timeout' (GNU coreutils) utility is required for bounded execution." >&2
+  echo "====================================================================================" >&2
+  exit 1
+fi
+
+if [ -z "$PINNED_COMMIT" ]; then
+  echo "====================================================================================" >&2
+  echo "CRITICAL PREFLIGHT ERROR: Pinned git commit could not be determined." >&2
+  echo "Bounded execution requires an authoritative non-empty commit hash for provenance." >&2
+  echo "====================================================================================" >&2
+  exit 1
+fi
+
+# Resolve working Python 3 interpreter (prefers python3 on Linux, py -3 or python on Windows)
+if command -v python3 >/dev/null 2>&1 && python3 -c 'import sys' >/dev/null 2>&1; then
+  PYTHON_CMD="python3"
+elif command -v py >/dev/null 2>&1 && py -3 -c 'import sys' >/dev/null 2>&1; then
+  PYTHON_CMD="py -3"
+elif command -v python >/dev/null 2>&1 && python -c 'import sys' >/dev/null 2>&1; then
+  PYTHON_CMD="python"
+else
+  echo "CRITICAL PREFLIGHT ERROR: Working Python 3 interpreter is required for validation." >&2
+  exit 1
+fi
+
+# Helper: Run command with timeout
 run_with_timeout() {
   local timeout_sec="$1"
   shift
-  if command -v timeout >/dev/null 2>&1; then
-    timeout "$timeout_sec" "$@"
-  else
-    "$@"
-  fi
+  timeout "$timeout_sec" "$@"
 }
 
 # 1. Ephemeral Resource Group & Ownership Verification
@@ -107,11 +134,18 @@ check_evidence_complete() {
   local log_file="$1"
   local target_run_id="$2"
   local target_commit="$3"
-  python3 -c "
+  if [ ! -f "$log_file" ] || [ ! -s "$log_file" ]; then
+    return 1
+  fi
+  $PYTHON_CMD -c "
 import sys, re, json
 
+log_path = sys.argv[1]
+target_run_id = sys.argv[2]
+target_commit = sys.argv[3]
+
 try:
-    with open('$log_file', 'r', encoding='utf-8', errors='replace') as f:
+    with open(log_path, 'r', encoding='utf-8', errors='replace') as f:
         content = f.read()
 except Exception:
     sys.exit(1)
@@ -127,11 +161,11 @@ try:
 except Exception:
     sys.exit(3) # Malformed JSON
 
-# Verify run_id and pinned_git_commit if supplied
-if '$target_run_id' and data.get('run_id') != '$target_run_id':
-    sys.exit(4) # Run ID mismatch
-if '$target_commit' and data.get('pinned_git_commit') and data.get('pinned_git_commit') != '$target_commit':
-    sys.exit(5) # Commit mismatch
+# Verify run_id and pinned_git_commit strictly
+if not target_run_id or data.get('run_id') != target_run_id:
+    sys.exit(4) # Run ID mismatch or missing
+if not target_commit or not data.get('pinned_git_commit') or data.get('pinned_git_commit') != target_commit:
+    sys.exit(5) # Commit mismatch or missing
 
 # Check raw response delimiters if raw body is expected
 raw_bytes = data.get('evidence', {}).get('raw_response_size_bytes', 0)
@@ -142,7 +176,7 @@ if raw_bytes > 0 or raw_sha:
         sys.exit(6) # Incomplete or missing raw body delimiters
 
 sys.exit(0)
-" 2>/dev/null
+" "$log_file" "$target_run_id" "$target_commit" 2>/dev/null
 }
 
 # Evidence Extraction & Validation Helper (Runs before resource teardown)
@@ -163,11 +197,15 @@ preserve_and_validate_evidence() {
     done
 
     # Extract the authoritative LAST delimited blocks
-    python3 -c "
+    $PYTHON_CMD -c "
 import re, json, base64, sys
 
+log_file = sys.argv[1]
+result_file = sys.argv[2]
+raw_file = sys.argv[3]
+
 try:
-    with open('$CONTAINER_LOG_FILE', 'r', encoding='utf-8', errors='replace') as f:
+    with open(log_file, 'r', encoding='utf-8', errors='replace') as f:
         content = f.read()
 except Exception:
     sys.exit(1)
@@ -176,7 +214,7 @@ except Exception:
 json_matches = re.findall(r'===AZURE_PROBE_JSON_START===([\s\S]*?)===AZURE_PROBE_JSON_END===', content)
 if json_matches:
     last_json = json_matches[-1].strip()
-    with open('$PROBE_RESULT_FILE', 'w', encoding='utf-8') as pf:
+    with open(result_file, 'w', encoding='utf-8') as pf:
         pf.write(last_json)
 else:
     sys.exit(2)
@@ -187,29 +225,36 @@ if raw_matches:
     raw_b64 = re.sub(r'\s+', '', raw_matches[-1])
     try:
         raw_bytes = base64.b64decode(raw_b64)
-        with open('$RAW_RESPONSE_FILE', 'wb') as rf:
+        with open(raw_file, 'wb') as rf:
             rf.write(raw_bytes)
     except Exception:
         pass
-" 2>/dev/null || true
+" "$CONTAINER_LOG_FILE" "$PROBE_RESULT_FILE" "$RAW_RESPONSE_FILE" 2>/dev/null || true
 
     # Rigorous validation of JSON schema, version identity, and raw bytes integrity
     if [ -s "$PROBE_RESULT_FILE" ]; then
       set +e
-      python3 -c "
+      $PYTHON_CMD -c "
 import sys, json, hashlib, os
-with open('$PROBE_RESULT_FILE', 'r', encoding='utf-8') as f:
+
+result_file = sys.argv[1]
+expected_run_id = sys.argv[2]
+expected_commit = sys.argv[3]
+raw_path = sys.argv[4]
+
+with open(result_file, 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 if data.get('probe_name') != 'AZURE_BOUNDED_PROBE_DIAGNOSTIC':
     sys.exit(2)
-if '$RUN_ID' and data.get('run_id') != '$RUN_ID':
+if not expected_run_id or data.get('run_id') != expected_run_id:
     sys.exit(3)
+if not expected_commit or not data.get('pinned_git_commit') or data.get('pinned_git_commit') != expected_commit:
+    sys.exit(7)
 
 expected_sha = data.get('evidence', {}).get('raw_response_sha256')
 expected_bytes = data.get('evidence', {}).get('raw_response_size_bytes', 0)
 if expected_bytes > 0 or expected_sha:
-    raw_path = '$RAW_RESPONSE_FILE'
     if not os.path.exists(raw_path):
         sys.exit(4)
     actual_bytes = os.path.getsize(raw_path)
@@ -220,7 +265,7 @@ if expected_bytes > 0 or expected_sha:
     if actual_sha != expected_sha:
         sys.exit(6)
 sys.exit(0)
-" 2>/dev/null
+" "$PROBE_RESULT_FILE" "$RUN_ID" "$PINNED_COMMIT" "$RAW_RESPONSE_FILE" 2>/dev/null
       VALID_STATUS=$?
       set -e
 
@@ -335,7 +380,7 @@ cleanup() {
   # Determine probe execution outcome strictly
   PROBE_STATUS_VAL="UNKNOWN"
   if [ -s "$PROBE_RESULT_FILE" ]; then
-    PROBE_STATUS_VAL=$(python3 -c "import json; print(json.load(open('$PROBE_RESULT_FILE')).get('overall_status', 'UNKNOWN'))" 2>/dev/null || echo "UNKNOWN")
+    PROBE_STATUS_VAL=$($PYTHON_CMD -c "import sys, json; print(json.load(open(sys.argv[1])).get('overall_status', 'UNKNOWN'))" "$PROBE_RESULT_FILE" 2>/dev/null || echo "UNKNOWN")
   fi
 
   # Strictly require container exit code 0; unknown or missing exit code fails closed

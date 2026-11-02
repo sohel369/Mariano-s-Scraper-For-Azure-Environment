@@ -60,19 +60,83 @@ try {
     }
 } catch {}
 
+if ([string]::IsNullOrWhiteSpace($pinnedCommit)) {
+    Write-Error @"
+====================================================================================
+CRITICAL PREFLIGHT ERROR: Pinned git commit could not be determined.
+Bounded execution requires an authoritative non-empty commit hash for provenance.
+====================================================================================
+"@
+    exit 1
+}
+
+# Helper: Execute command with independent external process timeout supervisor
+function Invoke-BoundedCommand {
+    param(
+        [Parameter(Mandatory=$true)][int]$TimeoutSeconds,
+        [Parameter(Mandatory=$true)][string]$CommandLine,
+        [string]$StdOutPath = $null
+    )
+    $pinfo = New-Object System.Diagnostics.ProcessStartInfo
+    $pinfo.FileName = "cmd.exe"
+    $pinfo.Arguments = "/c $CommandLine"
+    $pinfo.RedirectStandardOutput = $true
+    $pinfo.RedirectStandardError = $true
+    $pinfo.UseShellExecute = $false
+    $pinfo.CreateNoWindow = $true
+
+    $p = New-Object System.Diagnostics.Process
+    $p.StartInfo = $pinfo
+    if (-not $p.Start()) {
+        throw "Failed to start process for command: $CommandLine"
+    }
+
+    $waitMs = $TimeoutSeconds * 1000
+    if (-not $p.WaitForExit($waitMs)) {
+        try { $p.Kill() } catch {}
+        throw "Command timed out after $TimeoutSeconds seconds: $CommandLine"
+    }
+
+    $stdout = $p.StandardOutput.ReadToEnd()
+    $stderr = $p.StandardError.ReadToEnd()
+    $exitCode = $p.ExitCode
+
+    if ($StdOutPath) {
+        [System.IO.File]::WriteAllText($StdOutPath, $stdout, [System.Text.Encoding]::UTF8)
+    }
+
+    return [PSCustomObject]@{
+        ExitCode = $exitCode
+        StdOut = $stdout.Trim()
+        StdErr = $stderr.Trim()
+    }
+}
+
+# Preflight: Verify process execution and timeout capability
+try {
+    $preTest = Invoke-BoundedCommand -TimeoutSeconds 5 -CommandLine "echo preflight_ok"
+    if ($preTest.ExitCode -ne 0 -or $preTest.StdOut -ne "preflight_ok") {
+        Write-Error "CRITICAL PREFLIGHT ERROR: Process execution with timeout capability is non-functional."
+        exit 1
+    }
+} catch {
+    Write-Error "CRITICAL PREFLIGHT ERROR: Timeout subsystem initialization failed: $_"
+    exit 1
+}
+
 # 1. Ephemeral Resource Group & Ownership Verification
 if (![string]::IsNullOrWhiteSpace($ResourceGroup)) {
-    $rgCheck = az group exists --name $ResourceGroup 2>$null
-    if ($LASTEXITCODE -ne 0) {
+    $rgRes = Invoke-BoundedCommand -TimeoutSeconds 30 -CommandLine "az group exists --name $ResourceGroup"
+    if ($rgRes.ExitCode -ne 0) {
         Write-Error @"
 ====================================================================================
-CRITICAL ERROR: Failed to query resource group existence (exit code $LASTEXITCODE).
+CRITICAL ERROR: Failed to query resource group existence (exit code $($rgRes.ExitCode)).
 Refusing to proceed to prevent accidental modification of shared resources.
 ====================================================================================
 "@
         exit 1
     }
-    $rgClean = $rgCheck.ToString().Trim().ToLower()
+    $rgClean = $rgRes.StdOut.Trim().ToLower()
     if ($rgClean -eq "true") {
         Write-Error @"
 ====================================================================================
@@ -85,7 +149,7 @@ Please specify an unused resource group name or omit parameter to auto-generate.
         exit 1
     }
     if ($rgClean -ne "false") {
-        Write-Error "CRITICAL ERROR: Unknown/error response from az group exists: '$rgCheck'."
+        Write-Error "CRITICAL ERROR: Unknown/error response from az group exists: '$($rgRes.StdOut)'."
         exit 1
     }
 } else {
@@ -119,9 +183,9 @@ function Test-Evidence-Complete {
         return $false
     }
 
-    # Verify run_id and pinned_git_commit if supplied
-    if (![string]::IsNullOrWhiteSpace($TargetRunId) -and $data.run_id -ne $TargetRunId) { return $false }
-    if (![string]::IsNullOrWhiteSpace($TargetCommit) -and $data.pinned_git_commit -and $data.pinned_git_commit -ne $TargetCommit) { return $false }
+    # Verify run_id and pinned_git_commit strictly
+    if ([string]::IsNullOrWhiteSpace($TargetRunId) -or $data.run_id -ne $TargetRunId) { return $false }
+    if ([string]::IsNullOrWhiteSpace($TargetCommit) -or [string]::IsNullOrWhiteSpace($data.pinned_git_commit) -or $data.pinned_git_commit -ne $TargetCommit) { return $false }
 
     # Check raw response delimiters if raw body expected
     $expectedBytes = [int]($data.evidence.raw_response_size_bytes)
@@ -141,7 +205,11 @@ function Preserve-And-Validate-Evidence {
         for ($attempt = 1; $attempt -le 5; $attempt++) {
             if (-not (Test-Evidence-Complete -LogPath $script:ContainerLogPath -TargetRunId $uniqueId -TargetCommit $pinnedCommit)) {
                 Write-Host "Evidence incomplete in log; retrieving fresh container logs from Azure (attempt $attempt/5)..."
-                az container logs --resource-group $ResourceGroup --name $AciName 2>$null | Out-File -FilePath $script:ContainerLogPath -Encoding utf8
+                try {
+                    Invoke-BoundedCommand -TimeoutSeconds 30 -CommandLine "az container logs --resource-group $ResourceGroup --name $AciName" -StdOutPath $script:ContainerLogPath | Out-Null
+                } catch {
+                    Write-Warning "Log refetch attempt $attempt failed: $_"
+                }
             }
             if (Test-Evidence-Complete -LogPath $script:ContainerLogPath -TargetRunId $uniqueId -TargetCommit $pinnedCommit) {
                 Write-Host "Complete delimited evidence confirmed in container log."
@@ -184,8 +252,10 @@ function Preserve-And-Validate-Evidence {
             try {
                 $parsed = Get-Content -Path $script:JsonResultPath -Raw | ConvertFrom-Json
                 if ($parsed -ne $null -and $parsed.probe_name -eq "AZURE_BOUNDED_PROBE_DIAGNOSTIC") {
-                    if (![string]::IsNullOrWhiteSpace($uniqueId) -and $parsed.run_id -ne $uniqueId) {
-                        Write-Warning "Run ID mismatch: $($parsed.run_id) vs expected $uniqueId"
+                    if ([string]::IsNullOrWhiteSpace($uniqueId) -or $parsed.run_id -ne $uniqueId) {
+                        Write-Warning "Run ID mismatch or missing: $($parsed.run_id) vs expected $uniqueId"
+                    } elseif ([string]::IsNullOrWhiteSpace($pinnedCommit) -or [string]::IsNullOrWhiteSpace($parsed.pinned_git_commit) -or $parsed.pinned_git_commit -ne $pinnedCommit) {
+                        Write-Warning "Commit mismatch or missing: $($parsed.pinned_git_commit) vs expected $pinnedCommit"
                     } else {
                         $expectedBytes = [int]($parsed.evidence.raw_response_size_bytes)
                         $expectedSha = [string]($parsed.evidence.raw_response_sha256)
@@ -198,8 +268,8 @@ function Preserve-And-Validate-Evidence {
                             } else {
                                 $actualBytes = (Get-Item $script:RawResponsePath).Length
                                 if ($actualBytes -ne $expectedBytes) {
-                                $rawValid = $false
-                                Write-Warning "Raw byte count mismatch: $actualBytes vs expected $expectedBytes"
+                                    $rawValid = $false
+                                    Write-Warning "Raw byte count mismatch: $actualBytes vs expected $expectedBytes"
                                 }
                                 $sha = [System.Security.Cryptography.SHA256]::Create()
                                 $fileBytes = [System.IO.File]::ReadAllBytes($script:RawResponsePath)
@@ -226,57 +296,53 @@ function Preserve-And-Validate-Evidence {
         if (-not $script:exportVerified) {
             Write-Warning "Evidence export failed; preserving recoverable container artifacts before teardown..."
             Copy-Item -Path $script:ContainerLogPath -Destination (Join-Path $OutputDir "unverified_container_${uniqueId}.log") -Force -ErrorAction SilentlyContinue
-            az container show --resource-group $ResourceGroup --name $AciName 2>$null | Out-File -FilePath (Join-Path $OutputDir "unverified_container_state_${uniqueId}.json") -Encoding utf8
+            try {
+                Invoke-BoundedCommand -TimeoutSeconds 20 -CommandLine "az container show --resource-group $ResourceGroup --name $AciName" -StdOutPath (Join-Path $OutputDir "unverified_container_state_${uniqueId}.json") | Out-Null
+            } catch {}
         }
     }
 }
 
 try {
     Write-Host "=== 1. Creating Ephemeral Resource Group: $ResourceGroup ($Location) ===" -ForegroundColor Cyan
-    az group create --name $ResourceGroup --location $Location | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw "Failed to create resource group $ResourceGroup" }
+    $createRg = Invoke-BoundedCommand -TimeoutSeconds 60 -CommandLine "az group create --name $ResourceGroup --location $Location"
+    if ($createRg.ExitCode -ne 0) { throw "Failed to create resource group $ResourceGroup" }
     $rgCreated = $true
 
     Write-Host "=== 2. Creating Ephemeral Azure Container Registry: $AcrName ===" -ForegroundColor Cyan
-    az acr create --resource-group $ResourceGroup --name $AcrName --sku Basic --admin-enabled true | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw "Failed to create ACR $AcrName" }
+    $createAcr = Invoke-BoundedCommand -TimeoutSeconds 60 -CommandLine "az acr create --resource-group $ResourceGroup --name $AcrName --sku Basic --admin-enabled true"
+    if ($createAcr.ExitCode -ne 0) { throw "Failed to create ACR $AcrName" }
     $acrCreated = $true
 
     Write-Host "=== 3. Building Probe Docker Container ===" -ForegroundColor Cyan
-    az acr build --registry $AcrName --image "$($ImageName):$($Tag)" -f azure/Dockerfile .
-    if ($LASTEXITCODE -ne 0) { throw "Failed to build container image" }
+    $buildAcr = Invoke-BoundedCommand -TimeoutSeconds 180 -CommandLine "az acr build --registry $AcrName --image $($ImageName):$($Tag) -f azure/Dockerfile ."
+    if ($buildAcr.ExitCode -ne 0) { throw "Failed to build container image" }
 
-    $AcrLoginServer = (az acr show --name $AcrName --query loginServer --output tsv)
-    $AcrUsername = (az acr credential show --name $AcrName --query username --output tsv)
-    $AcrPassword = (az acr credential show --name $AcrName --query "passwords[0].value" --output tsv)
+    $AcrLoginServer = (Invoke-BoundedCommand -TimeoutSeconds 30 -CommandLine "az acr show --name $AcrName --query loginServer --output tsv").StdOut
+    $AcrUsername = (Invoke-BoundedCommand -TimeoutSeconds 30 -CommandLine "az acr credential show --name $AcrName --query username --output tsv").StdOut
+    $AcrPassword = (Invoke-BoundedCommand -TimeoutSeconds 30 -CommandLine "az acr credential show --name $AcrName --query ""passwords[0].value"" --output tsv").StdOut
 
     Write-Host "=== 4. Executing Manual Bounded Probe in ACI (1 vCPU, 2.0 GB RAM) ===" -ForegroundColor Cyan
-    az container create `
-      --resource-group $ResourceGroup `
-      --name $AciName `
-      --image "$AcrLoginServer/$($ImageName):$($Tag)" `
-      --registry-login-server $AcrLoginServer `
-      --registry-username $AcrUsername `
-      --registry-password $AcrPassword `
-      --cpu 1 `
-      --memory 2 `
-      --restart-policy Never `
-      --command-line "python scripts/run_azure_bounded_probe.py --max-records-override 20 --store-address '1720 N Milwaukee Ave, Vernon Hills, IL 60061' --zipcode 60061 --fulfillment-type PICKUP --max-requests 3 --max-retries 1 --run-deadline-seconds 60.0 --run-id '$uniqueId'" `
-      --environment-variables `
-          MARIANOS_PROXY_URL="$env:MARIANOS_PROXY_URL" | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw "Failed to create container instance $AciName" }
+    $aciCmd = "az container create --resource-group $ResourceGroup --name $AciName --image $AcrLoginServer/$($ImageName):$($Tag) --registry-login-server $AcrLoginServer --registry-username $AcrUsername --registry-password $AcrPassword --cpu 1 --memory 2 --restart-policy Never --command-line ""python scripts/run_azure_bounded_probe.py --max-records-override 20 --store-address '1720 N Milwaukee Ave, Vernon Hills, IL 60061' --zipcode 60061 --fulfillment-type PICKUP --max-requests 3 --max-retries 1 --run-deadline-seconds 60.0 --run-id '$uniqueId'"" --environment-variables MARIANOS_PROXY_URL=""$env:MARIANOS_PROXY_URL"""
+    $createAci = Invoke-BoundedCommand -TimeoutSeconds 60 -CommandLine $aciCmd
+    if ($createAci.ExitCode -ne 0) { throw "Failed to create container instance $AciName" }
     $aciCreated = $true
 
     Write-Host "=== 5. Streaming Logs from Container ===" -ForegroundColor Cyan
-    $logs = az container logs --resource-group $ResourceGroup --name $AciName --follow
-    $logs | Out-File -FilePath $ContainerLogPath -Encoding utf8
+    try {
+        Invoke-BoundedCommand -TimeoutSeconds 90 -CommandLine "az container logs --resource-group $ResourceGroup --name $AciName --follow" -StdOutPath $ContainerLogPath | Out-Null
+    } catch {
+        Write-Warning "Container log streaming ended or timed out: $_"
+    }
 
     # Query container terminal state strictly with bounded polling
     $containerTerminalExit = ""
     for ($poll = 1; $poll -le 15; $poll++) {
-        $aciState = (az container show --resource-group $ResourceGroup --name $AciName --query "containers[0].instanceView.currentState.state" --output tsv 2>$null)
+        $stateRes = Invoke-BoundedCommand -TimeoutSeconds 20 -CommandLine "az container show --resource-group $ResourceGroup --name $AciName --query containers[0].instanceView.currentState.state --output tsv"
+        $aciState = $stateRes.StdOut.Trim()
         if ($aciState -eq "Terminated" -or $aciState -eq "Failed" -or $aciState -eq "Succeeded") {
-            $containerTerminalExit = (az container show --resource-group $ResourceGroup --name $AciName --query "containers[0].instanceView.currentState.exitCode" --output tsv 2>$null)
+            $exitRes = Invoke-BoundedCommand -TimeoutSeconds 20 -CommandLine "az container show --resource-group $ResourceGroup --name $AciName --query containers[0].instanceView.currentState.exitCode --output tsv"
+            $containerTerminalExit = $exitRes.StdOut.Trim()
             break
         }
         Start-Sleep -Seconds 2
@@ -297,19 +363,25 @@ try {
     # Delete ACI container ONLY if created
     if ($aciCreated) {
         Write-Host "Deleting Container: $AciName..." -ForegroundColor Gray
-        az container delete --resource-group $ResourceGroup --name $AciName --yes 2>$null | Out-Null
+        try {
+            Invoke-BoundedCommand -TimeoutSeconds 60 -CommandLine "az container delete --resource-group $ResourceGroup --name $AciName --yes" | Out-Null
+        } catch {}
     }
 
     # Delete ACR ONLY if created
     if ($acrCreated) {
         Write-Host "Deleting Container Registry: $AcrName..." -ForegroundColor Gray
-        az acr delete --resource-group $ResourceGroup --name $AcrName --yes 2>$null | Out-Null
+        try {
+            Invoke-BoundedCommand -TimeoutSeconds 60 -CommandLine "az acr delete --resource-group $ResourceGroup --name $AcrName --yes" | Out-Null
+        } catch {}
     }
 
     # Delete Resource Group ONLY if created by this invocation
     if ($rgCreated) {
         Write-Host "Deleting Dedicated Resource Group: $ResourceGroup..." -ForegroundColor Gray
-        az group delete --name $ResourceGroup --yes 2>$null | Out-Null
+        try {
+            Invoke-BoundedCommand -TimeoutSeconds 90 -CommandLine "az group delete --name $ResourceGroup --yes" | Out-Null
+        } catch {}
     }
 
     # Complete absence verification
@@ -319,8 +391,14 @@ try {
     if ($aciCreated) {
         $aciGone = $false
         for ($i = 0; $i -lt 20; $i++) {
-            $checkAci = az container show --resource-group $ResourceGroup --name $AciName --query name --output tsv 2>&1
-            if ($checkAci -match "ResourceNotFound" -or $checkAci -match "ResourceGroupNotFound" -or $checkAci -match "could not be found") {
+            try {
+                $checkAciRes = Invoke-BoundedCommand -TimeoutSeconds 20 -CommandLine "az container show --resource-group $ResourceGroup --name $AciName --query name --output tsv"
+                $checkAci = ($checkAciRes.StdOut + " " + $checkAciRes.StdErr)
+                if ($checkAciRes.ExitCode -ne 0 -or $checkAci -match "ResourceNotFound" -or $checkAci -match "ResourceGroupNotFound" -or $checkAci -match "could not be found") {
+                    $aciGone = $true
+                    break
+                }
+            } catch {
                 $aciGone = $true
                 break
             }
@@ -335,8 +413,14 @@ try {
     if ($acrCreated) {
         $acrGone = $false
         for ($i = 0; $i -lt 20; $i++) {
-            $checkAcr = az acr show --name $AcrName --query name --output tsv 2>&1
-            if ($checkAcr -match "ResourceNotFound" -or $checkAcr -match "could not be found") {
+            try {
+                $checkAcrRes = Invoke-BoundedCommand -TimeoutSeconds 20 -CommandLine "az acr show --name $AcrName --query name --output tsv"
+                $checkAcr = ($checkAcrRes.StdOut + " " + $checkAcrRes.StdErr)
+                if ($checkAcrRes.ExitCode -ne 0 -or $checkAcr -match "ResourceNotFound" -or $checkAcr -match "could not be found") {
+                    $acrGone = $true
+                    break
+                }
+            } catch {
                 $acrGone = $true
                 break
             }
@@ -351,8 +435,13 @@ try {
     if ($rgCreated) {
         $rgGone = $false
         for ($i = 0; $i -lt 25; $i++) {
-            $checkRg = az group exists --name $ResourceGroup 2>$null
-            if ($LASTEXITCODE -eq 0 -and $checkRg.ToString().Trim().ToLower() -eq "false") {
+            try {
+                $checkRgRes = Invoke-BoundedCommand -TimeoutSeconds 20 -CommandLine "az group exists --name $ResourceGroup"
+                if ($checkRgRes.ExitCode -eq 0 -and $checkRgRes.StdOut.Trim().ToLower() -eq "false") {
+                    $rgGone = $true
+                    break
+                }
+            } catch {
                 $rgGone = $true
                 break
             }
