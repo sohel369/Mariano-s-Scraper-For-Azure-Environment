@@ -70,16 +70,37 @@ Bounded execution requires an authoritative non-empty commit hash for provenance
     exit 1
 }
 
+# Helper: Redact sensitive credentials (passwords, proxy tokens) from command strings before logging/exceptions
+function Format-RedactedCommandLine {
+    param([string]$Cmd)
+    if ([string]::IsNullOrEmpty($Cmd)) { return "" }
+    $res = $Cmd
+    # Redact registry passwords: --registry-password <secret>
+    $res = [regex]::Replace($res, '(--registry-password\s+)("[^"]+"|\S+)', '${1}[REDACTED]')
+    # Redact standard password arguments: --password <secret>
+    $res = [regex]::Replace($res, '(--password\s+)("[^"]+"|\S+)', '${1}[REDACTED]')
+    # Redact proxy credentials or environment strings: MARIANOS_PROXY_URL="..."
+    $res = [regex]::Replace($res, '(MARIANOS_PROXY_URL=)("[^"]*"|\S*)', '${1}[REDACTED]')
+    return $res
+}
+
 # Helper: Execute command with independent external process timeout supervisor
+# Enforces:
+#  1. Concurrent stream draining via asynchronous tasks to prevent pipe buffer deadlock
+#  2. Process-tree termination & verification via taskkill /F /T /PID on timeout
+#  3. Bounded final stream collection to prevent hanging on inherited handles
+#  4. Credential redaction in exceptions and log output
 function Invoke-BoundedCommand {
     param(
         [Parameter(Mandatory=$true)][int]$TimeoutSeconds,
         [Parameter(Mandatory=$true)][string]$CommandLine,
         [string]$StdOutPath = $null
     )
+    $redactedCmd = Format-RedactedCommandLine -Cmd $CommandLine
+
     $pinfo = New-Object System.Diagnostics.ProcessStartInfo
     $pinfo.FileName = "cmd.exe"
-    $pinfo.Arguments = "/c $CommandLine"
+    $pinfo.Arguments = "/c `"$CommandLine`""
     $pinfo.RedirectStandardOutput = $true
     $pinfo.RedirectStandardError = $true
     $pinfo.UseShellExecute = $false
@@ -88,17 +109,47 @@ function Invoke-BoundedCommand {
     $p = New-Object System.Diagnostics.Process
     $p.StartInfo = $pinfo
     if (-not $p.Start()) {
-        throw "Failed to start process for command: $CommandLine"
+        throw "Failed to start process for command: $redactedCmd"
     }
+
+    # Concurrent asynchronous stream reading to drain OS pipes continuously and prevent deadlock
+    $stdoutTask = $p.StandardOutput.ReadToEndAsync()
+    $stderrTask = $p.StandardError.ReadToEndAsync()
 
     $waitMs = $TimeoutSeconds * 1000
-    if (-not $p.WaitForExit($waitMs)) {
-        try { $p.Kill() } catch {}
-        throw "Command timed out after $TimeoutSeconds seconds: $CommandLine"
+    $hasExited = $p.WaitForExit($waitMs)
+
+    $stdout = ""
+    $stderr = ""
+
+    if (-not $hasExited) {
+        # Terminate entire process tree (parent cmd.exe + child az/python processes)
+        try {
+            $null = & taskkill.exe /F /T /PID $p.Id 2>&1
+        } catch {
+            try { $p.Kill() } catch {}
+        }
+
+        # Bounded wait for process exit verification
+        try { [void]$p.WaitForExit(3000) } catch {}
+
+        # Bounded stream collection: Wait up to 2000ms so inherited handles don't hang ReadToEnd
+        try {
+            [void][System.Threading.Tasks.Task]::WaitAll(@($stdoutTask, $stderrTask), 2000)
+            if ($stdoutTask.IsCompleted) { $stdout = $stdoutTask.Result }
+            if ($stderrTask.IsCompleted) { $stderr = $stderrTask.Result }
+        } catch {}
+
+        throw "Command timed out after $TimeoutSeconds seconds: $redactedCmd"
+    } else {
+        # Process completed within timeout: drain remaining output with 5s ceiling
+        try {
+            [void][System.Threading.Tasks.Task]::WaitAll(@($stdoutTask, $stderrTask), 5000)
+            $stdout = $stdoutTask.Result
+            $stderr = $stderrTask.Result
+        } catch {}
     }
 
-    $stdout = $p.StandardOutput.ReadToEnd()
-    $stderr = $p.StandardError.ReadToEnd()
     $exitCode = $p.ExitCode
 
     if ($StdOutPath) {

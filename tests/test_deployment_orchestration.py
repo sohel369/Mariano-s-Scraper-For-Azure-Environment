@@ -466,3 +466,146 @@ def test_bash_orchestration_succeeds_on_valid_run(mock_az_setup):
     assert "Stage 1 [Probe Execution]: SUCCESS" in combined
     assert "Stage 2 [Evidence Export]: VERIFIED" in combined
     assert "Stage 3 [Resource Teardown]: VERIFIED" in combined
+
+
+def extract_powershell_bounded_functions():
+    ps1_path = os.path.join(BASE_DIR, "azure", "azure-deploy-bounded-probe.ps1")
+    with open(ps1_path, "r", encoding="utf-8") as f:
+        content = f.read()
+    start_tag = "function Format-RedactedCommandLine"
+    end_tag = "# Preflight: Verify process execution and timeout capability"
+    s_idx = content.find(start_tag)
+    e_idx = content.find(end_tag)
+    assert s_idx != -1 and e_idx != -1
+    return content[s_idx:e_idx]
+
+
+def test_powershell_bounded_command_verbose_output_does_not_deadlock(tmp_path):
+    """Verifies Invoke-BoundedCommand does not deadlock when output exceeds pipe buffer."""
+    funcs = extract_powershell_bounded_functions()
+
+    worker_script = tmp_path / "verbose_gen.py"
+    worker_script.write_text(
+        "import sys\n"
+        "total = 2 * 1024 * 1024\n"
+        "chunk = 'A' * 65536\n"
+        "for _ in range(total // 65536):\n"
+        "    sys.stdout.write(chunk)\n"
+        "sys.stdout.flush()\n",
+        encoding="utf-8"
+    )
+
+    ps_script = tmp_path / "test_verbose.ps1"
+    py_exe = sys.executable
+    worker = str(worker_script)
+    ps_content = f"""
+{funcs}
+
+$pyExe = '{py_exe}'
+$worker = '{worker}'
+$cmd = '""' + $pyExe + '"" ""' + $worker + '""'
+$res = Invoke-BoundedCommand -TimeoutSeconds 10 -CommandLine $cmd
+Write-Output "LENGTH:$($res.StdOut.Length)"
+Write-Output "EXIT:$($res.ExitCode)"
+"""
+    ps_script.write_text(ps_content, encoding="utf-8")
+
+    cmd = ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(ps_script)]
+    res = subprocess.run(cmd, capture_output=True, text=True, timeout=20)
+    assert res.returncode == 0
+    assert "LENGTH:2097152" in res.stdout
+    assert "EXIT:0" in res.stdout
+
+
+def test_powershell_bounded_command_terminates_child_process_tree_on_timeout(tmp_path):
+    """Verifies Invoke-BoundedCommand terminates entire child process tree on timeout."""
+    funcs = extract_powershell_bounded_functions()
+
+    pid_file = tmp_path / "child_pid.txt"
+    parent_script = tmp_path / "parent_worker.py"
+    parent_script.write_text(
+        "import subprocess, sys, time\n"
+        "p = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(60)'])\n"
+        "with open(sys.argv[1], 'w') as f:\n"
+        "    f.write(str(p.pid))\n"
+        "p.wait()\n",
+        encoding="utf-8"
+    )
+
+    ps_script = tmp_path / "test_timeout.ps1"
+    py_exe = sys.executable
+    parent_str = str(parent_script)
+    pid_file_str = str(pid_file)
+    ps_content = f"""
+{funcs}
+
+$pyExe = '{py_exe}'
+$worker = '{parent_str}'
+$pidPath = '{pid_file_str}'
+$cmd = '""' + $pyExe + '"" ""' + $worker + '"" ""' + $pidPath + '""'
+try {{
+    Invoke-BoundedCommand -TimeoutSeconds 2 -CommandLine $cmd
+    Write-Output "RESULT:UNEXPECTED_SUCCESS"
+}} catch {{
+    Write-Output "RESULT:TIMED_OUT"
+    Write-Output "ERROR:$($_.Exception.Message)"
+}}
+"""
+    ps_script.write_text(ps_content, encoding="utf-8")
+
+    cmd = ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(ps_script)]
+    res = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+    assert res.returncode == 0
+    assert "RESULT:TIMED_OUT" in res.stdout
+
+    assert pid_file.exists()
+    child_pid = int(pid_file.read_text().strip())
+
+    check_cmd = ["tasklist", "/FI", f"PID eq {child_pid}", "/FO", "CSV", "/NH"]
+    check_res = subprocess.run(check_cmd, capture_output=True, text=True)
+    assert str(child_pid) not in check_res.stdout or "No tasks" in check_res.stdout
+
+
+def test_powershell_bounded_command_redacts_credentials_in_timeout_exception(tmp_path):
+    """Verifies Invoke-BoundedCommand redacts passwords and proxy secrets in timeout exceptions."""
+    funcs = extract_powershell_bounded_functions()
+
+    worker_script = tmp_path / "sleep_worker.py"
+    worker_script.write_text(
+        "import time\n"
+        "time.sleep(10)\n",
+        encoding="utf-8"
+    )
+
+    ps_script = tmp_path / "test_redaction.ps1"
+    secret_pass = "TopSecretPassword987!"
+    secret_proxy = "http://admin:SecretProxyPass123@proxy.retailer.internal:8080"
+    py_exe = sys.executable
+    worker = str(worker_script)
+    ps_content = f"""
+{funcs}
+
+$pyExe = '{py_exe}'
+$worker = '{worker}'
+$secretPass = "{secret_pass}"
+$secretProxy = "{secret_proxy}"
+$cmd = '""' + $pyExe + '"" ""' + $worker + '"" --registry-password ' + $secretPass + ' MARIANOS_PROXY_URL=' + $secretProxy
+try {{
+    Invoke-BoundedCommand -TimeoutSeconds 1 -CommandLine $cmd
+    Write-Output "RESULT:UNEXPECTED_SUCCESS"
+}} catch {{
+    Write-Output "RESULT:CAUGHT_EXCEPTION"
+    Write-Output "MESSAGE:$($_.Exception.Message)"
+}}
+"""
+    ps_script.write_text(ps_content, encoding="utf-8")
+
+    cmd = ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(ps_script)]
+    res = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+    assert res.returncode == 0
+    assert "RESULT:CAUGHT_EXCEPTION" in res.stdout
+    assert secret_pass not in res.stdout
+    assert "SecretProxyPass123" not in res.stdout
+    assert "[REDACTED]" in res.stdout
+    assert "Command timed out after 1 seconds" in res.stdout
+

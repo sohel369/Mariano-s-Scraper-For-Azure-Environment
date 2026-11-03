@@ -15,11 +15,14 @@ import os
 import sys
 import time
 import json
+import subprocess
 import pytest
 import requests
 from unittest.mock import patch, MagicMock
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
 from scripts.run_azure_bounded_probe import AzureBoundedProbeRunner, BoundedRequestAdapter
 
 
@@ -642,3 +645,59 @@ def test_independent_supervisor_preempts_blocked_execution(tmp_path):
     with open(output_json, "r", encoding="utf-8") as f:
         disk_data = json.load(f)
     assert disk_data["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
+
+
+def test_supervisor_preempts_actual_blocked_pipe(tmp_path):
+    """
+    Verifies Reviewer Item 1: Process supervisor enforces whole-run deadline
+    even when worker process is blocked writing to an unread, saturated OS pipe.
+    """
+    output_json = tmp_path / "probe_result.json"
+    probe_script = os.path.join(BASE_DIR, "scripts", "run_azure_bounded_probe.py")
+
+    cmd = [
+        sys.executable,
+        probe_script,
+        "--run-deadline-seconds", "1.0",
+        "--output", str(output_json),
+        "--run-id", "test_blocked_pipe_run"
+    ]
+
+    env = os.environ.copy()
+    env["MOCK_WORKER_BLOCKED_PIPE"] = "1"
+
+    start_t = time.monotonic()
+    res = subprocess.run(cmd, env=env, capture_output=True, text=True, cwd=BASE_DIR)
+    elapsed = time.monotonic() - start_t
+
+    # Process must not hang indefinitely; should terminate in ~1-4s
+    assert elapsed < 10.0
+    assert res.returncode != 0
+    assert os.path.exists(output_json)
+    with open(output_json, "r", encoding="utf-8") as f:
+        disk_data = json.load(f)
+    assert disk_data["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
+    assert "exceeded" in disk_data["resolution_notes"].lower()
+
+
+def test_supervisor_handles_blocked_file_and_maintains_non_successful_status(tmp_path):
+    """
+    Verifies Reviewer Item 1: Missing or unwriteable final evidence remains non-successful.
+    When receipt path cannot be atomically replaced/written, runner enforces fail-closed status.
+    """
+    output_json = tmp_path / "probe_result.json"
+    runner = AzureBoundedProbeRunner(run_deadline_seconds=5.0, connectivity_only=True, output_file=str(output_json))
+
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.headers = {"Content-Type": "text/html"}
+    mock_resp.iter_content.return_value = [b"<html><head><meta name=\"store-id\" content=\"53100502\"/></head><body>53100502 PICKUP</body></html>"]
+
+    with patch("requests.Session.get", return_value=mock_resp), \
+         patch("scripts.run_azure_bounded_probe.atomic_write_json", side_effect=PermissionError("Simulated locked file")):
+        res = runner.execute_bounded_probe()
+
+    # Must fail closed; must never claim SUCCESS
+    assert res["overall_status"] in ("FAILED_FINALIZATION_UNVERIFIED", "ABORTED_DEADLINE_EXCEEDED")
+    assert res["overall_status"] != "SUCCESS_CONNECTIVITY_ONLY"
+    assert res["overall_status"] != "SUCCESS_CONNECTIVITY_ONLY"

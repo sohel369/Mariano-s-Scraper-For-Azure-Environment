@@ -28,6 +28,8 @@ import json
 import base64
 import socket
 import hashlib
+import tempfile
+import signal
 import argparse
 import logging
 import subprocess
@@ -53,6 +55,82 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] MarianoProbe: %(message)s"
 )
 logger = logging.getLogger("MarianoProbe")
+
+
+def get_git_commit_hash(base_dir: str) -> str:
+    """Retrieve pinned commit hash from git or provenance manifest."""
+    try:
+        res = subprocess.run(
+            ["git", "-C", base_dir, "rev-parse", "HEAD"],
+            capture_output=True, text=True, timeout=5
+        )
+        if res.returncode == 0 and res.stdout.strip():
+            return res.stdout.strip()
+    except Exception:
+        pass
+    manifest_path = os.path.join(base_dir, "GIT_PROVENANCE_AND_INTEGRITY.md")
+    if os.path.exists(manifest_path):
+        try:
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    if "HEAD Commit:" in line:
+                        return line.split("HEAD Commit:")[1].strip().strip("`")
+        except Exception:
+            pass
+    return "UNKNOWN_PINNED_COMMIT"
+
+
+def atomic_write_json(file_path: str, data: Dict[str, Any]):
+    """
+    Atomically writes JSON data to file_path using a temporary file in the same directory
+    and an atomic rename/replace (os.replace).
+    Ensures complete, uncorrupted files across both POSIX and Windows.
+    """
+    directory = os.path.dirname(os.path.abspath(file_path))
+    os.makedirs(directory, exist_ok=True)
+    temp_fd, temp_path = tempfile.mkstemp(dir=directory, prefix=".tmp_atomic_probe_", suffix=".tmp")
+    try:
+        with os.fdopen(temp_fd, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+            f.flush()
+            try:
+                os.fsync(f.fileno())
+            except Exception:
+                pass
+        os.replace(temp_path, file_path)
+    except Exception:
+        if os.path.exists(temp_path):
+            try:
+                os.unlink(temp_path)
+            except Exception:
+                pass
+        raise
+
+
+def kill_process_tree(pid: int):
+    """
+    Forcefully terminates an entire process tree given a root PID.
+    Guarantees that cmd.exe/sh and all child processes are killed.
+    """
+    if sys.platform == "win32":
+        try:
+            subprocess.run(
+                ["taskkill.exe", "/F", "/T", "/PID", str(pid)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False
+            )
+        except Exception:
+            pass
+    else:
+        try:
+            pgid = os.getpgid(pid)
+            os.killpg(pgid, signal.SIGKILL)
+        except Exception:
+            try:
+                os.kill(pid, signal.SIGKILL)
+            except Exception:
+                pass
 
 
 class BoundedRequestAdapter(HTTPAdapter):
@@ -97,8 +175,8 @@ class IndependentDeadlineSupervisor:
     Monitors total monotonic elapsed time independently of the main execution thread.
     If the main thread hangs or print/flush/disk I/O blocks past the deadline,
     this supervisor preemptively enforces ABORTED_DEADLINE_EXCEEDED, writes the
-    fail-closed terminal receipt to disk, emits terminal delimiters to stdout/stderr,
-    and terminates the process after a grace period.
+    authoritative fail-closed terminal receipt to disk atomically, emits terminal delimiters
+    via raw unbuffered OS write, and terminates the process after a grace period.
     """
     def __init__(self, runner: "AzureBoundedProbeRunner", grace_period: float = 1.0):
         self.runner = runner
@@ -125,37 +203,34 @@ class IndependentDeadlineSupervisor:
             time.sleep(min(0.05, max(0.005, remaining)))
 
     def _enforce_deadline(self, elapsed: float):
-        logger.warning(
-            f"Independent deadline supervisor enforced hard deadline at {elapsed:.4f}s "
-            f"(configured deadline: {self.deadline_seconds}s)"
-        )
         self.runner.probe_status = "ABORTED_DEADLINE_EXCEEDED"
         self.runner.failure_reason = (
-            f"Whole-run hard deadline of {self.deadline_seconds}s exceeded and enforced by independent supervisor "
+            f"Whole-run hard deadline of {self.deadline_seconds}s exceeded and enforced by supervisor "
             f"(elapsed: {elapsed:.4f}s)"
         )
-        # 1. Emergency atomic disk persistence
+        # 1. Authoritative atomic disk persistence (isolated, serialized)
         try:
             self.runner._emergency_persist_deadline_exceeded(elapsed)
-        except Exception as e:
-            logger.error(f"Failed to persist emergency deadline receipt: {e}")
+        except Exception:
+            pass
 
-        # 2. Emergency terminal receipt emission to stdout
+        # 2. Lock-free raw OS write to stdout (does NOT acquire Python sys.stdout/logging locks)
         try:
             emergency_receipt = self.runner._generate_probe_result_dict()
             emergency_receipt["overall_status"] = "ABORTED_DEADLINE_EXCEEDED"
             emergency_receipt["resolution_notes"] = self.runner.failure_reason
             emergency_receipt["probe_metrics"]["elapsed_seconds"] = round(elapsed, 4)
-            sys.stdout.write("\n===AZURE_PROBE_JSON_START===\n")
-            sys.stdout.write(json.dumps(emergency_receipt, indent=2))
-            sys.stdout.write("\n===AZURE_PROBE_JSON_END===\n\n")
-            sys.stdout.flush()
+            delimiter_bytes = (
+                f"\n===AZURE_PROBE_JSON_START===\n"
+                f"{json.dumps(emergency_receipt, indent=2)}\n"
+                f"===AZURE_PROBE_JSON_END===\n\n"
+            ).encode("utf-8")
+            os.write(1, delimiter_bytes)
         except Exception:
             pass
 
-        # 3. Wait grace period for main thread; if blocked, force termination fail-closed
+        # 3. Wait grace period for main thread; if blocked, force immediate fail-closed termination
         if not self._stop_event.wait(timeout=self.grace_period):
-            logger.error("Main thread blocked past grace period after deadline breach; terminating process fail-closed.")
             os._exit(1)
 
 
@@ -247,27 +322,25 @@ class AzureBoundedProbeRunner:
         self.parser = MarianoPageParser(self.normalizer)
         self.timing_breakdown["setup_seconds"] = round(time.monotonic() - setup_start, 4)
 
+        # Pre-cache environment and version metadata at startup so emergency supervisor
+        # never executes subprocesses (e.g. git rev-parse) or socket lookups on deadline breach
+        self._cached_git_commit = get_git_commit_hash(BASE_DIR)
+        try:
+            self._cached_host_ip = socket.gethostbyname(socket.gethostname())
+        except Exception:
+            self._cached_host_ip = "UNKNOWN"
+        self._cached_env_info = {
+            "execution_environment_type": "OFFLINE_LOCAL_DIAGNOSTIC_ATTEMPT",
+            "host_ip": self._cached_host_ip,
+            "os": sys.platform,
+            "python_version": sys.version.split()[0]
+        }
+        self._receipt_owner: Optional[str] = None
+        self._receipt_lock = threading.Lock()
+
     def _get_git_commit_hash(self) -> str:
         """Retrieve pinned commit hash from git or provenance manifest."""
-        try:
-            res = subprocess.run(
-                ["git", "-C", BASE_DIR, "rev-parse", "HEAD"],
-                capture_output=True, text=True, timeout=5
-            )
-            if res.returncode == 0 and res.stdout.strip():
-                return res.stdout.strip()
-        except Exception:
-            pass
-        manifest_path = os.path.join(BASE_DIR, "GIT_PROVENANCE_AND_INTEGRITY.md")
-        if os.path.exists(manifest_path):
-            try:
-                with open(manifest_path, "r", encoding="utf-8") as f:
-                    for line in f:
-                        if "HEAD Commit:" in line:
-                            return line.split("HEAD Commit:")[1].strip().strip("`")
-            except Exception:
-                pass
-        return "UNKNOWN_PINNED_COMMIT"
+        return self._cached_git_commit
 
     def _resolve_target_store(self) -> Dict[str, Any]:
         """Locate target store configuration for Vernon Hills demo with exact matching."""
@@ -493,46 +566,28 @@ class AzureBoundedProbeRunner:
 
     def _emergency_persist_deadline_exceeded(self, elapsed: float):
         """
-        Emergency persistence invoked by the independent deadline supervisor
-        to atomically write an ABORTED_DEADLINE_EXCEEDED receipt to disk.
+        Authoritative supervisor emergency persistence. Uses true atomic replacement
+        and claims exclusive receipt ownership.
         """
         try:
             result = self._generate_probe_result_dict()
             result["overall_status"] = "ABORTED_DEADLINE_EXCEEDED"
             result["resolution_notes"] = (
-                f"Whole-run hard deadline of {self.run_deadline_seconds}s exceeded and enforced by independent supervisor "
+                f"Whole-run hard deadline of {self.run_deadline_seconds}s exceeded and enforced by supervisor "
                 f"(elapsed: {elapsed:.4f}s)"
             )
             result["probe_metrics"]["elapsed_seconds"] = round(elapsed, 4)
-            os.makedirs(os.path.dirname(self.output_file), exist_ok=True)
-            with open(self.output_file, "w", encoding="utf-8") as f:
-                json.dump(result, f, indent=2)
-                f.flush()
-                try:
-                    os.fsync(f.fileno())
-                except Exception:
-                    pass
-        except Exception as e:
-            logger.error(f"Failed in _emergency_persist_deadline_exceeded: {e}")
-
-    def _generate_probe_result_dict(self) -> Dict[str, Any]:
-        git_hash = self._get_git_commit_hash()
-        host_ip = "UNKNOWN"
-        try:
-            host_ip = socket.gethostbyname(socket.gethostname())
+            self._persist_probe_result(result, caller="SUPERVISOR")
         except Exception:
             pass
+
+    def _generate_probe_result_dict(self) -> Dict[str, Any]:
         return {
             "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
             "run_id": self.run_id,
-            "pinned_git_commit": git_hash,
+            "pinned_git_commit": self._cached_git_commit,
             "timestamp_utc": self.start_time_utc,
-            "execution_environment": {
-                "execution_environment_type": "OFFLINE_LOCAL_DIAGNOSTIC_ATTEMPT",
-                "host_ip": host_ip,
-                "os": sys.platform,
-                "python_version": sys.version.split()[0]
-            },
+            "execution_environment": self._cached_env_info,
             "circuit_breaker_limits": {
                 "max_records_override": self.max_records_override,
                 "max_requests_ceiling": self.max_requests,
@@ -616,41 +671,62 @@ class AzureBoundedProbeRunner:
             "resolution_notes": self.failure_reason
         }
 
-    def _persist_probe_result(self, probe_result: Dict[str, Any]) -> float:
+    def _persist_probe_result(self, probe_result: Dict[str, Any], caller: str = "WORKER") -> float:
         """
-        Updates elapsed time metrics, evaluates whole-run deadline against all operations
-        including file I/O and console output, overrides status if deadline was breached,
-        and ensures the on-disk JSON always contains accurate non-zero timing and consistent status.
+        Persists durable receipt atomically to disk with serialized ownership.
+        If caller is WORKER and the SUPERVISOR has already claimed the receipt,
+        the worker's write is strictly rejected to preserve authoritative supervisor state.
         """
-        current_elapsed = time.monotonic() - self.start_time_monotonic
-        self.timing_breakdown["total_elapsed_seconds"] = round(current_elapsed, 4)
-        probe_result["probe_metrics"]["elapsed_seconds"] = round(current_elapsed, 4)
+        with self._receipt_lock:
+            if self._receipt_owner == "SUPERVISOR" and caller != "SUPERVISOR":
+                logger.warning("Worker attempt to overwrite supervisor receipt rejected.")
+                return time.monotonic() - self.start_time_monotonic
 
-        if current_elapsed > self.run_deadline_seconds and self.probe_status.startswith("SUCCESS"):
-            self.probe_status = "ABORTED_DEADLINE_EXCEEDED"
-            self.failure_reason = (
-                f"Whole-run deadline of {self.run_deadline_seconds}s exceeded through finalization "
-                f"(total elapsed: {current_elapsed:.4f}s)"
-            )
-            probe_result["overall_status"] = self.probe_status
-            probe_result["resolution_notes"] = self.failure_reason
+            current_elapsed = time.monotonic() - self.start_time_monotonic
+            self.timing_breakdown["total_elapsed_seconds"] = round(current_elapsed, 4)
+            probe_result["probe_metrics"]["elapsed_seconds"] = round(current_elapsed, 4)
 
-        os.makedirs(os.path.dirname(self.output_file), exist_ok=True)
-        with open(self.output_file, "w", encoding="utf-8") as f:
-            json.dump(probe_result, f, indent=2)
-            f.flush()
+            if current_elapsed > self.run_deadline_seconds and self.probe_status.startswith("SUCCESS"):
+                self.probe_status = "ABORTED_DEADLINE_EXCEEDED"
+                self.failure_reason = (
+                    f"Whole-run deadline of {self.run_deadline_seconds}s exceeded through finalization "
+                    f"(total elapsed: {current_elapsed:.4f}s)"
+                )
+                probe_result["overall_status"] = self.probe_status
+                probe_result["resolution_notes"] = self.failure_reason
+
+            if caller == "SUPERVISOR":
+                self._receipt_owner = "SUPERVISOR"
+            else:
+                self._receipt_owner = "WORKER"
+
             try:
-                os.fsync(f.fileno())
-            except Exception:
-                pass
+                atomic_write_json(self.output_file, probe_result)
+            except Exception as e:
+                logger.error(f"Failed to persist probe result atomically: {e}")
+                self.probe_status = "FAILED_FINALIZATION_UNVERIFIED"
+                self.failure_reason = f"Failed to secure valid probe result on disk: {e}"
+                probe_result["overall_status"] = self.probe_status
+                probe_result["resolution_notes"] = self.failure_reason
 
-        return current_elapsed
+            return current_elapsed
 
     def execute_bounded_probe(self) -> Dict[str, Any]:
         """
         Executes bounded probe with strict request cap, whole-run deadline,
         streaming byte limit, genuine parsing, retry limits, and graceful cleanup.
         """
+        # Testing hook for simulated kernel-level blocked pipe
+        if os.environ.get("MOCK_WORKER_BLOCKED_PIPE") == "1":
+            r_pipe, w_pipe = os.pipe()
+            try:
+                os.write(w_pipe, b"X" * 10_000_000)
+            finally:
+                try:
+                    os.close(r_pipe)
+                    os.close(w_pipe)
+                except Exception:
+                    pass
         git_hash = self._get_git_commit_hash()
         host_ip = "UNKNOWN"
         try:
@@ -963,7 +1039,9 @@ class AzureBoundedProbeRunner:
             post_print_elapsed = self._persist_probe_result(probe_result)
 
             # Fail-closed terminal override: If post-print elapsed exceeded deadline, emit authoritative override block
-            if post_print_elapsed > self.run_deadline_seconds and self.probe_status == "ABORTED_DEADLINE_EXCEEDED":
+            if (post_print_elapsed > self.run_deadline_seconds and self.probe_status == "ABORTED_DEADLINE_EXCEEDED") or self._receipt_owner == "SUPERVISOR":
+                probe_result["overall_status"] = "ABORTED_DEADLINE_EXCEEDED"
+                probe_result["resolution_notes"] = self.failure_reason
                 print("\n===AZURE_PROBE_JSON_START===")
                 print(json.dumps(probe_result, indent=2))
                 print("===AZURE_PROBE_JSON_END===\n")
@@ -972,7 +1050,155 @@ class AzureBoundedProbeRunner:
         finally:
             supervisor.cancel()
 
+        if self._receipt_owner == "SUPERVISOR" or self.probe_status == "ABORTED_DEADLINE_EXCEEDED":
+            current_elapsed = round(time.monotonic() - self.start_time_monotonic, 4)
+            probe_result["overall_status"] = "ABORTED_DEADLINE_EXCEEDED"
+            probe_result["resolution_notes"] = self.failure_reason
+            probe_result["probe_metrics"]["elapsed_seconds"] = current_elapsed
+            if "timing_breakdown" in probe_result.get("probe_metrics", {}):
+                probe_result["probe_metrics"]["timing_breakdown"]["total_elapsed_seconds"] = current_elapsed
+
         return probe_result
+
+
+class ProcessDeadlineSupervisor:
+    """
+    Dedicated supervisor running in an independent parent process.
+    Supervises the worker probe subprocess, enforcing strict whole-run deadline.
+    Its termination and fail-closed persistence path DOES NOT depend on the worker's
+    logging, output stream, or disk operations completing.
+    """
+    def __init__(self, deadline_seconds: float, output_file: str, run_id: str, argv: List[str]):
+        self.deadline_seconds = float(deadline_seconds)
+        self.output_file = os.path.abspath(output_file)
+        self.run_id = run_id
+        self.argv = argv
+        self.start_time_monotonic = time.monotonic()
+        self.start_time_utc = datetime.now(timezone.utc).isoformat()
+        self.git_hash = get_git_commit_hash(BASE_DIR)
+
+    def _build_emergency_receipt(self, elapsed: float) -> Dict[str, Any]:
+        try:
+            host_ip = socket.gethostbyname(socket.gethostname())
+        except Exception:
+            host_ip = "UNKNOWN"
+        return {
+            "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
+            "run_id": self.run_id,
+            "pinned_git_commit": self.git_hash,
+            "timestamp_utc": self.start_time_utc,
+            "execution_environment": {
+                "execution_environment_type": "OFFLINE_LOCAL_DIAGNOSTIC_ATTEMPT",
+                "host_ip": host_ip,
+                "os": sys.platform,
+                "python_version": sys.version.split()[0]
+            },
+            "circuit_breaker_limits": {
+                "max_records_override": 20,
+                "max_requests_ceiling": 3,
+                "max_retries_ceiling": 1,
+                "run_deadline_seconds": self.deadline_seconds,
+                "max_response_bytes": 2500000
+            },
+            "store_target": {
+                "configured_address": "1720 N Milwaukee Ave, Vernon Hills, IL 60061",
+                "configured_zipcode": "60061",
+                "fulfillment_intent": "PICKUP",
+                "store_id": "53100502",
+                "division_id": "531",
+                "store_number": "00502",
+                "store_name": "Mariano's Vernon Hills"
+            },
+            "probe_metrics": {
+                "total_requests_executed": 0,
+                "initial_attempts_executed": 0,
+                "retries_executed": 0,
+                "redirects_executed": 0,
+                "elapsed_seconds": round(elapsed, 4),
+                "timing_breakdown": {
+                    "setup_seconds": 0.0,
+                    "network_seconds": 0.0,
+                    "parsing_seconds": 0.0,
+                    "export_seconds": 0.0,
+                    "total_elapsed_seconds": round(elapsed, 4)
+                },
+                "http_status_code": None,
+                "edge_connection_success": False,
+                "challenge_detected": False,
+                "challenge_classification": None,
+                "store_fulfillment_verified_in_source": False,
+                "verified_retailer_id_in_source": None,
+                "attempt_receipts": []
+            },
+            "evidence": {
+                "raw_response_file": os.path.join(os.path.dirname(self.output_file), "azure_probe_raw_response.html"),
+                "raw_response_sha256": None,
+                "raw_response_size_bytes": 0,
+                "sanitized_request_headers": {},
+                "sanitized_response_headers": {},
+                "store_fulfillment_trace": {
+                    "requested_store_id": "53100502",
+                    "requested_address": "1720 N Milwaukee Ave, Vernon Hills, IL 60061",
+                    "requested_modality": "PICKUP",
+                    "verified_retailer_id": None,
+                    "verified_modality": None,
+                    "structural_match_confirmed": False,
+                    "inspected_source_paths": [],
+                    "schema_authority_note": "Kroger/Mariano's schema uses storeId as primary location identifier.",
+                    "price_bearing_trace_sample": []
+                }
+            },
+            "collected_records_count": 0,
+            "collected_records": [],
+            "verified_cleanup": False,
+            "overall_status": "ABORTED_DEADLINE_EXCEEDED",
+            "resolution_notes": f"Whole-run hard deadline of {self.deadline_seconds}s exceeded and enforced by independent process supervisor (elapsed: {elapsed:.4f}s)"
+        }
+
+    def run(self) -> int:
+        cmd = [sys.executable, os.path.abspath(__file__), "--supervised-worker"] + self.argv
+        creationflags = 0
+        if sys.platform == "win32":
+            creationflags = subprocess.CREATE_NEW_PROCESS_GROUP
+
+        proc = subprocess.Popen(cmd, creationflags=creationflags)
+
+        try:
+            proc.wait(timeout=self.deadline_seconds)
+            worker_exit = proc.returncode
+
+            # Verify authoritative receipt existence and non-zero size
+            if os.path.exists(self.output_file) and os.path.getsize(self.output_file) > 0:
+                try:
+                    with open(self.output_file, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    if data.get("overall_status") in ("SUCCESS_PROBE_COMPLETE", "SUCCESS_CONNECTIVITY_ONLY") and worker_exit == 0:
+                        return 0
+                except Exception:
+                    pass
+            return worker_exit if worker_exit != 0 else 1
+
+        except subprocess.TimeoutExpired:
+            kill_process_tree(proc.pid)
+            elapsed = time.monotonic() - self.start_time_monotonic
+            fail_receipt = self._build_emergency_receipt(elapsed)
+            try:
+                atomic_write_json(self.output_file, fail_receipt)
+            except Exception:
+                pass
+
+            delimiter_str = (
+                f"\n===AZURE_PROBE_JSON_START===\n"
+                f"{json.dumps(fail_receipt, indent=2)}\n"
+                f"===AZURE_PROBE_JSON_END===\n\n"
+            )
+            try:
+                os.write(1, delimiter_str.encode("utf-8"))
+            except Exception:
+                print(delimiter_str)
+
+            sys.stderr.write(f"CRITICAL: Supervisor terminated worker process tree after exceeding deadline {self.deadline_seconds}s (elapsed: {elapsed:.4f}s)\n")
+            return 1
 
 
 def main():
@@ -988,8 +1214,20 @@ def main():
     parser.add_argument("--connectivity-only", action="store_true", help="Report connectivity success without requiring parsed products")
     parser.add_argument("--output", type=str, default=None, help="Output JSON path")
     parser.add_argument("--run-id", type=str, default=None, help="Diagnostic run identifier")
+    parser.add_argument("--supervised-worker", action="store_true", help="Internal flag: execute probe as supervised child worker")
 
     args = parser.parse_args()
+
+    # If running as entrypoint without --supervised-worker, spawn and supervise worker process
+    if not args.supervised_worker:
+        clean_argv = [a for a in sys.argv[1:] if a != "--supervised-worker"]
+        supervisor = ProcessDeadlineSupervisor(
+            deadline_seconds=args.run_deadline_seconds,
+            output_file=args.output or os.path.join(BASE_DIR, "logs", "azure_bounded_probe_result.json"),
+            run_id=args.run_id or f"run_{int(time.time())}",
+            argv=clean_argv
+        )
+        sys.exit(supervisor.run())
 
     runner = AzureBoundedProbeRunner(
         target_store_address=args.store_address,

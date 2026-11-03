@@ -73,11 +73,11 @@ else
   exit 1
 fi
 
-# Helper: Run command with timeout
+# Helper: Run command with timeout and guaranteed SIGKILL escalation
 run_with_timeout() {
   local timeout_sec="$1"
   shift
-  timeout "$timeout_sec" "$@"
+  timeout --kill-after=5s "$timeout_sec" "$@"
 }
 
 # 1. Ephemeral Resource Group & Ownership Verification
