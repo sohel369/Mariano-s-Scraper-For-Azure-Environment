@@ -1,34 +1,34 @@
 {
-  "generated_utc": "2026-11-02T06:27:16.135808+00:00",
+  "generated_utc": "2026-11-03T16:32:18.078171+00:00",
   "git_repository": "https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git",
   "branch": "main",
-  "head_commit": "00a4238ff39195a735136ff51154ece6e624ecc0",
+  "head_commit": "26eecbc0419a8bf7908eae39cf31eadf275b6cad",
   "working_tree_clean": true,
   "recent_commits": [
+    "26eecbc Resolve Reviewer November 3 items: process supervisor separation, unblockable atomic receipt persistence, concurrent stream draining, process-tree termination, and credential redaction",
+    "1da3613 Update provenance manifest and checksums for implementation commit 00a4238",
     "00a4238 Resolve Reviewer November 2 items: independent deadline supervisor, bounded CLI timeouts on all platforms, strict commit binding, and end-to-end orchestration integration tests",
     "f684f5b Update provenance manifest and checksums for implementation commit 15ef5df",
     "15ef5df Resolve Reviewer November 1 items: fail-closed delimiter supervisor, recovery loop integrity, exit code evaluation, and modality validator",
     "c2f92a6 Update provenance manifest and checksums for implementation commit 7862094",
     "7862094 Reconcile cost plan and document inspected source paths in store fulfillment trace",
-    "9eee467 Update provenance manifest and checksums for implementation commit d02a2bc",
-    "d02a2bc Resolve Reviewer October 31 edge cases: transport counting, buffer reset, structural store verification, run isolation, and deadline supervisor",
-    "e671ac9 chore(provenance): synchronize manifest to commit 0ca5246"
+    "9eee467 Update provenance manifest and checksums for implementation commit d02a2bc"
   ],
   "file_sha256_checksums": {
     "scripts/run_azure_bounded_probe.py": {
       "exists": true,
-      "size_bytes": 55312,
-      "sha256": "9a3260daba5a9b875ef0c8bf5013ff58858201f934c6e4f4c3097fefe11e10a5"
+      "size_bytes": 65700,
+      "sha256": "808d5974ae0205b177078a418884d6e22f6cd3d562896f4e4eb9c272518306eb"
     },
     "azure/azure-deploy-bounded-probe.sh": {
       "exists": true,
-      "size_bytes": 19098,
-      "sha256": "f21c52ec4952e64594c0f14bd092ffc7587a7144d39278e541a0f12cb85af2c8"
+      "size_bytes": 19148,
+      "sha256": "025266f0b3d668a50bb19c41ce570153aabb92a06c5504f5ccf9ff3ef184d437"
     },
     "azure/azure-deploy-bounded-probe.ps1": {
       "exists": true,
-      "size_bytes": 24081,
-      "sha256": "2e2f1882635b265a56f87727edeaf57b0674ac81df6c1d22050e2fa105e38f96"
+      "size_bytes": 26347,
+      "sha256": "22d0b02c6467570705817604a469cc685c1fc10cb9bcd5b690c1f2b66ce64944"
     },
     "azure/Dockerfile": {
       "exists": true,
