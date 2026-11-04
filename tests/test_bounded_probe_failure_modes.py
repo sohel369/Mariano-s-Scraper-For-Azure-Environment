@@ -700,4 +700,56 @@ def test_supervisor_handles_blocked_file_and_maintains_non_successful_status(tmp
     # Must fail closed; must never claim SUCCESS
     assert res["overall_status"] in ("FAILED_FINALIZATION_UNVERIFIED", "ABORTED_DEADLINE_EXCEEDED")
     assert res["overall_status"] != "SUCCESS_CONNECTIVITY_ONLY"
-    assert res["overall_status"] != "SUCCESS_CONNECTIVITY_ONLY"
+
+
+def test_process_supervisor_terminates_worker_with_indefinitely_blocked_pipe_and_locked_file(tmp_path):
+    """
+    Verifies Reviewer November 4 Item 1:
+    The separate parent process supervisor (ProcessDeadlineSupervisor) terminates the worker
+    while pipe and file operations remain blocked indefinitely, rather than becoming writable later.
+    Proves worker process exits, held OS locks are released, and fail-closed status is enforced.
+    """
+    output_json = tmp_path / "probe_result.json"
+    lock_file = tmp_path / "worker_exclusive.lock"
+    probe_script = os.path.join(BASE_DIR, "scripts", "run_azure_bounded_probe.py")
+
+    cmd = [
+        sys.executable,
+        probe_script,
+        "--run-deadline-seconds", "1.0",
+        "--output", str(output_json),
+        "--run-id", "test_indefinite_blocked_run"
+    ]
+
+    env = os.environ.copy()
+    env["MOCK_WORKER_INDEFINITE_BLOCK"] = "1"
+    env["MOCK_LOCK_FILE_PATH"] = str(lock_file)
+
+    start_t = time.monotonic()
+    res = subprocess.run(cmd, env=env, capture_output=True, text=True, cwd=BASE_DIR, timeout=15)
+    elapsed = time.monotonic() - start_t
+
+    # Bounded termination: Must terminate cleanly within 1-5 seconds, never hanging indefinitely
+    assert elapsed < 10.0
+    assert res.returncode != 0
+    assert os.path.exists(output_json)
+
+    with open(output_json, "r", encoding="utf-8") as f:
+        disk_data = json.load(f)
+    assert disk_data["overall_status"] == "ABORTED_DEADLINE_EXCEEDED"
+    assert "process supervisor" in disk_data["resolution_notes"].lower() or "exceeded" in disk_data["resolution_notes"].lower()
+
+    # Verify that the file lock held by the blocked worker was released by the OS on process termination
+    # If the worker were still alive, opening in write mode or acquiring a lock would fail
+    if os.path.exists(lock_file):
+        with open(lock_file, "r+b") as f:
+            if sys.platform == "win32":
+                import msvcrt
+                # Should successfully acquire lock now that worker process is terminated
+                msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)
+                msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                import fcntl
+                fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+                fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+

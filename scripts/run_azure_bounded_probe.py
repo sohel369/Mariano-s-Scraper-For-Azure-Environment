@@ -214,7 +214,7 @@ class IndependentDeadlineSupervisor:
         except Exception:
             pass
 
-        # 2. Lock-free raw OS write to stdout (does NOT acquire Python sys.stdout/logging locks)
+        # 2. Lock-free raw OS write to stdout via daemon thread (does NOT block supervisor if pipe is full)
         try:
             emergency_receipt = self.runner._generate_probe_result_dict()
             emergency_receipt["overall_status"] = "ABORTED_DEADLINE_EXCEEDED"
@@ -225,7 +225,16 @@ class IndependentDeadlineSupervisor:
                 f"{json.dumps(emergency_receipt, indent=2)}\n"
                 f"===AZURE_PROBE_JSON_END===\n\n"
             ).encode("utf-8")
-            os.write(1, delimiter_bytes)
+
+            def _async_pipe_write():
+                try:
+                    os.write(1, delimiter_bytes)
+                except Exception:
+                    pass
+
+            write_thread = threading.Thread(target=_async_pipe_write, daemon=True)
+            write_thread.start()
+            write_thread.join(timeout=min(self.grace_period, 0.5))
         except Exception:
             pass
 
@@ -716,17 +725,30 @@ class AzureBoundedProbeRunner:
         Executes bounded probe with strict request cap, whole-run deadline,
         streaming byte limit, genuine parsing, retry limits, and graceful cleanup.
         """
-        # Testing hook for simulated kernel-level blocked pipe
-        if os.environ.get("MOCK_WORKER_BLOCKED_PIPE") == "1":
-            r_pipe, w_pipe = os.pipe()
-            try:
-                os.write(w_pipe, b"X" * 10_000_000)
-            finally:
+        # Testing hook for simulated kernel-level blocked pipe or indefinite block with locked file
+        if os.environ.get("MOCK_WORKER_INDEFINITE_BLOCK") == "1":
+            # 1. Acquire exclusive non-releasing file lock if requested
+            lock_path = os.environ.get("MOCK_LOCK_FILE_PATH")
+            if lock_path:
                 try:
-                    os.close(r_pipe)
-                    os.close(w_pipe)
+                    f_lock = open(lock_path, "wb")
+                    if sys.platform == "win32":
+                        import msvcrt
+                        msvcrt.locking(f_lock.fileno(), msvcrt.LK_NBLCK, 1)
+                    else:
+                        import fcntl
+                        fcntl.flock(f_lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
                 except Exception:
                     pass
+            # 2. Sched-block in kernel pipe write indefinitely with no consumer
+            r_pipe, w_pipe = os.pipe()
+            while True:
+                os.write(w_pipe, b"X" * 65536)
+
+        if os.environ.get("MOCK_WORKER_BLOCKED_PIPE") == "1":
+            r_pipe, w_pipe = os.pipe()
+            while True:
+                os.write(w_pipe, b"X" * 65536)
         git_hash = self._get_git_commit_hash()
         host_ip = "UNKNOWN"
         try:
@@ -1179,25 +1201,40 @@ class ProcessDeadlineSupervisor:
             return worker_exit if worker_exit != 0 else 1
 
         except subprocess.TimeoutExpired:
+            # 1. Stop worker immediately: forcefully terminate worker process tree
             kill_process_tree(proc.pid)
+            try:
+                proc.wait(timeout=3.0)
+            except Exception:
+                pass
+
             elapsed = time.monotonic() - self.start_time_monotonic
             fail_receipt = self._build_emergency_receipt(elapsed)
+
+            # 2. Persist fail-closed emergency receipt; if filesystem fails, missing receipt remains unverified
             try:
                 atomic_write_json(self.output_file, fail_receipt)
             except Exception:
                 pass
 
+            # 3. Asynchronously emit terminal delimiter with bounded timeout so blocked pipe never stalls supervisor
             delimiter_str = (
                 f"\n===AZURE_PROBE_JSON_START===\n"
                 f"{json.dumps(fail_receipt, indent=2)}\n"
                 f"===AZURE_PROBE_JSON_END===\n\n"
             )
-            try:
-                os.write(1, delimiter_str.encode("utf-8"))
-            except Exception:
-                print(delimiter_str)
 
-            sys.stderr.write(f"CRITICAL: Supervisor terminated worker process tree after exceeding deadline {self.deadline_seconds}s (elapsed: {elapsed:.4f}s)\n")
+            def _async_sup_write():
+                try:
+                    os.write(1, delimiter_str.encode("utf-8"))
+                except Exception:
+                    pass
+
+            write_th = threading.Thread(target=_async_sup_write, daemon=True)
+            write_th.start()
+            write_th.join(timeout=1.0)
+
+            sys.stderr.write(f"CRITICAL: ProcessDeadlineSupervisor terminated worker process tree after exceeding deadline {self.deadline_seconds}s (elapsed: {elapsed:.4f}s)\n")
             return 1
 
 

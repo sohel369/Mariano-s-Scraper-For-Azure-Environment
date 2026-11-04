@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import shutil
 import hashlib
 import tempfile
@@ -608,4 +609,85 @@ try {{
     assert "SecretProxyPass123" not in res.stdout
     assert "[REDACTED]" in res.stdout
     assert "Command timed out after 1 seconds" in res.stdout
+
+
+def test_powershell_bounded_command_inherited_child_handle_and_bounded_readtoend_completion(tmp_path):
+    """
+    Verifies Reviewer November 4 Item 2:
+    Tests Invoke-BoundedCommand with an inherited child handle, bounded taskkill/final ReadToEnd
+    completion, and credential-free errors.
+    Proves that even when a background child process inherits and holds the stdout pipe open,
+    Task.WaitAll bounds collection time, taskkill /F /T terminates the child tree, and credentials
+    are strictly redacted.
+    """
+    funcs = extract_powershell_bounded_functions()
+
+    grandchild_pid_file = tmp_path / "grandchild_pid.txt"
+    worker_script = tmp_path / "inherited_handle_worker.py"
+    worker_script.write_text(
+        f"import subprocess, sys, time\n"
+        f"# Spawn a background grandchild that inherits stdout handles and sleeps 60s\n"
+        f"p = subprocess.Popen([r'{sys.executable}', '-c', 'import time; time.sleep(60)'], close_fds=False)\n"
+        f"with open(r'{str(grandchild_pid_file)}', 'w') as f:\n"
+        f"    f.write(str(p.pid))\n"
+        f"sys.stdout.write('INITIAL_OUTPUT_BEFORE_SLEEP\\n')\n"
+        f"sys.stdout.flush()\n"
+        f"# Sleep to force timeout\n"
+        f"time.sleep(30)\n",
+        encoding="utf-8"
+    )
+
+    ps_script = tmp_path / "test_inherited.ps1"
+    secret_key = "SuperSecretAdminKey888!"
+    secret_url = "http://admin:LeakedToken777@internal-proxy.local:8080"
+    py_exe = sys.executable
+    worker = str(worker_script)
+
+    ps_content = f"""
+{funcs}
+
+$pyExe = '{py_exe}'
+$worker = '{worker}'
+$secretKey = "{secret_key}"
+$secretUrl = "{secret_url}"
+$cmd = '""' + $pyExe + '"" ""' + $worker + '"" --admin-password ' + $secretKey + ' MARIANOS_PROXY_URL=' + $secretUrl
+try {{
+    $sw = [System.Diagnostics.Stopwatch]::StartNew()
+    Invoke-BoundedCommand -TimeoutSeconds 2 -CommandLine $cmd
+    Write-Output "RESULT:UNEXPECTED_SUCCESS"
+}} catch {{
+    $sw.Stop()
+    Write-Output "RESULT:TIMED_OUT"
+    Write-Output "ELAPSED_MS:$($sw.ElapsedMilliseconds)"
+    Write-Output "ERROR_MSG:$($_.Exception.Message)"
+}}
+"""
+    ps_script.write_text(ps_content, encoding="utf-8")
+
+    cmd = ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(ps_script)]
+    start_t = time.monotonic()
+    res = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+    wall_elapsed = time.monotonic() - start_t
+
+    assert res.returncode == 0
+    assert "RESULT:TIMED_OUT" in res.stdout
+
+    # Verify execution was bounded (2s timeout + max 2s taskkill/read ceiling <= ~6s, far less than 60s)
+    assert wall_elapsed < 8.0
+
+    # Verify credential-free error message:
+    assert secret_key not in res.stdout
+    assert "LeakedToken777" not in res.stdout
+    assert "[REDACTED]" in res.stdout
+    assert "Command timed out after 2 seconds" in res.stdout
+
+    # Verify grandchild process that inherited handle was terminated by taskkill /F /T
+    assert grandchild_pid_file.exists()
+    gc_pid = int(grandchild_pid_file.read_text().strip())
+    check_cmd = ["tasklist", "/FI", f"PID eq {gc_pid}", "/FO", "CSV", "/NH"]
+    check_res = subprocess.run(check_cmd, capture_output=True, text=True)
+    assert str(gc_pid) not in check_res.stdout or "No tasks" in check_res.stdout
+
+
+
 

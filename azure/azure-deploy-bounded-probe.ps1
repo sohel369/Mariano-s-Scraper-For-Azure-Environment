@@ -77,10 +77,14 @@ function Format-RedactedCommandLine {
     $res = $Cmd
     # Redact registry passwords: --registry-password <secret>
     $res = [regex]::Replace($res, '(--registry-password\s+)("[^"]+"|\S+)', '${1}[REDACTED]')
-    # Redact standard password arguments: --password <secret>
+    # Redact standard password arguments: --password <secret> or --admin-password <secret>
+    $res = [regex]::Replace($res, '(--admin-password\s+)("[^"]+"|\S+)', '${1}[REDACTED]')
     $res = [regex]::Replace($res, '(--password\s+)("[^"]+"|\S+)', '${1}[REDACTED]')
+    $res = [regex]::Replace($res, '(-p\s+)("[^"]+"|\S+)', '${1}[REDACTED]')
     # Redact proxy credentials or environment strings: MARIANOS_PROXY_URL="..."
     $res = [regex]::Replace($res, '(MARIANOS_PROXY_URL=)("[^"]*"|\S*)', '${1}[REDACTED]')
+    # Redact embedded URL credentials: http://user:pass@host
+    $res = [regex]::Replace($res, 'https?://[^:\s]+:[^@\s]+@', 'http://[REDACTED]@')
     return $res
 }
 
@@ -88,7 +92,7 @@ function Format-RedactedCommandLine {
 # Enforces:
 #  1. Concurrent stream draining via asynchronous tasks to prevent pipe buffer deadlock
 #  2. Process-tree termination & verification via taskkill /F /T /PID on timeout
-#  3. Bounded final stream collection to prevent hanging on inherited handles
+#  3. Bounded final stream collection (Task.WaitAll with timeout) so inherited handles never hang ReadToEnd
 #  4. Credential redaction in exceptions and log output
 function Invoke-BoundedCommand {
     param(
@@ -142,12 +146,15 @@ function Invoke-BoundedCommand {
 
         throw "Command timed out after $TimeoutSeconds seconds: $redactedCmd"
     } else {
-        # Process completed within timeout: drain remaining output with 5s ceiling
+        # Process completed within timeout: drain remaining output with 3000ms ceiling
         try {
-            [void][System.Threading.Tasks.Task]::WaitAll(@($stdoutTask, $stderrTask), 5000)
-            $stdout = $stdoutTask.Result
-            $stderr = $stderrTask.Result
+            [void][System.Threading.Tasks.Task]::WaitAll(@($stdoutTask, $stderrTask), 3000)
+            if ($stdoutTask.IsCompleted) { $stdout = $stdoutTask.Result }
+            if ($stderrTask.IsCompleted) { $stderr = $stderrTask.Result }
         } catch {}
+
+        # Ensure any remaining orphaned child processes holding inherited handles are cleaned up
+        try { $null = & taskkill.exe /F /T /PID $p.Id 2>&1 } catch {}
     }
 
     $exitCode = $p.ExitCode
