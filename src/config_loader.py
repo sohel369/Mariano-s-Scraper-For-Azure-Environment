@@ -15,6 +15,29 @@ class ConfigLoader:
 
         self.config_dir = os.path.join(self.base_dir, "config")
         self.data_dir = os.path.join(self.base_dir, "data")
+        self.seed_input_files_if_missing()
+
+    def seed_input_files_if_missing(self) -> None:
+        """
+        Seeds bundled input CSV if data/input is empty (e.g. when an empty Azure Files
+        share is mounted at /app/data or an empty temporary directory is used in tests).
+        """
+        target_dir = os.path.join(self.data_dir, "input")
+        os.makedirs(target_dir, exist_ok=True)
+        for fname in ["Marianos_Category_URLs.csv", "Marianos_Category_URLs_Original_Brief.csv"]:
+            target_csv = os.path.join(target_dir, fname)
+            if not os.path.exists(target_csv) or os.path.getsize(target_csv) == 0:
+                seed_candidates = [
+                    os.path.join(self.config_dir, "seeds", fname),
+                    os.path.join(self.base_dir, "config", "seeds", fname),
+                    os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "config", "seeds", fname),
+                    os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "data", "input", fname)
+                ]
+                for candidate in seed_candidates:
+                    if os.path.exists(candidate) and os.path.abspath(candidate) != os.path.abspath(target_csv):
+                        import shutil
+                        shutil.copy2(candidate, target_csv)
+                        break
 
     def load_settings(self) -> Dict[str, Any]:
         settings_path = os.path.join(self.config_dir, "settings.json")
@@ -74,6 +97,7 @@ class ConfigLoader:
         return proxies
 
     def load_category_urls(self, csv_filename: str = "Marianos_Category_URLs.csv") -> List[Dict[str, str]]:
+        self.seed_input_files_if_missing()
         csv_path = os.path.join(self.data_dir, "input", csv_filename)
         if not os.path.exists(csv_path):
             raise FileNotFoundError(f"Category CSV not found at: {csv_path}")

@@ -30,19 +30,27 @@ def generate_provenance():
     status_short = run_git(["git", "status", "--short"])
     
     tracked_files = [
+        "src/browser_engine.py",
+        "src/parser.py",
+        "src/storage_manager.py",
+        "src/config_loader.py",
         "scripts/run_azure_bounded_probe.py",
         "azure/azure-deploy-bounded-probe.sh",
         "azure/azure-deploy-bounded-probe.ps1",
+        "azure/azure-deploy.ps1",
+        "azure/azure-deploy.sh",
         "azure/Dockerfile",
         "requirements.txt",
         "config/locations.json",
+        "config/seeds/Marianos_Category_URLs.csv",
         "data/output/marianos_scraped_data_store_53100503_full_catalog.json",
         "data/output/marianos_contest_submission_500_records.json",
         "data/output/marianos_audit_statistics.json",
-        "data/input/Marianos_Category_URLs_Original_Brief.csv",
         "data/input/Marianos_Category_URLs.csv",
-        "logs/category_route_mapping_structure_audit.json",
-        "logs/missing_route_rejection_audit_proof.json"
+        "data/checkpoints/active_checkpoint_store_53100503.json",
+        "data/checkpoints/checkpoint_store_53100503.json",
+        "data/checkpoints/checkpoint_rows_store_53100503.jsonl",
+        "logs/source_to_output_reconciliation_audit.json"
     ]
     
     file_hashes = {}

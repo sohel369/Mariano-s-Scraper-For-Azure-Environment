@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 import pytest
 from src.storage_manager import StorageManager
 
@@ -337,6 +338,142 @@ def test_indefinite_store_assortment_retention_unreadable_catalog_aborts(tmp_pat
         categories_processed=1
     )
     assert committed_dict is False
+
+
+def test_immutable_checkpoint_generation_atomic_switch_preserves_resumption(tmp_path):
+    """
+    Reviewer Finding 2:
+    A fault between generation creation and reference switch leaves old metadata with old rows,
+    preserves the recoverable previous generation completely, and never restores zero rows.
+    """
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=5)
+    store_id = "53100503"
+    staging_file = os.path.join(storage.staging_dir, "staging_gen_test.jsonl")
+
+    # Generation 1: 10 rows collected
+    gen1_rows = [{"upc": f"01111000{i:04d}", "title": f"Gen1 Item {i}"} for i in range(10)]
+    for r in gen1_rows:
+        storage.write_staging_record(staging_file, r)
+
+    storage.save_checkpoint(
+        store_id=store_id,
+        completed_subcategories=["Dairy::Milk"],
+        scraped_ids=[r["upc"] for r in gen1_rows],
+        staged_records=gen1_rows
+    )
+
+    ptr_path = storage.get_active_pointer_path(store_id)
+    assert os.path.exists(ptr_path)
+    with open(ptr_path, "r", encoding="utf-8") as pf:
+        ptr1 = json.load(pf)
+    gen1_id = ptr1["generation_id"]
+
+    # Generation 2 starts: new rows collected in an incomplete/crashed generation
+    # Simulate a crash BEFORE the active pointer is switched to generation 2
+    crashed_gen_id = f"gen_crashed_9999"
+    crashed_gen_dir = os.path.join(storage.checkpoint_dir, f"gen_{store_id}_{crashed_gen_id}")
+    os.makedirs(crashed_gen_dir, exist_ok=True)
+    with open(os.path.join(crashed_gen_dir, "metadata.json"), "w", encoding="utf-8") as f:
+        json.dump({"generation_id": crashed_gen_id, "store_id": store_id, "completed_subcategories": ["Dairy::Milk", "Bakery::Bread"]}, f)
+    with open(os.path.join(crashed_gen_dir, "rows.jsonl"), "w", encoding="utf-8") as f:
+        f.write('{"upc": "99999", "title": "Incomplete row"}\n')
+
+    # Resume from checkpoint: MUST load Generation 1 completely via unchanged active pointer!
+    cp = storage.load_checkpoint(store_id)
+    assert cp["generation_id"] == gen1_id
+    assert cp["completed_subcategories"] == ["Dairy::Milk"]
+
+    resume_staging = os.path.join(storage.staging_dir, "staging_resumed.jsonl")
+    restored_count = storage.restore_checkpoint_rows(store_id, resume_staging)
+    assert restored_count == 10
+    restored_rows = storage.load_staging_records(resume_staging)
+    assert len(restored_rows) == 10
+    assert restored_rows[0]["title"] == "Gen1 Item 0"
+
+
+def test_blob_upload_failure_preserves_checkpoint_and_recoverable_state(tmp_path, monkeypatch):
+    """
+    Reviewer Finding 4:
+    An injected Blob-upload failure must NOT report commit success or clear checkpoint.
+    It must preserve the recoverable checkpoint, staging data, and return False (fail-closed).
+    """
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=5)
+    store_id = "53100503"
+    staging_file = os.path.join(storage.staging_dir, "staging_blob_fail.jsonl")
+
+    # Stage 5 valid records
+    staged_records = [
+        {"upc": f"01111000{i:04d}", "category": "Produce", "sub_category": "Fruit", "title": f"Fruit {i}"}
+        for i in range(5)
+    ]
+    for r in staged_records:
+        storage.write_staging_record(staging_file, r)
+
+    # Save active checkpoint
+    storage.save_checkpoint(
+        store_id=store_id,
+        completed_subcategories=["Produce::Fruit"],
+        scraped_ids=[r["upc"] for r in staged_records],
+        staged_records=staged_records
+    )
+
+    # Inject Blob upload failure
+    monkeypatch.setenv("AZURE_STORAGE_CONNECTION_STRING", "DefaultEndpointsProtocol=https;AccountName=fake;AccountKey=fake==;EndpointSuffix=core.windows.net")
+    monkeypatch.setattr(storage, "sync_to_azure_blob", lambda local_filepath, blob_name: False)
+
+    commit_result = storage.commit_dataset_atomic(
+        store_id=store_id,
+        staging_filepath=staging_file,
+        total_categories_expected=1,
+        categories_processed=1,
+        expected_category_keys=["Produce::Fruit"],
+        actual_completed_keys=["Produce::Fruit"]
+    )
+
+    # Must FAIL closed
+    assert commit_result is False
+
+    # Checkpoint must be preserved
+    cp = storage.load_checkpoint(store_id)
+    assert cp["completed_subcategories"] == ["Produce::Fruit"]
+    assert len(cp["scraped_ids"]) == 5
+
+    # Target output file must not be left published as valid
+    target_output = os.path.join(storage.output_dir, f"marianos_scraped_data_store_{store_id}_latest.json")
+    assert not os.path.exists(target_output)
+
+
+def test_empty_azure_files_share_mount_auto_seeds_input_csv(tmp_path):
+    """
+    Reviewer Finding 4:
+    A new empty Azure Files share mounted at /app/data hides the bundled input CSV;
+    ConfigLoader must auto-seed the required inputs explicitly from bundled seeds.
+    """
+    from src.config_loader import ConfigLoader
+
+    # Simulate an empty data directory (like empty Azure Files share mount)
+    empty_base = tmp_path / "empty_app"
+    os.makedirs(empty_base / "config", exist_ok=True)
+    os.makedirs(empty_base / "data" / "input", exist_ok=True)
+
+    # Seed directory is present in config/seeds
+    real_loader = ConfigLoader()
+    real_csv = os.path.join(real_loader.base_dir, "config", "seeds", "Marianos_Category_URLs.csv")
+    assert os.path.exists(real_csv)
+
+    # Empty base has no CSV in data/input
+    target_csv = empty_base / "data" / "input" / "Marianos_Category_URLs.csv"
+    assert not os.path.exists(target_csv)
+
+    # Copy seeds into empty_base config/seeds
+    shutil.copytree(os.path.join(real_loader.base_dir, "config", "seeds"), empty_base / "config" / "seeds")
+
+    loader = ConfigLoader(base_dir=str(empty_base))
+    cats = loader.load_category_urls()
+    assert len(cats) >= 28
+    assert os.path.exists(target_csv)
+    assert os.path.getsize(target_csv) > 0
+
 
 
 

@@ -18,6 +18,31 @@ class MarianoPageParser:
     def __init__(self, normalizer: DataNormalizer):
         self.normalizer = normalizer
 
+    @staticmethod
+    def parse_strict_bool(val: Any) -> Optional[bool]:
+        """
+        Parses explicit boolean fulfillment indicators.
+        Rejects non-boolean flags (such as numeric -1, 'unknown', etc.).
+        Returns True for True/'true'/1, False for False/'false'/0, None otherwise.
+        """
+        if val is None:
+            return None
+        if isinstance(val, bool):
+            return val
+        if isinstance(val, (int, float)):
+            if val == 1:
+                return True
+            if val == 0:
+                return False
+            return None
+        if isinstance(val, str):
+            s = val.strip().lower()
+            if s in ("true", "1", "yes"):
+                return True
+            if s in ("false", "0", "no"):
+                return False
+        return None
+
     def validate_store_fulfillment_response(self, response_data: Dict[str, Any], expected_store_id: str = "53100503") -> Dict[str, Any]:
         """
         Validates Mariano's store identity, address, and pickup modality
@@ -182,7 +207,12 @@ class MarianoPageParser:
         price_info = item.get("priceInfo", {}) or {}
         expected_store_id = str(location_info.get("store_id", "53100502")).strip()
         expected_store_num = str(location_info.get("store_number", "00502")).strip()
-        valid_store_ids = {expected_store_id, expected_store_num, "vernon-hills"}
+        valid_store_ids = {
+            expected_store_id,
+            expected_store_num,
+            "53100502", "00502", "vernon-hills",
+            "53100503", "00503", "new-eastside"
+        }
 
         # Check every location/store identifier candidate across item and priceInfo
         loc_candidates = [
@@ -194,14 +224,20 @@ class MarianoPageParser:
             price_info.get("storeId"),
             price_info.get("fulfillmentStoreId")
         ]
+        has_conflicting_location = False
         for candidate in loc_candidates:
             if candidate is not None:
                 cand_str = str(candidate).strip()
                 if cand_str and cand_str not in valid_store_ids:
-                    logger.debug(f"Excluding product with contradictory location identifier: {title} ('{cand_str}' not in {valid_store_ids})")
-                    return None
+                    logger.debug(f"Product with contradictory location identifier: {title} ('{cand_str}' not in {valid_store_ids})")
+                    has_conflicting_location = True
+                    break
 
-        # Check every modality/fulfillment identifier candidate across item and priceInfo
+        # Strict positive explicit pickup context & non-pickup fulfillment checks (Reviewer finding 1)
+        NON_PICKUP_KEYWORDS = (
+            "SHIPPING", "DELIVERY", "SHIP", "MAIL", "FREIGHT", "EXPEDITED",
+            "NOT_PICKUP", "NO_PICKUP", "NON_PICKUP", "PICKUP_UNAVAILABLE", "NOT PICKUP"
+        )
         mod_candidates = [
             item.get("modality"),
             item.get("fulfillment"),
@@ -212,12 +248,55 @@ class MarianoPageParser:
             price_info.get("fulfillmentType"),
             price_info.get("fulfillmentModality")
         ]
+        has_positive_item_pickup = False
+        item_pickup_false = False
+
         for mod in mod_candidates:
             if mod is not None:
                 mod_str = str(mod).strip().upper()
-                if mod_str and mod_str != "PICKUP":
-                    logger.debug(f"Excluding product with contradictory fulfillment modality: {title} ('{mod_str}' != PICKUP)")
-                    return None
+                if mod_str:
+                    if mod_str in ("PICKUP", "CURBSIDE", "IN_STORE_PICKUP", "STORE_PICKUP"):
+                        has_positive_item_pickup = True
+                    elif any(kw in mod_str for kw in NON_PICKUP_KEYWORDS):
+                        item_pickup_false = True
+
+        # Check numeric or boolean pickup flags (e.g. -1, 0, false, 1, true)
+        pickup_flag_candidates = [
+            item.get("inStorePickupAvailable"),
+            item.get("pickupAvailable"),
+            item.get("pickup"),
+            item.get("isPickup"),
+            price_info.get("inStorePickupAvailable"),
+            price_info.get("pickupAvailable"),
+            price_info.get("pickup"),
+        ]
+        for pf in pickup_flag_candidates:
+            if pf is not None:
+                parsed_bool = self.parse_strict_bool(pf)
+                if parsed_bool is True:
+                    has_positive_item_pickup = True
+                elif parsed_bool is False or pf == -1 or str(pf).strip() == "-1":
+                    item_pickup_false = True
+
+        # Check pickupOptions if present
+        if "pickupOptions" in item and isinstance(item["pickupOptions"], list):
+            for opt in item["pickupOptions"]:
+                if isinstance(opt, dict):
+                    method = str(opt.get("fulfillmentMethod") or opt.get("method") or "").upper()
+                    if "PICKUP" in method and not any(kw in method for kw in ("NOT", "NO", "NON", "UNAVAILABLE")):
+                        if self.parse_strict_bool(opt.get("available")) is True:
+                            has_positive_item_pickup = True
+                        elif self.parse_strict_bool(opt.get("available")) is False:
+                            item_pickup_false = True
+
+        # Reviewer Finding 1 Rule:
+        # Require positive, explicit context for the selected item/price;
+        # retain eligible identities with blank unverified monetary values.
+        can_export_local_price = bool(
+            has_positive_item_pickup and
+            not item_pickup_false and
+            not has_conflicting_location
+        )
 
         brand = str(item.get("brand") or "").strip()
         store_brand = self.normalizer.is_store_private_brand(title, brand)
@@ -241,53 +320,67 @@ class MarianoPageParser:
             return None
 
         # 3. Pricing
-        price_info = item.get("priceInfo", {}) or {}
-        curr_price_obj = price_info.get("currentPrice", {}) or {}
-        was_price_obj = price_info.get("wasPrice", {}) or {}
+        # If item lacks positive, explicit pickup context, or has contradictory fulfillment (-1, NOT_PICKUP, etc.),
+        # retain eligible identity with blank unverified monetary values per Reviewer Finding 1.
+        if can_export_local_price:
+            price_info = item.get("priceInfo", {}) or {}
+            curr_price_obj = price_info.get("currentPrice", {}) or {}
+            was_price_obj = price_info.get("wasPrice", {}) or {}
 
-        curr_price_str = curr_price_obj.get("priceString") or str(curr_price_obj.get("price") or item.get("price") or "")
-        was_price_str = was_price_obj.get("priceString") or str(was_price_obj.get("price") or item.get("regularPrice") or "")
+            curr_price_str = curr_price_obj.get("priceString") or str(curr_price_obj.get("price") or item.get("price") or "")
+            was_price_str = was_price_obj.get("priceString") or str(was_price_obj.get("price") or item.get("regularPrice") or "")
 
-        cleaned_curr_price = self.normalizer.clean_price(curr_price_str)
-        cleaned_was_price = self.normalizer.clean_price(was_price_str)
+            cleaned_curr_price = self.normalizer.clean_price(curr_price_str)
+            cleaned_was_price = self.normalizer.clean_price(was_price_str)
 
-        if cleaned_was_price and cleaned_was_price != cleaned_curr_price:
-            regular_price = cleaned_was_price
-            sale_price = cleaned_curr_price
+            if cleaned_was_price and cleaned_was_price != cleaned_curr_price:
+                regular_price = cleaned_was_price
+                sale_price = cleaned_curr_price
+            else:
+                regular_price = cleaned_curr_price
+                sale_price = ""
+
+            # 4. PPM (Price Per Measure) - Scraped directly, never computed
+            raw_ppm = (
+                curr_price_obj.get("unitPrice") or
+                price_info.get("unitPrice", {}).get("priceString") or
+                item.get("ppm") or
+                item.get("unitPriceString") or
+                ""
+            )
+            ppm = self.normalizer.extract_ppm(str(raw_ppm))
+
+            # 5. Deals Classification (Volume vs Digital, incorporating nested promotions)
+            promo_info = item.get("promotions", {}) or {}
+            badge_text = str(item.get("badge", {}).get("text") or item.get("promoBadge") or "")
+            deal_desc = str(
+                item.get("dealDescription") or
+                item.get("promoDescription") or
+                promo_info.get("digitalCoupon") or
+                promo_info.get("volumeDeal") or
+                ""
+            )
+            promo_price_disp = str(
+                item.get("promoPrice") or
+                promo_info.get("digitalCouponPrice") or
+                promo_info.get("volumeDealPrice") or
+                ""
+            )
+
+            vol_desc, vol_price, dig_desc, dig_price = self.normalizer.parse_deals(
+                badge_text, deal_desc, promo_price_disp
+            )
         else:
-            regular_price = cleaned_curr_price
+            logger.debug(
+                f"[LOG-OBS: UNVERIFIED_MONETARY_VALUES] Retaining eligible identity with blank unverified monetary values: {title}"
+            )
+            regular_price = ""
             sale_price = ""
-
-        # 4. PPM (Price Per Measure) - Scraped directly, never computed
-        raw_ppm = (
-            curr_price_obj.get("unitPrice") or
-            price_info.get("unitPrice", {}).get("priceString") or
-            item.get("ppm") or
-            item.get("unitPriceString") or
-            ""
-        )
-        ppm = self.normalizer.extract_ppm(str(raw_ppm))
-
-        # 5. Deals Classification (Volume vs Digital, incorporating nested promotions)
-        promo_info = item.get("promotions", {}) or {}
-        badge_text = str(item.get("badge", {}).get("text") or item.get("promoBadge") or "")
-        deal_desc = str(
-            item.get("dealDescription") or
-            item.get("promoDescription") or
-            promo_info.get("digitalCoupon") or
-            promo_info.get("volumeDeal") or
-            ""
-        )
-        promo_price_disp = str(
-            item.get("promoPrice") or
-            promo_info.get("digitalCouponPrice") or
-            promo_info.get("volumeDealPrice") or
-            ""
-        )
-
-        vol_desc, vol_price, dig_desc, dig_price = self.normalizer.parse_deals(
-            badge_text, deal_desc, promo_price_disp
-        )
+            ppm = ""
+            vol_desc = ""
+            vol_price = ""
+            dig_desc = ""
+            dig_price = ""
 
         # 6. URLs and Identifiers (Distinct UPC vs Retailer Product ID)
         canonical_url = str(item.get("canonicalUrl") or item.get("productUrl") or item.get("url") or "")

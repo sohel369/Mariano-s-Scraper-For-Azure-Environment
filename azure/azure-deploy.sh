@@ -26,6 +26,14 @@ ACR_LOGIN_SERVER=$(az acr show --name "$ACR_NAME" --query loginServer --output t
 ACR_PASSWORD=$(az acr credential show --name "$ACR_NAME" --query "passwords[0].value" --output tsv)
 ACR_USERNAME=$(az acr credential show --name "$ACR_NAME" --query username --output tsv)
 
+echo "=== 3.1 Provisioning Persistent Azure Storage and Seeding Input CSV ==="
+STORAGE_ACCOUNT_NAME="samarianos$RANDOM"
+az storage account create --resource-group "$RESOURCE_GROUP" --name "$STORAGE_ACCOUNT_NAME" --location "$LOCATION" --sku Standard_LRS
+STORAGE_KEY=$(az storage account keys list --resource-group "$RESOURCE_GROUP" --account-name "$STORAGE_ACCOUNT_NAME" --query "[0].value" --output tsv)
+az storage share create --name "marianos-scraper-share" --account-name "$STORAGE_ACCOUNT_NAME" --account-key "$STORAGE_KEY"
+az storage directory create --name "input" --share-name "marianos-scraper-share" --account-name "$STORAGE_ACCOUNT_NAME" --account-key "$STORAGE_KEY"
+az storage file upload --source "data/input/Marianos_Category_URLs.csv" --share-name "marianos-scraper-share" --path "input/Marianos_Category_URLs.csv" --account-name "$STORAGE_ACCOUNT_NAME" --account-key "$STORAGE_KEY"
+
 echo "=== 4. Deploying Scheduled Container Job to Azure Container Instances ==="
 az container create \
   --resource-group "$RESOURCE_GROUP" \
@@ -37,6 +45,10 @@ az container create \
   --cpu 1 \
   --memory 2 \
   --restart-policy Never \
+  --azure-file-volume-account-name "$STORAGE_ACCOUNT_NAME" \
+  --azure-file-volume-account-key "$STORAGE_KEY" \
+  --azure-file-volume-share-name "marianos-scraper-share" \
+  --azure-file-volume-mount-path "/app/data" \
   --environment-variables \
       MARIANOS_PROXY_URL="$MARIANOS_PROXY_URL" \
       AZURE_STORAGE_CONNECTION_STRING="$AZURE_STORAGE_CONNECTION_STRING"

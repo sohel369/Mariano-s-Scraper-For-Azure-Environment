@@ -38,6 +38,12 @@ az storage container create `
   --name $ContainerName `
   --connection-string $StorageConnString
 
+Write-Host "=== 2.1 Seeding Persistent Azure Files Share for Input Volume Mount ===" -ForegroundColor Cyan
+$StorageAccountKey = (az storage account keys list --resource-group $ResourceGroup --account-name $StorageAccountName --query "[0].value" --output tsv)
+az storage share create --name "marianos-scraper-share" --account-name $StorageAccountName --account-key $StorageAccountKey
+az storage directory create --name "input" --share-name "marianos-scraper-share" --account-name $StorageAccountName --account-key $StorageAccountKey
+az storage file upload --source "data/input/Marianos_Category_URLs.csv" --share-name "marianos-scraper-share" --path "input/Marianos_Category_URLs.csv" --account-name $StorageAccountName --account-key $StorageAccountKey
+
 Write-Host "=== 3. Creating User-Assigned Managed Identity & RBAC Roles ===" -ForegroundColor Cyan
 az identity create --resource-group $ResourceGroup --name $IdentityName
 $IdentityId = (az identity show --resource-group $ResourceGroup --name $IdentityName --query id --output tsv)
@@ -80,6 +86,10 @@ az container create `
   --cpu 1 `
   --memory 2 `
   --restart-policy Never `
+  --azure-file-volume-account-name $StorageAccountName `
+  --azure-file-volume-account-key $StorageAccountKey `
+  --azure-file-volume-share-name "marianos-scraper-share" `
+  --azure-file-volume-mount-path "/app/data" `
   --environment-variables `
       MARIANOS_PROXY_URL="$env:MARIANOS_PROXY_URL" `
       AZURE_STORAGE_CONNECTION_STRING="$StorageConnString" `
