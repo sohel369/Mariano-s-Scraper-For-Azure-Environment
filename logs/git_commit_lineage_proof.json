@@ -1,20 +1,40 @@
 {
-  "generated_utc": "2026-11-04T02:47:39.006482+00:00",
+  "generated_utc": "2026-11-07T18:38:54.118007+00:00",
   "git_repository": "https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git",
   "branch": "main",
-  "head_commit": "f9f63be28d4e31fb96b15f96aac1822bee524058",
+  "head_commit": "5ea61b8dbd5626cf0c9c17c6dbe71d2febf1c855",
   "working_tree_clean": true,
   "recent_commits": [
+    "5ea61b8 Update provenance manifest and checksums for implementation commit 22d1889",
+    "22d1889 feat(marianos): enforce atomic generation checkpointing, azure blob failure rollback, auto-seeding input CSV, and explicit positive pickup fulfillment pricing",
+    "911b38e Update provenance manifest and checksums for implementation commit f9f63be28d4e31fb96b15f96aac1822bee524058",
     "f9f63be Clarify ProcessDeadlineSupervisor parent-process separation, add indefinite pipe/file block regression, and verify PowerShell inherited-handle bounded drain and redaction",
     "3f61781 Update provenance manifest and checksums for implementation commit 26eecbc0419a8bf7908eae39cf31eadf275b6cad",
     "26eecbc Resolve Reviewer November 3 items: process supervisor separation, unblockable atomic receipt persistence, concurrent stream draining, process-tree termination, and credential redaction",
     "1da3613 Update provenance manifest and checksums for implementation commit 00a4238",
-    "00a4238 Resolve Reviewer November 2 items: independent deadline supervisor, bounded CLI timeouts on all platforms, strict commit binding, and end-to-end orchestration integration tests",
-    "f684f5b Update provenance manifest and checksums for implementation commit 15ef5df",
-    "15ef5df Resolve Reviewer November 1 items: fail-closed delimiter supervisor, recovery loop integrity, exit code evaluation, and modality validator",
-    "c2f92a6 Update provenance manifest and checksums for implementation commit 7862094"
+    "00a4238 Resolve Reviewer November 2 items: independent deadline supervisor, bounded CLI timeouts on all platforms, strict commit binding, and end-to-end orchestration integration tests"
   ],
   "file_sha256_checksums": {
+    "src/browser_engine.py": {
+      "exists": true,
+      "size_bytes": 16726,
+      "sha256": "68536faa63fb109d1612256f0781e5911efc61570b38c065bff69968aaa404b1"
+    },
+    "src/parser.py": {
+      "exists": true,
+      "size_bytes": 22512,
+      "sha256": "5ae509fbcddf11a67fb3cfc6922c4dc0083dd45ddba195ce75e287fbddc57ae4"
+    },
+    "src/storage_manager.py": {
+      "exists": true,
+      "size_bytes": 38662,
+      "sha256": "0ac7d29dcdb971ebd8270a3dc8942ab04b7f0102ec67316c319a95ea7f4e401c"
+    },
+    "src/config_loader.py": {
+      "exists": true,
+      "size_bytes": 5693,
+      "sha256": "33be218d2b9250754f67e39429d6fe82efe81ce91bfea68fdfb24cc27ad58a60"
+    },
     "scripts/run_azure_bounded_probe.py": {
       "exists": true,
       "size_bytes": 67362,
@@ -30,6 +50,16 @@
       "size_bytes": 26956,
       "sha256": "01f59f522f22e4b8a8e4ecf55fbe580af848886c77226f9fb9b4d44dfcf53ae1"
     },
+    "azure/azure-deploy.ps1": {
+      "exists": true,
+      "size_bytes": 6371,
+      "sha256": "2c09ad1156424d1d79103d01df72dd401cc3e4414b943c871d5048b477bd8ca5"
+    },
+    "azure/azure-deploy.sh": {
+      "exists": true,
+      "size_bytes": 3337,
+      "sha256": "a8ce3595d19f6e27d6c9f24201d2262a0f3409c1d540e110f8651d8b12666cc8"
+    },
     "azure/Dockerfile": {
       "exists": true,
       "size_bytes": 899,
@@ -37,13 +67,18 @@
     },
     "requirements.txt": {
       "exists": true,
-      "size_bytes": 136,
-      "sha256": "7031d71cdcedb7eb39d2179e74b1c2330240b624888e8884a81d85c293d86977"
+      "size_bytes": 164,
+      "sha256": "905fa226e9977f3789881b762f845749d8679e74aa8aa1d58cb822688cfab9a6"
     },
     "config/locations.json": {
       "exists": true,
       "size_bytes": 1747,
       "sha256": "41715044b6679a1b8f8e9ac568e7029c5997107febcd1a4fe939bb874ee21300"
+    },
+    "config/seeds/Marianos_Category_URLs.csv": {
+      "exists": true,
+      "size_bytes": 6095,
+      "sha256": "29ef0da05bc3e6d2a7b6eff036df02371052afa9bf6316b3c9fb546c81b09cc0"
     },
     "data/output/marianos_scraped_data_store_53100503_full_catalog.json": {
       "exists": true,
@@ -60,25 +95,30 @@
       "size_bytes": 13844,
       "sha256": "59d162655151de68537f8f114a02953b4025b38de7c6d1ca60793fa366768a89"
     },
-    "data/input/Marianos_Category_URLs_Original_Brief.csv": {
-      "exists": true,
-      "size_bytes": 2610,
-      "sha256": "f34aa83b485a6b56af4ca3a66cdd6d7be63ad88d95f95dc803466adc76c9adef"
-    },
     "data/input/Marianos_Category_URLs.csv": {
       "exists": true,
       "size_bytes": 6095,
       "sha256": "29ef0da05bc3e6d2a7b6eff036df02371052afa9bf6316b3c9fb546c81b09cc0"
     },
-    "logs/category_route_mapping_structure_audit.json": {
+    "data/checkpoints/active_checkpoint_store_53100503.json": {
       "exists": true,
-      "size_bytes": 404,
-      "sha256": "9f09370c24921c229126e51f3f2ae54c46bdec0fd1cf583f29ee3480addc510d"
+      "size_bytes": 1944,
+      "sha256": "5f504f9b69436774db8a23106807507cc3726bd24818fbb0afeea82ea5179aca"
     },
-    "logs/missing_route_rejection_audit_proof.json": {
+    "data/checkpoints/checkpoint_store_53100503.json": {
       "exists": true,
-      "size_bytes": 588,
-      "sha256": "8d76438fca05e9acfbbb15dac74696ef3df1c00ccbd9a790f511f1170fdf9c1a"
+      "size_bytes": 1636,
+      "sha256": "a204b6b9af90719d6baff255ff528419ec5798749e9b4b3d9f910659009786ec"
+    },
+    "data/checkpoints/checkpoint_rows_store_53100503.jsonl": {
+      "exists": true,
+      "size_bytes": 41527,
+      "sha256": "74b19bc5fbb44101f506b1e7465ec6cfdad23c2b0f3d868d1500c08d03983c15"
+    },
+    "logs/source_to_output_reconciliation_audit.json": {
+      "exists": true,
+      "size_bytes": 10614,
+      "sha256": "5aa2ec89ccb1398b9f57cb41be17e1648b6ea5582a637860ad929ec0ae864d33"
     }
   }
 }
