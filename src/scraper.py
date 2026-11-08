@@ -3,8 +3,10 @@ import sys
 import json
 import time
 import logging
+import urllib.parse
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional, Set, List
+from bs4 import BeautifulSoup
 
 from .config_loader import ConfigLoader
 from .normalizer import DataNormalizer
@@ -45,6 +47,17 @@ class MarianoProductionScraper:
         )
 
         self.browser_engine: Optional[BrowserEngine] = None
+
+    @staticmethod
+    def build_page_url(base_url: str, page_num: int) -> str:
+        """Constructs page URLs structurally using urllib.parse to prevent query string corruption."""
+        if page_num <= 1:
+            return base_url
+        parsed = urllib.parse.urlparse(base_url)
+        qs = urllib.parse.parse_qs(parsed.query, keep_blank_values=True)
+        qs["page"] = [str(page_num)]
+        new_query = urllib.parse.urlencode(qs, doseq=True)
+        return urllib.parse.urlunparse(parsed._replace(query=new_query))
 
     def execute_run(self, zipcode: Optional[str] = None, max_pages_override: Optional[int] = None) -> Dict[str, Any]:
         """
@@ -146,7 +159,7 @@ class MarianoProductionScraper:
                         debug_truncated = True
                         break
 
-                    page_url = f"{base_url}?page={page_num}" if page_num > 1 else base_url
+                    page_url = self.build_page_url(base_url, page_num)
                     
                     html_content = ""
                     success = False
@@ -190,23 +203,57 @@ class MarianoProductionScraper:
                     # Check yield and thin response warning
                     self.anti_bot.check_yield(cat, sub_cat, len(page_records))
 
+                    raw_items_count = getattr(self.parser, "last_raw_items_count", 0)
+
                     if not page_records:
-                        # Distinguish genuine end-of-catalog from an unverified failed/empty parsed page
+                        # Case A: Raw items were extracted on the page, but all were already seen (duplicates)
+                        # Duplicates can NEVER prove catalog completion; indicates a repeated page or pagination loop.
+                        if raw_items_count > 0:
+                            logger.error(
+                                f"Page {page_num} for {subcat_key} yielded {raw_items_count} raw items but 0 new unique records. "
+                                f"Repeated/duplicate page detected; cannot prove route completion."
+                            )
+                            subcat_failed = True
+                            break
+
+                        # Case B: Zero raw items extracted; check for genuine structural catalog exhaustion
+                        # Strictly requires dedicated pagination control state or explicit empty catalog signal.
+                        # Blanket aria-disabled="true" on unrelated DOM controls is strictly rejected.
                         is_genuine_end = False
-                        html_lower = html_content.lower()
-                        zero_indicators = [
-                            "no products found", "no items found", "0 results",
-                            "noresults", "empty-search", "pagination__next--disabled",
-                            "aria-disabled=\"true\"", "we couldn't find any products"
-                        ]
-                        for ind in zero_indicators:
-                            if ind in html_lower:
-                                is_genuine_end = True
-                                break
+                        if html_content:
+                            soup = BeautifulSoup(html_content, "html.parser")
+                            # 1. Structural pagination control check for disabled next button
+                            next_selectors = [
+                                "a.pagination__next[aria-disabled='true']",
+                                "button.pagination__next[aria-disabled='true']",
+                                "button[aria-label*='Next' i][aria-disabled='true']",
+                                "button[aria-label*='Next' i][disabled]",
+                                "a[aria-label*='Next' i][aria-disabled='true']",
+                                ".pagination__next--disabled",
+                                "[data-testid*='pagination-next'][disabled]",
+                                "[data-testid*='pagination-next'][aria-disabled='true']"
+                            ]
+                            for sel in next_selectors:
+                                if soup.select_one(sel):
+                                    is_genuine_end = True
+                                    break
+
+                            # 2. Explicit empty catalog messages in page text
+                            if not is_genuine_end:
+                                html_lower = html_content.lower()
+                                explicit_empty_phrases = [
+                                    "no products found", "no items found", "0 results",
+                                    "noresults", "empty-search", "we couldn't find any products",
+                                    "no results matching your search"
+                                ]
+                                for ind in explicit_empty_phrases:
+                                    if ind in html_lower:
+                                        is_genuine_end = True
+                                        break
 
                         # Strictly require verified genuine end-of-catalog signal (never assume empty page > 1 is boundary)
                         if is_genuine_end:
-                            logger.info(f"Verified genuine catalog boundary reached on page {page_num} for {subcat_key}. Traversal complete.")
+                            logger.info(f"Verified genuine structural catalog boundary reached on page {page_num} for {subcat_key}. Traversal complete.")
                             break
                         else:
                             logger.error(

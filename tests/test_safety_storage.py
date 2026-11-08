@@ -475,5 +475,113 @@ def test_empty_azure_files_share_mount_auto_seeds_input_csv(tmp_path):
     assert os.path.getsize(target_csv) > 0
 
 
+def test_checkpoint_recovery_rejects_missing_generation_and_row_files(tmp_path):
+    """
+    Reviewer Requirement 4 (November 8):
+    Checkpoint recovery can return completed categories with no recoverable rows.
+    After saving a valid checkpoint, I removed its generation and legacy row files:
+    load_checkpoint still returned the completed category while restore_checkpoint_rows returned zero.
+    Reject missing required files, require matching metadata/rows/digests/context,
+    and never skip those categories.
+    """
+    storage = StorageManager(base_dir=str(tmp_path), min_records_threshold=5)
+    store_id = "53100502"
+    staging_file = os.path.join(storage.staging_dir, "staging_test.jsonl")
+
+    staged_records = [
+        {"upc": f"01111000{i:04d}", "category": "Produce", "sub_category": "Apples", "title": f"Apple {i}"}
+        for i in range(5)
+    ]
+    for r in staged_records:
+        storage.write_staging_record(staging_file, r)
+
+    storage.save_checkpoint(
+        store_id=store_id,
+        completed_subcategories=["Produce::Apples"],
+        scraped_ids=[r["upc"] for r in staged_records],
+        staged_records=staged_records
+    )
+
+    # Verify initial valid load
+    cp_valid = storage.load_checkpoint(store_id)
+    assert cp_valid["completed_subcategories"] == ["Produce::Apples"]
+    assert len(cp_valid["scraped_ids"]) == 5
+
+    # Simulate deleting generation rows and legacy row snapshot files
+    for item in os.listdir(storage.checkpoint_dir):
+        item_path = os.path.join(storage.checkpoint_dir, item)
+        if os.path.isdir(item_path) and item.startswith(f"gen_{store_id}"):
+            shutil.rmtree(item_path)
+    legacy_rows = storage.get_checkpoint_rows_path(store_id)
+    if os.path.exists(legacy_rows):
+        os.remove(legacy_rows)
+
+    # After removing rows/generation files:
+    # load_checkpoint MUST reject completed categories to prevent skipping unrecovered categories!
+    cp_after_removal = storage.load_checkpoint(store_id)
+    assert cp_after_removal["completed_subcategories"] == []
+    assert cp_after_removal["scraped_ids"] == []
+
+
+def test_azure_checkpoint_upload_order_and_failure_preservation(tmp_path, monkeypatch):
+    """
+    Reviewer Requirement 4 (November 8):
+    Azure checkpoint upload also switches the active pointer before uploading metadata/rows
+    and ignores upload results. Upload and verify the immutable generation first, then
+    conditionally switch the cloud pointer; preserve the prior cloud generation on failure.
+    """
+    storage = StorageManager(base_dir=str(tmp_path))
+    store_id = "53100502"
+    monkeypatch.setenv("AZURE_STORAGE_CONNECTION_STRING", "DefaultEndpointsProtocol=https;AccountName=fake;AccountKey=fake==;EndpointSuffix=core.windows.net")
+
+    uploaded_blobs = []
+
+    def mock_sync(local_path, blob_name):
+        uploaded_blobs.append(blob_name)
+        return True
+
+    monkeypatch.setattr(storage, "sync_to_azure_blob", mock_sync)
+
+    records = [{"upc": "12345", "title": "Test"}]
+
+    # Case 1: Normal upload - generation files must upload BEFORE active_pointer.json
+    storage.save_checkpoint(
+        store_id=store_id,
+        completed_subcategories=["Produce::Apples"],
+        scraped_ids=["12345"],
+        staged_records=records
+    )
+
+    # Verify order: rows and metadata must precede active_checkpoint pointer
+    assert len(uploaded_blobs) >= 3
+    ptr_idx = next(i for i, b in enumerate(uploaded_blobs) if "active_checkpoint_store" in b)
+    rows_idx = next(i for i, b in enumerate(uploaded_blobs) if "rows.jsonl" in b)
+    meta_idx = next(i for i, b in enumerate(uploaded_blobs) if "metadata.json" in b)
+    assert rows_idx < ptr_idx
+    assert meta_idx < ptr_idx
+
+    # Case 2: If rows or metadata upload fails, active_checkpoint pointer must NOT be uploaded
+    uploaded_blobs.clear()
+
+    def mock_failing_sync(local_path, blob_name):
+        if "rows.jsonl" in blob_name:
+            return False  # Fail generation upload
+        uploaded_blobs.append(blob_name)
+        return True
+
+    monkeypatch.setattr(storage, "sync_to_azure_blob", mock_failing_sync)
+
+    storage.save_checkpoint(
+        store_id=store_id,
+        completed_subcategories=["Produce::Bananas"],
+        scraped_ids=["67890"],
+        staged_records=[{"upc": "67890", "title": "Banana"}]
+    )
+
+    # Active pointer must NOT have been switched in cloud
+    assert not any("active_checkpoint_store" in b for b in uploaded_blobs)
+
+
+
 
 

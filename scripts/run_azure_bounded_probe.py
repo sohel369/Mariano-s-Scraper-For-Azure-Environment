@@ -58,7 +58,7 @@ logger = logging.getLogger("MarianoProbe")
 
 
 def get_git_commit_hash(base_dir: str) -> str:
-    """Retrieve pinned commit hash from git or provenance manifest."""
+    """Retrieve pinned commit hash from git or provenance manifest/proof."""
     try:
         res = subprocess.run(
             ["git", "-C", base_dir, "rev-parse", "HEAD"],
@@ -68,6 +68,16 @@ def get_git_commit_hash(base_dir: str) -> str:
             return res.stdout.strip()
     except Exception:
         pass
+    proof_path = os.path.join(base_dir, "logs", "git_commit_lineage_proof.json")
+    if os.path.exists(proof_path):
+        try:
+            with open(proof_path, "r", encoding="utf-8") as f:
+                pdata = json.load(f)
+                h = pdata.get("head_commit")
+                if h and str(h).strip():
+                    return str(h).strip()
+        except Exception:
+            pass
     manifest_path = os.path.join(base_dir, "GIT_PROVENANCE_AND_INTEGRITY.md")
     if os.path.exists(manifest_path):
         try:
@@ -111,6 +121,7 @@ def kill_process_tree(pid: int):
     """
     Forcefully terminates an entire process tree given a root PID.
     Guarantees that cmd.exe/sh and all child processes are killed.
+    Crucial safety guard on POSIX: Never kills the caller's process group.
     """
     if sys.platform == "win32":
         try:
@@ -125,7 +136,12 @@ def kill_process_tree(pid: int):
     else:
         try:
             pgid = os.getpgid(pid)
-            os.killpg(pgid, signal.SIGKILL)
+            caller_pgrp = os.getpgrp() if hasattr(os, "getpgrp") else -1
+            # Never kill caller/supervisor/pytest process group!
+            if pgid != caller_pgrp and pgid > 1:
+                os.killpg(pgid, signal.SIGKILL)
+            else:
+                os.kill(pid, signal.SIGKILL)
         except Exception:
             try:
                 os.kill(pid, signal.SIGKILL)
@@ -1098,12 +1114,13 @@ class ProcessDeadlineSupervisor:
         self.start_time_monotonic = time.monotonic()
         self.start_time_utc = datetime.now(timezone.utc).isoformat()
         self.git_hash = get_git_commit_hash(BASE_DIR)
+        try:
+            self._cached_host_ip = socket.gethostbyname(socket.gethostname())
+        except Exception:
+            self._cached_host_ip = "UNKNOWN"
 
     def _build_emergency_receipt(self, elapsed: float) -> Dict[str, Any]:
-        try:
-            host_ip = socket.gethostbyname(socket.gethostname())
-        except Exception:
-            host_ip = "UNKNOWN"
+        host_ip = getattr(self, "_cached_host_ip", "UNKNOWN")
         return {
             "probe_name": "AZURE_BOUNDED_PROBE_DIAGNOSTIC",
             "run_id": self.run_id,
@@ -1180,10 +1197,18 @@ class ProcessDeadlineSupervisor:
     def run(self) -> int:
         cmd = [sys.executable, os.path.abspath(__file__), "--supervised-worker"] + self.argv
         creationflags = 0
+        start_new_session = False
         if sys.platform == "win32":
             creationflags = subprocess.CREATE_NEW_PROCESS_GROUP
+        else:
+            # POSIX process isolation: start worker in dedicated session/group so killpg never touches supervisor/pytest
+            start_new_session = True
 
-        proc = subprocess.Popen(cmd, creationflags=creationflags)
+        proc = subprocess.Popen(
+            cmd,
+            creationflags=creationflags,
+            start_new_session=start_new_session
+        )
 
         try:
             proc.wait(timeout=self.deadline_seconds)
@@ -1204,7 +1229,7 @@ class ProcessDeadlineSupervisor:
             # 1. Stop worker immediately: forcefully terminate worker process tree
             kill_process_tree(proc.pid)
             try:
-                proc.wait(timeout=3.0)
+                proc.wait(timeout=2.0)
             except Exception:
                 pass
 
@@ -1234,7 +1259,19 @@ class ProcessDeadlineSupervisor:
             write_th.start()
             write_th.join(timeout=1.0)
 
-            sys.stderr.write(f"CRITICAL: ProcessDeadlineSupervisor terminated worker process tree after exceeding deadline {self.deadline_seconds}s (elapsed: {elapsed:.4f}s)\n")
+            # 4. Asynchronously write stderr with bounded wait so blocked stderr pipe cannot stall supervisor
+            def _async_stderr_write():
+                try:
+                    msg = f"CRITICAL: ProcessDeadlineSupervisor terminated worker process tree after exceeding deadline {self.deadline_seconds}s (elapsed: {elapsed:.4f}s)\n"
+                    sys.stderr.write(msg)
+                    sys.stderr.flush()
+                except Exception:
+                    pass
+
+            err_th = threading.Thread(target=_async_stderr_write, daemon=True)
+            err_th.start()
+            err_th.join(timeout=1.0)
+
             return 1
 
 

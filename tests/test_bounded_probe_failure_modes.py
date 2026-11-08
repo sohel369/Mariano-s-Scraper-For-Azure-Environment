@@ -753,3 +753,47 @@ def test_process_supervisor_terminates_worker_with_indefinitely_blocked_pipe_and
                 fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
                 fcntl.flock(f.fileno(), fcntl.LOCK_UN)
 
+
+def test_supervisor_worker_group_isolation_and_caller_pgrp_guard(tmp_path):
+    """
+    Reviewer Requirement 5 (November 8):
+    On POSIX, ProcessDeadlineSupervisor starts its worker without a separate session/process group,
+    then kill_process_tree calls killpg on the worker's inherited group. This killed the test runner/supervisor
+    group in the supplied blocked-pipe test. Isolate the worker group and terminate only owned descendants;
+    prove parent survival and receipt production.
+    """
+    from scripts.run_azure_bounded_probe import kill_process_tree, ProcessDeadlineSupervisor
+
+    # Test 1: Caller process group guard
+    # Even if caller passes a PID whose process group matches caller_pgrp, killpg is NEVER invoked on caller's group
+    if sys.platform != "win32":
+        import os
+        caller_pgrp = os.getpgrp()
+        with patch("os.killpg") as mock_killpg:
+            # Calling kill_process_tree with current process must never kill current process group
+            with patch("psutil.Process") as mock_proc:
+                mock_p = MagicMock()
+                mock_p.children.return_value = []
+                mock_proc.return_value = mock_p
+                kill_process_tree(os.getpid())
+            mock_killpg.assert_not_called()
+
+    # Test 2: ProcessDeadlineSupervisor initiates worker with start_new_session=True on POSIX
+    out_file = tmp_path / "test_out.json"
+    out_file.write_text('{"overall_status": "SUCCESS_CONNECTIVITY_ONLY"}', encoding="utf-8")
+    supervisor = ProcessDeadlineSupervisor(deadline_seconds=1.0, output_file=str(out_file), run_id="test_id", argv=[])
+    with patch("subprocess.Popen") as mock_popen:
+        mock_proc_inst = MagicMock()
+        mock_proc_inst.wait.return_value = 0
+        mock_proc_inst.returncode = 0
+        mock_popen.return_value = mock_proc_inst
+        res = supervisor.run()
+        assert res == 0
+
+        # Check call kwargs of subprocess.Popen
+        assert mock_popen.called
+        kwargs = mock_popen.call_args[1]
+        if sys.platform != "win32":
+            assert kwargs.get("start_new_session") is True
+
+

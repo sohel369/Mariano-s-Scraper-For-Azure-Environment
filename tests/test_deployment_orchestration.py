@@ -8,9 +8,12 @@ import subprocess
 import pytest
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
+from scripts.run_azure_bounded_probe import get_git_commit_hash
 
 MOCK_AZ_PY = """
-import sys, os, time, hashlib, base64
+import sys, os, time, hashlib, base64, json
 
 args = sys.argv[1:]
 log_mode = os.environ.get("MOCK_AZ_LOG_MODE", "success")
@@ -18,7 +21,24 @@ container_state = os.environ.get("MOCK_AZ_CONTAINER_STATE", "success")
 group_exists = os.environ.get("MOCK_AZ_GROUP_EXISTS", "false")
 build_hang = os.environ.get("MOCK_AZ_BUILD_HANG", "0")
 run_id = os.environ.get("MOCK_RUN_ID", "mock_run_123")
-commit_hash = os.environ.get("MOCK_PINNED_COMMIT", "15ef5df7bf504e393304dd0ad765fb95c0846b2c")
+
+def _resolve_default_commit():
+    cur = os.path.dirname(os.path.abspath(__file__))
+    for _ in range(5):
+        proof = os.path.join(cur, "logs", "git_commit_lineage_proof.json")
+        if os.path.exists(proof):
+            try:
+                with open(proof, "r", encoding="utf-8") as f:
+                    c = json.load(f).get("head_commit")
+                    if c: return str(c).strip()
+            except Exception:
+                pass
+        parent = os.path.dirname(cur)
+        if parent == cur: break
+        cur = parent
+    return "15ef5df7bf504e393304dd0ad765fb95c0846b2c"
+
+commit_hash = os.environ.get("MOCK_PINNED_COMMIT") or _resolve_default_commit()
 tmp_dir = os.environ.get("MOCK_AZ_STATE_DIR", os.path.dirname(__file__))
 
 aci_deleted_file = os.path.join(tmp_dir, "aci_deleted.marker")
@@ -207,11 +227,7 @@ def mock_az_setup(tmp_path):
     output_dir = tmp_path / "logs"
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    try:
-        res = subprocess.run(["git", "rev-parse", "HEAD"], cwd=BASE_DIR, capture_output=True, text=True, check=True)
-        commit = res.stdout.strip()
-    except Exception:
-        commit = "15ef5df7bf504e393304dd0ad765fb95c0846b2c"
+    commit = get_git_commit_hash(BASE_DIR)
 
     return {
         "mock_bin": mock_bin,

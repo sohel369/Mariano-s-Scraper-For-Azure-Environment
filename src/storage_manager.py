@@ -161,44 +161,66 @@ class StorageManager:
                 with open(ptr_path, "r", encoding="utf-8") as f:
                     ptr_data = json.load(f)
 
-                rows_file = ptr_data.get("rows_file")
                 gen_id = ptr_data.get("generation_id")
+                completed_cats = ptr_data.get("completed_subcategories", [])
+                expected_sha = ptr_data.get("rows_snapshot_sha256")
+                rows_count = ptr_data.get("rows_snapshot_count", 0)
+
+                # Locate candidate rows file
+                rows_file = ptr_data.get("rows_file")
                 if gen_id and (not rows_file or not os.path.exists(rows_file)):
                     local_gen_rows = os.path.join(self.checkpoint_dir, f"gen_{store_id}_{gen_id}", "rows.jsonl")
                     if os.path.exists(local_gen_rows):
                         rows_file = local_gen_rows
-
                 if not rows_file or not os.path.exists(rows_file):
                     rows_file = self.get_checkpoint_rows_path(store_id)
 
-                expected_sha = ptr_data.get("rows_snapshot_sha256")
-
-                # Validate BOTH the generation rows file and legacy mirror file if present
-                check_files = set(filter(None, [rows_file, os.path.join(self.checkpoint_dir, f"checkpoint_rows_store_{store_id}.jsonl")]))
-                for rf_candidate in check_files:
-                    if os.path.exists(rf_candidate):
-                        hasher = hashlib.sha256()
-                        with open(rf_candidate, "rb") as rf:
-                            for chunk in iter(lambda: rf.read(65536), b""):
-                                hasher.update(chunk)
-                        actual_sha = hasher.hexdigest()
-                        if expected_sha and actual_sha != expected_sha:
-                            logger.warning(
-                                f"Checkpoint divergence detected in {rf_candidate}: metadata expects row hash {expected_sha[:12]}, "
-                                f"got {actual_sha[:12]}. Rejecting diverged checkpoint to prevent row loss."
-                            )
-                            return {"completed_subcategories": [], "scraped_ids": [], "staging_filepath": None}
-
+                # Locate candidate metadata file
                 meta_file = ptr_data.get("metadata_file")
                 if gen_id and (not meta_file or not os.path.exists(meta_file)):
                     local_gen_meta = os.path.join(self.checkpoint_dir, f"gen_{store_id}_{gen_id}", "metadata.json")
                     if os.path.exists(local_gen_meta):
                         meta_file = local_gen_meta
+                if not meta_file or not os.path.exists(meta_file):
+                    meta_file = self.get_checkpoint_path(store_id)
 
-                if meta_file and os.path.exists(meta_file):
+                # Reviewer Item 4: Reject missing required generation/row files!
+                # If checkpoint claims completed categories or recorded rows, required files MUST exist and match
+                if completed_cats or expected_sha or rows_count > 0:
+                    if not rows_file or not os.path.exists(rows_file):
+                        logger.error(
+                            f"Checkpoint recovery rejected for store #{store_id}: active pointer references completed categories "
+                            f"({len(completed_cats)}) but row snapshot file is missing. Rejecting to prevent category loss."
+                        )
+                        return {"completed_subcategories": [], "scraped_ids": [], "staging_filepath": None}
+
+                    if not meta_file or not os.path.exists(meta_file):
+                        logger.error(
+                            f"Checkpoint recovery rejected for store #{store_id}: required generation metadata file is missing."
+                        )
+                        return {"completed_subcategories": [], "scraped_ids": [], "staging_filepath": None}
+
+                    # Validate row snapshot digest
+                    hasher = hashlib.sha256()
+                    with open(rows_file, "rb") as rf:
+                        for chunk in iter(lambda: rf.read(65536), b""):
+                            hasher.update(chunk)
+                    actual_sha = hasher.hexdigest()
+                    if expected_sha and actual_sha != expected_sha:
+                        logger.error(
+                            f"Checkpoint divergence in {rows_file}: metadata expects row hash {expected_sha[:12]}, "
+                            f"got {actual_sha[:12]}. Rejecting diverged checkpoint to prevent row loss."
+                        )
+                        return {"completed_subcategories": [], "scraped_ids": [], "staging_filepath": None}
+
+                    # Validate metadata content
                     with open(meta_file, "r", encoding="utf-8") as mf:
                         meta_data = json.load(mf)
-                        return meta_data
+                    if expected_sha and meta_data.get("rows_snapshot_sha256") != expected_sha:
+                        logger.error("Metadata digest mismatch with active pointer. Rejecting checkpoint.")
+                        return {"completed_subcategories": [], "scraped_ids": [], "staging_filepath": None}
+
+                    return meta_data
 
                 return ptr_data
             except Exception as e:
@@ -211,16 +233,24 @@ class StorageManager:
                 with open(cp_path, "r", encoding="utf-8") as f:
                     data = json.load(f)
 
+                completed_cats = data.get("completed_subcategories", [])
                 expected_sha = data.get("rows_snapshot_sha256")
-                if expected_sha:
-                    rows_path = self.get_checkpoint_rows_path(store_id)
+                rows_count = data.get("rows_snapshot_count", 0)
+                rows_path = self.get_checkpoint_rows_path(store_id)
+
+                if completed_cats or expected_sha or rows_count > 0:
                     if not os.path.exists(rows_path):
+                        logger.error(
+                            f"Legacy checkpoint recovery rejected for store #{store_id}: claims completed categories "
+                            f"({len(completed_cats)}) but rows file is missing."
+                        )
                         return {"completed_subcategories": [], "scraped_ids": [], "staging_filepath": None}
                     hasher = hashlib.sha256()
                     with open(rows_path, "rb") as rf:
                         for chunk in iter(lambda: rf.read(65536), b""):
                             hasher.update(chunk)
-                    if hasher.hexdigest() != expected_sha:
+                    if expected_sha and hasher.hexdigest() != expected_sha:
+                        logger.error("Legacy checkpoint rows hash mismatch. Rejecting.")
                         return {"completed_subcategories": [], "scraped_ids": [], "staging_filepath": None}
                 return data
             except Exception as e:
@@ -282,6 +312,12 @@ class StorageManager:
             rows_sha256 = hasher.hexdigest()
             rows_count = len(staged_records)
 
+        if not os.path.exists(gen_rows_path):
+            with open(gen_rows_path, "wb") as rf:
+                pass
+            rows_sha256 = hashlib.sha256(b"").hexdigest()
+            rows_count = 0
+
         # Step 3: Write metadata inside the same generation directory and fsync
         meta_data = {
             "generation_id": gen_id,
@@ -334,10 +370,33 @@ class StorageManager:
             logger.debug(f"Legacy checkpoint mirror sync: {e}")
 
         # Step 5: Sync to Azure Blob Storage if configured
-        self.sync_to_azure_blob(ptr_path, f"checkpoints/{os.path.basename(ptr_path)}")
-        self.sync_to_azure_blob(gen_meta_path, f"checkpoints/gen_{store_id}_{gen_id}/metadata.json")
-        if rows_sha256 and os.path.exists(gen_rows_path):
-            self.sync_to_azure_blob(gen_rows_path, f"checkpoints/gen_{store_id}_{gen_id}/rows.jsonl")
+        # Reviewer Item 4: Upload and verify immutable generation artifacts first!
+        # Only switch cloud pointer conditionally if generation upload succeeds.
+        settings_path = os.path.join(self.base_dir, "config", "settings.json")
+        azure_enabled = True
+        if os.path.exists(settings_path):
+            try:
+                with open(settings_path, "r", encoding="utf-8") as f:
+                    azure_enabled = bool(json.load(f).get("safety_and_storage", {}).get("azure_blob_storage", {}).get("enabled", True))
+            except Exception:
+                pass
+        conn_str = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
+
+        if azure_enabled and conn_str:
+            rows_ok = True
+            if os.path.exists(gen_rows_path):
+                rows_ok = self.sync_to_azure_blob(gen_rows_path, f"checkpoints/gen_{store_id}_{gen_id}/rows.jsonl")
+
+            meta_ok = self.sync_to_azure_blob(gen_meta_path, f"checkpoints/gen_{store_id}_{gen_id}/metadata.json")
+
+            if rows_ok and meta_ok:
+                # Both immutable generation artifacts verified in cloud: switch cloud pointer
+                self.sync_to_azure_blob(ptr_path, f"checkpoints/{os.path.basename(ptr_path)}")
+            else:
+                logger.warning(
+                    f"Azure generation upload incomplete (rows_ok={rows_ok}, meta_ok={meta_ok}). "
+                    f"Preserving prior active cloud checkpoint pointer to prevent broken cloud recovery."
+                )
 
     def restore_checkpoint_rows(self, store_id: str, current_staging_filepath: str) -> int:
         """

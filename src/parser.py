@@ -207,12 +207,13 @@ class MarianoPageParser:
         price_info = item.get("priceInfo", {}) or {}
         expected_store_id = str(location_info.get("store_id", "53100502")).strip()
         expected_store_num = str(location_info.get("store_number", "00502")).strip()
-        valid_store_ids = {
-            expected_store_id,
-            expected_store_num,
-            "53100502", "00502", "vernon-hills",
-            "53100503", "00503", "new-eastside"
-        }
+
+        # Build valid_store_ids strictly for the selected store only (never include foreign store aliases)
+        valid_store_ids = {expected_store_id, expected_store_num}
+        if expected_store_id in ("53100502", "00502"):
+            valid_store_ids.update({"53100502", "00502", "531-00502", "vernon-hills"})
+        elif expected_store_id in ("53100503", "00503"):
+            valid_store_ids.update({"53100503", "00503", "531-00503", "new-eastside"})
 
         # Check every location/store identifier candidate across item and priceInfo
         loc_candidates = [
@@ -441,7 +442,7 @@ class MarianoPageParser:
         category: str,
         sub_category: str,
         location_info: Dict[str, Any],
-        seen_keys: Set[str]
+        seen_keys: Optional[Set[str]] = None
     ) -> List[MarianoProductRecord]:
         """
         Parses page HTML and returns a list of valid MarianoProductRecords.
@@ -451,6 +452,8 @@ class MarianoPageParser:
         - Deduplication across categories & sponsored items.
         - Strict 22-field ordering via MarianoProductRecord.
         """
+        if seen_keys is None:
+            seen_keys = set()
         results: List[MarianoProductRecord] = []
         raw_items: List[Dict[str, Any]] = []
 
@@ -464,19 +467,23 @@ class MarianoPageParser:
             soup = BeautifulSoup(html_content, "html.parser")
             dom_cards = soup.select("[data-testid*='product-card'], .ProductCard, [data-upc], article.kds-Card")
             for card in dom_cards:
-                title_elem = card.select_one("[data-testid='product-title'], .ProductCard-description, h3, a.kds-Link")
+                title_elem = card.select_one("[data-testid*='title'], [data-testid='product-title'], .ProductCard-description, .ProductDescription, h3, h2, a.kds-Link, a[href*='/p/']")
                 price_elem = card.select_one("[data-testid='product-price'], .kds-Price, span.price")
                 link_elem = card.select_one("a[href*='/p/']")
                 img_elem = card.select_one("img[src*='kroger.com'], img[src*='marianos.com']")
                 
-                if title_elem and price_elem:
+                if title_elem:
                     upc = card.get("data-upc", "")
                     card_loc = card.get("data-location-id") or card.get("data-store-id") or ""
                     card_mod = card.get("data-fulfillment") or card.get("data-modality") or ""
+                    price_dict = {}
+                    if price_elem and price_elem.get_text(strip=True):
+                        price_dict = {"currentPrice": {"priceString": price_elem.get_text(strip=True)}}
+
                     raw_items.append({
                         "upc": upc,
                         "name": title_elem.get_text(strip=True),
-                        "priceInfo": {"currentPrice": {"priceString": price_elem.get_text(strip=True)}},
+                        "priceInfo": price_dict,
                         "canonicalUrl": link_elem["href"] if link_elem and link_elem.get("href") else "",
                         "image": img_elem["src"] if img_elem and img_elem.get("src") else "",
                         "sellerName": "Mariano's",
@@ -484,6 +491,7 @@ class MarianoPageParser:
                         "modality": card_mod
                     })
 
+        self.last_raw_items_count = len(raw_items)
         logger.info(f"Extracted {len(raw_items)} candidate items from page for {category} -> {sub_category}")
 
         for item in raw_items:

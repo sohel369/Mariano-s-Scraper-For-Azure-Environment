@@ -52,10 +52,21 @@ $pinnedCommit = ""
 try {
     $pinnedCommit = (git rev-parse HEAD 2>$null)
     if ([string]::IsNullOrWhiteSpace($pinnedCommit)) {
-        $proofJson = Join-Path $OutputDir "git_commit_lineage_proof.json"
-        if (Test-Path $proofJson) {
-            $proofData = Get-Content -Path $proofJson -Raw | ConvertFrom-Json
-            $pinnedCommit = $proofData.head_commit
+        $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+        $repoBase = Split-Path -Parent $scriptDir
+        $candidatePaths = @(
+            (Join-Path $repoBase "logs\git_commit_lineage_proof.json"),
+            (Join-Path (Get-Location) "logs\git_commit_lineage_proof.json"),
+            (Join-Path $OutputDir "git_commit_lineage_proof.json")
+        )
+        foreach ($cp in $candidatePaths) {
+            if (Test-Path $cp) {
+                $proofData = Get-Content -Path $cp -Raw | ConvertFrom-Json
+                if (-not [string]::IsNullOrWhiteSpace($proofData.head_commit)) {
+                    $pinnedCommit = $proofData.head_commit
+                    break
+                }
+            }
         }
     }
 } catch {}

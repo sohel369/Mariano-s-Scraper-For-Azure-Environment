@@ -39,11 +39,14 @@ CONTAINER_LOG_FILE="$OUTPUT_DIR/azure_bounded_probe_container.log"
 
 mkdir -p "$OUTPUT_DIR"
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR_RESOLVED="$(cd "$SCRIPT_DIR/.." && pwd)"
+
 # Pre-execution cleanup: Strictly remove stale result files to prevent false verification from previous runs
 rm -f "$PROBE_RESULT_FILE" "$RAW_RESPONSE_FILE" "$CONTAINER_LOG_FILE"
 
 # Resolve pinned git commit hash
-PINNED_COMMIT=$(git rev-parse HEAD 2>/dev/null || cat logs/git_commit_lineage_proof.json 2>/dev/null | grep -o '"head_commit": "[^"]*' | cut -d'"' -f4 || echo "")
+PINNED_COMMIT=$(git rev-parse HEAD 2>/dev/null || cat "$BASE_DIR_RESOLVED/logs/git_commit_lineage_proof.json" 2>/dev/null | grep -o '"head_commit": "[^"]*' | cut -d'"' -f4 || cat logs/git_commit_lineage_proof.json 2>/dev/null | grep -o '"head_commit": "[^"]*' | cut -d'"' -f4 || echo "")
 
 # Preflight: Verify required timeout utility and commit hash
 if ! command -v timeout >/dev/null 2>&1; then
