@@ -1,21 +1,21 @@
 # GIT PROVENANCE & FILE INTEGRITY MANIFEST
 
-**Generated UTC:** 2026-11-07T18:38:54.118007+00:00  
+**Generated UTC:** 2026-11-08T14:51:03.278593+00:00  
 **Repository URL:** [https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git](https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git)  
 **Branch:** `main`  
-**HEAD Commit:** `5ea61b8dbd5626cf0c9c17c6dbe71d2febf1c855`  
+**HEAD Commit:** `e46df8d456b3f389f118051f1a23835746749d87`  
 **Working Tree Clean:** `True`  
 
 ## 1. Recent Authoritative Commits
 ```text
-5ea61b8 Update provenance manifest and checksums for implementation commit 22d1889
+e46df8d feat(marianos): resolve store filtering, unpriced DOM cards, structural pagination, fail-closed checkpoints, and POSIX process-group isolation
+d4f35d8 Update provenance manifest and checksums for implementation commit 22d1889
 22d1889 feat(marianos): enforce atomic generation checkpointing, azure blob failure rollback, auto-seeding input CSV, and explicit positive pickup fulfillment pricing
 911b38e Update provenance manifest and checksums for implementation commit f9f63be28d4e31fb96b15f96aac1822bee524058
 f9f63be Clarify ProcessDeadlineSupervisor parent-process separation, add indefinite pipe/file block regression, and verify PowerShell inherited-handle bounded drain and redaction
 3f61781 Update provenance manifest and checksums for implementation commit 26eecbc0419a8bf7908eae39cf31eadf275b6cad
 26eecbc Resolve Reviewer November 3 items: process supervisor separation, unblockable atomic receipt persistence, concurrent stream draining, process-tree termination, and credential redaction
 1da3613 Update provenance manifest and checksums for implementation commit 00a4238
-00a4238 Resolve Reviewer November 2 items: independent deadline supervisor, bounded CLI timeouts on all platforms, strict commit binding, and end-to-end orchestration integration tests
 ```
 
 ## 2. Deliverable File SHA-256 Checksums
@@ -24,12 +24,12 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 | File Path | Size (Bytes) | SHA-256 Checksum |
 | :--- | :---: | :--- |
 | `src/browser_engine.py` | 16726 | `68536faa63fb109d1612256f0781e5911efc61570b38c065bff69968aaa404b1` |
-| `src/parser.py` | 22512 | `5ae509fbcddf11a67fb3cfc6922c4dc0083dd45ddba195ce75e287fbddc57ae4` |
-| `src/storage_manager.py` | 38662 | `0ac7d29dcdb971ebd8270a3dc8942ab04b7f0102ec67316c319a95ea7f4e401c` |
+| `src/parser.py` | 23108 | `ddf1159ac6b97e0c94ac1d0539e4e2d75f7e9a20e811b73d5a18e25458b6197b` |
+| `src/storage_manager.py` | 42021 | `316a2533928f1891170c9054b4e9b01678171472a98d503fc93d68687e102724` |
 | `src/config_loader.py` | 5693 | `33be218d2b9250754f67e39429d6fe82efe81ce91bfea68fdfb24cc27ad58a60` |
-| `scripts/run_azure_bounded_probe.py` | 67362 | `af5ccb89356b5fa056c045bf0d5e0fde8b4c4e277acb735ddca23e31470b7596` |
-| `azure/azure-deploy-bounded-probe.sh` | 19148 | `025266f0b3d668a50bb19c41ce570153aabb92a06c5504f5ccf9ff3ef184d437` |
-| `azure/azure-deploy-bounded-probe.ps1` | 26956 | `01f59f522f22e4b8a8e4ecf55fbe580af848886c77226f9fb9b4d44dfcf53ae1` |
+| `scripts/run_azure_bounded_probe.py` | 68925 | `e16e4043335c4356510662ca22699ba11881b49b9890f778a4e7d5b7de52d825` |
+| `azure/azure-deploy-bounded-probe.sh` | 19383 | `10895eda3f55931496f130f1a99f9d4ac8841a8d77cf6955895032e4d8ae86a8` |
+| `azure/azure-deploy-bounded-probe.ps1` | 27440 | `c758a8d43f1d51be2c75fa809d82640a7d0dd202d2ab7f8ed2c04cc4bbee57bf` |
 | `azure/azure-deploy.ps1` | 6371 | `2c09ad1156424d1d79103d01df72dd401cc3e4414b943c871d5048b477bd8ca5` |
 | `azure/azure-deploy.sh` | 3337 | `a8ce3595d19f6e27d6c9f24201d2262a0f3409c1d540e110f8651d8b12666cc8` |
 | `azure/Dockerfile` | 899 | `389b2a87c26d5e67f3ee758cb949d064b6cfd9cb7a744a803d7c47a6371ae77a` |
@@ -47,4 +47,4 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 
 ## 3. Remote Verification Link
 The full commit history, diffs, and trees can be inspected directly on GitHub at:
-`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/5ea61b8dbd5626cf0c9c17c6dbe71d2febf1c855`
+`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/e46df8d456b3f389f118051f1a23835746749d87`
