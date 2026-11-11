@@ -1,18 +1,18 @@
 {
-  "generated_utc": "2026-11-08T14:51:03.278593+00:00",
+  "generated_utc": "2026-11-11T02:08:19.156989+00:00",
   "git_repository": "https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git",
   "branch": "main",
-  "head_commit": "e46df8d456b3f389f118051f1a23835746749d87",
+  "head_commit": "931a0a9ba66c7f5176dd6c2dba66f5a81a5ce424",
   "working_tree_clean": true,
   "recent_commits": [
+    "931a0a9 feat(parser,scraper): enforce affirmative target-store linkage for price export and bind catalog exhaustion to dedicated pagination/results container",
+    "e068244 chore(provenance): update manifest and checksums for implementation commit e46df8d",
     "e46df8d feat(marianos): resolve store filtering, unpriced DOM cards, structural pagination, fail-closed checkpoints, and POSIX process-group isolation",
     "d4f35d8 Update provenance manifest and checksums for implementation commit 22d1889",
     "22d1889 feat(marianos): enforce atomic generation checkpointing, azure blob failure rollback, auto-seeding input CSV, and explicit positive pickup fulfillment pricing",
     "911b38e Update provenance manifest and checksums for implementation commit f9f63be28d4e31fb96b15f96aac1822bee524058",
     "f9f63be Clarify ProcessDeadlineSupervisor parent-process separation, add indefinite pipe/file block regression, and verify PowerShell inherited-handle bounded drain and redaction",
-    "3f61781 Update provenance manifest and checksums for implementation commit 26eecbc0419a8bf7908eae39cf31eadf275b6cad",
-    "26eecbc Resolve Reviewer November 3 items: process supervisor separation, unblockable atomic receipt persistence, concurrent stream draining, process-tree termination, and credential redaction",
-    "1da3613 Update provenance manifest and checksums for implementation commit 00a4238"
+    "3f61781 Update provenance manifest and checksums for implementation commit 26eecbc0419a8bf7908eae39cf31eadf275b6cad"
   ],
   "file_sha256_checksums": {
     "src/browser_engine.py": {
@@ -22,8 +22,8 @@
     },
     "src/parser.py": {
       "exists": true,
-      "size_bytes": 23108,
-      "sha256": "ddf1159ac6b97e0c94ac1d0539e4e2d75f7e9a20e811b73d5a18e25458b6197b"
+      "size_bytes": 25088,
+      "sha256": "2255c404478ec297cd2257e42881ffcd568de06c5a372a12b67e3f8a13277d82"
     },
     "src/storage_manager.py": {
       "exists": true,

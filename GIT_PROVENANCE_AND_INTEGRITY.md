@@ -1,21 +1,21 @@
 # GIT PROVENANCE & FILE INTEGRITY MANIFEST
 
-**Generated UTC:** 2026-11-08T14:51:03.278593+00:00  
+**Generated UTC:** 2026-11-11T02:08:19.156989+00:00  
 **Repository URL:** [https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git](https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git)  
 **Branch:** `main`  
-**HEAD Commit:** `e46df8d456b3f389f118051f1a23835746749d87`  
+**HEAD Commit:** `931a0a9ba66c7f5176dd6c2dba66f5a81a5ce424`  
 **Working Tree Clean:** `True`  
 
 ## 1. Recent Authoritative Commits
 ```text
+931a0a9 feat(parser,scraper): enforce affirmative target-store linkage for price export and bind catalog exhaustion to dedicated pagination/results container
+e068244 chore(provenance): update manifest and checksums for implementation commit e46df8d
 e46df8d feat(marianos): resolve store filtering, unpriced DOM cards, structural pagination, fail-closed checkpoints, and POSIX process-group isolation
 d4f35d8 Update provenance manifest and checksums for implementation commit 22d1889
 22d1889 feat(marianos): enforce atomic generation checkpointing, azure blob failure rollback, auto-seeding input CSV, and explicit positive pickup fulfillment pricing
 911b38e Update provenance manifest and checksums for implementation commit f9f63be28d4e31fb96b15f96aac1822bee524058
 f9f63be Clarify ProcessDeadlineSupervisor parent-process separation, add indefinite pipe/file block regression, and verify PowerShell inherited-handle bounded drain and redaction
 3f61781 Update provenance manifest and checksums for implementation commit 26eecbc0419a8bf7908eae39cf31eadf275b6cad
-26eecbc Resolve Reviewer November 3 items: process supervisor separation, unblockable atomic receipt persistence, concurrent stream draining, process-tree termination, and credential redaction
-1da3613 Update provenance manifest and checksums for implementation commit 00a4238
 ```
 
 ## 2. Deliverable File SHA-256 Checksums
@@ -24,7 +24,7 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 | File Path | Size (Bytes) | SHA-256 Checksum |
 | :--- | :---: | :--- |
 | `src/browser_engine.py` | 16726 | `68536faa63fb109d1612256f0781e5911efc61570b38c065bff69968aaa404b1` |
-| `src/parser.py` | 23108 | `ddf1159ac6b97e0c94ac1d0539e4e2d75f7e9a20e811b73d5a18e25458b6197b` |
+| `src/parser.py` | 25088 | `2255c404478ec297cd2257e42881ffcd568de06c5a372a12b67e3f8a13277d82` |
 | `src/storage_manager.py` | 42021 | `316a2533928f1891170c9054b4e9b01678171472a98d503fc93d68687e102724` |
 | `src/config_loader.py` | 5693 | `33be218d2b9250754f67e39429d6fe82efe81ce91bfea68fdfb24cc27ad58a60` |
 | `scripts/run_azure_bounded_probe.py` | 68925 | `e16e4043335c4356510662ca22699ba11881b49b9890f778a4e7d5b7de52d825` |
@@ -47,4 +47,4 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 
 ## 3. Remote Verification Link
 The full commit history, diffs, and trees can be inspected directly on GitHub at:
-`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/e46df8d456b3f389f118051f1a23835746749d87`
+`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/931a0a9ba66c7f5176dd6c2dba66f5a81a5ce424`
