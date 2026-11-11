@@ -104,11 +104,13 @@ def test_missing_item_offer_context_retains_identity_with_blank_price(parser, lo
 
 def test_positive_explicit_pickup_context_exports_price(parser, location_info):
     """
-    Positive explicit pickup context (modality='PICKUP') exports validated price.
+    Positive explicit pickup context (modality='PICKUP') with affirmative target store binding
+    exports validated price.
     """
     raw_item = {
         "name": "Mariano's Sliced Sourdough Bread",
         "upc": "0001111055555",
+        "locationId": "53100503",  # Affirmative matching store binding
         "modality": "PICKUP",
         "priceInfo": {
             "currentPrice": {"price": 3.25, "priceString": "$3.25"},
@@ -123,6 +125,60 @@ def test_positive_explicit_pickup_context_exports_price(parser, location_info):
     assert record.product_title == "Mariano's Sliced Sourdough Bread"
     assert record.regular_price == "4.00"
     assert record.sale_price == "3.25"
+
+
+def test_missing_store_id_pickup_item_retains_identity_with_blank_price(parser, location_info):
+    """
+    Reviewer Requirement 1 (November 11):
+    can_export_local_price requires affirmative target-store evidence.
+    With all location candidates absent, pickup evidence alone must NOT permit a price.
+    Retains eligible product identity with blank monetary fields.
+    """
+    raw_item = {
+        "name": "Simple Truth Cage Free Eggs",
+        "upc": "0001111077777",
+        # All location candidates absent (missing store evidence)
+        "modality": "PICKUP",
+        "priceInfo": {
+            "currentPrice": {"price": 3.49, "priceString": "$3.49"},
+            "wasPrice": {"price": 4.19, "priceString": "$4.19"}
+        },
+        "packageInfo": {"weight": "12 ct"},
+        "canonicalUrl": "/p/simple-truth-eggs/0001111077777"
+    }
+
+    record = parser.parse_product_item(raw_item, "Dairy & Eggs", "Eggs", location_info)
+    assert record is not None
+    assert record.product_title == "Simple Truth Cage Free Eggs"
+    assert record.upc == "0001111077777"
+    # Lacking affirmative target store binding: monetary values MUST be blank
+    assert record.regular_price == ""
+    assert record.sale_price == ""
+    assert record.ppm == ""
+
+
+def test_response_scoped_target_store_exports_price(parser, location_info):
+    """
+    Reviewer Requirement 1 (November 11):
+    Affirmative response-scoped target-store evidence binds pickup offer to target store
+    and exports validated price.
+    """
+    raw_item = {
+        "name": "Private Selection Whole Bean Coffee",
+        "upc": "0001111099991",
+        "response_store_id": "53100503",  # Response-scoped target store binding
+        "modality": "PICKUP",
+        "priceInfo": {
+            "currentPrice": {"price": 7.99, "priceString": "$7.99"}
+        },
+        "packageInfo": {"weight": "12 oz"},
+        "canonicalUrl": "/p/private-selection-coffee/0001111099991"
+    }
+
+    record = parser.parse_product_item(raw_item, "Beverages", "Coffee", location_info)
+    assert record is not None
+    assert record.product_title == "Private Selection Whole Bean Coffee"
+    assert record.regular_price == "7.99"
 
 
 def test_foreign_store_id_pickup_item_retains_identity_with_blank_price(parser):

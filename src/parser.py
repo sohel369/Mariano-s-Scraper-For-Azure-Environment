@@ -215,24 +215,42 @@ class MarianoPageParser:
         elif expected_store_id in ("53100503", "00503"):
             valid_store_ids.update({"53100503", "00503", "531-00503", "new-eastside"})
 
-        # Check every location/store identifier candidate across item and priceInfo
+        # Check every location/store identifier candidate across item, priceInfo, and response scope
+        store_dict = item.get("store") if isinstance(item.get("store"), dict) else {}
+        storedet_dict = item.get("storeDetails") if isinstance(item.get("storeDetails"), dict) else {}
+
         loc_candidates = [
             item.get("locationId"),
             item.get("storeId"),
             item.get("fulfillmentStoreId"),
             item.get("vanityId"),
+            item.get("storeNumber"),
             price_info.get("locationId"),
             price_info.get("storeId"),
-            price_info.get("fulfillmentStoreId")
+            price_info.get("fulfillmentStoreId"),
+            price_info.get("storeNumber"),
+            store_dict.get("storeId"),
+            store_dict.get("locationId"),
+            storedet_dict.get("locationId"),
+            storedet_dict.get("storeId"),
+            item.get("response_store_id"),
+            item.get("responseStoreId"),
+            item.get("scoped_store_id"),
+            item.get("scopedStoreId")
         ]
         has_conflicting_location = False
+        has_affirmative_target_store = False
+
         for candidate in loc_candidates:
             if candidate is not None:
                 cand_str = str(candidate).strip()
-                if cand_str and cand_str not in valid_store_ids:
-                    logger.debug(f"Product with contradictory location identifier: {title} ('{cand_str}' not in {valid_store_ids})")
-                    has_conflicting_location = True
-                    break
+                if cand_str:
+                    if cand_str in valid_store_ids:
+                        has_affirmative_target_store = True
+                    else:
+                        logger.debug(f"Product with contradictory location identifier: {title} ('{cand_str}' not in {valid_store_ids})")
+                        has_conflicting_location = True
+                        break
 
         # Strict positive explicit pickup context & non-pickup fulfillment checks (Reviewer finding 1)
         NON_PICKUP_KEYWORDS = (
@@ -291,11 +309,13 @@ class MarianoPageParser:
                             item_pickup_false = True
 
         # Reviewer Finding 1 Rule:
-        # Require positive, explicit context for the selected item/price;
-        # retain eligible identities with blank unverified monetary values.
+        # Require affirmative same-offer or response-scoped target-store evidence AND
+        # positive, explicit pickup context for the selected item/price;
+        # retain eligible identities with blank unverified monetary values when absent or contradictory.
         can_export_local_price = bool(
             has_positive_item_pickup and
             not item_pickup_false and
+            has_affirmative_target_store and
             not has_conflicting_location
         )
 
@@ -457,14 +477,34 @@ class MarianoPageParser:
         results: List[MarianoProductRecord] = []
         raw_items: List[Dict[str, Any]] = []
 
+        # Extract response-scoped store identifier if present in page state or meta tags
+        response_store_id = ""
+        soup = BeautifulSoup(html_content, "html.parser")
+        meta_store = soup.select_one("meta[name='store-id'], meta[property='store:id'], meta[name='storeId'], [data-store-id]")
+        if meta_store:
+            response_store_id = str(meta_store.get("content") or meta_store.get("data-store-id") or "").strip()
+
         # Attempt embedded state parsing first
         embedded_data = self.parse_embedded_json(html_content)
         if embedded_data:
+            props = embedded_data.get("props", {}).get("pageProps", {})
+            store_obj = (
+                props.get("store", {}) or
+                props.get("initialData", {}).get("store", {}) or
+                embedded_data.get("store", {})
+            )
+            if isinstance(store_obj, dict):
+                cand = store_obj.get("storeId") or store_obj.get("locationId") or store_obj.get("vanityId")
+                if cand:
+                    response_store_id = str(cand).strip()
+
             raw_items = self.extract_items_from_json(embedded_data)
+            if response_store_id:
+                for it in raw_items:
+                    it.setdefault("response_store_id", response_store_id)
 
         # Fallback to HTML DOM parsing
         if not raw_items:
-            soup = BeautifulSoup(html_content, "html.parser")
             dom_cards = soup.select("[data-testid*='product-card'], .ProductCard, [data-upc], article.kds-Card")
             for card in dom_cards:
                 title_elem = card.select_one("[data-testid*='title'], [data-testid='product-title'], .ProductCard-description, .ProductDescription, h3, h2, a.kds-Link, a[href*='/p/']")
@@ -474,7 +514,7 @@ class MarianoPageParser:
                 
                 if title_elem:
                     upc = card.get("data-upc", "")
-                    card_loc = card.get("data-location-id") or card.get("data-store-id") or ""
+                    card_loc = card.get("data-location-id") or card.get("data-store-id") or response_store_id
                     card_mod = card.get("data-fulfillment") or card.get("data-modality") or ""
                     price_dict = {}
                     if price_elem and price_elem.get_text(strip=True):

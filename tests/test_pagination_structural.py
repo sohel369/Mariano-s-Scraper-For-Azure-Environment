@@ -79,21 +79,7 @@ def test_unrelated_aria_disabled_does_not_mask_pagination_duplicate_loop(tmp_pat
             subcat_failed = True
         else:
             # Case B: Only when raw_items_count == 0 does it check structural controls
-            soup = BeautifulSoup(html_with_unrelated_disabled_button, "html.parser")
-            next_selectors = [
-                "a.pagination__next[aria-disabled='true']",
-                "button.pagination__next[aria-disabled='true']",
-                "button[aria-label*='Next' i][aria-disabled='true']",
-                "button[aria-label*='Next' i][disabled]",
-                "a[aria-label*='Next' i][aria-disabled='true']",
-                ".pagination__next--disabled",
-                "[data-testid*='pagination-next'][disabled]",
-                "[data-testid*='pagination-next'][aria-disabled='true']"
-            ]
-            for sel in next_selectors:
-                if soup.select_one(sel):
-                    is_genuine_end = True
-                    break
+            is_genuine_end = MarianoProductionScraper.is_genuine_catalog_exhaustion(html_with_unrelated_disabled_button)
 
     # Must fail closed: subcat_failed must be True, and is_genuine_end must be False!
     assert subcat_failed is True
@@ -102,28 +88,84 @@ def test_unrelated_aria_disabled_does_not_mask_pagination_duplicate_loop(tmp_pat
 
 def test_genuine_pagination_control_exhaustion_acknowledged():
     """
-    Verifies that when raw_items_count == 0 and structural pagination 'Next' button is disabled,
+    Verifies that when raw_items_count == 0 and dedicated pagination 'Next' button is disabled,
     catalog exhaustion is legitimately acknowledged.
     """
     html_exhausted = """
     <html>
     <body>
-        <div class="pagination">
+        <nav aria-label="pagination" class="kds-Pagination">
             <button class="pagination__next" aria-disabled="true" disabled>Next</button>
+        </nav>
+    </body>
+    </html>
+    """
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_exhausted) is True
+
+
+def test_unrelated_carousel_disabled_button_rejected():
+    """
+    Reviewer Requirement 2 (November 11):
+    On an empty extraction, scraper.py must NOT accept generic disabled buttons on unrelated
+    carousel/slider/banner controls as exhaustion evidence.
+    """
+    html_carousel = """
+    <html>
+    <body>
+        <div class="carousel slider banner-controls">
+            <button aria-label="Next Slide" aria-disabled="true" disabled>Next</button>
+        </div>
+        <div class="product-grid"></div>
+    </body>
+    </html>
+    """
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_carousel) is False
+
+
+def test_hidden_empty_state_template_rejected():
+    """
+    Reviewer Requirement 2 (November 11):
+    Scans must NOT accept hidden empty-state templates or aria-hidden elements
+    as false exhaustion evidence.
+    """
+    # 1. Hidden inside <template>
+    html_template = """
+    <html>
+    <body>
+        <template id="no-results-tpl">
+            <div class="EmptySearchResults">0 results matching your search</div>
+        </template>
+    </body>
+    </html>
+    """
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_template) is False
+
+    # 2. Hidden via aria-hidden="true"
+    html_aria_hidden = """
+    <html>
+    <body>
+        <div class="EmptySearchResults" aria-hidden="true">
+            No products found matching your search
         </div>
     </body>
     </html>
     """
-    soup = BeautifulSoup(html_exhausted, "html.parser")
-    next_selectors = [
-        "a.pagination__next[aria-disabled='true']",
-        "button.pagination__next[aria-disabled='true']",
-        "button[aria-label*='Next' i][aria-disabled='true']",
-        "button[aria-label*='Next' i][disabled]",
-        "a[aria-label*='Next' i][aria-disabled='true']",
-        ".pagination__next--disabled",
-        "[data-testid*='pagination-next'][disabled]",
-        "[data-testid*='pagination-next'][aria-disabled='true']"
-    ]
-    is_genuine_end = any(soup.select_one(sel) is not None for sel in next_selectors)
-    assert is_genuine_end is True
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_aria_hidden) is False
+
+
+def test_visible_empty_state_container_acknowledged():
+    """
+    Verifies that genuine, visible empty-state result containers in the catalog acknowledge exhaustion.
+    """
+    html_visible_empty = """
+    <html>
+    <body>
+        <div data-testid="empty-search" class="EmptySearchResults">
+            <h2>We couldn't find any products</h2>
+            <p>0 results matching your search</p>
+        </div>
+    </body>
+    </html>
+    """
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_visible_empty) is True
+

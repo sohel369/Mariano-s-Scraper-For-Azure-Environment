@@ -520,7 +520,7 @@ def test_powershell_bounded_command_verbose_output_does_not_deadlock(tmp_path):
 
 $pyExe = '{py_exe}'
 $worker = '{worker}'
-$cmd = '""' + $pyExe + '"" ""' + $worker + '""'
+$cmd = "`"$pyExe`" `"$worker`""
 $res = Invoke-BoundedCommand -TimeoutSeconds 10 -CommandLine $cmd
 Write-Output "LENGTH:$($res.StdOut.Length)"
 Write-Output "EXIT:$($res.ExitCode)"
@@ -559,7 +559,7 @@ def test_powershell_bounded_command_terminates_child_process_tree_on_timeout(tmp
 $pyExe = '{py_exe}'
 $worker = '{parent_str}'
 $pidPath = '{pid_file_str}'
-$cmd = '""' + $pyExe + '"" ""' + $worker + '"" ""' + $pidPath + '""'
+$cmd = "`"$pyExe`" `"$worker`" `"$pidPath`""
 try {{
     Invoke-BoundedCommand -TimeoutSeconds 2 -CommandLine $cmd
     Write-Output "RESULT:UNEXPECTED_SUCCESS"
@@ -606,7 +606,7 @@ $pyExe = '{py_exe}'
 $worker = '{worker}'
 $secretPass = "{secret_pass}"
 $secretProxy = "{secret_proxy}"
-$cmd = '""' + $pyExe + '"" ""' + $worker + '"" --registry-password ' + $secretPass + ' MARIANOS_PROXY_URL=' + $secretProxy
+$cmd = "`"$pyExe`" `"$worker`" --registry-password `"$secretPass`" MARIANOS_PROXY_URL=`"$secretProxy`""
 try {{
     Invoke-BoundedCommand -TimeoutSeconds 1 -CommandLine $cmd
     Write-Output "RESULT:UNEXPECTED_SUCCESS"
@@ -666,7 +666,7 @@ $pyExe = '{py_exe}'
 $worker = '{worker}'
 $secretKey = "{secret_key}"
 $secretUrl = "{secret_url}"
-$cmd = '""' + $pyExe + '"" ""' + $worker + '"" --admin-password ' + $secretKey + ' MARIANOS_PROXY_URL=' + $secretUrl
+$cmd = "`"$pyExe`" `"$worker`" --admin-password `"$secretKey`" MARIANOS_PROXY_URL=`"$secretUrl`""
 try {{
     $sw = [System.Diagnostics.Stopwatch]::StartNew()
     Invoke-BoundedCommand -TimeoutSeconds 2 -CommandLine $cmd

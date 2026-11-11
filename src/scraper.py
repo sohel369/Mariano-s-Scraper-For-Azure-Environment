@@ -59,6 +59,81 @@ class MarianoProductionScraper:
         new_query = urllib.parse.urlencode(qs, doseq=True)
         return urllib.parse.urlunparse(parsed._replace(query=new_query))
 
+    @staticmethod
+    def is_genuine_catalog_exhaustion(html_content: str) -> bool:
+        """
+        Validates genuine structural catalog exhaustion.
+        Reviewer November 11 Finding 2:
+        - Binds terminal evidence strictly to actual category results or pagination controls.
+        - Strictly rejects generic disabled buttons on unrelated controls (carousels, sliders, banners).
+        - Strictly rejects hidden empty-state templates or whole-HTML substring scanning.
+        """
+        if not html_content:
+            return False
+
+        soup = BeautifulSoup(html_content, "html.parser")
+
+        # 1. Dedicated pagination container check:
+        # Must be inside a recognized pagination navigation container
+        pagination_selectors = [
+            "nav[aria-label*='pagination' i]",
+            "nav.pagination",
+            ".kds-Pagination",
+            "[data-testid='pagination']",
+            "[data-testid*='pagination-container']",
+            "ul.pagination",
+            ".Pagination"
+        ]
+        for p_sel in pagination_selectors:
+            for p_container in soup.select(p_sel):
+                # Exclude unrelated carousel/slider controls
+                container_classes = " ".join(p_container.get("class") or []).lower()
+                container_id = str(p_container.get("id") or "").lower()
+                if any(c in (container_classes + " " + container_id) for c in ("carousel", "slider", "banner", "swiper", "glide")):
+                    continue
+
+                # Check if the Next control within this dedicated pagination container is disabled
+                next_ctrl = p_container.select_one(
+                    "a.pagination__next[aria-disabled='true'], "
+                    "button.pagination__next[aria-disabled='true'], "
+                    ".pagination__next--disabled, "
+                    "[data-testid*='pagination-next'][aria-disabled='true'], "
+                    "[data-testid*='pagination-next'][disabled], "
+                    "a[aria-label*='Next' i][aria-disabled='true'], "
+                    "button[aria-label*='Next' i][aria-disabled='true'], "
+                    "button[aria-label*='Next' i][disabled]"
+                )
+                if next_ctrl:
+                    return True
+
+        # 2. Dedicated category results empty-state container check:
+        empty_state_selectors = [
+            "[data-testid*='empty-search']",
+            "[data-testid*='no-results']",
+            "[data-testid*='empty-catalog']",
+            ".EmptySearchResults",
+            ".NoResults",
+            ".EmptyState"
+        ]
+        for es_sel in empty_state_selectors:
+            for elem in soup.select(es_sel):
+                # Strictly reject templates, script/style tags, and hidden elements
+                if elem.name in ("template", "script", "style"):
+                    continue
+                if elem.get("aria-hidden") == "true" or "hidden" in (elem.get("class") or []):
+                    continue
+                elem_text = elem.get_text(separator=" ", strip=True).lower()
+                if any(phrase in elem_text for phrase in [
+                    "no products found",
+                    "we couldn't find any products",
+                    "no items found",
+                    "0 results matching your search",
+                    "no results found"
+                ]):
+                    return True
+
+        return False
+
     def execute_run(self, zipcode: Optional[str] = None, max_pages_override: Optional[int] = None) -> Dict[str, Any]:
         """
         Executes a complete scraping run for the selected Mariano's store location.
@@ -217,39 +292,9 @@ class MarianoProductionScraper:
                             break
 
                         # Case B: Zero raw items extracted; check for genuine structural catalog exhaustion
-                        # Strictly requires dedicated pagination control state or explicit empty catalog signal.
-                        # Blanket aria-disabled="true" on unrelated DOM controls is strictly rejected.
-                        is_genuine_end = False
-                        if html_content:
-                            soup = BeautifulSoup(html_content, "html.parser")
-                            # 1. Structural pagination control check for disabled next button
-                            next_selectors = [
-                                "a.pagination__next[aria-disabled='true']",
-                                "button.pagination__next[aria-disabled='true']",
-                                "button[aria-label*='Next' i][aria-disabled='true']",
-                                "button[aria-label*='Next' i][disabled]",
-                                "a[aria-label*='Next' i][aria-disabled='true']",
-                                ".pagination__next--disabled",
-                                "[data-testid*='pagination-next'][disabled]",
-                                "[data-testid*='pagination-next'][aria-disabled='true']"
-                            ]
-                            for sel in next_selectors:
-                                if soup.select_one(sel):
-                                    is_genuine_end = True
-                                    break
-
-                            # 2. Explicit empty catalog messages in page text
-                            if not is_genuine_end:
-                                html_lower = html_content.lower()
-                                explicit_empty_phrases = [
-                                    "no products found", "no items found", "0 results",
-                                    "noresults", "empty-search", "we couldn't find any products",
-                                    "no results matching your search"
-                                ]
-                                for ind in explicit_empty_phrases:
-                                    if ind in html_lower:
-                                        is_genuine_end = True
-                                        break
+                        # Strictly requires dedicated pagination container state or dedicated visible empty catalog signal.
+                        # Blanket aria-disabled="true" on unrelated DOM controls (carousels, banners) is strictly rejected.
+                        is_genuine_end = self.is_genuine_catalog_exhaustion(html_content)
 
                         # Strictly require verified genuine end-of-catalog signal (never assume empty page > 1 is boundary)
                         if is_genuine_end:
