@@ -1,21 +1,21 @@
 # GIT PROVENANCE & FILE INTEGRITY MANIFEST
 
-**Generated UTC:** 2026-11-11T02:08:19.156989+00:00  
+**Generated UTC:** 2026-11-13T05:53:44.525433+00:00  
 **Repository URL:** [https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git](https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment.git)  
 **Branch:** `main`  
-**HEAD Commit:** `931a0a9ba66c7f5176dd6c2dba66f5a81a5ce424`  
+**HEAD Commit:** `31d1d81371e76d2a4fa1baaf0091656712071bab`  
 **Working Tree Clean:** `True`  
 
 ## 1. Recent Authoritative Commits
 ```text
+31d1d81 feat(scraper): enforce effective visibility across ancestors and reject carousel pagination ancestors in catalog exhaustion
+b48f0ad chore(provenance): update manifest and checksums for implementation commit 931a0a9
 931a0a9 feat(parser,scraper): enforce affirmative target-store linkage for price export and bind catalog exhaustion to dedicated pagination/results container
 e068244 chore(provenance): update manifest and checksums for implementation commit e46df8d
 e46df8d feat(marianos): resolve store filtering, unpriced DOM cards, structural pagination, fail-closed checkpoints, and POSIX process-group isolation
 d4f35d8 Update provenance manifest and checksums for implementation commit 22d1889
 22d1889 feat(marianos): enforce atomic generation checkpointing, azure blob failure rollback, auto-seeding input CSV, and explicit positive pickup fulfillment pricing
 911b38e Update provenance manifest and checksums for implementation commit f9f63be28d4e31fb96b15f96aac1822bee524058
-f9f63be Clarify ProcessDeadlineSupervisor parent-process separation, add indefinite pipe/file block regression, and verify PowerShell inherited-handle bounded drain and redaction
-3f61781 Update provenance manifest and checksums for implementation commit 26eecbc0419a8bf7908eae39cf31eadf275b6cad
 ```
 
 ## 2. Deliverable File SHA-256 Checksums
@@ -47,4 +47,4 @@ Reviewers without access to Git CLI can independently verify that the deliverabl
 
 ## 3. Remote Verification Link
 The full commit history, diffs, and trees can be inspected directly on GitHub at:
-`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/931a0a9ba66c7f5176dd6c2dba66f5a81a5ce424`
+`https://github.com/sohel369/Mariano-s-Scraper-For-Azure-Environment/tree/31d1d81371e76d2a4fa1baaf0091656712071bab`
