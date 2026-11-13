@@ -169,3 +169,106 @@ def test_visible_empty_state_container_acknowledged():
     """
     assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_visible_empty) is True
 
+
+def test_exhaustion_rejects_empty_search_results_with_html_hidden_attribute():
+    """
+    Reviewer November 13 Finding 1:
+    Reject EmptySearchResults element possessing the boolean HTML hidden attribute.
+    """
+    html_hidden_attr = """
+    <html>
+    <body>
+        <div class="EmptySearchResults" hidden>
+            0 results matching your search
+        </div>
+    </body>
+    </html>
+    """
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_hidden_attr) is False
+
+
+def test_exhaustion_rejects_empty_search_results_inside_display_none_parent():
+    """
+    Reviewer November 13 Finding 2:
+    Reject EmptySearchResults element inside a display:none ancestor parent.
+    """
+    html_display_none = """
+    <html>
+    <body>
+        <div style="display:none">
+            <div class="EmptySearchResults">
+                No products found
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_display_none) is False
+
+    html_display_none_spaced = """
+    <html>
+    <body>
+        <div style="display: none;">
+            <div data-testid="no-results" class="NoResults">
+                0 results matching your search
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_display_none_spaced) is False
+
+
+def test_exhaustion_rejects_hidden_pagination_nav_with_disabled_next():
+    """
+    Reviewer November 13 Finding 3:
+    Reject hidden pagination navigation container containing an aria-disabled Next button.
+    """
+    # 1. Directly with hidden attribute on nav
+    html_hidden_nav = """
+    <html>
+    <body>
+        <nav aria-label="pagination" class="kds-Pagination" hidden>
+            <button class="pagination__next" aria-disabled="true" disabled>Next</button>
+        </nav>
+    </body>
+    </html>
+    """
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_hidden_nav) is False
+
+    # 2. Inside a display:none ancestor
+    html_hidden_nav_ancestor = """
+    <html>
+    <body>
+        <div style="display:none">
+            <nav aria-label="pagination" class="kds-Pagination">
+                <button class="pagination__next" aria-disabled="true" disabled>Next</button>
+            </nav>
+        </div>
+    </body>
+    </html>
+    """
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_hidden_nav_ancestor) is False
+
+
+def test_exhaustion_rejects_pagination_nav_inside_carousel_ancestor():
+    """
+    Reviewer November 13 Finding 4:
+    Reject pagination navigation container hosted inside a carousel/slider ancestor.
+    """
+    html_carousel_ancestor = """
+    <html>
+    <body>
+        <div class="product-carousel-slider-container carousel">
+            <section class="widget-wrapper">
+                <nav aria-label="pagination" class="kds-Pagination">
+                    <button class="pagination__next" aria-disabled="true" disabled>Next</button>
+                </nav>
+            </section>
+        </div>
+    </body>
+    </html>
+    """
+    assert MarianoProductionScraper.is_genuine_catalog_exhaustion(html_carousel_ancestor) is False
+
+

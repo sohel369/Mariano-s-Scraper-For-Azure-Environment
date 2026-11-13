@@ -60,13 +60,66 @@ class MarianoProductionScraper:
         return urllib.parse.urlunparse(parsed._replace(query=new_query))
 
     @staticmethod
-    def is_genuine_catalog_exhaustion(html_content: str) -> bool:
+    def _is_effectively_hidden(tag) -> bool:
+        """
+        Traverses tag and all parent/ancestor nodes to detect effective visibility.
+        Rejects:
+        - HTML boolean/string hidden attribute (e.g. <tag hidden>, hidden="hidden", hidden="true")
+        - aria-hidden="true" on tag or any ancestor
+        - Inline style display:none or visibility:hidden on tag or any ancestor
+        - CSS class containing 'hidden', 'd-none', 'is-hidden', 'invisible' on tag or any ancestor
+        - Inside <template>, <script>, <style> containers
+        """
+        curr = tag
+        while curr and getattr(curr, "name", None) and curr.name != "[document]":
+            if curr.name in ("template", "script", "style"):
+                return True
+            # HTML hidden attribute (boolean or value)
+            if curr.has_attr("hidden") or curr.get("hidden") is not None:
+                return True
+            # aria-hidden attribute
+            if str(curr.get("aria-hidden", "")).strip().lower() == "true":
+                return True
+            # inline style check (display:none, visibility:hidden)
+            style_str = str(curr.get("style", "")).lower().replace(" ", "")
+            if "display:none" in style_str or "visibility:hidden" in style_str:
+                return True
+            # class checks
+            classes = [c.lower() for c in (curr.get("class") or [])]
+            if any(c in ("hidden", "d-none", "is-hidden", "invisible") for c in classes):
+                return True
+            curr = getattr(curr, "parent", None)
+        return False
+
+    @staticmethod
+    def _has_carousel_or_unrelated_ancestor(tag) -> bool:
+        """
+        Traverses tag and all ancestor nodes to detect whether the element is hosted inside
+        an unrelated widget such as a carousel, slider, banner, swiper, or promo component.
+        """
+        unrelated_tokens = ("carousel", "slider", "banner", "swiper", "glide", "slick", "promo", "recently-viewed")
+        curr = tag
+        while curr and getattr(curr, "name", None) and curr.name != "[document]":
+            classes = " ".join(curr.get("class") or []).lower()
+            ident = str(curr.get("id") or "").lower()
+            role = str(curr.get("role") or "").lower()
+            aria_label = str(curr.get("aria-label") or "").lower()
+            data_testid = str(curr.get("data-testid") or "").lower()
+            haystack = f"{classes} {ident} {role} {aria_label} {data_testid}"
+            if any(tok in haystack for tok in unrelated_tokens):
+                return True
+            curr = getattr(curr, "parent", None)
+        return False
+
+    @classmethod
+    def is_genuine_catalog_exhaustion(cls, html_content: str) -> bool:
         """
         Validates genuine structural catalog exhaustion.
-        Reviewer November 11 Finding 2:
+        Reviewer November 13 Finding:
         - Binds terminal evidence strictly to actual category results or pagination controls.
-        - Strictly rejects generic disabled buttons on unrelated controls (carousels, sliders, banners).
-        - Strictly rejects hidden empty-state templates or whole-HTML substring scanning.
+        - Strictly checks effective visibility across all ancestors (display:none, hidden attribute, aria-hidden).
+        - Strictly checks ancestor context for carousels, sliders, banners.
+        - Rejects hidden empty-state templates or whole-HTML substring scanning.
         """
         if not html_content:
             return False
@@ -86,10 +139,12 @@ class MarianoProductionScraper:
         ]
         for p_sel in pagination_selectors:
             for p_container in soup.select(p_sel):
-                # Exclude unrelated carousel/slider controls
-                container_classes = " ".join(p_container.get("class") or []).lower()
-                container_id = str(p_container.get("id") or "").lower()
-                if any(c in (container_classes + " " + container_id) for c in ("carousel", "slider", "banner", "swiper", "glide")):
+                # Reviewer Finding (4): Reject pagination nav hosted inside a carousel/slider/banner ancestor
+                if cls._has_carousel_or_unrelated_ancestor(p_container):
+                    continue
+
+                # Reviewer Finding (3): Reject pagination nav that is effectively hidden (hidden attr, display:none parent, aria-hidden)
+                if cls._is_effectively_hidden(p_container):
                     continue
 
                 # Check if the Next control within this dedicated pagination container is disabled
@@ -104,7 +159,8 @@ class MarianoProductionScraper:
                     "button[aria-label*='Next' i][disabled]"
                 )
                 if next_ctrl:
-                    return True
+                    if not cls._is_effectively_hidden(next_ctrl):
+                        return True
 
         # 2. Dedicated category results empty-state container check:
         empty_state_selectors = [
@@ -117,11 +173,14 @@ class MarianoProductionScraper:
         ]
         for es_sel in empty_state_selectors:
             for elem in soup.select(es_sel):
-                # Strictly reject templates, script/style tags, and hidden elements
-                if elem.name in ("template", "script", "style"):
+                # Reviewer Finding (1) & (2): Strictly check effective visibility across element and all ancestors:
+                # Rejects HTML hidden attribute, display:none parent, aria-hidden, template/script tags.
+                if cls._is_effectively_hidden(elem):
                     continue
-                if elem.get("aria-hidden") == "true" or "hidden" in (elem.get("class") or []):
+                # Also ensure empty-state is not hosted in a carousel/slider ancestor
+                if cls._has_carousel_or_unrelated_ancestor(elem):
                     continue
+
                 elem_text = elem.get_text(separator=" ", strip=True).lower()
                 if any(phrase in elem_text for phrase in [
                     "no products found",
